@@ -68,6 +68,15 @@ VERIFY_MODEL = "claude-sonnet-5"
 VERIFY_MAX_BUDGET_USD = "1.00"
 VERIFY_EFFORT = "low"
 
+# A Claude web-search pass that finds big-name touring acts the local agendas
+# under-cover: internationally known music concerts, touring musicals, and
+# large-scale family shows anywhere in Belgium. Adults-of-interest is fine here
+# (a big concert you'd travel for), unlike the kid-only agenda scrape.
+CLAUDE_SEARCH_ENABLED = True
+CLAUDE_SEARCH_MODEL = "claude-sonnet-5"
+CLAUDE_SEARCH_MAX_BUDGET_USD = "1.00"
+CLAUDE_SEARCH_EFFORT = "medium"
+
 COPILOT_API_BASE = "https://api.githubcopilot.com"
 COPILOT_INTEGRATION_ID = "vscode-chat"
 COPILOT_FALLBACK_ENRICH_MODEL = "claude-sonnet-5"
@@ -171,11 +180,22 @@ UIT_READ_ENDPOINT = "https://io.uitdatabank.be/events/{uuid}"
 # (soonest first), so the first pages cover the weekend window. Bump
 # UIT_AGENDA_MAX_PAGES for a longer horizon at the cost of more hydration
 # requests + a bigger enrichment bill on the first run.
-UIT_AGENDA_MAX_PAGES = 25
+UIT_AGENDA_MAX_PAGES = 25  # default; per-source override below
 UIT_AGENDA_SOURCES = {
     "uitinleuven": {
         "label": "UiT in Leuven",
         "list_url": "https://www.uitinleuven.be/agenda",
+        "max_pages": 25,
+        "first_page": 0,
+    },
+    # All-Flanders agenda — same platform, same /agenda/e/<slug>/<uuid> links,
+    # same ?page=N pagination. Page 0 is JS-hydrated (few links) so start at 1.
+    # Volume is high; the kid prefilter + the distance prefilter trim it.
+    "uitinvlaanderen": {
+        "label": "UiT in Vlaanderen",
+        "list_url": "https://www.uitinvlaanderen.be/agenda",
+        "max_pages": 40,
+        "first_page": 1,
     },
 }
 

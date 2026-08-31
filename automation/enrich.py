@@ -22,7 +22,7 @@ _LLM_FIELDS = (
     "category", "feature_tags", "age_min", "age_max", "fits_4yo", "fits_8yo",
     "primary_language", "french_required", "language_note", "price_type",
     "price_min_eur", "price_max_eur", "blurb_en", "is_special_event",
-    "is_recurring_class", "confidence",
+    "is_recurring_class", "family_relevant", "confidence",
 )
 
 _INPUT_FIELDS = (
@@ -67,6 +67,7 @@ def _default_fields(act: dict) -> dict:
         "blurb_en": (act.get("title_nl") or "")[:160],
         "is_special_event": act.get("date_kind") != "permanent",
         "is_recurring_class": False,
+        "family_relevant": True,
         "confidence": "low",
     }
 

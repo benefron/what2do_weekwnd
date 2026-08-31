@@ -1,1 +1,54 @@
-{}
+{
+  "AFAS Dome (Sportpaleis) Antwerp België": {
+    "lat": 51.2311025,
+    "lng": 4.4412828
+  },
+  "Ancienne Belgique (AB) Brussels België": {
+    "lat": 50.8470454,
+    "lng": 4.3492674
+  },
+  "Bellewaerde Park Ieper België": {
+    "lat": 50.8490658,
+    "lng": 2.9474044
+  },
+  "Capitole Gent Ghent België": {
+    "lat": 51.0481106,
+    "lng": 3.7321395
+  },
+  "Forest National (Vorst Nationaal) Brussels België": {
+    "lat": 50.8096462,
+    "lng": 4.3260748
+  },
+  "Historic city centre Bruges België": {
+    "lat": null,
+    "lng": null
+  },
+  "ING Arena Brussels België": {
+    "lat": 50.9011203,
+    "lng": 4.3423147
+  },
+  "Lotto Arena Antwerp België": {
+    "lat": 51.2301227,
+    "lng": 4.4418497
+  },
+  "Pairi Daiza Brugelette België": {
+    "lat": 50.5845489,
+    "lng": 3.8863619
+  },
+  "Plopsaland Belgium De Panne België": {
+    "lat": 51.0814023,
+    "lng": 2.5985212
+  },
+  "Sport Vlaanderen Hofstade Zemst België": {
+    "lat": 50.9867279,
+    "lng": 4.5100386
+  },
+  "Various Flemish theatres Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
+  "___, 0000, ___": {
+    "lat": 48.2414295,
+    "lng": 12.5237616
+  }
+}

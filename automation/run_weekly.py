@@ -17,6 +17,7 @@ import config
 import enrich
 import geo
 import normalize
+import places
 import publish
 import sources
 
@@ -94,6 +95,18 @@ def main() -> int:
 
         geo.geocode_activities(activities)
 
+        # distance prefilter — drop agenda events well outside the widest ring
+        # before spending Claude tokens on them (curated sources are kept even
+        # if ungeocoded).
+        before = len(activities)
+        activities = [
+            a for a in activities
+            if a.get("source") in ("manual", "claude_search")
+            or a.get("distance_km") is None
+            or a["distance_km"] <= config.MAX_DISTANCE_KM
+        ]
+        log.info("distance prefilter: %d -> %d (<= %d km)", before, len(activities), config.MAX_DISTANCE_KM)
+
         if args.no_enrich:
             for a in activities:
                 a.setdefault("category", "other")
@@ -109,6 +122,17 @@ def main() -> int:
         degraded = bool(enrich_stats.get("skipped")) or all(
             a.get("enrichment_model") == "degraded" for a in activities
         )
+
+        # drop adult-only films / courses / nightlife — keep only things to do
+        # with the kids plus big-name concerts & shows (family_relevant).
+        if not args.no_enrich:
+            before = len(activities)
+            activities = [a for a in activities if a.get("family_relevant", True)]
+            log.info("family_relevant filter: %d -> %d", before, len(activities))
+
+        # merge in the permanent guide (data/places.json) verbatim — never
+        # fetched or enriched by the weekly run.
+        activities += places.load_places_as_activities(run_id)
 
         payload = publish.build_payload(
             activities, run_id, fetched["sources_fetched"], fetched["sources_failed"], degraded

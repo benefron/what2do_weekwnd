@@ -259,6 +259,79 @@ def _from_uitdatabank(node: dict, run_id: str) -> dict | None:
     }
 
 
+def _search_tags(rec: dict) -> list[str]:
+    hay = f"{rec.get('title','')} {rec.get('description_en','')}".lower()
+    tags = []
+    if rec.get("category") == "music_concert":
+        tags.append("music")
+    for kw, tag in (
+        ("ridder", "costumes"), ("knight", "costumes"), ("middeleeuw", "costumes"),
+        ("medieval", "costumes"), ("kasteel", "costumes"), ("halloween", "halloween"),
+        ("kerst", "christmas_market"), ("christmas", "christmas_market"),
+        ("parade", "parade"), ("stoet", "parade"), ("vuurwerk", "fireworks"),
+    ):
+        if kw in hay and tag not in tags:
+            tags.append(tag)
+    return tags[:6]
+
+
+def _from_claude_search(rec: dict, run_id: str) -> dict | None:
+    url = rec.get("url") or f"search://{rec.get('title')}"
+    title = rec.get("title")
+    if not title:
+        return None
+    ds = rec.get("date_start")
+    return {
+        "id": activity_id(url),
+        "source": "claude_search",
+        "source_label": rec.get("_source_label", "Claude web search"),
+        "source_event_id": None,
+        "url": canonicalize_url(url),
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "last_seen_run": run_id,
+        "title_nl": title.strip(),
+        "description_nl": (rec.get("description_en") or "")[:600],
+        "organizer_nl": None,
+        "image_url": None,
+        "date_start": ds,
+        "date_end": rec.get("date_end"),
+        "all_day": False,
+        "occurrences": [{"start": ds, "end": rec.get("date_end")}] if ds else [],
+        "date_kind": "single",
+        "age_min": None,
+        "age_max": None,
+        "age_source": None,
+        "audience": rec.get("audience", "family"),
+        "raw_language": rec.get("primary_language"),
+        "_terms": [],
+        "_labels": [],
+        "venue_name": rec.get("venue_name"),
+        "address": None,
+        "city": rec.get("city"),
+        "postal_code": None,
+        "lat": None,
+        "lng": None,
+        "price_type": "paid" if (rec.get("price_max_eur") or 0) > 0 else "unknown",
+        "price_min_eur": rec.get("price_min_eur"),
+        "price_max_eur": rec.get("price_max_eur"),
+        "price_note_nl": None,
+        # classification carried straight through — bypasses enrich.py
+        "category": rec.get("category", "other"),
+        "feature_tags": _search_tags(rec),
+        "blurb_en": (rec.get("description_en") or title)[:160],
+        "primary_language": rec.get("primary_language", "multi"),
+        "french_required": bool(rec.get("french_required")),
+        "language_note": rec.get("notes_en"),
+        "fits_4yo": rec.get("audience") in ("kids", "family"),
+        "fits_8yo": rec.get("audience") in ("kids", "family", "teens_adults"),
+        "is_special_event": True,
+        "is_recurring_class": False,
+        "confidence": "medium",
+        "family_relevant": rec.get("family_relevant", True),
+        "enrichment_model": "claude_search",
+    }
+
+
 def _from_manual(ov: dict, run_id: str) -> dict:
     url = ov.get("url") or f"manual://{ov.get('id') or ov.get('title_nl')}"
     act = {
@@ -306,7 +379,7 @@ def _from_manual(ov: dict, run_id: str) -> dict:
 
 # ── kid-relevance prefilter ─────────────────────────────────────────────────
 def _is_kid_relevant(act: dict) -> bool:
-    if act.get("source") == "manual":
+    if act.get("source") in ("manual", "claude_search"):
         return True
     lo = act.get("age_min")
     if lo is not None and lo <= config.PREFILTER_MAX_AGE_MIN:
@@ -356,6 +429,8 @@ def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
         try:
             if kind == "uitdatabank":
                 act = _from_uitdatabank(rec, run_id)
+            elif kind == "claude_search":
+                act = _from_claude_search(rec, run_id)
             elif kind == "manual":
                 act = _from_manual(rec, run_id)
             else:

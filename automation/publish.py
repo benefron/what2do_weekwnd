@@ -17,7 +17,7 @@ _PUBLISHED_FIELDS = (
     "date_start", "date_end", "all_day", "occurrences", "date_kind",
     "weekend_bucket", "in_school_holiday", "school_holiday_name",
     "venue_name", "address", "city", "postal_code", "lat", "lng",
-    "distance_km", "geocode_source",
+    "distance_km", "geocode_source", "kind", "province", "indoor", "seasonal",
     "category", "feature_tags", "audience", "age_min", "age_max", "age_source",
     "fits_4yo", "fits_8yo",
     "price_type", "price_min_eur", "price_max_eur", "price_note_nl",
@@ -33,6 +33,7 @@ def build_payload(activities: list[dict], run_id: str, sources_fetched, sources_
 
     cat_counts = Counter(a.get("category") for a in slim if a.get("category"))
     tag_counts = Counter(t for a in slim for t in (a.get("feature_tags") or []))
+    kind_counts = Counter(a.get("kind") for a in slim if a.get("kind"))
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -45,6 +46,7 @@ def build_payload(activities: list[dict], run_id: str, sources_fetched, sources_
         "school_holidays": config.SCHOOL_HOLIDAYS,
         "categories": [{"key": k, "count": c} for k, c in cat_counts.most_common()],
         "feature_tags": [{"key": k, "count": c} for k, c in tag_counts.most_common()],
+        "place_kinds": [{"key": k, "count": c} for k, c in kind_counts.most_common()],
         "sources_fetched": sources_fetched,
         "sources_failed": sources_failed,
         "degraded": degraded,
@@ -75,6 +77,7 @@ def commit_and_push(run_id: str) -> bool:
         str(config.GEOCODE_CACHE_JSON),
         str(config.ENRICHMENT_CACHE_JSON),
         str(config.MANUAL_OVERRIDES_JSON),
+        str(config.DATA_DIR / "places.json"),
     ]
     _git("add", *[p for p in paths])
     status = _git("status", "--porcelain", "--", *paths)

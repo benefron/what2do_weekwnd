@@ -74,7 +74,7 @@ def geocode_activities(activities: list[dict]) -> None:
 
         if source is None:
             query = act.get("address") or " ".join(
-                p for p in (act.get("venue_name"), act.get("city"), "België") if p
+                p for p in (act.get("venue_name") or act.get("name"), act.get("city"), "België") if p
             )
             query = (query or "").strip()
             if query:

@@ -4,17 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A personal weekend-activities dashboard for a family in Leuven (kids aged 4 and 8,
-Dutch speakers, no French). A local Python pipeline scrapes/enriches family events
-and writes JSON into the repo; GitHub Actions only builds and deploys the frontend.
-Modelled on `../israel-news-digest` — same "local pipeline commits data, CI just
-deploys" architecture.
+A "what to do with the kids (4 & 8) in Belgium" dashboard for a family in Leuven
+(Dutch speakers, no French). A local Python pipeline scrapes/enriches events and
+writes JSON into the repo; GitHub Actions only builds and deploys the frontend.
+Modelled on `../israel-news-digest`.
+
+**Two data tiers:**
+- `data/latest.json` — the **weekly events feed**: dated events, refreshed every
+  Monday by `run_weekly.py`. The enrichment cache means only new/changed events
+  cost Claude tokens.
+- `data/places.json` — the **permanent guide**: museums, zoos, provincial
+  domains, speelbossen, playgrounds, attraction parks, zomerbars,
+  playground-restaurants across all of Belgium. **Not re-fetched weekly** —
+  `run_weekly.py` reads it verbatim and merges it in. Expand it with
+  `scripts/build_places.sh` (Claude web search) or by hand;
+  `source: "curated"` entries are never overwritten by the builder.
+
+The frontend has four tabs: `weekend` (dated events), `places` (permanent, minus
+the two below), `zomerbar`, `eatplay` (playground-restaurants) — split by
+`Activity.kind`.
 
 ## Commands
 
 ```bash
 # Pipeline (from repo root)
 scripts/verify_sources.sh                    # ping every source; run this before trusting a change
+scripts/build_places.sh            # rebuild/expand data/places.json (manual, ~$10 of web search)
+scripts/build_places.sh --kinds zomerbar,speelbos   # just some kinds
 scripts/run_now.sh --no-push --no-enrich     # fast offline run (no Claude), writes data/latest.json
 scripts/run_now.sh --no-push                 # full run incl. Claude enrichment, no commit
 scripts/run_now.sh                           # full run + commit + push (push triggers Pages deploy)
@@ -39,23 +55,34 @@ current smoke check for the pipeline; `npm run build` type-checks the frontend.
 
 ## Pipeline architecture (`automation/`)
 
-`run_weekly.py` orchestrates five stages, each a standalone module. Guards copied
-from israel-news-digest's `run_daily.py`: file lock (`state/run.lock`),
-`MIN_HOURS_BETWEEN_RUNS` (~20h) idempotency window, and **abort without
-overwriting `data/latest.json`** if a stage yields nothing.
+`run_weekly.py` orchestrates: fetch → normalize/prefilter/dedupe → geocode →
+distance prefilter → enrich → `family_relevant` filter → merge `places.json` →
+publish. Guards copied from israel-news-digest's `run_daily.py`: file lock
+(`state/run.lock`), `MIN_HOURS_BETWEEN_RUNS` (~20h) idempotency window, and
+**abort without overwriting `data/latest.json`** if a stage yields nothing.
+`places.load_places_as_activities()` reads `data/places.json` verbatim (no fetch,
+no enrich) — `build_places.py` is the only thing that writes it.
 
-1. **`sources.py` — fetch.** Produces a flat list of raw records, each tagged
-   `_kind` = `uitdatabank` | `manual`. v1 path (`fetch_uit_agenda`): scrape the
-   server-rendered `uitinleuven.be/agenda` listing pages (`?page=0..N`, capped by
-   `UIT_AGENDA_MAX_PAGES`) for `/agenda/e/<slug>/<uuid>` links, then hydrate each
-   via the **public, no-auth** endpoint `https://io.uitdatabank.be/events/<uuid>`
-   — full UiTdatabank JSON-LD (`name`/`description` multilingual, `typicalAgeRange`
-   as `"6-11"`, `priceInfo[]`, `calendarType`+`startDate`/`endDate`/`subEvent`,
-   `terms`, `location.geo`, `languages`). This is *not* schema.org shape.
-   `http_get()` retries a 403 via `tls_client`. Plus `data/manual_overrides.json`.
-   **A dead source logs and is skipped — never aborts.** `config.UITDATABANK_ENABLED`
-   (auto-true when publiq creds are in `secrets.local.json`) additionally pulls
-   `uitdatabank_client.py` (the paid Search API) as a structured primary source.
+1. **`sources.py` — fetch.** Flat list of raw records tagged `_kind` =
+   `uitdatabank` | `claude_search` | `manual`.
+   - `fetch_uit_agenda()`: for each entry in `config.UIT_AGENDA_SOURCES`
+     (`uitinleuven` city + `uitinvlaanderen` all-Flanders), scrape the
+     server-rendered `?page=N` listing (per-source `max_pages`/`first_page`) for
+     `/agenda/e/<slug>/<uuid>` links, dedupe UUIDs across sources, then hydrate
+     each via the **public, no-auth** `https://io.uitdatabank.be/events/<uuid>` —
+     full UiTdatabank JSON-LD (`name`/`description` multilingual, `typicalAgeRange`
+     as `"6-11"`, `priceInfo[]`, `calendarType`+`startDate`/`subEvent`, `terms`,
+     `location.geo`). Not schema.org shape.
+   - `claude_search.fetch_events()` (`config.CLAUDE_SEARCH_ENABLED`): a Sonnet
+     `claude -p --allowedTools WebSearch WebFetch --json-schema` call (via
+     `llm_runner.run_search_with_schema`, no Copilot fallback) that finds the
+     big-name touring acts the agendas miss — internationally known concerts,
+     musicals, major family shows anywhere in Belgium. Returns records with
+     classification already filled → they bypass `enrich.py`.
+   - `data/manual_overrides.json`.
+   `http_get()` retries a 403 via `tls_client`. A dead source logs and is
+   skipped. `config.UITDATABANK_ENABLED` (publiq creds in `secrets.local.json`)
+   also pulls `uitdatabank_client.py` (paid Search API).
 
 2. **`normalize.py` — raw → partial `Activity`, prefilter, dedupe.**
    `_from_uitdatabank` / `_from_manual` map each `_kind`.
@@ -75,6 +102,12 @@ overwriting `data/latest.json`** if a stage yields nothing.
    (1.1s throttle, custom UA) with a **git-committed** disk cache
    `automation/cache/geocode.json` (never expires). `distance_km` = haversine
    from `config.LEUVEN_CENTER`. Ungeocoded → `distance_km = null`.
+
+   Between geo and enrich, `run_weekly.py` runs a **distance prefilter** (drop
+   agenda events with `distance_km > config.MAX_DISTANCE_KM`; curated sources
+   kept). After enrich it runs a **`family_relevant` filter** — Claude marks
+   adult-only films / courses / nightlife `family_relevant: false` and they're
+   dropped; kept = things to do with the kids + big-name concerts/shows.
 
 4. **`enrich.py` — Claude classification.** Via `llm_runner.run_with_schema`
    (Claude CLI `--safe-mode` + JSON schema; GitHub Copilot API fallback — ported
@@ -96,10 +129,13 @@ overwriting `data/latest.json`** if a stage yields nothing.
 
 ### Controlled vocabularies
 
-`CATEGORY_VOCAB` and `FEATURE_TAG_VOCAB` in `config.py` are duplicated in three
-places that must stay in sync: `config.py`, `automation/prompts/enrich_schema.json`
-(+ `verify_schema.json`, currently a copy), and `frontend/src/types.ts` +
-`frontend/src/lib/labels.ts`. Changing a vocab means editing all of them.
+`CATEGORY_VOCAB` and `FEATURE_TAG_VOCAB` in `config.py` are duplicated in
+`automation/prompts/enrich_schema.json` (+ `verify_schema.json`, a byte copy) and
+`frontend/src/types.ts` + `frontend/src/lib/labels.ts`. `family_relevant` is a
+Claude-set boolean in the same schema — `run_weekly.py` drops `false`. The place
+`kind` enum lives in `data/places.json`, `automation/build_places.py` (`KINDS`),
+`automation/places.py` (`_KIND_TO_CATEGORY`), `frontend/src/types.ts` (`PlaceKind`)
+and `frontend/src/lib/labels.ts`. Changing any vocab means editing every copy.
 
 ## Frontend architecture (`frontend/`)
 
@@ -129,11 +165,10 @@ re-triggers this with fresh data.
 
 ## Known gaps / next steps
 
-- Coverage is Leuven-city only (`uitinleuven.be`). For wider Vlaams-Brabant /
-  Belgium, either add more agenda listing URLs to `UIT_AGENDA_SOURCES` (need a
-  server-rendered UiT front-end that paginates via `?page=`) or enable the
-  UiTdatabank Search API (`uitdatabank_client.py`, needs a publiq key) which does
-  server-side region/coordinate filtering.
+- Agenda coverage is `uitinleuven` + `uitinvlaanderen` (all Flanders). Wallonia
+  and non-UiT venues rely on the `claude_search` pass. Add more `?page=`-paginated
+  UiT front-ends to `UIT_AGENDA_SOURCES`, or enable the UiTdatabank Search API
+  (`uitdatabank_client.py`, publiq key) for real server-side region/radius filtering.
 - The Claude CLI (`claude -p --json-schema`) exited non-zero in one test env and
   fell back to the Copilot API; if that recurs on the target Mac, raise
   `ENRICH_MAX_BUDGET_USD` / `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.

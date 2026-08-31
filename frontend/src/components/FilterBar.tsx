@@ -1,5 +1,11 @@
 import type { Dataset } from "../types";
-import { CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS } from "../lib/labels";
+import {
+  CATEGORY_LABELS,
+  FEATURE_EMOJI,
+  FEATURE_LABELS,
+  PLACE_KIND_EMOJI,
+  PLACE_KIND_LABELS,
+} from "../lib/labels";
 import {
   DEFAULT_FILTERS,
   type AgeFilter,
@@ -47,7 +53,10 @@ function Toggle<T extends string>({
 export default function FilterBar({ filters: f, dataset, resultCount, onChange, onReset }: Props) {
   const dirty = JSON.stringify({ ...f, tab: "x" }) !== JSON.stringify({ ...DEFAULT_FILTERS, tab: "x" });
 
-  const toggleIn = <K extends "categories" | "features">(key: K, val: FilterState[K][number]) => {
+  const toggleIn = <K extends "categories" | "features" | "placeKinds">(
+    key: K,
+    val: FilterState[K][number]
+  ) => {
     const set = new Set(f[key] as string[]);
     set.has(val as string) ? set.delete(val as string) : set.add(val as string);
     onChange({ [key]: [...set] } as unknown as Partial<FilterState>);
@@ -153,6 +162,14 @@ export default function FilterBar({ filters: f, dataset, resultCount, onChange, 
             Hide weekly classes
           </button>
         )}
+        {f.tab !== "weekend" && (
+          <button
+            onClick={() => onChange({ indoorOnly: !f.indoorOnly })}
+            className={`chip ${f.indoorOnly ? "chip--accent-on" : ""}`}
+          >
+            Indoor only
+          </button>
+        )}
         <button
           onClick={() => onChange({ specialOnly: !f.specialOnly })}
           className={`chip ${f.specialOnly ? "chip--accent-on" : ""}`}
@@ -161,7 +178,7 @@ export default function FilterBar({ filters: f, dataset, resultCount, onChange, 
         </button>
       </section>
 
-      {dataset.categories.length > 0 && (
+      {f.tab === "weekend" && dataset.categories.length > 0 && (
         <section>
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Type</p>
           <div className="flex flex-wrap gap-1.5">
@@ -174,6 +191,26 @@ export default function FilterBar({ filters: f, dataset, resultCount, onChange, 
                 {CATEGORY_LABELS[c.key]} <span className="opacity-50">{c.count}</span>
               </button>
             ))}
+          </div>
+        </section>
+      )}
+
+      {f.tab === "places" && (dataset.place_kinds?.length ?? 0) > 0 && (
+        <section>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Kind</p>
+          <div className="flex flex-wrap gap-1.5">
+            {dataset.place_kinds!
+              .filter((k) => k.key !== "zomerbar" && k.key !== "playground_restaurant")
+              .map((k) => (
+                <button
+                  key={k.key}
+                  onClick={() => toggleIn("placeKinds", k.key)}
+                  className={`chip ${f.placeKinds.includes(k.key) ? "chip--on" : ""}`}
+                >
+                  {PLACE_KIND_EMOJI[k.key]} {PLACE_KIND_LABELS[k.key]}{" "}
+                  <span className="opacity-50">{k.count}</span>
+                </button>
+              ))}
           </div>
         </section>
       )}

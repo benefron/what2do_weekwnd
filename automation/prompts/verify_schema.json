@@ -9,7 +9,8 @@
         "required": [
           "id", "category", "feature_tags", "age_min", "age_max", "fits_4yo",
           "fits_8yo", "primary_language", "french_required", "price_type",
-          "blurb_en", "is_special_event", "is_recurring_class", "confidence"
+          "blurb_en", "is_special_event", "is_recurring_class",
+          "family_relevant", "confidence"
         ],
         "properties": {
           "id": { "type": "string" },
@@ -49,6 +50,7 @@
           "blurb_en": { "type": "string", "maxLength": 160 },
           "is_special_event": { "type": "boolean" },
           "is_recurring_class": { "type": "boolean" },
+          "family_relevant": { "type": "boolean" },
           "confidence": { "type": "string", "enum": ["high", "medium", "low"] }
         }
       }

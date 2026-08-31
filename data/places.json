@@ -1,0 +1,215 @@
+{
+  "_comment": "The permanent guide — museums, zoos, provincial domains, speelbossen, indoor/outdoor playgrounds, attraction parks, zomerbars, playground-restaurants across Belgium. NOT re-fetched by the weekly run: run_weekly.py reads this file verbatim and merges it into the dashboard. Expand it with `python -m automation.build_places` (Claude web search) or by hand. Keep source:\"curated\" entries — the builder never overwrites them. kind: museum|zoo|provincial_domain|speelbos|playground_indoor|playground_outdoor|multimove|zomerbar|playground_restaurant|farm|attraction_park|castle|other. seasonal: null|summer|winter.",
+  "updated": "2026-08-31",
+  "places": [
+    {
+      "id": "place-technopolis", "kind": "museum", "source": "curated",
+      "name": "Technopolis", "city": "Mechelen", "province": "Antwerpen",
+      "address": "Technologielaan 1, 2800 Mechelen", "lat": 51.0247, "lng": 4.4767,
+      "website": "https://www.technopolis.be",
+      "description_nl": "Doe-centrum voor wetenschap en techniek met honderden hands-on opstellingen. Extra shows en ateliers in de vakanties.",
+      "blurb_en": "Hands-on science and technology discovery centre with hundreds of interactive exhibits.",
+      "price_type": "paid", "price_min_eur": 15, "price_max_eur": 18, "price_note_nl": null,
+      "age_min": 3, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": ["science", "crafts"]
+    },
+    {
+      "id": "place-m-leuven", "kind": "museum", "source": "curated",
+      "name": "M Leuven", "city": "Leuven", "province": "Vlaams-Brabant",
+      "address": "Leopold Vanderkelenstraat 28, 3000 Leuven", "lat": 50.8788, "lng": 4.7018,
+      "website": "https://www.mleuven.be",
+      "description_nl": "Stedelijk kunstmuseum met gezinsaanbod en ateliers tijdens vakanties.",
+      "blurb_en": "City art museum with a family offer and school-holiday workshops.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 13, "price_note_nl": "Gratis tot 18 jaar",
+      "age_min": 4, "age_max": 18, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": ["crafts"]
+    },
+    {
+      "id": "place-natuurwetenschappen", "kind": "museum", "source": "curated",
+      "name": "Museum voor Natuurwetenschappen", "city": "Brussel", "province": "Brussel",
+      "address": "Vautierstraat 29, 1000 Brussel", "lat": 50.8367, "lng": 4.3705,
+      "website": "https://www.naturalsciences.be",
+      "description_nl": "De grootste dinozaal van Europa, plus zalen over evolutie, de mens en de natuur.",
+      "blurb_en": "Europe's largest dinosaur gallery, plus halls on evolution, humans and nature.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 16, "price_note_nl": null,
+      "age_min": 3, "age_max": 16, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": ["science", "animals"]
+    },
+    {
+      "id": "place-train-world", "kind": "museum", "source": "curated",
+      "name": "Train World", "city": "Schaarbeek", "province": "Brussel",
+      "address": "Prinses Elisabethplein 5, 1030 Schaarbeek", "lat": 50.8697, "lng": 4.3838,
+      "website": "https://www.trainworld.be",
+      "description_nl": "Het spoorwegmuseum van de NMBS met historische locomotieven en treinen om te bewonderen.",
+      "blurb_en": "Belgium's railway museum, with historic locomotives and trains.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 14, "price_note_nl": null,
+      "age_min": 3, "age_max": 12, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": ["train_ride", "science"]
+    },
+    {
+      "id": "place-bokrijk", "kind": "museum", "source": "curated",
+      "name": "Bokrijk", "city": "Genk", "province": "Limburg",
+      "address": "Bokrijklaan 1, 3600 Genk", "lat": 50.9678, "lng": 5.4203,
+      "website": "https://www.bokrijk.be",
+      "description_nl": "Openluchtmuseum met historische dorpen, een grote speeltuin, dieren en 'De Wildernis' avonturenzone.",
+      "blurb_en": "Open-air heritage museum with historic villages, a big playground, animals and an adventure zone.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 16, "price_note_nl": "Buitenterrein deels gratis",
+      "age_min": 2, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals", "crafts", "treasure_hunt"]
+    },
+    {
+      "id": "place-zoo-antwerpen", "kind": "zoo", "source": "curated",
+      "name": "ZOO Antwerpen", "city": "Antwerpen", "province": "Antwerpen",
+      "address": "Koningin Astridplein 20-26, 2018 Antwerpen", "lat": 51.2172, "lng": 4.4236,
+      "website": "https://www.zooantwerpen.be",
+      "description_nl": "Historische stadszoo naast het Centraal Station, met o.a. olifanten, pinguïns en een aquarium.",
+      "blurb_en": "Historic city zoo next to Antwerp Central Station.",
+      "price_type": "paid", "price_min_eur": 22, "price_max_eur": 33, "price_note_nl": null,
+      "age_min": 1, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals"]
+    },
+    {
+      "id": "place-planckendael", "kind": "zoo", "source": "curated",
+      "name": "ZOO Planckendael", "city": "Mechelen", "province": "Antwerpen",
+      "address": "Leuvensesteenweg 582, 2812 Muizen", "lat": 51.0086, "lng": 4.5231,
+      "website": "https://www.planckendael.be",
+      "description_nl": "Ruime dierentuin in het groen met grote speeltuinen, boottochtjes en seizoensevenementen.",
+      "blurb_en": "Spacious countryside zoo with large playgrounds, boat rides and seasonal events.",
+      "price_type": "paid", "price_min_eur": 30, "price_max_eur": 35, "price_note_nl": null,
+      "age_min": 1, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals", "train_ride", "water_play"]
+    },
+    {
+      "id": "place-pairi-daiza", "kind": "zoo", "source": "curated",
+      "name": "Pairi Daiza", "city": "Brugelette", "province": "Henegouwen",
+      "address": "Domaine de Cambron, 7940 Brugelette", "lat": 50.5936, "lng": 3.8558,
+      "website": "https://www.pairidaiza.eu",
+      "description_nl": "Uitgestrekte dierentuin en botanische tuin met o.a. reuzenpanda's, een aquarium en werelddelen-themazones. Reken op een volledige dag.",
+      "blurb_en": "Vast zoo and botanical garden with giant pandas, an aquarium and themed continents; a full-day trip.",
+      "price_type": "paid", "price_min_eur": 34, "price_max_eur": 44, "price_note_nl": null,
+      "age_min": 2, "age_max": 16, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals"]
+    },
+    {
+      "id": "place-bellewaerde", "kind": "attraction_park", "source": "curated",
+      "name": "Bellewaerde Park", "city": "Ieper", "province": "West-Vlaanderen",
+      "address": "Meenseweg 497, 8902 Ieper", "lat": 50.8494, "lng": 2.9558,
+      "website": "https://www.bellewaerde.be",
+      "description_nl": "Combinatie van dierenpark en pretpark met attracties voor alle leeftijden.",
+      "blurb_en": "Combined animal park and theme park with rides for all ages.",
+      "price_type": "paid", "price_min_eur": 30, "price_max_eur": 42, "price_note_nl": null,
+      "age_min": 2, "age_max": 16, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": "summer", "tags": ["animals"]
+    },
+    {
+      "id": "place-bobbejaanland", "kind": "attraction_park", "source": "curated",
+      "name": "Bobbejaanland", "city": "Lichtaart", "province": "Antwerpen",
+      "address": "Olensesteenweg 45, 2460 Kasterlee", "lat": 51.2233, "lng": 4.9256,
+      "website": "https://www.bobbejaanland.be",
+      "description_nl": "Pretpark met achtbanen en een grote kinderzone (Kinderland).",
+      "blurb_en": "Theme park with rollercoasters and a large dedicated children's zone.",
+      "price_type": "paid", "price_min_eur": 30, "price_max_eur": 42, "price_note_nl": null,
+      "age_min": 3, "age_max": 16, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": "summer", "tags": []
+    },
+    {
+      "id": "place-plopsa-indoor-hasselt", "kind": "playground_indoor", "source": "curated",
+      "name": "Plopsa Indoor Hasselt", "city": "Hasselt", "province": "Limburg",
+      "address": "Gouverneur Verwilghensingel 70, 3500 Hasselt", "lat": 50.9312, "lng": 5.3542,
+      "website": "https://www.plopsaindoorhasselt.be",
+      "description_nl": "Overdekt pretpark met attracties rond de Studio 100-figuren; ideaal bij regenweer.",
+      "blurb_en": "Indoor theme park built around the Studio 100 characters; a good rainy-day option.",
+      "price_type": "paid", "price_min_eur": 22, "price_max_eur": 30, "price_note_nl": null,
+      "age_min": 2, "age_max": 10, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": []
+    },
+    {
+      "id": "place-walibi", "kind": "attraction_park", "source": "curated",
+      "name": "Walibi Belgium", "city": "Waver", "province": "Waals-Brabant",
+      "address": "Boulevard de l'Europe 100, 1300 Waver", "lat": 50.7009, "lng": 4.5964,
+      "website": "https://www.walibi.be",
+      "description_nl": "Groot pretpark met achtbanen en een kinderzone; naast waterpark Aqualibi.",
+      "blurb_en": "Large theme park with rollercoasters and a children's zone, next to the Aqualibi water park.",
+      "price_type": "paid", "price_min_eur": 33, "price_max_eur": 48, "price_note_nl": null,
+      "age_min": 3, "age_max": 16, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": "summer", "tags": ["water_play"]
+    },
+    {
+      "id": "place-kinderstad-heverlee", "kind": "playground_indoor", "source": "curated",
+      "name": "Kinderstad", "city": "Heverlee", "province": "Vlaams-Brabant",
+      "address": "Geldenaaksebaan 335, 3001 Heverlee", "lat": 50.8546, "lng": 4.7191,
+      "website": "https://www.kinderstad.be",
+      "description_nl": "Grote overdekte indoorspeeltuin met klimtoestellen, trampolines en een apart peuterdorp.",
+      "blurb_en": "Large indoor playground with climbing frames, trampolines and a separate toddler area.",
+      "price_type": "paid", "price_min_eur": 9, "price_max_eur": 13, "price_note_nl": null,
+      "age_min": 1, "age_max": 12, "fits_4yo": true, "fits_8yo": true,
+      "indoor": true, "seasonal": null, "tags": ["bouncy_castle"]
+    },
+    {
+      "id": "place-prov-kessel-lo", "kind": "provincial_domain", "source": "curated",
+      "name": "Provinciedomein Kessel-Lo", "city": "Leuven", "province": "Vlaams-Brabant",
+      "address": "Gemeenteplein 5, 3010 Kessel-Lo", "lat": 50.8862, "lng": 4.7361,
+      "website": "https://www.vlaamsbrabant.be/nl/vrije-tijd/provinciedomein-kessel-lo",
+      "description_nl": "Provinciaal domein met vijvers, speeltuinen, een kinderboerderij, minigolf en zwemvijver in de zomer.",
+      "blurb_en": "Provincial park with lakes, playgrounds, a petting farm, mini-golf and a summer swimming lake.",
+      "price_type": "free", "price_min_eur": 0, "price_max_eur": 0, "price_note_nl": "Gratis toegang; betaalparking",
+      "age_min": 0, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals", "water_play"]
+    },
+    {
+      "id": "place-prov-huizingen", "kind": "provincial_domain", "source": "curated",
+      "name": "Provinciedomein Huizingen", "city": "Beersel", "province": "Vlaams-Brabant",
+      "address": "Torleylaan 100, 1654 Huizingen", "lat": 50.7439, "lng": 4.2757,
+      "website": "https://www.vlaamsbrabant.be/nl/vrije-tijd/provinciedomein-huizingen",
+      "description_nl": "Groen domein met een grote avonturenspeeltuin, dierenpark, openluchtzwembad en minigolf.",
+      "blurb_en": "Green estate with a big adventure playground, animal park, outdoor pool and mini-golf.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 5, "price_note_nl": "Toegang gratis, zwembad betalend",
+      "age_min": 0, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals", "water_play"]
+    },
+    {
+      "id": "place-chevetogne", "kind": "provincial_domain", "source": "curated",
+      "name": "Domaine de Chevetogne", "city": "Chevetogne", "province": "Namen",
+      "address": "Rue du Château 1, 5590 Chevetogne", "lat": 50.2233, "lng": 5.1361,
+      "website": "https://www.domainedechevetogne.be",
+      "description_nl": "Enorm provinciaal domein in de Ardennen met tientallen thematische avonturenspeeltuinen, meren en dieren. Een van de beste plekken van België voor kinderen.",
+      "blurb_en": "Huge provincial estate in the Ardennes with dozens of themed adventure playgrounds, lakes and animals — one of Belgium's best places for kids.",
+      "price_type": "paid", "price_min_eur": 6, "price_max_eur": 15, "price_note_nl": "Per auto, seizoensafhankelijk",
+      "age_min": 0, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["animals", "water_play", "treasure_hunt"]
+    },
+    {
+      "id": "place-bois-des-reves", "kind": "provincial_domain", "source": "curated",
+      "name": "Domaine du Bois des Rêves", "city": "Ottignies", "province": "Waals-Brabant",
+      "address": "Allée du Bois des Rêves 1, 1341 Ottignies-Louvain-la-Neuve", "lat": 50.6825, "lng": 4.5589,
+      "website": "https://www.boisdesreves.be",
+      "description_nl": "Provinciaal domein met speeltuinen, een zwemvijver en bossen om te wandelen, dicht bij Leuven.",
+      "blurb_en": "Provincial park with playgrounds, a swimming lake and woodland walks, close to Leuven.",
+      "price_type": "paid", "price_min_eur": 0, "price_max_eur": 5, "price_note_nl": null,
+      "age_min": 0, "age_max": 14, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": ["water_play"]
+    },
+    {
+      "id": "place-speelbos-heverleebos", "kind": "speelbos", "source": "curated",
+      "name": "Speelzone Heverleebos", "city": "Heverlee", "province": "Vlaams-Brabant",
+      "address": "Heverleebos, 3001 Heverlee", "lat": 50.845, "lng": 4.708,
+      "website": "https://www.natuurenbos.be",
+      "description_nl": "Vrij toegankelijke speelzone in het bos: klauteren, hutten bouwen en ravotten zonder toestellen.",
+      "blurb_en": "Free-access play zone in the forest — climbing, den-building and roaming, no equipment.",
+      "price_type": "free", "price_min_eur": 0, "price_max_eur": 0, "price_note_nl": "Gratis",
+      "age_min": 2, "age_max": 12, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": null, "tags": []
+    },
+    {
+      "id": "place-zomerbar-de-hoorn", "kind": "zomerbar", "source": "curated",
+      "name": "De Hoorn — zomerterras", "city": "Leuven", "province": "Vlaams-Brabant",
+      "address": "Sluisstraat 79, 3000 Leuven", "lat": 50.8828, "lng": 4.6942,
+      "website": "https://www.dehoorn.eu",
+      "description_nl": "Ruim zomerterras aan de Dijle met foodtrucks en plek voor kinderen om rond te lopen.",
+      "blurb_en": "Large riverside summer terrace with food trucks and room for kids to roam.",
+      "price_type": "free", "price_min_eur": 0, "price_max_eur": 0, "price_note_nl": "Gratis toegang, consumptie betalend",
+      "age_min": 0, "age_max": 18, "fits_4yo": true, "fits_8yo": true,
+      "indoor": false, "seasonal": "summer", "tags": ["food"]
+    }
+  ]
+}

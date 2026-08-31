@@ -16,6 +16,11 @@ export type FeatureTag =
 
 export type WeekendBucket = "this_weekend" | "next_weekend" | "school_holiday" | "later";
 
+export type PlaceKind =
+  | "museum" | "zoo" | "provincial_domain" | "speelbos" | "playground_indoor"
+  | "playground_outdoor" | "multimove" | "zomerbar" | "playground_restaurant"
+  | "farm" | "attraction_park" | "castle" | "other";
+
 export interface Occurrence {
   start: string | null;
   end: string | null;
@@ -51,6 +56,10 @@ export interface Activity {
   lng: number | null;
   distance_km: number | null;
   geocode_source: string;
+  kind?: PlaceKind | null;
+  province?: string | null;
+  indoor?: boolean | null;
+  seasonal?: "summer" | "winter" | null;
 
   category: Category;
   feature_tags: FeatureTag[];
@@ -92,6 +101,7 @@ export interface Dataset {
   school_holidays: SchoolHoliday[];
   categories: { key: Category; count: number }[];
   feature_tags: { key: FeatureTag; count: number }[];
+  place_kinds?: { key: PlaceKind; count: number }[];
   sources_fetched: string[];
   sources_failed: string[];
   degraded: boolean;

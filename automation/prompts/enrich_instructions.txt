@@ -39,6 +39,13 @@ For every activity, return one object in `activities` with the same `id` and:
   weekly classes.
 - is_recurring_class: true if this is a recurring course/class/workshop series
   rather than a drop-in event.
+- family_relevant: true if this is something to do WITH the children (something a
+  parent would take a 4- and/or 8-year-old to), OR a big-name concert / touring
+  musical / major show that adults near Leuven would plan a trip around. false
+  for: adult-only films (arthouse/drama with no child appeal), adult courses and
+  lectures, nightlife, sports for adults, senior activities, business/networking
+  events, and anything with no broad family or big-event appeal. When in doubt
+  about a plain adult film screening, set false.
 - confidence: "high", "medium", or "low". Use "low" when the input text is too
   thin to classify reliably or when you had to guess the price or ages.
 

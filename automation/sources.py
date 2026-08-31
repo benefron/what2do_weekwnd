@@ -63,11 +63,11 @@ def http_get(url: str) -> bytes:
 
 
 # ── UiT agenda: list UUIDs, hydrate each ────────────────────────────────────
-def list_agenda_uuids(list_url: str, max_pages: int) -> list[str]:
+def list_agenda_uuids(list_url: str, max_pages: int, first_page: int = 0) -> list[str]:
     seen: list[str] = []
     seen_set: set[str] = set()
     empty_streak = 0
-    for page in range(max_pages):
+    for page in range(first_page, first_page + max_pages):
         url = f"{list_url}?page={page}"
         try:
             html = http_get(url).decode("utf-8", "replace")
@@ -104,8 +104,15 @@ def fetch_uit_agenda() -> tuple[list[dict], list[str], list[str]]:
     failed: list[str] = []
     records: list[dict] = []
 
+    seen_uuids: set[str] = set()
     for key, src in config.UIT_AGENDA_SOURCES.items():
-        uuids = list_agenda_uuids(src["list_url"], config.UIT_AGENDA_MAX_PAGES)
+        uuids = list_agenda_uuids(
+            src["list_url"],
+            src.get("max_pages", config.UIT_AGENDA_MAX_PAGES),
+            src.get("first_page", 0),
+        )
+        uuids = [u for u in uuids if u not in seen_uuids]
+        seen_uuids.update(uuids)
         if not uuids:
             failed.append(key)
             continue
@@ -163,6 +170,20 @@ def fetch_all() -> dict:
     raw.extend(uit_records)
     fetched.extend(uit_ok)
     failed.extend(uit_bad)
+
+    if config.CLAUDE_SEARCH_ENABLED:
+        try:
+            import claude_search
+            hits = claude_search.fetch_events()
+            for h in hits:
+                h["_kind"] = "claude_search"
+                h["_source"] = "claude_search"
+                h["_source_label"] = "Claude web search"
+                raw.append(h)
+            fetched.append("claude_search" if hits else "claude_search(empty)")
+        except Exception as exc:  # noqa: BLE001
+            log.warning("claude web search failed: %s", exc)
+            failed.append("claude_search")
 
     overrides = load_manual_overrides()
     for ov in overrides:

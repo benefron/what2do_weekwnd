@@ -1,4 +1,36 @@
-import type { Category, FeatureTag } from "../types";
+import type { Category, FeatureTag, PlaceKind } from "../types";
+
+export const PLACE_KIND_LABELS: Record<PlaceKind, string> = {
+  museum: "Museum",
+  zoo: "Zoo & animals",
+  provincial_domain: "Provincial domain",
+  speelbos: "Play forest",
+  playground_indoor: "Indoor playground",
+  playground_outdoor: "Outdoor playground",
+  multimove: "MultiMove trail",
+  zomerbar: "Zomerbar",
+  playground_restaurant: "Eat & play",
+  farm: "Farm",
+  attraction_park: "Theme park",
+  castle: "Castle",
+  other: "Other",
+};
+
+export const PLACE_KIND_EMOJI: Record<PlaceKind, string> = {
+  museum: "🏛️",
+  zoo: "🦩",
+  provincial_domain: "🌳",
+  speelbos: "🌲",
+  playground_indoor: "🧗",
+  playground_outdoor: "🛝",
+  multimove: "🤸",
+  zomerbar: "🍹",
+  playground_restaurant: "🍽️",
+  farm: "🐐",
+  attraction_park: "🎢",
+  castle: "🏰",
+  other: "📍",
+};
 
 export const CATEGORY_LABELS: Record<Category, string> = {
   festival: "Festival",

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Activity } from "../types";
-import { CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS } from "../lib/labels";
+import { CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS, PLACE_KIND_EMOJI, PLACE_KIND_LABELS } from "../lib/labels";
 import { formatDate, formatDistance, formatPrice } from "../lib/format";
 import { googleTranslateUrl } from "../lib/data";
 
@@ -50,9 +50,15 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
 
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted">
-          <span className="text-forest">{CATEGORY_LABELS[a.category]}</span>
+          <span className="text-forest">
+            {a.date_kind === "permanent" && a.kind
+              ? `${PLACE_KIND_EMOJI[a.kind]} ${PLACE_KIND_LABELS[a.kind]}`
+              : CATEGORY_LABELS[a.category]}
+          </span>
           <span aria-hidden>·</span>
-          <span>{formatDate(a)}</span>
+          <span>
+            {a.date_kind === "permanent" && a.city ? a.city : formatDate(a)}
+          </span>
         </div>
 
         <h3 className="font-display text-lg font-semibold leading-snug text-ink" lang="nl">

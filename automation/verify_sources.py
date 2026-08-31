@@ -14,7 +14,7 @@ def main() -> int:
     print("== UiT agenda listing pages ==")
     for key, src in config.UIT_AGENDA_SOURCES.items():
         try:
-            uuids = sources.list_agenda_uuids(src["list_url"], min(3, config.UIT_AGENDA_MAX_PAGES))
+            uuids = sources.list_agenda_uuids(src["list_url"], 3, src.get("first_page", 0))
             print(f"  {'OK  ' if uuids else 'EMPTY'} {key:16s} {len(uuids):4d} uuids (first 3 pages)  {src['list_url']}")
             if uuids:
                 node = sources.hydrate_event(uuids[0])

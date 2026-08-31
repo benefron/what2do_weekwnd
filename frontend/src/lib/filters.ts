@@ -1,7 +1,14 @@
-import type { Activity, Category, FeatureTag, WeekendBucket } from "../types";
+import type { Activity, Category, FeatureTag, PlaceKind, WeekendBucket } from "../types";
 import { firstFutureDate, formatPrice } from "./format";
 
-export type Tab = "weekend" | "places";
+export type Tab = "weekend" | "places" | "zomerbar" | "eatplay";
+
+// which place kinds belong to which tab
+export const TAB_PLACE_KINDS: Record<Exclude<Tab, "weekend">, PlaceKind[] | null> = {
+  places: null, // everything permanent except the two below
+  zomerbar: ["zomerbar"],
+  eatplay: ["playground_restaurant"],
+};
 export type AgeFilter = "any" | "4yo" | "8yo" | "both";
 export type PriceFilter = "any" | "free" | "cheap";
 export type WhenFilter = "any" | WeekendBucket;
@@ -11,8 +18,10 @@ export interface FilterState {
   tab: Tab;
   search: string;
   categories: Category[];
+  placeKinds: PlaceKind[];
   features: FeatureTag[];
   maxDistance: number;
+  indoorOnly: boolean;
   price: PriceFilter;
   age: AgeFilter;
   hideFrench: boolean;
@@ -26,8 +35,10 @@ export const DEFAULT_FILTERS: FilterState = {
   tab: "weekend",
   search: "",
   categories: [],
+  placeKinds: [],
   features: [],
   maxDistance: 50,
+  indoorOnly: false,
   price: "any",
   age: "any",
   hideFrench: false,
@@ -43,8 +54,10 @@ export function filtersToParams(f: FilterState): string {
   if (f.tab !== "weekend") p.set("tab", f.tab);
   if (f.search) p.set("q", f.search);
   if (f.categories.length) p.set("cat", f.categories.join(","));
+  if (f.placeKinds.length) p.set("pk", f.placeKinds.join(","));
   if (f.features.length) p.set("feat", f.features.join(","));
   if (f.maxDistance !== DEFAULT_FILTERS.maxDistance) p.set("km", String(f.maxDistance));
+  if (f.indoorOnly) p.set("indoor", "1");
   if (f.price !== "any") p.set("price", f.price);
   if (f.age !== "any") p.set("age", f.age);
   if (f.hideFrench) p.set("nofr", "1");
@@ -64,8 +77,10 @@ export function paramsToFilters(search: string): FilterState {
     tab: (p.get("tab") as Tab) || "weekend",
     search: p.get("q") ?? "",
     categories: list(p.get("cat")),
+    placeKinds: list(p.get("pk")),
     features: list(p.get("feat")),
     maxDistance: p.get("km") ? Number(p.get("km")) : DEFAULT_FILTERS.maxDistance,
+    indoorOnly: p.get("indoor") === "1",
     price: (p.get("price") as PriceFilter) || "any",
     age: (p.get("age") as AgeFilter) || "any",
     hideFrench: p.get("nofr") === "1",
@@ -96,13 +111,30 @@ function matchesSearch(a: Activity, q: string): boolean {
     .every((term) => hay.includes(term));
 }
 
+const SPECIAL_TAB_KINDS: PlaceKind[] = ["zomerbar", "playground_restaurant"];
+
 export function applyFilters(activities: Activity[], f: FilterState): Activity[] {
   const isPlace = (a: Activity) => a.date_kind === "permanent";
-  let out = activities.filter((a) => (f.tab === "places" ? isPlace(a) : !isPlace(a)));
+  let out: Activity[];
+  if (f.tab === "weekend") {
+    out = activities.filter((a) => !isPlace(a));
+  } else {
+    const kinds = TAB_PLACE_KINDS[f.tab];
+    out = activities.filter(
+      (a) =>
+        isPlace(a) &&
+        (kinds
+          ? kinds.includes((a.kind ?? "other") as PlaceKind)
+          : !SPECIAL_TAB_KINDS.includes((a.kind ?? "other") as PlaceKind))
+    );
+  }
 
   out = out.filter((a) => {
     if (!matchesSearch(a, f.search)) return false;
-    if (f.categories.length && !f.categories.includes(a.category)) return false;
+    if (f.tab === "weekend" && f.categories.length && !f.categories.includes(a.category)) return false;
+    if (f.tab === "places" && f.placeKinds.length && !f.placeKinds.includes((a.kind ?? "other") as PlaceKind))
+      return false;
+    if (f.indoorOnly && a.indoor !== true) return false;
     if (f.features.length && !f.features.some((t) => a.feature_tags.includes(t))) return false;
     if (a.distance_km != null && a.distance_km > f.maxDistance) return false;
 

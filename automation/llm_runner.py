@@ -78,6 +78,37 @@ def _try_claude(
     return envelope["structured_output"]
 
 
+def run_search_with_schema(
+    prompt: str,
+    schema: dict,
+    model: str,
+    max_budget: str,
+    effort: str | None = None,
+) -> dict:
+    """Runs a Claude CLI call with WebSearch + WebFetch allowed and a JSON
+    schema on the output. No Copilot fallback (that path has no web access).
+    Raises on failure — callers must degrade gracefully.
+    """
+    args = [
+        "claude", "-p", prompt,
+        "--model", model,
+        "--safe-mode",
+        "--allowedTools", "WebSearch", "WebFetch",
+        "--output-format", "json",
+        "--json-schema", json.dumps(schema),
+        "--max-budget-usd", max_budget,
+    ]
+    if effort:
+        args += ["--effort", effort]
+    result = subprocess.run(args, capture_output=True, text=True, timeout=600)
+    if result.returncode != 0:
+        raise RuntimeError(f"claude search exited {result.returncode}: {result.stderr[:500]}")
+    envelope = json.loads(result.stdout)
+    if envelope.get("is_error"):
+        raise RuntimeError(f"claude search reported an error: {envelope}")
+    return envelope["structured_output"]
+
+
 def _try_copilot(instructions: str, input_path: Path, schema: dict, fallback_model: str) -> dict:
     file_content = input_path.read_text(encoding="utf-8")
     schema_text = json.dumps(schema, ensure_ascii=False, indent=2)
