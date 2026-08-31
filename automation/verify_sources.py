@@ -11,34 +11,22 @@ logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(mes
 
 
 def main() -> int:
-    print("== RSS sources ==")
-    for key, src in config.RSS_SOURCES.items():
-        ok = False
-        for feed_url in src.get("rss", []):
-            try:
-                items = sources._fetch_rss_feed(feed_url)
-                print(f"  OK   {key:36s} {len(items):4d} items  {feed_url}")
-                ok = True
-                break
-            except Exception as exc:  # noqa: BLE001
-                print(f"  FAIL {key:36s} {feed_url}  ({exc})")
-        if not ok and src.get("scrape_fallback_url"):
-            try:
-                evs = sources.extract_jsonld_events(sources.http_get(src["scrape_fallback_url"]))
-                print(f"  ~fallback {key:31s} {len(evs):4d} json-ld events  {src['scrape_fallback_url']}")
-            except Exception as exc:  # noqa: BLE001
-                print(f"  FAIL fallback {key:27s} {src['scrape_fallback_url']}  ({exc})")
-
-    print("\n== venue scrapers (JSON-LD) ==")
-    for key, src in config.SCRAPER_SOURCES.items():
+    print("== UiT agenda listing pages ==")
+    for key, src in config.UIT_AGENDA_SOURCES.items():
         try:
-            evs = sources.extract_jsonld_events(sources.http_get(src["url"]))
-            status = "OK  " if evs else "EMPTY"
-            print(f"  {status} {key:28s} {len(evs):4d} events  {src['url']}")
+            uuids = sources.list_agenda_uuids(src["list_url"], min(3, config.UIT_AGENDA_MAX_PAGES))
+            print(f"  {'OK  ' if uuids else 'EMPTY'} {key:16s} {len(uuids):4d} uuids (first 3 pages)  {src['list_url']}")
+            if uuids:
+                node = sources.hydrate_event(uuids[0])
+                ok = bool(node and node.get("name"))
+                print(f"       hydrate {uuids[0]}: {'OK' if ok else 'FAIL'}"
+                      + (f"  \"{list((node.get('name') or {}).values())[0]}\"" if ok else ""))
         except Exception as exc:  # noqa: BLE001
-            print(f"  FAIL {key:28s} {src['url']}  ({exc})")
+            print(f"  FAIL {key:16s} {src['list_url']}  ({exc})")
 
-    print(f"\n== UiTdatabank API: {'ENABLED' if config.UITDATABANK_ENABLED else 'disabled (v1)'} ==")
+    print(f"\n== venue scrapers: {len(config.SCRAPER_SOURCES)} configured ==")
+    print(f"== UiTdatabank Search API: {'ENABLED' if config.UITDATABANK_ENABLED else 'disabled (v1 uses the free read endpoint)'} ==")
+    print(f"== manual overrides: {len(sources.load_manual_overrides())} activities ==")
     return 0
 
 

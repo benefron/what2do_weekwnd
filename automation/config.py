@@ -56,13 +56,16 @@ LOCK_STALE_SECONDS = 2 * 60 * 60
 
 # ── LLM (Claude CLI, --safe-mode; Copilot API fallback) ─────────────────────
 ENRICH_MODEL = "claude-haiku-4-5-20251001"
-ENRICH_MAX_BUDGET_USD = "0.50"
-ENRICH_BATCH_SIZE = 25
+# Per-batch cap. A ~15-item batch with the full schema runs ~$0.10-0.40 via the
+# subscription CLI; the CLI exits non-zero (→ Copilot fallback) if a call would
+# exceed this, so keep some headroom.
+ENRICH_MAX_BUDGET_USD = "1.50"
+ENRICH_BATCH_SIZE = 15
 
 # Sonnet re-checks only the records Haiku flagged low-confidence or where a
 # rule check disagreed (e.g. "€" in the text but price_type == free).
 VERIFY_MODEL = "claude-sonnet-5"
-VERIFY_MAX_BUDGET_USD = "0.30"
+VERIFY_MAX_BUDGET_USD = "1.00"
 VERIFY_EFFORT = "low"
 
 COPILOT_API_BASE = "https://api.githubcopilot.com"
@@ -148,75 +151,46 @@ NOMINATIM_USER_AGENT = "what2do-weekwnd/1.0 (benefron@gmail.com)"
 NOMINATIM_MIN_INTERVAL_SECONDS = 1.1
 
 # ── sources ─────────────────────────────────────────────────────────────────
-# v1 is free-only: UiTinVlaanderen agenda RSS (same DB behind leuven.be,
-# the library, tourism and most museums) + a handful of venue scrapers that
-# parse <script type="application/ld+json"> Event blocks. A UiTdatabank
-# Search API client (uitdatabank_client.py) can drop in later as the primary
-# source — flip UITDATABANK_ENABLED and add creds to secrets.local.json.
+# v1, free, no key: scrape the server-rendered UiT agenda listing pages for
+# event UUIDs, then hydrate each via the PUBLIC UiTdatabank read endpoint
+# https://io.uitdatabank.be/events/<uuid> (full JSON-LD: name, description,
+# typicalAgeRange, priceInfo, calendar, terms, location.geo, languages).
+# The same database is behind leuven.be, the library, tourism and most
+# museums, so this one path covers the bulk of what we want.
+#
+# The optional UiTdatabank *Search* API (uitdatabank_client.py) needs a paid
+# publiq key; flip it on by adding creds to secrets.local.json. It is a
+# strict upgrade (server-side region/age/date filtering) but not required.
 UITDATABANK_ENABLED = bool(_secrets.get("publiq_client_id"))
 UITDATABANK_CLIENT_ID = _secrets.get("publiq_client_id")
 UITDATABANK_CLIENT_SECRET = _secrets.get("publiq_client_secret")
 
-# RSS feeds — VERIFY LIVE with scripts/verify_sources.sh before trusting these
-# unattended (URL shapes drift; comment mirrors the news-digest discipline).
-# The UiTinVlaanderen agenda exposes an RSS alternate for any search; we scope
-# it to Leuven and Vlaams-Brabant. If a URL 404s, open the agenda page in a
-# browser, apply the region filter, and copy its "RSS" link here.
-RSS_SOURCES = {
-    "uitinvlaanderen_leuven": {
-        "label": "UiT in Vlaanderen — Leuven",
-        "rss": [
-            "https://www.uitinvlaanderen.be/agenda/search/rss?keyword=&city=Leuven",
-            "https://www.uitinvlaanderen.be/agenda/f/search.rss?q=Leuven",
-        ],
-        "scrape_fallback_url": "https://www.uitinleuven.be/agenda",
-    },
-    "uitinvlaanderen_vlaams_brabant": {
-        "label": "UiT in Vlaanderen — Vlaams-Brabant",
-        "rss": [
-            "https://www.uitinvlaanderen.be/agenda/search/rss?keyword=kinderen&province=Vlaams-Brabant",
-        ],
-        "scrape_fallback_url": "https://www.uitinvlaanderen.be/agenda",
+UIT_READ_ENDPOINT = "https://io.uitdatabank.be/events/{uuid}"
+
+# Agenda listing pages to scrape for event UUIDs. Events are date-sorted
+# (soonest first), so the first pages cover the weekend window. Bump
+# UIT_AGENDA_MAX_PAGES for a longer horizon at the cost of more hydration
+# requests + a bigger enrichment bill on the first run.
+UIT_AGENDA_MAX_PAGES = 25
+UIT_AGENDA_SOURCES = {
+    "uitinleuven": {
+        "label": "UiT in Leuven",
+        "list_url": "https://www.uitinleuven.be/agenda",
     },
 }
 
-# Venue scrapers — each function in sources.py handles one site. A dead
-# scraper logs and is skipped; it never aborts the run.
-SCRAPER_SOURCES = {
-    "mleuven": {
-        "label": "M Leuven",
-        "url": "https://www.mleuven.be/nl/programma",
-    },
-    "leuven_kinderen": {
-        "label": "Stad Leuven — agenda voor kinderen",
-        "url": "https://www.leuven.be/agenda-voor-kinderen",
-    },
-    "visitleuven": {
-        "label": "Visit Leuven",
-        "url": "https://www.visitleuven.be/nl/agenda",
-    },
-    "toerisme_vlaams_brabant": {
-        "label": "Toerisme Vlaams-Brabant — kidsagenda",
-        "url": "https://www.toerismevlaamsbrabant.be/thema/kinderen/kidsagenda",
-    },
-    "technopolis": {
-        "label": "Technopolis",
-        "url": "https://www.technopolis.be/nl/",
-    },
-    "planckendael": {
-        "label": "Planckendael",
-        "url": "https://www.planckendael.be/nl/kalender",
-    },
-    "zoo_antwerpen": {
-        "label": "ZOO Antwerpen",
-        "url": "https://www.zooantwerpen.be/nl/kalender",
-    },
-    "natuurwetenschappen": {
-        "label": "Museum voor Natuurwetenschappen",
-        "url": "https://www.naturalsciences.be/nl/visit/agenda",
-    },
-    "bokrijk": {
-        "label": "Bokrijk",
-        "url": "https://www.bokrijk.be/nl/agenda",
-    },
-}
+# Kid-relevance prefilter (normalize.py) — an event survives to the Claude
+# step only if its UiTdatabank typicalAgeRange lower bound is <= this, OR it
+# carries a family/kids term/label, OR its text matches a kid keyword.
+PREFILTER_MAX_AGE_MIN = 12
+KID_KEYWORDS = [
+    "kinder", "kleuter", "peuter", "gezin", "familie", "jeugd", "baby",
+    "kids", "kind ", "voor kinderen", "4+", "6+", "3+", "kindvriendelijk",
+    "springkasteel", "poppentheater", "schmink", "knutsel", "verhaal",
+    "sprookje", "workshop voor kinderen", "kinderboerderij", "speeltuin",
+]
+
+# Direct venue scrapers — disabled in v1 (each Belgian venue site renders its
+# calendar with client-side JS, so a plain fetch yields no JSON-LD). Add real
+# scrapers here later, or rely on the fact that these venues publish to UiT.
+SCRAPER_SOURCES: dict[str, dict] = {}
