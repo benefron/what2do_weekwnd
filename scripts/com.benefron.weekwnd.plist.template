@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.benefron.weekwnd</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__REPO_ROOT__/automation/.venv/bin/python3</string>
+        <string>__REPO_ROOT__/automation/run_weekly.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>__REPO_ROOT__/automation</string>
+
+    <!-- Monday 07:30.
+         RunAtLoad is deliberately absent: launchd evaluates a
+         StartCalendarInterval slot missed while the Mac was asleep/off on its
+         next wake, so a Mac that was off Monday still runs the pipeline when it
+         wakes. run_weekly.py's MIN_HOURS_BETWEEN_RUNS guard + the file lock
+         absorb any catch-up fire so it never double-runs. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key><integer>1</integer>
+        <key>Hour</key><integer>7</integer>
+        <key>Minute</key><integer>30</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>__REPO_ROOT__/automation/logs/launchd.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>__REPO_ROOT__/automation/logs/launchd.err.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>__CLAUDE_BIN_DIR__:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+        <key>LC_ALL</key>
+        <string>en_US.UTF-8</string>
+    </dict>
+</dict>
+</plist>

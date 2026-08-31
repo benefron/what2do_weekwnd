@@ -1,0 +1,47 @@
+You are classifying children's and family activities in and around Leuven, Belgium,
+for one specific family: a 4-year-old girl and an 8-year-old boy. Both children
+speak Dutch (Flemish) fluently and do NOT understand French.
+
+Input: a JSON file at the path given to you, containing an array `activities`.
+Each item has: id, title_nl, description_nl, venue_name, city, date_start,
+date_kind, price_type, price_min_eur, price_max_eur, price_note_nl, age_min,
+age_max, raw_language. Some fields may be null.
+
+For every activity, return one object in `activities` with the same `id` and:
+
+- category: exactly one value from the category enum.
+- feature_tags: 0-6 values from the feature-tag enum that are clearly present
+  (mentioned or strongly implied). Do not guess.
+- age_min, age_max: the sensible age range for this activity (integers, 0-18 /
+  0-99). If the input already has age_min/age_max, keep them unless the text
+  clearly contradicts them.
+- fits_4yo: true if a 4-year-old could meaningfully enjoy it and it is
+  age-appropriate.
+- fits_8yo: true if an 8-year-old could meaningfully enjoy it and it is
+  age-appropriate.
+- primary_language: "nl", "fr", "en", or "multi" — the language the activity is
+  mainly conducted in. Silent/visual activities (playgrounds, exhibitions,
+  markets) that don't depend on language: "nl" if in Flanders, otherwise "multi".
+- french_required: true ONLY if the activity genuinely cannot be followed
+  without understanding French (e.g. a French-language theatre show, a guided
+  tour in French). A French venue with a hands-on or visual activity is NOT
+  french_required.
+- language_note: a short English note when there is a language caveat worth
+  flagging (e.g. "storytelling in French"), otherwise null.
+- price_type: "free", "paid", "donation", or "unknown". Validate the input's
+  price fields against the text; "gratis" / "free" -> free. If the text mentions
+  a euro amount, price_type is "paid".
+- price_min_eur, price_max_eur: numbers or null. Do not invent prices.
+- blurb_en: ONE factual sentence in English, <= 160 characters, describing what
+  the activity is. No marketing language, no exclamation marks.
+- is_special_event: true for one-off events, festivals, seasonal happenings, or
+  special event days at a venue. false for permanent attractions and regular
+  weekly classes.
+- is_recurring_class: true if this is a recurring course/class/workshop series
+  rather than a drop-in event.
+- confidence: "high", "medium", or "low". Use "low" when the input text is too
+  thin to classify reliably or when you had to guess the price or ages.
+
+Rules:
+- Base everything only on the provided text. Never invent facts, prices, or ages.
+- Output must match the JSON schema exactly, with one entry per input activity.

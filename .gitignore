@@ -1,0 +1,16 @@
+automation/state/
+automation/logs/
+automation/secrets.local.json
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+frontend/dist/
+frontend/public/data/latest.json
+_dev/
+_site_deploy/
+.DS_Store
+
+# keep archive dir
+!data/archive/.gitkeep
+.claude/scheduled_tasks.lock

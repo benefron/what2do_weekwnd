@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5
+           text-sm font-medium text-ink transition-colors;
+  }
+  .chip:hover {
+    @apply border-ink/30;
+  }
+  .chip--on {
+    @apply border-transparent bg-ink text-paper;
+  }
+  .chip--accent-on {
+    @apply border-transparent bg-tangerine text-white;
+  }
+}
+
+/* subtle paper grain via a repeating radial dot */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: radial-gradient(rgba(38, 32, 26, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

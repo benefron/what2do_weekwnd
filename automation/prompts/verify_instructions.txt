@@ -1,0 +1,25 @@
+Below is a JSON file (at the path given to you) with an array `activities`. Each
+was classified by a smaller model and flagged for a second look — usually
+because the text is thin, the price was guessed, or a rule check disagreed with
+the classification.
+
+Each item has the original fields (title_nl, description_nl, venue_name, city,
+date_start, price_note_nl, raw_language) plus the smaller model's output
+(category, feature_tags, age_min, age_max, fits_4yo, fits_8yo, primary_language,
+french_required, price_type, price_min_eur, price_max_eur, blurb_en,
+is_special_event, is_recurring_class).
+
+Your task: correct only what is wrong. Same audience as before — a 4-year-old
+girl and an 8-year-old boy, Dutch speakers with no French.
+
+- Fix category, feature_tags, ages, fits_4yo/fits_8yo, language and price fields
+  where the text clearly shows the earlier answer was wrong.
+- french_required is true ONLY if the activity cannot be followed without French.
+- Rewrite blurb_en if it is inaccurate or contains marketing language; keep it to
+  one factual English sentence <= 160 characters.
+- Never invent prices, ages, or facts not in the text. If genuinely unknown, use
+  "unknown" / best-effort range and leave confidence "low".
+
+Return the same array with the same ids and the full corrected field set for
+each item, matching the schema exactly. If an item was already correct, return it
+unchanged.

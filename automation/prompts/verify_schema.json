@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "required": ["activities"],
+  "properties": {
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "category", "feature_tags", "age_min", "age_max", "fits_4yo",
+          "fits_8yo", "primary_language", "french_required", "price_type",
+          "blurb_en", "is_special_event", "is_recurring_class", "confidence"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": [
+              "festival", "kermis_carnaval", "theatre_puppetry", "music_concert",
+              "museum_exhibition", "museum_workshop", "library_workshop",
+              "nature_farm", "zoo_animal_park", "sports_active", "market_food",
+              "parade_seasonal", "film", "storytelling", "playground_indoor",
+              "guided_tour", "holiday_camp", "other"
+            ]
+          },
+          "feature_tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "face_painting", "archery", "bouncy_castle", "puppet_show",
+                "kermis", "carnaval", "food", "stories", "costumes", "animals",
+                "crafts", "music", "science", "water_play", "dance", "magic",
+                "treasure_hunt", "fireworks", "parade", "train_ride",
+                "pumpkin_picking", "christmas_market", "easter", "halloween"
+              ]
+            }
+          },
+          "age_min": { "type": "integer", "minimum": 0, "maximum": 18 },
+          "age_max": { "type": "integer", "minimum": 0, "maximum": 99 },
+          "fits_4yo": { "type": "boolean" },
+          "fits_8yo": { "type": "boolean" },
+          "primary_language": { "type": "string", "enum": ["nl", "fr", "en", "multi"] },
+          "french_required": { "type": "boolean" },
+          "language_note": { "type": ["string", "null"] },
+          "price_type": { "type": "string", "enum": ["free", "paid", "donation", "unknown"] },
+          "price_min_eur": { "type": ["number", "null"] },
+          "price_max_eur": { "type": ["number", "null"] },
+          "blurb_en": { "type": "string", "maxLength": 160 },
+          "is_special_event": { "type": "boolean" },
+          "is_recurring_class": { "type": "boolean" },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      }
+    }
+  }
+}
