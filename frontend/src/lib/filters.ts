@@ -16,6 +16,7 @@ export interface FilterState {
   price: PriceFilter;
   age: AgeFilter;
   hideFrench: boolean;
+  hideClasses: boolean;
   when: WhenFilter;
   specialOnly: boolean;
   sort: SortKey;
@@ -30,6 +31,7 @@ export const DEFAULT_FILTERS: FilterState = {
   price: "any",
   age: "any",
   hideFrench: false,
+  hideClasses: true,
   when: "any",
   specialOnly: false,
   sort: "date",
@@ -46,6 +48,7 @@ export function filtersToParams(f: FilterState): string {
   if (f.price !== "any") p.set("price", f.price);
   if (f.age !== "any") p.set("age", f.age);
   if (f.hideFrench) p.set("nofr", "1");
+  if (!f.hideClasses) p.set("classes", "1");
   if (f.when !== "any") p.set("when", f.when);
   if (f.specialOnly) p.set("special", "1");
   if (f.sort !== "date") p.set("sort", f.sort);
@@ -66,6 +69,7 @@ export function paramsToFilters(search: string): FilterState {
     price: (p.get("price") as PriceFilter) || "any",
     age: (p.get("age") as AgeFilter) || "any",
     hideFrench: p.get("nofr") === "1",
+    hideClasses: p.get("classes") !== "1",
     when: (p.get("when") as WhenFilter) || "any",
     specialOnly: p.get("special") === "1",
     sort: (p.get("sort") as SortKey) || "date",
@@ -113,6 +117,7 @@ export function applyFilters(activities: Activity[], f: FilterState): Activity[]
     if (f.age === "both" && !(a.fits_4yo && a.fits_8yo)) return false;
 
     if (f.hideFrench && a.french_required) return false;
+    if (f.hideClasses && f.tab === "weekend" && a.is_recurring_class) return false;
     if (f.tab === "weekend" && f.when !== "any" && !a.weekend_bucket.includes(f.when)) return false;
     if (f.specialOnly && !a.is_special_event) return false;
     return true;

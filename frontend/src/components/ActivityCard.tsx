@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Activity } from "../types";
 import { CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS } from "../lib/labels";
 import { formatDate, formatDistance, formatPrice } from "../lib/format";
@@ -12,6 +13,8 @@ interface Props {
 export default function ActivityCard({ activity: a, saved, onToggleSave }: Props) {
   const price = formatPrice(a);
   const distance = formatDistance(a);
+  const [imgOk, setImgOk] = useState(true);
+  const showImg = a.image_url && imgOk;
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl2 border border-line bg-white shadow-card">
@@ -29,13 +32,14 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
       </button>
 
       <div className="aspect-[16/10] w-full overflow-hidden bg-forest-soft">
-        {a.image_url ? (
+        {showImg ? (
           <img
-            src={a.image_url}
+            src={a.image_url!}
             alt=""
             loading="lazy"
+            referrerPolicy="no-referrer"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            onError={(e) => (e.currentTarget.style.display = "none")}
+            onError={() => setImgOk(false)}
           />
         ) : (
           <div className="flex h-full items-center justify-center text-4xl opacity-40">

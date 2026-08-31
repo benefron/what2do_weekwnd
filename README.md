@@ -71,12 +71,13 @@ synced to the URL.
 
 ## Data sources
 
-v1 is free-only: the UiTinVlaanderen agenda RSS (the same database behind
-`leuven.be`, the library, tourism and most museums) plus JSON-LD scrapers for
-individual venues, plus `data/manual_overrides.json` for permanent venues and
-seasonal farm activities.
+v1 is free and needs no API key: it scrapes the `uitinleuven.be/agenda` listing
+pages for event UUIDs and hydrates each via the public UiTdatabank read endpoint
+`https://io.uitdatabank.be/events/<uuid>` — the same database behind `leuven.be`,
+the library, tourism and most museums. Plus `data/manual_overrides.json` for
+permanent venues and seasonal farm activities.
 
-The scraper URLs in `automation/config.py` need live verification — run
-`scripts/verify_sources.sh` and fix any that 404. See
-`automation/uitdatabank_client.py` for enabling the structured UiTdatabank
-Search API later (needs a publiq key).
+A kid-relevance prefilter (age / family terms / keywords) trims the agenda down
+before the Claude classification step. Coverage is currently Leuven city only —
+see `CLAUDE.md` for widening it, or `automation/uitdatabank_client.py` for the
+paid UiTdatabank Search API (server-side region + radius filtering).

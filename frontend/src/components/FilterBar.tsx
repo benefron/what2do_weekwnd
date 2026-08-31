@@ -145,6 +145,14 @@ export default function FilterBar({ filters: f, dataset, resultCount, onChange, 
         >
           Hide French-only
         </button>
+        {f.tab === "weekend" && (
+          <button
+            onClick={() => onChange({ hideClasses: !f.hideClasses })}
+            className={`chip ${f.hideClasses ? "chip--accent-on" : ""}`}
+          >
+            Hide weekly classes
+          </button>
+        )}
         <button
           onClick={() => onChange({ specialOnly: !f.specialOnly })}
           className={`chip ${f.specialOnly ? "chip--accent-on" : ""}`}

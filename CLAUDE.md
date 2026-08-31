@@ -45,24 +45,31 @@ from israel-news-digest's `run_daily.py`: file lock (`state/run.lock`),
 overwriting `data/latest.json`** if a stage yields nothing.
 
 1. **`sources.py` — fetch.** Produces a flat list of raw records, each tagged
-   `_kind` = `rss` | `jsonld` | `manual`. Sources: UiTinVlaanderen agenda RSS
-   (`config.RSS_SOURCES`), per-venue JSON-LD scrapers (`config.SCRAPER_SOURCES`,
-   each parses `<script type="application/ld+json">` Event blocks), and
-   `data/manual_overrides.json`. `http_get()` retries a 403 via `tls_client`
-   (real Chrome TLS fingerprint). **A dead source logs and is skipped — never
-   aborts the run.** `config.UITDATABANK_ENABLED` (auto-true when publiq creds
-   are in `secrets.local.json`) swaps in `uitdatabank_client.py` as the primary
-   structured source; it's a stub/disabled in v1.
+   `_kind` = `uitdatabank` | `manual`. v1 path (`fetch_uit_agenda`): scrape the
+   server-rendered `uitinleuven.be/agenda` listing pages (`?page=0..N`, capped by
+   `UIT_AGENDA_MAX_PAGES`) for `/agenda/e/<slug>/<uuid>` links, then hydrate each
+   via the **public, no-auth** endpoint `https://io.uitdatabank.be/events/<uuid>`
+   — full UiTdatabank JSON-LD (`name`/`description` multilingual, `typicalAgeRange`
+   as `"6-11"`, `priceInfo[]`, `calendarType`+`startDate`/`endDate`/`subEvent`,
+   `terms`, `location.geo`, `languages`). This is *not* schema.org shape.
+   `http_get()` retries a 403 via `tls_client`. Plus `data/manual_overrides.json`.
+   **A dead source logs and is skipped — never aborts.** `config.UITDATABANK_ENABLED`
+   (auto-true when publiq creds are in `secrets.local.json`) additionally pulls
+   `uitdatabank_client.py` (the paid Search API) as a structured primary source.
 
-2. **`normalize.py` — raw → partial `Activity` + dedupe.** `_from_jsonld` /
-   `_from_rss` / `_from_manual` map each `_kind`. `id = sha1(canonicalize_url(url))[:10]`
-   (from `sources.py`). Parses calendar into `occurrences[]` + `date_kind`
-   (`single|multi_day|recurring|permanent`); computes `weekend_bucket`
-   (`this_weekend|next_weekend|school_holiday|later`) and `in_school_holiday`
-   from `config.SCHOOL_HOLIDAYS` (hardcoded Flemish table — **update yearly**).
-   Drops past-only and adults-only (`age_min >= 16`). Cross-source dedupe: same
-   `id` OR fuzzy-title ≥ 0.9 + same `date_start` + same city; keeps the record
-   with more structure.
+2. **`normalize.py` — raw → partial `Activity`, prefilter, dedupe.**
+   `_from_uitdatabank` / `_from_manual` map each `_kind`.
+   `id = sha1(canonicalize_url(public_url))[:10]`. Parses `calendarType`/`subEvent`
+   into `occurrences[]` + `date_kind` (`single|multi_day|recurring|permanent`);
+   computes `weekend_bucket` (`this_weekend|next_weekend|school_holiday|later`,
+   including span-overlap for multi-day runs) and `in_school_holiday` from
+   `config.SCHOOL_HOLIDAYS` (hardcoded Flemish table — **update yearly**).
+   **Kid-relevance prefilter** (`_is_kid_relevant`): an event survives to the
+   Claude step only if `age_min <= config.PREFILTER_MAX_AGE_MIN` OR it carries a
+   family/kids term/label OR its text matches a `config.KID_KEYWORDS` entry.
+   Drops past-only, adults-only (`age_min >= 16`), and (non-permanent) events with
+   no bucket in the horizon. Cross-source dedupe: same `id` OR fuzzy-title ≥ 0.9 +
+   same `date_start` + same city; keeps the record with more structure.
 
 3. **`geo.py` — geocode + distance.** Prefers payload lat/lng; else Nominatim
    (1.1s throttle, custom UA) with a **git-committed** disk cache
@@ -122,10 +129,14 @@ re-triggers this with fresh data.
 
 ## Known gaps / next steps
 
-- Scraper URLs in `config.SCRAPER_SOURCES` and the RSS URLs in `RSS_SOURCES` are
-  best-guesses — several 404 currently. Run `scripts/verify_sources.sh` and fix
-  them; this is the main thing standing between the scaffold and real data.
+- Coverage is Leuven-city only (`uitinleuven.be`). For wider Vlaams-Brabant /
+  Belgium, either add more agenda listing URLs to `UIT_AGENDA_SOURCES` (need a
+  server-rendered UiT front-end that paginates via `?page=`) or enable the
+  UiTdatabank Search API (`uitdatabank_client.py`, needs a publiq key) which does
+  server-side region/coordinate filtering.
+- The Claude CLI (`claude -p --json-schema`) exited non-zero in one test env and
+  fell back to the Copilot API; if that recurs on the target Mac, raise
+  `ENRICH_MAX_BUDGET_USD` / `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.
 - `automation/prompts/verify_schema.json` is a byte copy of `enrich_schema.json`;
   narrow it to the correctable fields if desired.
-- UiTdatabank Search API (`uitdatabank_client.py`) is the intended primary source
-  once a publiq key is obtained.
+- Placeholder icons in `frontend/public/icons/` are solid squares — replace.
