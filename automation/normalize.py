@@ -177,12 +177,23 @@ def _uit_price(node: dict) -> dict:
 
 
 def _uit_image(node: dict) -> str | None:
+    url = None
     if isinstance(node.get("image"), str):
-        return node["image"]
-    for mo in node.get("mediaObject") or []:
-        if mo.get("contentUrl") or mo.get("@id"):
-            return mo.get("contentUrl") or mo.get("@id")
-    return None
+        url = node["image"]
+    else:
+        for mo in node.get("mediaObject") or []:
+            if mo.get("contentUrl") or mo.get("@id"):
+                url = mo.get("contentUrl") or mo.get("@id")
+                break
+    if not url:
+        return None
+    # The raw images.uitdatabank.be files are often 8000px multi-MB PNGs and
+    # 301-redirect to imgix. Point straight at imgix with a card-sized crop so
+    # the frontend loads a ~60KB image instead of choking on the original.
+    m = re.search(r"/([0-9a-f-]{36}\.\w+)(?:$|\?)", url)
+    if m:
+        return f"https://images-prod-uitdatabank.imgix.net/{m.group(1)}?auto=format&fit=crop&w=768&h=480"
+    return url
 
 
 def _uit_occurrences(node: dict) -> list[dict]:
