@@ -165,6 +165,12 @@ re-triggers this with fresh data.
 
 ## Known gaps / next steps
 
+- `build_places.py` / `claude_search` web-search calls hit a Claude server-tool
+  quota after ~7 kinds in a session and exit non-zero (no fallback — the kind is
+  just skipped). Re-run `scripts/build_places.sh --kinds zoo,multimove,playground_outdoor`
+  on a later day to fill gaps. Nominatim also burst-limits during a big
+  `build_places` — a second run (or the geocode loop in the run log) fills the
+  `lat: null` stragglers from the shared cache.
 - Agenda coverage is `uitinleuven` + `uitinvlaanderen` (all Flanders). Wallonia
   and non-UiT venues rely on the `claude_search` pass. Add more `?page=`-paginated
   UiT front-ends to `UIT_AGENDA_SOURCES`, or enable the UiTdatabank Search API
