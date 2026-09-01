@@ -31,9 +31,11 @@ def build_payload(activities: list[dict], run_id: str, sources_fetched, sources_
     today = datetime.now(timezone.utc).astimezone().date()
     slim = [{k: a.get(k) for k in _PUBLISHED_FIELDS} for a in activities]
 
-    cat_counts = Counter(a.get("category") for a in slim if a.get("category"))
+    events = [a for a in slim if a.get("date_kind") != "permanent"]
+    permanent = [a for a in slim if a.get("date_kind") == "permanent"]
+    cat_counts = Counter(a.get("category") for a in events if a.get("category"))
     tag_counts = Counter(t for a in slim for t in (a.get("feature_tags") or []))
-    kind_counts = Counter(a.get("kind") for a in slim if a.get("kind"))
+    kind_counts = Counter(a.get("kind") for a in permanent if a.get("kind"))
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),

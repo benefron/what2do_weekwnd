@@ -215,6 +215,10 @@
     "lat": 51.1893393,
     "lng": 3.2452439
   },
+  "Capitole Gent / Stadsschouwburg Antwerpen Ghent België": {
+    "lat": null,
+    "lng": null
+  },
   "Capitole Gent Gent België": {
     "lat": 51.0481106,
     "lng": 3.7321395
@@ -267,11 +271,19 @@
     "lat": 51.1638444,
     "lng": 5.0416396
   },
+  "City centre (Grand-Place / Marché aux Poissons) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "City centre (Grand-Place, Bourse, Vismet) Brussels België": {
     "lat": null,
     "lng": null
   },
   "City centre (multiple squares) Namur België": {
+    "lat": null,
+    "lng": null
+  },
+  "City centre Namur België": {
     "lat": null,
     "lng": null
   },
@@ -443,6 +455,10 @@
     "lat": null,
     "lng": null
   },
+  "Grote Markt / Groenplaats / Steenplein Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
   "Grote Markt / Groenplaats and city centre Antwerp België": {
     "lat": null,
     "lng": null
@@ -535,6 +551,10 @@
     "lat": null,
     "lng": null
   },
+  "Kasteel van Gaasbeek / Groenenberg Lennik (Gaasbeek) België": {
+    "lat": null,
+    "lng": null
+  },
   "Kasteel van Gaasbeek Gaasbeek (Lennik) België": {
     "lat": 50.7965012,
     "lng": 4.1970478
@@ -606,6 +626,10 @@
   "Koolmijnlaan 201, 3582 Beringen": {
     "lat": 51.0700187,
     "lng": 5.2220973
+  },
+  "Korenmarkt / Sint-Baafsplein Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "Kraanlei 65, 9000 Ghent": {
     "lat": 51.0575563,
@@ -758,6 +782,10 @@
   "Ooidonkdreef 9, 9800 Deinze": {
     "lat": 51.001469,
     "lng": 3.5838205
+  },
+  "Openluchtmuseum Bokrijk Genk België": {
+    "lat": 50.9630827,
+    "lng": 5.4030747
   },
   "Pairi Daiza Brugelette België": {
     "lat": 50.5845489,
@@ -1383,6 +1411,10 @@
     "lat": null,
     "lng": null
   },
+  "Theater Elckerlyc (premiere), then touring Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
   "Tiensestraat, 3380 Glabbeek": {
     "lat": null,
     "lng": null
@@ -1450,6 +1482,10 @@
   "YOYO Arlon Arlon België": {
     "lat": null,
     "lng": null
+  },
+  "ZOO Antwerpen Antwerp België": {
+    "lat": 51.2164396,
+    "lng": 4.4234205
   },
   "ZOO Planckendael Mechelen België": {
     "lat": 51.0022386,

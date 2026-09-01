@@ -1,4 +1,27 @@
 {
+  "00654ad0bc": {
+    "age_max": 14,
+    "age_min": 3,
+    "blurb_en": "Nature walk around Neerijse and Doode Bemde with freshly made pancakes",
+    "category": "nature_farm",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "894175f41e1d",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 3,
+    "price_min_eur": 1.5,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "01e3f5238b": {
     "age_max": 11,
     "age_min": 9,
@@ -577,6 +600,27 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "12a1205468": {
+    "age_max": 13,
+    "age_min": 10,
+    "blurb_en": "Information session about children's municipal council participation",
+    "category": "other",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "f191c8a5bb6d",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "1310fe5830": {
     "age_max": 16,
     "age_min": 0,
@@ -874,6 +918,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "1910659de9": {
+    "age_max": 7,
+    "age_min": 4,
+    "blurb_en": "Weekly children's dance class combining multiple music genres and movement styles.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "fa5d26116839",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "197994d0e0": {
     "age_max": 99,
     "age_min": 0,
@@ -985,6 +1052,29 @@
     "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
+  },
+  "1b17bd971a": {
+    "age_max": 9,
+    "age_min": 3,
+    "blurb_en": "Wednesday farm activity with animal contact and hands-on farm experiences for young children.",
+    "category": "nature_farm",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "animals"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "f52afcd26048",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": "Venue and title in French; multilingual setting",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 175,
+    "price_min_eur": 35,
+    "price_type": "paid",
+    "primary_language": "multi"
   },
   "1b446c4cb9": {
     "age_max": 21,
@@ -1186,6 +1276,29 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "1f4477a5a4": {
+    "age_max": 6,
+    "age_min": 3,
+    "blurb_en": "Weekly art workshop for young children exploring colors, shapes, and materials through creative play and artistic exploration.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "bae0345671cf",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 80,
+    "price_min_eur": 16,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "1ff862da7a": {
@@ -1523,6 +1636,30 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "2788745c17": {
+    "age_max": 9,
+    "age_min": 4,
+    "blurb_en": "Monthly storytelling session with games and crafts for children",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories",
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "cda6f30e5c38",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "27bd1c8d86": {
     "age_max": 99,
     "age_min": 4,
@@ -1612,6 +1749,29 @@
     "price_max_eur": 10,
     "price_min_eur": 0,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "2972162634": {
+    "age_max": 7,
+    "age_min": 2,
+    "blurb_en": "Monthly free library story reading hour with different themes and picture books.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "0e89a5c5bde9",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "2ac48637ad": {
@@ -1815,6 +1975,29 @@
     "price_max_eur": null,
     "price_min_eur": null,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "2e722afe2e": {
+    "age_max": 5,
+    "age_min": 3,
+    "blurb_en": "Free storytelling session with follow-up activity, no registration required",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "f7d89b6cee99",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "2e92d3fd3b": {
@@ -2034,6 +2217,29 @@
     "fits_8yo": true,
     "french_required": false,
     "hash": "f61c3dd30ffa",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "320892e783": {
+    "age_max": 8,
+    "age_min": 3,
+    "blurb_en": "Volunteers read Dutch children's books at the library, featuring a new book each week.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "3613823feaa7",
     "is_recurring_class": false,
     "is_special_event": true,
     "language_note": null,
@@ -2308,6 +2514,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "384ba99e4b": {
+    "age_max": 8,
+    "age_min": 4,
+    "blurb_en": "Storytelling session with Little Red Riding Hood followed by a fruit tower building activity",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "d09714520817",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "3919830da8": {
     "age_max": 18,
     "age_min": 13,
@@ -2348,6 +2577,30 @@
     "price_max_eur": 84.0,
     "price_min_eur": 84.0,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "3adb53f129": {
+    "age_max": 7,
+    "age_min": 3,
+    "blurb_en": "Monthly library story reading and craft workshop for children with rotating themes.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories",
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "282964c4036c",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "3adc595b15": {
@@ -2415,6 +2668,29 @@
     "price_max_eur": null,
     "price_min_eur": null,
     "price_type": "unknown",
+    "primary_language": "nl"
+  },
+  "3afd0253b4": {
+    "age_max": 5,
+    "age_min": 3,
+    "blurb_en": "Free storytelling session with follow-up activity, no registration required",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "394e0f09f0e8",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "3b95cebd19": {
@@ -2571,6 +2847,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "3f8a576a44": {
+    "age_max": 8,
+    "age_min": 7,
+    "blurb_en": "Weekly classical ballet class teaching technique, posture, flexibility, and movement combinations for children aged 7-8.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "6385094cd433",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 240,
+    "price_min_eur": 0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "408bb351a1": {
     "age_max": 12,
     "age_min": 9,
@@ -2701,6 +3000,29 @@
     "price_max_eur": 279.0,
     "price_min_eur": 279.0,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "4340dd3a8f": {
+    "age_max": 6,
+    "age_min": 3,
+    "blurb_en": "Monthly library story reading hour for young children featuring engaging and entertaining tales.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "a2a32cf287cb",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "4346b01814": {
@@ -3197,6 +3519,30 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "48ef85896b": {
+    "age_max": 7,
+    "age_min": 4,
+    "blurb_en": "Weekly dance class for young children exploring multiple music genres and dance styles in a playful, imaginative way.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "14e1b23ef730",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "4a056814ed": {
     "age_max": 99,
     "age_min": 12,
@@ -3262,6 +3608,29 @@
     "price_max_eur": 195,
     "price_min_eur": 195,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "4ca60bd7f9": {
+    "age_max": 8,
+    "age_min": 5,
+    "blurb_en": "Free library storytelling session about chalk characters starting school, for children aged 5+.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "0fa398fb3beb",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "4cd9c275ec": {
@@ -3486,6 +3855,27 @@
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "5151346a59": {
+    "age_max": 10,
+    "age_min": 3,
+    "blurb_en": "Paw Patrol characters must rescue dinosaurs on a tropical island after emergency landing",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "ab5d7f36e2bb",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "519ccce579": {
@@ -3871,6 +4261,29 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "573f92506f": {
+    "age_max": 10,
+    "age_min": 4,
+    "blurb_en": "Parent-and-child workshop making epoxy resin figurines by mixing colours and pouring them into moulds.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "3f643a7ece6f",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "5761580f07": {
     "age_max": 15,
     "age_min": 12,
@@ -4047,6 +4460,30 @@
     "price_max_eur": 450,
     "price_min_eur": 450,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "5a2eb463e2": {
+    "age_max": 12,
+    "age_min": 4,
+    "blurb_en": "Free library story reading followed by a chalk-art craft session for children aged 4 and up with an adult.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories",
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "97b44b37d98b",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "5b10f16bbe": {
@@ -4250,6 +4687,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "5db2eb515d": {
+    "age_max": 12,
+    "age_min": 6,
+    "blurb_en": "Free library workshop where children design a custom kraft-paper cover for their schoolbooks using lettering, shapes and doodles.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "6c0dd1379631",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "5e4f56f1c2": {
     "age_max": 18,
     "age_min": 3,
@@ -4407,6 +4867,30 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "610fea17db": {
+    "age_max": 8,
+    "age_min": 6,
+    "blurb_en": "Dance class combining contemporary styles including hiphop, funk, jazz, and modern for young children.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "4fff43f9ca88",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 240,
+    "price_min_eur": 80,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "612ad5d074": {
     "age_max": 12,
     "age_min": 4,
@@ -4541,6 +5025,29 @@
     "price_max_eur": 84,
     "price_min_eur": 84,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "64bbce4eb8": {
+    "age_max": 12,
+    "age_min": 3,
+    "blurb_en": "Community center craft workshop where volunteers guide children through creative projects.",
+    "category": "museum_workshop",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "6676ca4cd013",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "6579c9b2d3": {
@@ -5492,26 +5999,25 @@
     "primary_language": "nl"
   },
   "794aecd3df": {
-    "age_max": 99,
+    "age_max": 18,
     "age_min": 0,
-    "blurb_en": "Weekend festival with children's village, games, flea market, and food for all ages.",
+    "blurb_en": "Weekend festival at an abbey with activities for families, including children's village, quiz, market, and dining.",
     "category": "festival",
     "confidence": "high",
     "family_relevant": true,
     "feature_tags": [
-      "kermis",
       "food"
     ],
     "fits_4yo": true,
     "fits_8yo": true,
     "french_required": false,
-    "hash": "d98c7765c9dc",
+    "hash": "de077f1a42ec",
     "is_recurring_class": false,
     "is_special_event": true,
     "language_note": null,
     "model": "claude-haiku-4-5-20251001",
-    "price_max_eur": null,
-    "price_min_eur": null,
+    "price_max_eur": 0,
+    "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -5581,6 +6087,29 @@
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "7aed2f83fb": {
+    "age_max": 12,
+    "age_min": 8,
+    "blurb_en": "Tap dance class with emphasis on rhythmic sounds and swinging movements",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "cf5909a0dd7b",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 240,
+    "price_min_eur": 0,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "7b07ad1ccf": {
@@ -5763,6 +6292,29 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "7e9f6d0b64": {
+    "age_max": 8,
+    "age_min": 4,
+    "blurb_en": "Free monthly library story-reading session with engaging tales for young children, no registration required.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "54e6495553bb",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "7eb61796cf": {
     "age_max": 11,
     "age_min": 6,
@@ -5856,6 +6408,27 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 14.0,
     "price_min_eur": 14.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "818de4db84": {
+    "age_max": 99,
+    "age_min": 14,
+    "blurb_en": "Theatre class for teenagers focusing on dramatic expression, voice technique, and character development.",
+    "category": "theatre_puppetry",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "7763fd2994bb",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 240,
+    "price_min_eur": 0,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -6216,6 +6789,29 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 279,
     "price_min_eur": 279,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "87e75d7a3c": {
+    "age_max": 9,
+    "age_min": 6,
+    "blurb_en": "Jazz dance class covering modern jazz, hip-hop, funk and other dance styles",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "d8ad76eae096",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -6805,6 +7401,29 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "94d90b5e98": {
+    "age_max": 15,
+    "age_min": 3,
+    "blurb_en": "Art workshop exploring drawing, crafting, and creative expression with various materials.",
+    "category": "museum_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "5c677281df65",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 94,
+    "price_min_eur": 94,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "94daea0848": {
     "age_max": 18,
     "age_min": 3,
@@ -6894,6 +7513,29 @@
     "model": "claude-haiku-4-5-20251001+verify",
     "price_max_eur": 10,
     "price_min_eur": 10,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "962df90e32": {
+    "age_max": 11,
+    "age_min": 8,
+    "blurb_en": "Competitive disco dance training for young dancers, focusing on technique and performance.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "8f4220f05f71",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 164,
+    "price_min_eur": 164,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -7069,6 +7711,30 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "9c179fe53f": {
+    "age_max": 7,
+    "age_min": 4,
+    "blurb_en": "Dance class for young children with various music styles and movement techniques",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "5812a241c7de",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "9c214dd8e9": {
@@ -7276,6 +7942,27 @@
     "price_max_eur": 20.0,
     "price_min_eur": 20.0,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "a0bd6502ec": {
+    "age_max": 10,
+    "age_min": 3,
+    "blurb_en": "Paw Patrol characters must rescue dinosaurs on a tropical island after emergency landing",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "767fdc993ef6",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "a0bdf61a3d": {
@@ -7527,6 +8214,29 @@
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "a51aa46f84": {
+    "age_max": 9,
+    "age_min": 8,
+    "blurb_en": "Music initiation workshop where children explore instruments, sounds, and rhythms through play and experimentation.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "music"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "a5b16ddac214",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5,
+    "price_min_eur": 5,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "a55f4de080": {
@@ -7907,6 +8617,30 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "afe76c11f1": {
+    "age_max": 10,
+    "age_min": 7,
+    "blurb_en": "Dance class teaching current music video choreography combined with fundamental dance techniques for ages 7-10.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "0584fdeee580",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 179,
+    "price_min_eur": 99,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "b0b1156302": {
     "age_max": 11,
     "age_min": 9,
@@ -7925,6 +8659,29 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 279.0,
     "price_min_eur": 279.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "b27e44afb7": {
+    "age_max": 15,
+    "age_min": 12,
+    "blurb_en": "Environmental project where participants install barriers to prevent water erosion and manage groundwater infiltration.",
+    "category": "nature_farm",
+    "confidence": "high",
+    "family_relevant": false,
+    "feature_tags": [
+      "water_play"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "3ff9d370019b",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 60,
+    "price_min_eur": 60,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -8375,6 +9132,29 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "bf58b14910": {
+    "age_max": 12,
+    "age_min": 3,
+    "blurb_en": "Free weekly Wednesday read-aloud session for children around a cosy 'campfire' at the library.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "efd2e8bf23cf",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_note": "Read aloud in Dutch; short English and French intros available.",
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "bf9dce5ebd": {
     "age_max": 12,
     "age_min": 4,
@@ -8506,6 +9286,29 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": null,
     "price_min_eur": null,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "c13f13083e": {
+    "age_max": 7,
+    "age_min": 3,
+    "blurb_en": "Free monthly library story-reading sessions featuring themed children's books throughout the year.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "8472ed9c50ce",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -8748,6 +9551,29 @@
     "model": "claude-haiku-4-5-20251001+verify",
     "price_max_eur": null,
     "price_min_eur": null,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "c892b03507": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "Free library event where children personalize book covers with help from illustrators and provided craft supplies.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "8e067b720637",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -9343,6 +10169,27 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "d413c12d37": {
+    "age_max": 10,
+    "age_min": 3,
+    "blurb_en": "Paw Patrol characters must rescue dinosaurs on a tropical island after emergency landing",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "7b2e41d5b174",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "d4a25d1058": {
@@ -10395,6 +11242,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "e738a76801": {
+    "age_max": 99,
+    "age_min": 14,
+    "blurb_en": "Weekly ceramics workshop for teens and adults exploring hand-building and wheel-throwing pottery techniques.",
+    "category": "museum_workshop",
+    "confidence": "high",
+    "family_relevant": false,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "0cb6f0fe56e8",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 350,
+    "price_min_eur": 350,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "e78b778cc2": {
     "age_max": 5,
     "age_min": 3,
@@ -10415,6 +11285,29 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 20.0,
     "price_min_eur": 20.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "e7d4c51d71": {
+    "age_max": 12,
+    "age_min": 9,
+    "blurb_en": "Weekly jazz dance class combining modern, hip-hop, and funk styles for children aged 9-12.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "f8a6995b4373",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -10663,6 +11556,30 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "edd67e7f91": {
+    "age_max": 9,
+    "age_min": 3,
+    "blurb_en": "Language and art workshop for non-native speakers learning Dutch through music and theater",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "music",
+      "crafts"
+    ],
+    "fits_4yo": true,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "f7f7a388d341",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 94,
+    "price_min_eur": 94,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "eff3f626eb": {
     "age_max": 12,
     "age_min": 3,
@@ -10820,6 +11737,29 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 18.0,
     "price_min_eur": 0.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "f3c2e26079": {
+    "age_max": 12,
+    "age_min": 6,
+    "blurb_en": "Irish group dance class combining with other dance lessons",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "48842451793b",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 120,
+    "price_min_eur": 0,
     "price_type": "paid",
     "primary_language": "nl"
   },
