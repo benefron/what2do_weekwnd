@@ -3,52 +3,1444 @@
     "lat": 51.2311025,
     "lng": 4.4412828
   },
+  "AFAS Dome (Sportpaleis) Antwerpen België": {
+    "lat": 51.2311025,
+    "lng": 4.4412828
+  },
+  "Aarsele, 8700 Tielt": {
+    "lat": 50.9845,
+    "lng": 3.4185022
+  },
+  "Abbaye de Villers-la-Ville Villers-la-Ville België": {
+    "lat": 50.5902865,
+    "lng": 4.5288605
+  },
+  "ActionCenter Eastbelgium Malmedy België": {
+    "lat": null,
+    "lng": null
+  },
+  "Adventure Valley Durbuy Durbuy België": {
+    "lat": 50.3455915,
+    "lng": 5.4356409
+  },
+  "Albert I-laan 2, 8630 Veurne": {
+    "lat": 51.058295,
+    "lng": 2.6665465
+  },
+  "Allée du Château 17, 4910 Theux": {
+    "lat": 50.5278268,
+    "lng": 5.8246662
+  },
   "Ancienne Belgique (AB) Brussels België": {
     "lat": 50.8470454,
     "lng": 4.3492674
+  },
+  "Antwerpen": {
+    "lat": 51.2211097,
+    "lng": 4.3997081
+  },
+  "Aqualibi Wavre België": {
+    "lat": 50.7009932,
+    "lng": 4.5937049
+  },
+  "Aquascope Virelles Chimay België": {
+    "lat": 50.0694412,
+    "lng": 4.3455377
+  },
+  "August van de Wielelei 4, 2100 Deurne": {
+    "lat": 51.2184025,
+    "lng": 4.4760099
+  },
+  "Avenue Reine Astrid, 5000 Namur": {
+    "lat": 50.4625944,
+    "lng": 4.8542994
+  },
+  "Avenue de Bouchout 10, 1020 Brussels": {
+    "lat": 50.8931545,
+    "lng": 4.3373402
+  },
+  "Avenue du Football 1, 1020 Brussels": {
+    "lat": 50.8941455,
+    "lng": 4.3374945
+  },
+  "Avenue du Prince d'Orange 1, 1180 Uccle": {
+    "lat": 50.7810851,
+    "lng": 4.3805409
+  },
+  "Ballorig Aalst Aalst België": {
+    "lat": 50.9345143,
+    "lng": 4.0349092
+  },
+  "Ballorig Gent Gent België": {
+    "lat": 51.0741849,
+    "lng": 3.7230735
+  },
+  "Ballorig Harelbeke Harelbeke België": {
+    "lat": 50.8612969,
+    "lng": 3.3234627
+  },
+  "Ballorig Hasselt Hasselt België": {
+    "lat": null,
+    "lng": null
+  },
+  "Ballorig Linter Linter België": {
+    "lat": 50.8025542,
+    "lng": 5.0524764
+  },
+  "Ballorig Mouscron Moeskroen België": {
+    "lat": 50.7459387,
+    "lng": 3.235666
+  },
+  "Ballorig Oostende Oostende België": {
+    "lat": 51.2025478,
+    "lng": 2.9028978
+  },
+  "Ballorig Tournai Doornik België": {
+    "lat": 50.6185667,
+    "lng": 3.3741165
+  },
+  "Barelstraat 25, 2880 Bornem": {
+    "lat": 51.095175,
+    "lng": 4.233547
+  },
+  "Beeldstraat 15, 9100 Sint-Niklaas": {
+    "lat": 51.1675872,
+    "lng": 4.1944137
+  },
+  "Bekaflaan, 3390 Tielt-Winge": {
+    "lat": null,
+    "lng": null
+  },
+  "Bellemdorpweg, 9880 Aalter": {
+    "lat": 51.094093,
+    "lng": 3.4804025
+  },
+  "Bellewaerde Aquapark Ieper België": {
+    "lat": 50.8466399,
+    "lng": 2.9480248
+  },
+  "Bellewaerde Ieper België": {
+    "lat": 50.8490658,
+    "lng": 2.9474044
   },
   "Bellewaerde Park Ieper België": {
     "lat": 50.8490658,
     "lng": 2.9474044
   },
+  "Berchem, Antwerpen": {
+    "lat": 51.1943524,
+    "lng": 4.4329972
+  },
+  "Binnenspeeltuin Beverland Maaseik België": {
+    "lat": null,
+    "lng": null
+  },
+  "Binnenspeeltuin Kakelbont Denderleeuw België": {
+    "lat": null,
+    "lng": null
+  },
+  "Binnenspeeltuin KinderRijck Maaseik België": {
+    "lat": null,
+    "lng": null
+  },
+  "Binnenspeeltuin Papayoe Mortsel België": {
+    "lat": null,
+    "lng": null
+  },
+  "Binnenspeeltuin Speelmijntje Heusden-Zolder België": {
+    "lat": null,
+    "lng": null
+  },
+  "Blegny-Mine Blegny België": {
+    "lat": 50.6871017,
+    "lng": 5.7243044
+  },
+  "Blotevoetenpad Zutendaal Zutendaal België": {
+    "lat": 50.9225338,
+    "lng": 5.5747396
+  },
+  "Bois de la Cambre Brussel België": {
+    "lat": 50.8065938,
+    "lng": 4.3780593
+  },
+  "Bois de la Houssière Braine-le-Comte België": {
+    "lat": 50.6216298,
+    "lng": 4.1927077
+  },
+  "Bokrijklaan 1, 3600 Genk": {
+    "lat": 50.9630827,
+    "lng": 5.4030747
+  },
+  "Bokslaarstraat 100, 9160 Lokeren": {
+    "lat": 51.0895639,
+    "lng": 3.9940767
+  },
+  "Boonmarkt 20, 2220 Heist-op-den-Berg": {
+    "lat": 51.0857067,
+    "lng": 4.7087182
+  },
+  "Bosdomein Het Leen Eeklo België": {
+    "lat": null,
+    "lng": null
+  },
+  "Bosstraat 61, 9200 Dendermonde": {
+    "lat": 51.0091822,
+    "lng": 4.0472548
+  },
+  "Boudewijn Seapark Brugge België": {
+    "lat": 51.1822903,
+    "lng": 3.2148553
+  },
+  "Boulevard du Midi 150, 1000 Brussels": {
+    "lat": 50.8330975,
+    "lng": 4.3449192
+  },
+  "Bourse metro station, 1000 Brussels": {
+    "lat": null,
+    "lng": null
+  },
+  "Bredabaan 967, 2930 Brasschaat": {
+    "lat": 51.3199034,
+    "lng": 4.5188752
+  },
+  "Bruggestraat, 8820 Torhout": {
+    "lat": 51.0691975,
+    "lng": 3.1039876
+  },
+  "Canadaring 41, 8310 Assebroek": {
+    "lat": 51.1893393,
+    "lng": 3.2452439
+  },
+  "Capitole Gent Gent België": {
+    "lat": 51.0481106,
+    "lng": 3.7321395
+  },
   "Capitole Gent Ghent België": {
     "lat": 51.0481106,
     "lng": 3.7321395
+  },
+  "Chaussée de Bruxelles 187, 1410 Waterloo": {
+    "lat": 50.716472,
+    "lng": 4.3985872
+  },
+  "Chaussée de Bruxelles 41, 1473 Genappe": {
+    "lat": 50.6259628,
+    "lng": 4.4338716
+  },
+  "Chaussée de Mariemont 100, 7140 Morlanwelz": {
+    "lat": 50.4697662,
+    "lng": 4.2335275
+  },
+  "Chaussée de Namur, 5530 Yvoir": {
+    "lat": 50.3193989,
+    "lng": 4.8754282
+  },
+  "Chemin de la Citadelle 1, 5500 Dinant": {
+    "lat": 50.2615932,
+    "lng": 4.915939
+  },
+  "Chemin de la Ferme 6, 4000 Liège": {
+    "lat": 50.5775762,
+    "lng": 5.5857715
+  },
+  "Chemin du Cheneux 50, 4950 Ovifat": {
+    "lat": 50.452574,
+    "lng": 6.1023549
+  },
+  "Cherapont 2, 6673 Gouvy": {
+    "lat": 50.176708,
+    "lng": 5.927026
+  },
+  "Cinemas nationwide (Kinepolis a.o.) Antwerpen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Circus Bruul Geel België": {
+    "lat": 51.1638444,
+    "lng": 5.0416396
+  },
+  "City centre of Brussels Brussels België": {
+    "lat": null,
+    "lng": null
+  },
+  "City centre of Namur Namur België": {
+    "lat": null,
+    "lng": null
+  },
+  "Colline du Mardasson 5, 6600 Bastogne": {
+    "lat": 50.0106069,
+    "lng": 5.7392487
+  },
+  "Conquesta Speelparadijs Ieper België": {
+    "lat": null,
+    "lng": null
+  },
+  "Cour des Mineurs, 4000 Liège": {
+    "lat": 50.6471815,
+    "lng": 5.5761113
+  },
+  "De Speelplekke Jabbeke België": {
+    "lat": 51.1705064,
+    "lng": 3.0776082
+  },
+  "Demerstraat 60, 3560 Lummen": {
+    "lat": 50.9631107,
+    "lng": 5.1466075
+  },
+  "Dinant Aventure Dinant België": {
+    "lat": 50.2419351,
+    "lng": 4.92867
+  },
+  "Domaine des Grottes de Han Han-sur-Lesse België": {
+    "lat": 50.1243539,
+    "lng": 5.1911923
+  },
+  "Domaine du Château de Seneffe Seneffe België": {
+    "lat": null,
+    "lng": null
+  },
+  "Domaine et Musée royal de Mariemont Morlanwelz België": {
+    "lat": null,
+    "lng": null
+  },
+  "Domaine provincial de Chevetogne Chevetogne (Ciney) België": {
+    "lat": 50.2291618,
+    "lng": 5.1444225
+  },
+  "Domaine provincial de Chevetogne Chevetogne België": {
+    "lat": 50.2291618,
+    "lng": 5.1444225
+  },
+  "Domaine provincial de Chevetogne Ciney België": {
+    "lat": 50.2291618,
+    "lng": 5.1444225
+  },
+  "Domaine provincial de Mirwart Saint-Hubert België": {
+    "lat": null,
+    "lng": null
+  },
+  "Domaine provincial de Wégimont Soumagne België": {
+    "lat": 50.6120567,
+    "lng": 5.736728
+  },
+  "Domaine provincial du Bois des Rêves Ottignies-Louvain-la-Neuve België": {
+    "lat": 50.65872,
+    "lng": 4.5801876
+  },
+  "Domein Kiewit Hasselt België": {
+    "lat": 50.9625077,
+    "lng": 5.3765629
+  },
+  "Drève de la Ramée 6a, 1310 La Hulpe": {
+    "lat": 50.7320673,
+    "lng": 4.4581835
+  },
+  "Edegem": {
+    "lat": 51.1548066,
+    "lng": 4.4458312
+  },
+  "Eekhoekstraat 5, 9270 Laarne": {
+    "lat": 51.0279888,
+    "lng": 3.8386502
+  },
+  "Esplanade Godefroy 1, 6830 Bouillon": {
+    "lat": null,
+    "lng": null
+  },
+  "Euro Space Center Transinne België": {
+    "lat": 50.0077008,
+    "lng": 5.2203606
+  },
+  "Familiepark De Sierk De Haan België": {
+    "lat": 51.2546904,
+    "lng": 3.008289
+  },
+  "Familiepark Harry Malter Destelbergen België": {
+    "lat": 51.0165745,
+    "lng": 3.8201664
+  },
+  "Ferme Nos Pilifs Neder-Over-Heembeek (Brussel) België": {
+    "lat": 50.9029497,
+    "lng": 4.3864953
+  },
+  "Ferme du Parc Maximilien Brussel België": {
+    "lat": 50.8587248,
+    "lng": 4.3502051
+  },
+  "Floraliënlaan 115, 2020 Antwerpen": {
+    "lat": 51.1855714,
+    "lng": 4.4104282
+  },
+  "Flying Kids Wavre België": {
+    "lat": null,
+    "lng": null
   },
   "Forest National (Vorst Nationaal) Brussels België": {
     "lat": 50.8096462,
     "lng": 4.3260748
   },
+  "Forest National / Vorst Nationaal Brussels België": {
+    "lat": 50.8096462,
+    "lng": 4.3260748
+  },
+  "Forestia Theux België": {
+    "lat": 50.510157,
+    "lng": 5.7751667
+  },
+  "Fortlaan, 2070 Zwijndrecht": {
+    "lat": 51.2137397,
+    "lng": 4.3246
+  },
+  "Fourneau Saint-Michel 4, 6870 Saint-Hubert": {
+    "lat": 50.0921948,
+    "lng": 5.3393679
+  },
+  "Freÿr 12, 5540 Hastière": {
+    "lat": 50.2249873,
+    "lng": 4.8871448
+  },
+  "Fun For Kid's Blegny België": {
+    "lat": null,
+    "lng": null
+  },
+  "Gent": {
+    "lat": 51.0538286,
+    "lng": 3.7250121
+  },
+  "Gijzelstraat 14, 9031 Drongen": {
+    "lat": 51.0669877,
+    "lng": 3.6294874
+  },
+  "Godshuizenlaan 2, 9000 Ghent": {
+    "lat": 51.0435834,
+    "lng": 3.7181253
+  },
+  "Graaf Léon Lippensdreef 8, 8300 Knokke-Heist": {
+    "lat": 51.3589854,
+    "lng": 3.3503698
+  },
+  "Grand-Place, 7000 Mons": {
+    "lat": 50.4544643,
+    "lng": 3.9522767
+  },
+  "Groenhagestraat, 8210 Zedelgem": {
+    "lat": null,
+    "lng": null
+  },
+  "Grote Markt 34, 8900 Ypres": {
+    "lat": 50.8515241,
+    "lng": 2.8861137
+  },
+  "Hanzestedenplaats 1, 2000 Antwerp": {
+    "lat": 51.2289354,
+    "lng": 4.4047321
+  },
+  "Heikruisstraat, 1670 Heikruis": {
+    "lat": null,
+    "lng": null
+  },
+  "Hemelsveldstraat 72, 3570 Alken": {
+    "lat": 50.8669637,
+    "lng": 5.2731037
+  },
+  "Hidrodoe Herentals België": {
+    "lat": 51.1924972,
+    "lng": 4.8134498
+  },
   "Historic city centre Bruges België": {
     "lat": null,
     "lng": null
+  },
+  "Hoefstraat, 3940 Hechtel-Eksel": {
+    "lat": 51.0959111,
+    "lng": 5.3740224
+  },
+  "Hombeeksesteenweg 55, 2800 Mechelen": {
+    "lat": 51.0195039,
+    "lng": 4.470838
+  },
+  "Horststraat 28, 3220 Sint-Pieters-Rode": {
+    "lat": 50.9335932,
+    "lng": 4.8319342
+  },
+  "Houffalize": {
+    "lat": 50.1323761,
+    "lng": 5.7886928
+  },
+  "IJsmolenstraat, 9600 Ronse": {
+    "lat": 50.7536994,
+    "lng": 3.6374797
   },
   "ING Arena Brussels België": {
     "lat": 50.9011203,
     "lng": 4.3423147
   },
+  "ImagiPark Mons België": {
+    "lat": 50.4694229,
+    "lng": 3.9354007
+  },
+  "Indoorspeeldorp Kids Kingdom Roeselare België": {
+    "lat": null,
+    "lng": null
+  },
+  "Isidoor Van Beverenstraat 5, 1702 Groot-Bijgaarden": {
+    "lat": 50.8738637,
+    "lng": 4.2637766
+  },
+  "Jachthavenweg 1, 2050 Antwerpen": {
+    "lat": 51.2341196,
+    "lng": 4.3949591
+  },
+  "Joekelbos Maasmechelen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Jos Cantréstraat 2, 2540 Hove": {
+    "lat": null,
+    "lng": null
+  },
+  "Kanaal, 3900 Pelt": {
+    "lat": 51.2316824,
+    "lng": 5.396976
+  },
+  "Kapelstraat, 8450 Bredene": {
+    "lat": 51.2522021,
+    "lng": 2.9757048
+  },
+  "Kardinaal Mercierplein, Tivolipark, 2800 Mechelen": {
+    "lat": null,
+    "lng": null
+  },
+  "Kasteel van Gaasbeek Gaasbeek (Lennik) België": {
+    "lat": 50.7965012,
+    "lng": 4.1970478
+  },
+  "Kasteelpark, 2260 Westerlo": {
+    "lat": 51.0899203,
+    "lng": 4.908239
+  },
+  "Kasteelstraat 40, 1750 Lennik": {
+    "lat": 50.8009803,
+    "lng": 4.1994844
+  },
+  "Kasteelstraat 6, 3740 Bilzen": {
+    "lat": 50.8410691,
+    "lng": 5.5222124
+  },
+  "Kattebeekstraat 1, 3680 Maaseik": {
+    "lat": 51.0582567,
+    "lng": 5.628637
+  },
+  "Keiskantstraat 3, 9031 Drongen": {
+    "lat": 51.0468948,
+    "lng": 3.6433499
+  },
+  "Kesselsesteenweg 60, 2500 Lier": {
+    "lat": 51.1309937,
+    "lng": 4.5888749
+  },
+  "KidZcity Aartselaar België": {
+    "lat": null,
+    "lng": null
+  },
+  "Kidikids Ans België": {
+    "lat": null,
+    "lng": null
+  },
+  "Kids City Gosselies België": {
+    "lat": null,
+    "lng": null
+  },
+  "Kids' Island Machelen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Kielenstraat 15, 3700 Tongeren": {
+    "lat": 50.7811539,
+    "lng": 5.4664386
+  },
+  "Kloosterstraat, 3910 Pelt": {
+    "lat": 51.2291021,
+    "lng": 5.4320256
+  },
+  "Koestraat 63, 8940 Wervik": {
+    "lat": 50.7753715,
+    "lng": 3.0337507
+  },
+  "Koezio Brussel België": {
+    "lat": 50.8788249,
+    "lng": 4.3720556
+  },
+  "Koningin Astridplein 7, 2018 Antwerp": {
+    "lat": 51.2192003,
+    "lng": 4.420874
+  },
+  "Koolmijnlaan 201, 3582 Beringen": {
+    "lat": 51.0700187,
+    "lng": 5.2220973
+  },
+  "Kraanlei 65, 9000 Ghent": {
+    "lat": 51.0575563,
+    "lng": 3.7234522
+  },
+  "Kunstlaan 5, 3500 Hasselt": {
+    "lat": 50.9269361,
+    "lng": 5.3465726
+  },
+  "L'île aux Enfants Brussel België": {
+    "lat": 50.8954039,
+    "lng": 4.3211747
+  },
+  "La Forêt de Popy Amay België": {
+    "lat": 50.5467969,
+    "lng": 5.3154168
+  },
+  "La Pic'orée Péruwelz België": {
+    "lat": null,
+    "lng": null
+  },
+  "Laarbeekbos, 1090 Jette": {
+    "lat": 50.8839494,
+    "lng": 4.2993629
+  },
+  "Le Monde Sauvage d'Aywaille Aywaille België": {
+    "lat": null,
+    "lng": null
+  },
+  "Le Monde d'Ayden (Nivelles) Nivelles België": {
+    "lat": null,
+    "lng": null
+  },
+  "Le Monde d'Ayden (Uccle) Brussel België": {
+    "lat": null,
+    "lng": null
+  },
+  "Le PASS – Parc d'aventures scientifiques Frameries België": {
+    "lat": null,
+    "lng": null
+  },
+  "Leopold Vanderkelenstraat 28, 3000 Leuven": {
+    "lat": 50.8789738,
+    "lng": 4.7047883
+  },
+  "Leuvensesteenweg 13, 3080 Tervuren": {
+    "lat": 50.8293803,
+    "lng": 4.5177804
+  },
+  "Lonestraat 02A, 8640 Vleteren": {
+    "lat": null,
+    "lng": null
+  },
+  "Lotstraat 65, 1650 Beersel": {
+    "lat": null,
+    "lng": null
+  },
   "Lotto Arena Antwerp België": {
     "lat": 51.2301227,
     "lng": 4.4418497
+  },
+  "Lotto Arena Antwerpen België": {
+    "lat": 51.2301227,
+    "lng": 4.4418497
+  },
+  "Magic Parc Tournai België": {
+    "lat": null,
+    "lng": null
+  },
+  "Markt & Minnewater Brugge België": {
+    "lat": null,
+    "lng": null
+  },
+  "Markt 1, 8000 Bruges": {
+    "lat": 51.2092401,
+    "lng": 3.2250659
+  },
+  "Marktplein 100, 3550 Heusden-Zolder": {
+    "lat": 51.0387048,
+    "lng": 5.3295314
+  },
+  "Maximiliaanpark, 1000 Brussel": {
+    "lat": 50.8579614,
+    "lng": 4.3502695
+  },
+  "Mega Speelstad Lille België": {
+    "lat": 51.26134,
+    "lng": 4.7948157
+  },
+  "Mini-Europe Brussel België": {
+    "lat": 50.8941641,
+    "lng": 4.3387436
+  },
+  "Minnemeers 10, 9000 Ghent": {
+    "lat": 51.0593803,
+    "lng": 3.7291541
+  },
+  "Montevideostraat 3, 2000 Antwerp": {
+    "lat": 51.2333316,
+    "lng": 4.4034124
+  },
+  "Museum of Natural Sciences Brussel België": {
+    "lat": 50.8365093,
+    "lng": 4.3764944
+  },
+  "Natuurpark Nieuwenhoven Sint-Truiden België": {
+    "lat": 50.8531717,
+    "lng": 5.2173578
+  },
+  "Neerharenweg 12, 3620 Lanaken": {
+    "lat": 50.9023838,
+    "lng": 5.6595184
+  },
+  "Neerhofstraat 2, 1700 Dilbeek": {
+    "lat": 50.839046,
+    "lng": 4.259139
+  },
+  "Nekkerspoelstraat 21, 2800 Mechelen": {
+    "lat": 51.0305706,
+    "lng": 4.4912441
+  },
+  "Nevenplein 2, 3620 Lanaken": {
+    "lat": null,
+    "lng": null
+  },
+  "Nieuwelaan 38, 1860 Meise": {
+    "lat": 50.9279803,
+    "lng": 4.3290759
+  },
+  "Nieuwpoortsesteenweg 642, 8400 Oostende": {
+    "lat": 51.1972296,
+    "lng": 2.8472874
+  },
+  "Ninove": {
+    "lat": 50.8214549,
+    "lng": 4.0037422
+  },
+  "Nonnebossen-Oost 80, 8980 Zonnebeke": {
+    "lat": 50.8479143,
+    "lng": 2.975556
+  },
+  "Noordstraat 28, 8500 Kortrijk": {
+    "lat": 50.8305771,
+    "lng": 3.2560514
+  },
+  "Omer Vanaudenhovelaan 48, 3290 Diest": {
+    "lat": 50.9864814,
+    "lng": 5.0650331
+  },
+  "Ooidonkdreef 9, 9800 Deinze": {
+    "lat": 51.001469,
+    "lng": 3.5838205
   },
   "Pairi Daiza Brugelette België": {
     "lat": 50.5845489,
     "lng": 3.8863619
   },
+  "Pakawi Park Balen België": {
+    "lat": 51.1269543,
+    "lng": 5.1461651
+  },
+  "Parc Animalier de Bouillon Bouillon België": {
+    "lat": 49.7909688,
+    "lng": 5.0757174
+  },
+  "Parc Chlorophylle Manhay België": {
+    "lat": 50.2405415,
+    "lng": 5.5930838
+  },
+  "Parc Roi Baudouin, 1090 Jette": {
+    "lat": 50.8896018,
+    "lng": 4.3164249
+  },
+  "Parc animalier de Bouillon Bouillon België": {
+    "lat": 49.7909688,
+    "lng": 5.0757174
+  },
+  "Parc de Bruxelles, 1000 Brussel": {
+    "lat": 50.8454886,
+    "lng": 4.3622004
+  },
+  "Parc de Forest, 1190 Vorst": {
+    "lat": 50.8240781,
+    "lng": 4.3335968
+  },
+  "Parc de Tour & Taxis, 1080 Brussel": {
+    "lat": 50.8587248,
+    "lng": 4.3502051
+  },
+  "Parc de Woluwe Sint-Pieters-Woluwe België": {
+    "lat": 50.8283157,
+    "lng": 4.4276973
+  },
+  "Parc de Wolvendael, 1180 Ukkel": {
+    "lat": null,
+    "lng": null
+  },
+  "Parc de la Boverie, 4020 Liège": {
+    "lat": 50.6285785,
+    "lng": 5.5778093
+  },
+  "Parc du Cinquantenaire 11, 1000 Brussels": {
+    "lat": 50.8402489,
+    "lng": 4.3939746
+  },
+  "Parc du Cinquantenaire 3, 1000 Brussels": {
+    "lat": 50.8402489,
+    "lng": 4.3939746
+  },
+  "Parc à Gibier de La Roche-en-Ardenne La Roche-en-Ardenne België": {
+    "lat": 50.1787454,
+    "lng": 5.5828749
+  },
+  "Pastoor Schmitzstraat 5, 8670 Koksijde": {
+    "lat": 51.1169031,
+    "lng": 2.6831392
+  },
+  "Pastoor Verwilghenplein 5, 9150 Kruibeke": {
+    "lat": 51.1811171,
+    "lng": 4.2399316
+  },
+  "PepsClub Hannut België": {
+    "lat": null,
+    "lng": null
+  },
+  "Pirouette Namur België": {
+    "lat": 50.4592745,
+    "lng": 4.8836619
+  },
+  "Place Saint-Lambert Liège België": {
+    "lat": 50.6447297,
+    "lng": 5.5730821
+  },
+  "Place de l'Atomium 1, 1020 Brussels": {
+    "lat": 50.8950214,
+    "lng": 4.3414208
+  },
+  "Plaisiersbos Zedelgem België": {
+    "lat": 51.0912146,
+    "lng": 3.1564686
+  },
+  "Planet Kids Zaventem België": {
+    "lat": 50.8519096,
+    "lng": 4.5058322
+  },
+  "Planetariumweg 19, 3600 Genk": {
+    "lat": 50.9576795,
+    "lng": 5.5367631
+  },
+  "Plantentuin Meise (Meise Botanic Garden) Meise België": {
+    "lat": null,
+    "lng": null
+  },
+  "Play Beach Gent België": {
+    "lat": 51.037108,
+    "lng": 3.7680819
+  },
+  "Plopsa Coo Stavelot België": {
+    "lat": 50.3951064,
+    "lng": 5.873066
+  },
+  "Plopsa Station Antwerp Antwerpen België": {
+    "lat": 51.213401,
+    "lng": 4.4220164
+  },
   "Plopsaland Belgium De Panne België": {
     "lat": 51.0814023,
     "lng": 2.5985212
+  },
+  "Plopsaland De Panne De Panne België": {
+    "lat": 51.0814023,
+    "lng": 2.5985212
+  },
+  "Plopsaqua De Panne De Panne België": {
+    "lat": 51.0819267,
+    "lng": 2.6013129
+  },
+  "Plopsaqua Hannut-Landen Landen België": {
+    "lat": 50.7070138,
+    "lng": 5.0805609
+  },
+  "Provinciaal Domein Bokrijk Genk België": {
+    "lat": 50.960104,
+    "lng": 5.4061498
+  },
+  "Provinciaal Domein De Boerekreek Sint-Laureins België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein De Brielmeersen Deinze België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein De Gavers Geraardsbergen België": {
+    "lat": 50.7914644,
+    "lng": 3.9210751
+  },
+  "Provinciaal Domein De Ster Sint-Niklaas België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein Dommelhof Pelt België": {
+    "lat": 51.2319828,
+    "lng": 5.4217323
+  },
+  "Provinciaal Domein Het Leen Eeklo België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein Nieuwdonk Berlare België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein Prinsenpark Retie België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Domein Puyenbroeck Wachtebeke België": {
+    "lat": 51.1484991,
+    "lng": 3.8837718
+  },
+  "Provinciaal Groendomein Kesselse Heide Nijlen België": {
+    "lat": 51.1608525,
+    "lng": 4.6312142
+  },
+  "Provinciaal Groendomein Rivierenhof Antwerpen (Deurne) België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Groendomein Vrijbroekpark Mechelen België": {
+    "lat": 51.0205276,
+    "lng": 4.4589504
+  },
+  "Provinciaal Recreatiedomein De Lilse Bergen Gierle (Lille) België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Recreatiedomein De Nekker Mechelen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Recreatiedomein De Schorre Boom België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciaal Recreatiedomein Zilvermeer Mol België": {
+    "lat": 51.2194425,
+    "lng": 5.1642862
+  },
+  "Provinciaal domein Puyenbroeck Wachtebeke België": {
+    "lat": 51.1484991,
+    "lng": 3.8837718
+  },
+  "Provinciaal domein Rivierenhof Antwerpen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciedomein Bergelen Wevelgem België": {
+    "lat": 50.8406803,
+    "lng": 3.1865311
+  },
+  "Provinciedomein Bulskampveld Beernem België": {
+    "lat": 51.1125599,
+    "lng": 3.2956897
+  },
+  "Provinciedomein De Averegten Heist-op-den-Berg België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciedomein De Gavers Harelbeke België": {
+    "lat": 50.8432288,
+    "lng": 3.3234505
+  },
+  "Provinciedomein De Palingbeek Ieper België": {
+    "lat": null,
+    "lng": null
+  },
+  "Provinciedomein Halve Maan Diest België": {
+    "lat": 50.9837333,
+    "lng": 5.064968
+  },
+  "Provinciedomein Het Vinne Zoutleeuw België": {
+    "lat": 50.8410262,
+    "lng": 5.1258896
+  },
+  "Provinciedomein Raversyde Oostende België": {
+    "lat": 51.2019667,
+    "lng": 2.8533566
+  },
+  "Provinciedomein Tillegembos Brugge België": {
+    "lat": 51.1750668,
+    "lng": 3.1900865
+  },
+  "Provinciedomein Wallemote-Wolvenhof Izegem België": {
+    "lat": 50.9063234,
+    "lng": 3.1888433
+  },
+  "Provinciedomein d'Aertrycke Torhout België": {
+    "lat": 51.0946592,
+    "lng": 3.0784317
+  },
+  "Provinciedomein de IJzerboomgaard Diksmuide België": {
+    "lat": null,
+    "lng": null
+  },
+  "Prullenbos Wetteren België": {
+    "lat": 51.0202602,
+    "lng": 3.8504079
+  },
+  "Préhistomuseum Flémalle België": {
+    "lat": 50.5790403,
+    "lng": 5.4286848
+  },
+  "Pukkemuk Dadizele België": {
+    "lat": null,
+    "lng": null
+  },
+  "Putvennestraat 110, 3500 Hasselt": {
+    "lat": 50.9606057,
+    "lng": 5.3770886
+  },
+  "Puyenbrug 1a, 9185 Wachtebeke": {
+    "lat": 51.1544549,
+    "lng": 3.8780276
+  },
+  "Quai Édouard Van Beneden 22, 4020 Liège": {
+    "lat": 50.6388955,
+    "lng": 5.5788581
+  },
+  "Reningelst, 8970 Poperinge": {
+    "lat": 50.8170498,
+    "lng": 2.7636029
+  },
+  "Rerum Novarumstraat, 9100 Sint-Niklaas": {
+    "lat": null,
+    "lng": null
+  },
+  "Route Merveilleuse 64, 5000 Namur": {
+    "lat": 50.4589767,
+    "lng": 4.8616834
+  },
+  "Route de la Ferme Libert 33, 4960 Malmedy": {
+    "lat": 50.4460192,
+    "lng": 6.0326348
+  },
+  "Route de la Sauvenière 132, 4900 Spa": {
+    "lat": null,
+    "lng": null
+  },
+  "Rue Devant les Hêtres 1, 6890 Transinne": {
+    "lat": null,
+    "lng": null
+  },
+  "Rue Emile Léonard 4, 1470 Bousval": {
+    "lat": null,
+    "lng": null
+  },
+  "Rue François Dubois 1, 1310 La Hulpe": {
+    "lat": 50.7338645,
+    "lng": 4.4923858
+  },
+  "Rue Houte-si-Plou, 4120 Neupré": {
+    "lat": 50.5423966,
+    "lng": 5.5038944
+  },
+  "Rue Joseph Lamotte 2, 5580 Han-sur-Lesse": {
+    "lat": 50.1243539,
+    "lng": 5.1911923
+  },
+  "Rue Lambert Marlet 23, 4670 Blegny": {
+    "lat": 50.6865155,
+    "lng": 5.7218794
+  },
+  "Rue Lucien Plasman 7-9, 7180 Seneffe": {
+    "lat": 50.5248513,
+    "lng": 4.2656183
+  },
+  "Rue Raymond Cordier 50, 7070 Le Rœulx": {
+    "lat": 50.4757361,
+    "lng": 4.1020035
+  },
+  "Rue Saint-Patrice 2b, 7110 Houdeng-Aimeries": {
+    "lat": 50.4702117,
+    "lng": 4.1489169
+  },
+  "Rue Vautier 29, 1000 Brussels": {
+    "lat": 50.8364236,
+    "lng": 4.3764353
+  },
+  "Rue de Chevelipont 17, 1490 Court-Saint-Étienne": {
+    "lat": 50.6044254,
+    "lng": 4.5346466
+  },
+  "Rue de Furfooz 3, 5561 Celles": {
+    "lat": 50.2216867,
+    "lng": 4.9860809
+  },
+  "Rue de Mons 3, 7080 Frameries": {
+    "lat": 50.4186333,
+    "lng": 3.9013139
+  },
+  "Rue de Renipont, 1380 Lasne": {
+    "lat": null,
+    "lng": null
+  },
+  "Rue de Seneffe 1, 7191 Écaussinnes-Lalaing": {
+    "lat": 50.5682942,
+    "lng": 4.1765579
+  },
+  "Rue de l'Eglise Saint-Pierre, 1090 Jette": {
+    "lat": 50.8802531,
+    "lng": 4.3252616
+  },
+  "Rue de la Gare 13, 1350 Orp-Jauche": {
+    "lat": 50.6826009,
+    "lng": 4.9580298
+  },
+  "Rue de la Grotte 128, 4400 Flémalle": {
+    "lat": 50.5789698,
+    "lng": 5.4265473
+  },
+  "Rue des Sables 20, 1000 Brussels": {
+    "lat": 50.8510096,
+    "lng": 4.3600362
+  },
+  "Rue du Bourgmestre 15, 1050 Ixelles": {
+    "lat": 50.8216082,
+    "lng": 4.3787768
+  },
+  "Rue du Cazier 80, 6001 Marcinelle": {
+    "lat": 50.3807484,
+    "lng": 4.4427949
+  },
+  "Rue du Château 11, 7970 Beloeil": {
+    "lat": 50.5509817,
+    "lng": 3.7301055
+  },
+  "Rue du Château 14, 6460 Chimay": {
+    "lat": 50.0490436,
+    "lng": 4.3135417
+  },
+  "Rue du Château 8, 5580 Lavaux-Sainte-Anne": {
+    "lat": 50.1157402,
+    "lng": 5.0917558
+  },
+  "Rue du Château de Corroy 4, 5032 Gembloux": {
+    "lat": 50.5329096,
+    "lng": 4.6564999
+  },
+  "Rue du Labrador 26, 1348 Louvain-la-Neuve": {
+    "lat": 50.6711918,
+    "lng": 4.6130191
+  },
+  "Rue du Monceau, Juseret 2, 6640 Vaux-sur-Sûre": {
+    "lat": 49.8811868,
+    "lng": 5.5524453
+  },
+  "Rue du Parc 4, 4577 Modave": {
+    "lat": 50.4408809,
+    "lng": 5.2868687
+  },
+  "Rue du Péri 96, 4100 Seraing": {
+    "lat": null,
+    "lng": null
+  },
+  "Rue du Sart 27, 5170 Profondeville": {
+    "lat": 50.354129,
+    "lng": 4.8588832
+  },
+  "Rue du Vieux Château 4, 6980 La Roche-en-Ardenne": {
+    "lat": 50.181642,
+    "lng": 5.5756902
+  },
+  "Ruggeveldlaan, 2100 Deurne": {
+    "lat": 51.2151707,
+    "lng": 4.4818704
+  },
+  "Récréalle Alle-sur-Semois België": {
+    "lat": 49.8468884,
+    "lng": 4.9763233
+  },
+  "Réserve naturelle de Furfooz Dinant België": {
+    "lat": 50.2130507,
+    "lng": 4.9540416
+  },
+  "SEA LIFE Blankenberge Blankenberge België": {
+    "lat": 51.3175073,
+    "lng": 3.1452186
+  },
+  "SUPER Brussel België": {
+    "lat": 50.8658444,
+    "lng": 4.3460139
+  },
+  "Saraland Houthalen-Helchteren België": {
+    "lat": null,
+    "lng": null
+  },
+  "Schaffensestraat, 3583 Paal": {
+    "lat": null,
+    "lng": null
+  },
+  "Sentier pieds nus de Montleban Gouvy België": {
+    "lat": 50.1918138,
+    "lng": 5.8422636
+  },
+  "Serpentarium Blankenberge Blankenberge België": {
+    "lat": null,
+    "lng": null
+  },
+  "Sint-Pietersplein 14, 9000 Ghent": {
+    "lat": 51.0413362,
+    "lng": 3.7270725
+  },
+  "Sint-Veerleplein 11, 9000 Gent": {
+    "lat": 51.0571809,
+    "lng": 3.7207652
+  },
+  "Speel- en Sportbos As As België": {
+    "lat": 51.009487,
+    "lng": 5.5970927
+  },
+  "Speelbos 't Vossenhol Bertem België": {
+    "lat": 50.8749594,
+    "lng": 4.6138772
+  },
+  "Speelbos Bourgoyen-Ossemeersen Gent België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos De Averegten Heist-op-den-Berg België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos De Gavers Geraardsbergen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos De Hoge Mouw (Kabouterberg) Kasterlee België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos De Palingbeek Ieper België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Everzwijnbad Oud-Heverlee België": {
+    "lat": 50.8040625,
+    "lng": 4.6703387
+  },
+  "Speelbos Grote Getevallei Linter België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Het Vlasbos Ingelmunster België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Kelchterhoef Houthalen-Helchteren België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Machelenput Zulte België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Meerdaalwoud (Speelberg) Oud-Heverlee België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Nieuwenhoven Sint-Truiden België": {
+    "lat": 50.8527938,
+    "lng": 5.2169444
+  },
+  "Speelbos Oudenaarde Oudenaarde België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Park Groot Schijn Antwerpen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Pollebos Londerzeel België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Prinsenpark Retie België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Puyenbroeck Wachtebeke België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Rivierenhof Antwerpen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Sahara Lommel België": {
+    "lat": 51.2468933,
+    "lng": 5.2952353
+  },
+  "Speelbos Silsombos Kortenberg België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Tillegembos Brugge België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Voerenberg Voeren België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbos Zevenbergenbos Ranst België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelbossen Bokrijk Genk België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelpark Hemelrijk Essen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelpunt Roeselare België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelzone Kluisbos Kluisbergen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelzone Uitkerkse Polder Blankenberge België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelzones Hallerbos Halle België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelzones Neteland Grobbendonk België": {
+    "lat": null,
+    "lng": null
+  },
+  "Speelzones Rood Klooster (Rouge-Cloître) Oudergem België": {
+    "lat": null,
+    "lng": null
   },
   "Sport Vlaanderen Hofstade Zemst België": {
     "lat": 50.9867279,
     "lng": 4.5100386
   },
+  "Stardust Park Brussel België": {
+    "lat": 50.8091014,
+    "lng": 4.3255604
+  },
+  "Steenbrugsestraat 26, 8210 Loppem": {
+    "lat": 51.1595143,
+    "lng": 3.2026289
+  },
+  "Ter Priemstraat 2, 8780 Oostrozebeke": {
+    "lat": 50.9172475,
+    "lng": 3.3258228
+  },
+  "The Family Station Waterloo België": {
+    "lat": null,
+    "lng": null
+  },
+  "Tiensestraat, 3380 Glabbeek": {
+    "lat": null,
+    "lng": null
+  },
+  "Tournai": {
+    "lat": 50.6056458,
+    "lng": 3.3878179
+  },
+  "Trassersweg 347, 1120 Neder-Over-Heembeek": {
+    "lat": 50.9037977,
+    "lng": 4.3887536
+  },
+  "Vaartstraat 7, 8902 Ieper": {
+    "lat": 50.8226233,
+    "lng": 2.9061672
+  },
+  "Vakantiepark Molenheide Houthalen-Helchteren België": {
+    "lat": 51.0823453,
+    "lng": 5.3975219
+  },
   "Various Flemish theatres Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
+  "Veldegem, 8210 Zedelgem": {
+    "lat": 51.1048944,
+    "lng": 3.1606518
+  },
+  "Veugenstraat 48, 3690 Zutendaal": {
+    "lat": 50.947827,
+    "lng": 5.5516792
+  },
+  "Vieuxville, 4190 Ferrières": {
+    "lat": 50.3955089,
+    "lng": 5.5512446
+  },
+  "Ville Basse A 141, 7830 Silly": {
+    "lat": 50.64955,
+    "lng": 3.9245564
+  },
+  "Vismarkt 1, 3980 Tessenderlo": {
+    "lat": 51.0699829,
+    "lng": 5.091121
+  },
+  "Walhain": {
+    "lat": 50.6180106,
+    "lng": 4.6953383
+  },
+  "Wijnendalestraat 214, 8820 Torhout": {
+    "lat": 51.0960034,
+    "lng": 3.0725042
+  },
+  "Wolfgang d'Ursellaan 9, 2880 Hingene": {
+    "lat": null,
+    "lng": null
+  },
+  "Wulveringemstraat 10, 8630 Veurne": {
+    "lat": 51.0163755,
+    "lng": 2.6557528
+  },
+  "Xhendelesse, 4652 Herve": {
+    "lat": 50.6037018,
+    "lng": 5.7726472
+  },
+  "YOYO Arlon Arlon België": {
+    "lat": null,
+    "lng": null
+  },
+  "Zeedijk-Duinbergen, 8301 Knokke-Heist": {
+    "lat": 51.3447797,
+    "lng": 3.2583659
+  },
+  "Zetellaan 100, 3630 Maasmechelen": {
+    "lat": 51.0019861,
+    "lng": 5.7071924
+  },
+  "Zones de jeux Forêt de Soignes Watermaal-Bosvoorde België": {
+    "lat": null,
+    "lng": null
+  },
+  "Zoutelaan 177, 8300 Knokke-Heist": {
+    "lat": 51.3508137,
+    "lng": 3.3177376
+  },
+  "Zwin Natuur Park Knokke-Heist België": {
     "lat": null,
     "lng": null
   },
   "___, 0000, ___": {
     "lat": 48.2414295,
     "lng": 12.5237616
+  },
+  "Île d'Yvoir, 5530 Yvoir": {
+    "lat": null,
+    "lng": null
   }
 }
