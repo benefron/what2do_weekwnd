@@ -215,19 +215,21 @@ export default function FilterBar({ filters: f, dataset, resultCount, onChange, 
         </section>
       )}
 
-      {dataset.feature_tags.length > 0 && (
+      {dataset.feature_tags.filter((t) => FEATURE_LABELS[t.key]).length > 0 && (
         <section>
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">What's there</p>
           <div className="flex flex-wrap gap-1.5">
-            {dataset.feature_tags.map((t) => (
-              <button
-                key={t.key}
-                onClick={() => toggleIn("features", t.key)}
-                className={`chip ${f.features.includes(t.key) ? "chip--on" : ""}`}
-              >
-                {FEATURE_EMOJI[t.key] ?? ""} {FEATURE_LABELS[t.key]}
-              </button>
-            ))}
+            {dataset.feature_tags
+              .filter((t) => FEATURE_LABELS[t.key])
+              .map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => toggleIn("features", t.key)}
+                  className={`chip ${f.features.includes(t.key) ? "chip--on" : ""}`}
+                >
+                  {FEATURE_EMOJI[t.key] ?? ""} {FEATURE_LABELS[t.key]}
+                </button>
+              ))}
           </div>
         </section>
       )}

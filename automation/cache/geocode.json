@@ -167,6 +167,10 @@
     "lat": 50.6216298,
     "lng": 4.1927077
   },
+  "Bokrijk Open-Air Museum Genk België": {
+    "lat": null,
+    "lng": null
+  },
   "Bokrijklaan 1, 3600 Genk": {
     "lat": 50.9630827,
     "lng": 5.4030747
@@ -251,6 +255,10 @@
     "lat": 50.176708,
     "lng": 5.927026
   },
+  "Château fort de Bouillon Bouillon België": {
+    "lat": null,
+    "lng": null
+  },
   "Cinemas nationwide (Kinepolis a.o.) Antwerpen België": {
     "lat": null,
     "lng": null
@@ -258,6 +266,14 @@
   "Circus Bruul Geel België": {
     "lat": 51.1638444,
     "lng": 5.0416396
+  },
+  "City centre (Grand-Place, Bourse, Vismet) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
+  "City centre (multiple squares) Namur België": {
+    "lat": null,
+    "lng": null
   },
   "City centre of Brussels Brussels België": {
     "lat": null,
@@ -427,6 +443,10 @@
     "lat": null,
     "lng": null
   },
+  "Grote Markt / Groenplaats and city centre Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
   "Grote Markt 34, 8900 Ypres": {
     "lat": 50.8515241,
     "lng": 2.8861137
@@ -448,6 +468,10 @@
     "lng": 4.8134498
   },
   "Historic city centre Bruges België": {
+    "lat": null,
+    "lng": null
+  },
+  "Historic city centre Ghent België": {
     "lat": null,
     "lng": null
   },
@@ -570,6 +594,10 @@
   "Koezio Brussel België": {
     "lat": 50.8788249,
     "lng": 4.3720556
+  },
+  "Kolonel Dusartplein Hasselt België": {
+    "lat": 50.9322306,
+    "lng": 5.3438536
   },
   "Koningin Astridplein 7, 2018 Antwerp": {
     "lat": 51.2192003,
@@ -814,6 +842,10 @@
   "Place de l'Atomium 1, 1020 Brussels": {
     "lat": 50.8950214,
     "lng": 4.3414208
+  },
+  "Place du Marché / Place Saint-Lambert Liège België": {
+    "lat": null,
+    "lng": null
   },
   "Plaisiersbos Zedelgem België": {
     "lat": 51.0912146,
@@ -1331,6 +1363,10 @@
     "lat": 50.9867279,
     "lng": 4.5100386
   },
+  "Sportpaleis (AFAS Dome) Antwerp België": {
+    "lat": 51.2311025,
+    "lng": 4.4412828
+  },
   "Stardust Park Brussel België": {
     "lat": 50.8091014,
     "lng": 4.3255604
@@ -1414,6 +1450,10 @@
   "YOYO Arlon Arlon België": {
     "lat": null,
     "lng": null
+  },
+  "ZOO Planckendael Mechelen België": {
+    "lat": 51.0022386,
+    "lng": 4.5144687
   },
   "Zeedijk-Duinbergen, 8301 Knokke-Heist": {
     "lat": 51.3447797,

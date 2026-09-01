@@ -83,11 +83,14 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
 
         {a.feature_tags.length > 0 && (
           <div className="flex flex-wrap gap-1 pt-1">
-            {a.feature_tags.slice(0, 5).map((t) => (
-              <span key={t} className="rounded-md bg-paper px-1.5 py-0.5 text-xs text-muted">
-                {FEATURE_EMOJI[t] ?? ""} {FEATURE_LABELS[t]}
-              </span>
-            ))}
+            {a.feature_tags
+              .filter((t) => FEATURE_LABELS[t])
+              .slice(0, 5)
+              .map((t) => (
+                <span key={t} className="rounded-md bg-paper px-1.5 py-0.5 text-xs text-muted">
+                  {FEATURE_EMOJI[t] ?? ""} {FEATURE_LABELS[t]}
+                </span>
+              ))}
           </div>
         )}
 

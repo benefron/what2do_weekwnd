@@ -22,9 +22,11 @@ def load_places_as_activities(run_id: str) -> list[dict]:
         log.warning("places.json invalid: %s", exc)
         return []
 
+    vocab = set(config.FEATURE_TAG_VOCAB)
     out: list[dict] = []
     for p in data.get("places", []):
         lat, lng = p.get("lat"), p.get("lng")
+        tags = [t for t in (p.get("tags") or []) if t in vocab]
         dist = haversine_km((lat, lng), config.LEUVEN_CENTER) if lat is not None and lng is not None else None
         out.append({
             "id": p["id"],
@@ -59,7 +61,7 @@ def load_places_as_activities(run_id: str) -> list[dict]:
             "indoor": p.get("indoor"),
             "seasonal": p.get("seasonal"),
             "category": _KIND_TO_CATEGORY.get(p.get("kind"), "other"),
-            "feature_tags": p.get("tags", []),
+            "feature_tags": tags,
             "audience": "everyone",
             "age_min": p.get("age_min"),
             "age_max": p.get("age_max"),
