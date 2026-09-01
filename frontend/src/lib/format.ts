@@ -11,12 +11,28 @@ export function firstFutureDate(a: Activity): Date | null {
   return dates.find((d) => d.getTime() >= now) ?? dates[0] ?? null;
 }
 
+const DMY: Intl.DateTimeFormatOptions = { day: "numeric", month: "short" };
+const WDMY: Intl.DateTimeFormatOptions = { weekday: "short", day: "numeric", month: "short" };
+
 export function formatDate(a: Activity): string {
   if (a.date_kind === "permanent") return "Open year-round";
+
+  const now = Date.now() - DAY_MS;
+  const start = a.date_start ? new Date(a.date_start) : null;
+  const end = a.date_end ? new Date(a.date_end) : null;
+  const spans = end && start && end.getTime() - start.getTime() > 6 * DAY_MS;
+
+  // ongoing / long-running series: show the window, not a stale start date
+  if ((a.date_kind === "recurring" || a.date_kind === "multi_day") && end && end.getTime() > now && spans) {
+    if (start && start.getTime() > now) {
+      return `${start.toLocaleDateString("en-GB", DMY)} – ${end.toLocaleDateString("en-GB", DMY)}`;
+    }
+    return `until ${end.toLocaleDateString("en-GB", WDMY)}`;
+  }
+
   const d = firstFutureDate(a);
   if (!d) return "Date to confirm";
-  const opts: Intl.DateTimeFormatOptions = { weekday: "short", day: "numeric", month: "short" };
-  const base = d.toLocaleDateString("en-GB", opts);
+  const base = d.toLocaleDateString("en-GB", WDMY);
   const count = (a.occurrences ?? []).length;
   if (a.date_kind === "recurring") return `${base} · recurring`;
   if (count > 1) return `${base} +${count - 1} more`;

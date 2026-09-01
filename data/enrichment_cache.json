@@ -941,6 +941,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "193138c7ee": {
+    "age_max": 14,
+    "age_min": 6,
+    "blurb_en": "Workshop where children decorate schoolbooks with unique cover paper and have drawings added by an illustrator.",
+    "category": "library_workshop",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "5665cc74939f",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "197994d0e0": {
     "age_max": 99,
     "age_min": 0,
@@ -2870,6 +2893,30 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "401fc0f7c5": {
+    "age_max": 8,
+    "age_min": 6,
+    "blurb_en": "Mixed dance class combining modern dance, hiphop, and clipdance with different choreographers for ages 6-8.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "aafa652fd7e3",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 259,
+    "price_min_eur": 259,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "408bb351a1": {
     "age_max": 12,
     "age_min": 9,
@@ -4307,6 +4354,27 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "57a9f62a10": {
+    "age_max": 99,
+    "age_min": 8,
+    "blurb_en": "Guided walk through Duinbergen exploring 1920s villas, post-war modernist architecture, and public art installations.",
+    "category": "guided_tour",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "6838b9f978c4",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 7,
+    "price_min_eur": 7,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "57b173962e": {
     "age_max": 12,
     "age_min": 5,
@@ -5524,6 +5592,30 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "6d04cda03c": {
+    "age_max": 11,
+    "age_min": 9,
+    "blurb_en": "Commercial dance class teaching music video styles, hiphop, and performance techniques for ages 9-11.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": false,
+    "french_required": false,
+    "hash": "423da594a037",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 259,
+    "price_min_eur": 259,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "6d38d991d4": {
@@ -7199,6 +7291,29 @@
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "8de0214491": {
+    "age_max": 9,
+    "age_min": 6,
+    "blurb_en": "Classical ballet class teaching technique, expressiveness, and ballet repertoire for ages 6-9.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "fits_4yo": false,
+    "fits_8yo": true,
+    "french_required": false,
+    "hash": "a236b365fc74",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 195,
+    "price_min_eur": 195,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "8df0c06f0f": {

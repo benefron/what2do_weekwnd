@@ -12,7 +12,9 @@ never overwritten. Does not commit — review the diff, then commit yourself.
 import argparse
 import json
 import logging
+import re
 import sys
+import time
 from datetime import date
 from pathlib import Path
 
@@ -21,8 +23,63 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import config
 import geo
 import llm_runner
+from sources import http_get
 
 log = logging.getLogger("build_places")
+
+# When the same place turns up under several kinds (Claude over-uses the
+# catch-all kinds), keep the most specific one. Lower rank wins.
+KIND_RANK = {
+    "zomerbar": 0, "playground_restaurant": 1, "multimove": 2,
+    "zoo": 3, "castle": 4, "provincial_domain": 5, "farm": 6, "museum": 7,
+    "speelbos": 8, "playground_indoor": 9, "playground_outdoor": 10,
+    "attraction_park": 11, "other": 12,
+}
+
+_OG_IMAGE_RE = re.compile(
+    r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]+content=["\']([^"\']+)["\']',
+    re.IGNORECASE,
+)
+
+
+def _og_image(url: str) -> str | None:
+    if not url or not url.startswith("http"):
+        return None
+    try:
+        html = http_get(url).decode("utf-8", "replace")
+    except Exception:  # noqa: BLE001
+        return None
+    m = _OG_IMAGE_RE.search(html) or re.search(
+        r'content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\']og:image["\']', html, re.IGNORECASE
+    )
+    if not m:
+        return None
+    img = m.group(1).strip()
+    if img.startswith("//"):
+        img = "https:" + img
+    if not img.startswith("http"):
+        return None
+    low = img.lower()
+    # skip logos / favicons / generic social-share defaults — worse than nothing
+    if any(bad in low for bad in (
+        "favicon", "/logo", "logo.", "-logo", "default.png", "default.jpg",
+        "placeholder", "cropped-", "sprite", "icon-", "/icons/", "apple-touch",
+    )):
+        return None
+    return img
+
+
+def backfill_images(places: list[dict]) -> int:
+    n = 0
+    for p in places:
+        if p.get("image_url") or not p.get("website"):
+            continue
+        img = _og_image(p["website"])
+        time.sleep(0.3)
+        if img:
+            p["image_url"] = img
+            n += 1
+    return n
 
 KINDS = {
     "museum": "child-friendly museums (science, history, transport, nature, art with a family offer)",
@@ -87,10 +144,16 @@ across ALL of Belgium — every province, Flanders AND Wallonia AND Brussels.
 
 This is for a permanent "things to do with kids (ages 4 and 8)" guide, so only
 include places that are genuinely worth a family visit and are permanently open
-(not one-off events). Aim for 20-60 entries. For each: the real name, city,
-province (one of the enum values), a one-sentence factual English description,
-the official website, rough price, typical age range, whether it is mainly
-indoor, and whether it is seasonal (summer/winter/null).
+(not one-off events). Aim for 20-60 entries.
+
+Only list places that genuinely fit "{desc}". Do NOT pad the list with places
+that really belong to another category (e.g. a museum does not belong in a
+theme-parks list, a zoo does not belong in a castles list).
+
+For each: the real name, city, province (one of the enum values), a one-sentence
+factual English description, the official website (homepage URL), rough price,
+typical age range, whether it is mainly indoor, and whether it is seasonal
+(summer/winter/null).
 
 Do not invent places. If unsure a place exists or is still open, leave it out.
 Return JSON matching the schema exactly."""
@@ -144,6 +207,10 @@ def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     ap = argparse.ArgumentParser()
     ap.add_argument("--kinds", help="comma-separated subset of: " + ",".join(KINDS))
+    ap.add_argument("--images", action="store_true",
+                    help="only backfill og:image for places missing a photo, then exit")
+    ap.add_argument("--dedupe", action="store_true",
+                    help="only re-run cross-kind dedupe + geocode, then exit")
     args = ap.parse_args()
     # priority order — the kinds the guide is thinnest on come first
     default_order = [
@@ -153,20 +220,51 @@ def main() -> int:
     ]
     kinds = args.kinds.split(",") if args.kinds else default_order
 
-    existing = json.loads(config.DATA_DIR.joinpath("places.json").read_text())
+    places_path = config.DATA_DIR / "places.json"
+    existing = json.loads(places_path.read_text())
     by_id = {p["id"]: p for p in existing["places"]}
     curated_names = {p["name"].lower() for p in existing["places"] if p.get("source") == "curated"}
 
+    def _dedupe_cross_kind(items: list[dict]) -> list[dict]:
+        best: dict[str, dict] = {}
+        for p in items:
+            key = re.sub(r"[^a-z0-9]", "", (p.get("name") or "").lower())
+            cur = best.get(key)
+            if cur is None:
+                best[key] = p
+                continue
+            # curated always wins; otherwise the more specific kind wins
+            p_score = (p.get("source") == "curated", -KIND_RANK.get(p.get("kind"), 12))
+            c_score = (cur.get("source") == "curated", -KIND_RANK.get(cur.get("kind"), 12))
+            if p_score > c_score:
+                best[key] = p
+        return list(best.values())
+
     def flush():
-        merged = sorted(by_id.values(), key=lambda p: (p.get("kind", ""), p["name"]))
+        merged = _dedupe_cross_kind(list(by_id.values()))
+        merged.sort(key=lambda p: (p.get("kind", ""), p["name"]))
         geo.geocode_activities(merged)  # fills lat/lng via the shared disk cache
         out = {
             "_comment": existing.get("_comment", ""),
             "updated": date.today().isoformat(),
             "places": [{k: v for k, v in p.items() if k != "distance_km"} for p in merged],
         }
-        config.DATA_DIR.joinpath("places.json").write_text(json.dumps(out, ensure_ascii=False, indent=2))
+        places_path.write_text(json.dumps(out, ensure_ascii=False, indent=2))
         return len(merged)
+
+    if args.images:
+        added = backfill_images(existing["places"])
+        places_path.write_text(json.dumps(
+            {"_comment": existing.get("_comment", ""), "updated": date.today().isoformat(),
+             "places": existing["places"]},
+            ensure_ascii=False, indent=2))
+        log.info("images: +%d og:image backfilled", added)
+        return 0
+
+    if args.dedupe:
+        total = flush()
+        log.info("dedupe: %d places after cross-kind dedupe", total)
+        return 0
 
     added = 0
     for kind in kinds:

@@ -11,6 +11,10 @@
     "lat": 50.9845,
     "lng": 3.4185022
   },
+  "Abbaye d'Aulne Thuin België": {
+    "lat": 50.3656937,
+    "lng": 4.3313056
+  },
   "Abbaye de Villers-la-Ville Villers-la-Ville België": {
     "lat": 50.5902865,
     "lng": 4.5288605
@@ -210,6 +214,10 @@
   "Bruggestraat, 8820 Torhout": {
     "lat": 51.0691975,
     "lng": 3.1039876
+  },
+  "Brussels city centre (Bourse, Grand-Place area) Brussels België": {
+    "lat": null,
+    "lng": null
   },
   "Canadaring 41, 8310 Assebroek": {
     "lat": 51.1893393,
@@ -482,6 +490,10 @@
   "Hidrodoe Herentals België": {
     "lat": 51.1924972,
     "lng": 4.8134498
+  },
+  "Historic centre of Bruges Bruges België": {
+    "lat": 51.2101679,
+    "lng": 3.2270891
   },
   "Historic city centre Bruges België": {
     "lat": null,
@@ -866,6 +878,10 @@
   "Place Saint-Lambert Liège België": {
     "lat": 50.6447297,
     "lng": 5.5730821
+  },
+  "Place St-Lambert & Place du Marché Liège België": {
+    "lat": null,
+    "lng": null
   },
   "Place de l'Atomium 1, 1020 Brussels": {
     "lat": 50.8950214,
@@ -1394,6 +1410,10 @@
   "Sportpaleis (AFAS Dome) Antwerp België": {
     "lat": 51.2311025,
     "lng": 4.4412828
+  },
+  "Stadsschouwburg Antwerpen Antwerp België": {
+    "lat": 51.2157136,
+    "lng": 4.4098911
   },
   "Stardust Park Brussel België": {
     "lat": 50.8091014,
