@@ -1,6 +1,6 @@
 {
   "_comment": "The permanent guide — museums, zoos, provincial domains, speelbossen, indoor/outdoor playgrounds, attraction parks, zomerbars, playground-restaurants across Belgium. NOT re-fetched by the weekly run: run_weekly.py reads this file verbatim and merges it into the dashboard. Expand it with `python -m automation.build_places` (Claude web search) or by hand. Keep source:\"curated\" entries — the builder never overwrites them. kind: museum|zoo|provincial_domain|speelbos|playground_indoor|playground_outdoor|multimove|zomerbar|playground_restaurant|farm|attraction_park|castle|other. seasonal: null|summer|winter.",
-  "updated": "2026-09-01",
+  "updated": "2026-09-02",
   "places": [
     {
       "id": "place-attraction_park-adventure-valley-durbuy",
