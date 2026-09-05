@@ -160,12 +160,12 @@ def fetch_uit_agenda() -> tuple[list[dict], list[str], list[str]]:
 # actually use rather than hard-coding one schema we cannot verify from here.
 _ODS_TITLE = ("title", "titre", "nom", "name", "intitule", "libelle")
 _ODS_DESC = ("description", "descriptif", "description_courte", "resume", "contenu", "texte")
-_ODS_START = ("start_datetime", "date_debut", "datedebut", "start_date", "date_start", "debut", "date")
-_ODS_END = ("end_datetime", "date_fin", "datefin", "end_date", "date_end", "fin")
-_ODS_URL = ("url", "lien", "link", "website", "site_web", "url_evenement")
-_ODS_CITY = ("commune", "ville", "city", "localite", "municipality")
-_ODS_VENUE = ("lieu", "venue", "place", "nom_lieu", "location", "adresse_lieu")
-_ODS_ADDRESS = ("adresse", "address", "rue", "street")
+_ODS_START = ("start_datetime", "startdate", "date_debut", "datedebut", "start_date", "date_start", "debut", "date")
+_ODS_END = ("end_datetime", "enddate", "date_fin", "datefin", "end_date", "date_end", "fin")
+_ODS_URL = ("url", "event_url", "lien", "link", "website", "site_web", "url_evenement")
+_ODS_CITY = ("commune", "ville", "city", "localite", "municipality", "address_city")
+_ODS_VENUE = ("lieu", "venue", "place", "nom_lieu", "location", "adresse_lieu", "owner_diary_name")
+_ODS_ADDRESS = ("adresse", "address", "rue", "street", "address_street_name")
 
 
 def _ods_pick(rec: dict, names: tuple[str, ...]):
@@ -179,7 +179,7 @@ def _ods_pick(rec: dict, names: tuple[str, ...]):
 
 
 def _ods_geo(rec: dict) -> tuple[float | None, float | None]:
-    for key in ("geo_point_2d", "geo_point", "coordonnees", "location", "geolocalisation"):
+    for key in ("geo_point_2d", "geo_point", "coordinates", "coordonnees", "location", "geolocalisation"):
         v = rec.get(key)
         if isinstance(v, dict) and v.get("lat") is not None:
             return float(v["lat"]), float(v.get("lon") or v.get("lng"))

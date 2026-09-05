@@ -58,12 +58,21 @@ python3 -m venv .venv        # if you don't already have one
 # the main check — prints OK/EMPTY/FAIL for every configured source
 ../scripts/verify_sources.sh
 
-# if verify_sources.sh flags a problem, dig in with the probe tool:
-.venv/bin/python -m automation.probe_source uit
-.venv/bin/python -m automation.probe_source ods odwb_wallonie
-.venv/bin/python -m automation.probe_source ods odwb_letsgocity
-.venv/bin/python -m automation.probe_source url https://www.quefaire.be/region-de-bruxelles
+# if verify_sources.sh flags a problem, dig in with the probe tool (from repo root):
+cd ..
+automation/.venv/bin/python -m automation.probe_source uit
+automation/.venv/bin/python -m automation.probe_source ods odwb_wallonie
+automation/.venv/bin/python -m automation.probe_source ods odwb_letsgocity
+automation/.venv/bin/python -m automation.probe_source url https://www.quefaire.be/region-de-bruxelles
 ```
+
+**Update 2026-09-06 (ran on the Mac):** `verify_sources.sh` passes for all four
+UiT feeds (Brussels + Vlaams-Brabant region pages paginate via `?page=N` as
+hoped) and both ODWB OpenDataSoft datasets. The ODWB field-name tuples in
+`automation/sources.py` were guesses and two were wrong — fixed in this branch
+(`startdate`/`enddate`, `address_city`, `event_url`, `coordinates`). The
+disabled `opendata_brussels` "agenda" dataset 404s (wrong dataset id / portal);
+left disabled, still a later task.
 
 Specific things likely to need a tweak once you can actually see the responses:
 - **UiT region pages**: does `?page=N` paginate on

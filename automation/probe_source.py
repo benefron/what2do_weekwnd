@@ -2,20 +2,28 @@
 
 The dev environment this was written in blocks every Belgian host, so the
 source definitions in config.py are structural guesses. Run this before
-trusting one:
+trusting one, from the repo root:
 
     python -m automation.probe_source url https://www.quefaire.be/region-de-bruxelles
     python -m automation.probe_source ods odwb_wallonie
     python -m automation.probe_source uit          # every UIT_AGENDA_SOURCES entry
 
+(running `python probe_source.py ...` from inside automation/ works too.)
+
 It only reads. Nothing here writes to the repo.
 """
 import json
+import os
 import re
 import sys
 
-import config
-import sources
+# config.py / sources.py sit next to this file and import each other by bare
+# name, so `python -m automation.probe_source` (repo root on sys.path) needs
+# automation/ on the path as well. Harmless when run as a plain script.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import config  # noqa: E402
+import sources  # noqa: E402
 
 _FEED_RE = re.compile(
     r'<link[^>]+type="application/(?:rss|atom)\+xml"[^>]*href="([^"]+)"', re.I)

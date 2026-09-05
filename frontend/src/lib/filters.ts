@@ -113,13 +113,19 @@ function parseAges(raw: string | null): AgeBucket[] {
 /**
  * URL params win over `base` (the saved prefs), so a shared link always shows
  * the sender what they saw regardless of the recipient's stored preferences.
+ *
+ * A sender on a global default omits the corresponding param entirely, so if we
+ * still filled those gaps from `base` a default-Leuven/no-age link would open at
+ * the recipient's saved Brussels location with their saved age filter. Any param
+ * present therefore means "reproduce exactly this state" and prefs are ignored;
+ * `base` only fills a bare first visit with no query string at all.
  */
 export function paramsToFilters(search: string, base: SavedPrefs = {}): FilterState {
   const p = new URLSearchParams(search);
   const list = (v: string | null) => (v ? (v.split(",").filter(Boolean) as never[]) : []);
   const langs = (v: string | null) =>
     v ? LANGUAGES.filter((l) => v.split(",").includes(l)) : [];
-  const defaults = { ...DEFAULT_FILTERS, ...base };
+  const defaults = { ...DEFAULT_FILTERS, ...(Array.from(p.keys()).length ? {} : base) };
   return {
     ...defaults,
     tab: (p.get("tab") as Tab) || "weekend",
