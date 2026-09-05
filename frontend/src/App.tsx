@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dataset } from "./types";
 import { loadDataset } from "./lib/data";
 import {
@@ -61,7 +61,16 @@ export default function App() {
     }
   }, [saved]);
 
+  // Skip the very first run: the initial filters value already reflects a URL
+  // override (from a shared link) merged over saved prefs, and persisting that
+  // on load would silently overwrite the visitor's own home/ages/languages
+  // just for opening someone else's link. Only a later, real change re-fires.
+  const skipFirstPrefsWrite = useRef(true);
   useEffect(() => {
+    if (skipFirstPrefsWrite.current) {
+      skipFirstPrefsWrite.current = false;
+      return;
+    }
     try {
       const { origin, ages, languages } = filters;
       localStorage.setItem(PREFS_KEY, JSON.stringify({ origin, ages, languages }));

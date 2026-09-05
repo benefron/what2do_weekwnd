@@ -97,14 +97,24 @@ export default function FilterBar({
   // permanently light up "Clear filters"
   const dirty = JSON.stringify({ ...f, tab: "x" }) !== JSON.stringify({ ...baseline, tab: "x" });
 
+  // A fixed reference order per key, so a selection serialises identically no
+  // matter what order the chips were clicked in — clicking "8" then "4" must
+  // produce the same array (and URL/JSON) as "4" then "8".
+  const CANONICAL_ORDER: Record<"categories" | "features" | "placeKinds" | "ages" | "languages", readonly string[]> = {
+    ages: AGE_BUCKETS,
+    languages: LANGUAGES,
+    categories: dataset.categories.map((c) => c.key),
+    placeKinds: (dataset.place_kinds ?? []).map((k) => k.key),
+    features: dataset.feature_tags.map((t) => t.key),
+  };
+
   const toggleIn = <K extends "categories" | "features" | "placeKinds" | "ages" | "languages">(
     key: K,
     val: FilterState[K][number]
   ) => {
     const set = new Set(f[key] as string[]);
     set.has(val as string) ? set.delete(val as string) : set.add(val as string);
-    // keep a canonical order so the same selection always serialises identically
-    const order = [...(f[key] as string[]), val];
+    const order = CANONICAL_ORDER[key];
     const next = [...set].sort((a, b) => order.indexOf(a) - order.indexOf(b));
     onChange({ [key]: next } as unknown as Partial<FilterState>);
   };
