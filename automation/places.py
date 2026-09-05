@@ -72,9 +72,10 @@ def load_places_as_activities(run_id: str) -> list[dict]:
             "price_min_eur": p.get("price_min_eur"),
             "price_max_eur": p.get("price_max_eur"),
             "price_note_nl": p.get("price_note_nl"),
-            "primary_language": "nl",
+            "primary_language": _province_language(p.get("province")),
             "french_required": False,
             "language_note": None,
+            "language_free": p.get("kind") in _LANGUAGE_FREE_KINDS,
             "is_special_event": False,
             "is_recurring_class": False,
             "booking_required": None,
@@ -85,6 +86,29 @@ def load_places_as_activities(run_id: str) -> list[dict]:
     log.info("places: loaded %d permanent entries", len(out))
     return out
 
+
+# Dutch-speaking provinces, the bilingual capital, and the French-speaking south.
+# Without this every Walloon museum was published as primary_language "nl".
+_FR_PROVINCES = {"Waals-Brabant", "Henegouwen", "Luik", "Luxemburg", "Namen"}
+_NL_PROVINCES = {
+    "Antwerpen", "Limburg", "Oost-Vlaanderen", "Vlaams-Brabant", "West-Vlaanderen",
+}
+
+
+def _province_language(province: str | None) -> str:
+    if province in _FR_PROVINCES:
+        return "fr"
+    if province in _NL_PROVINCES:
+        return "nl"
+    return "multi"  # Brussel, and anything unmapped
+
+
+# Places you can enjoy without following any spoken language. Museums, castles
+# and multimove classes are carried by words, so they are deliberately absent.
+_LANGUAGE_FREE_KINDS = {
+    "speelbos", "playground_indoor", "playground_outdoor", "playground_restaurant",
+    "provincial_domain", "zomerbar", "zoo", "attraction_park", "farm",
+}
 
 _KIND_TO_CATEGORY = {
     "museum": "museum_exhibition",

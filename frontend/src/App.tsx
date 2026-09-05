@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dataset } from "./types";
 import { loadDataset } from "./lib/data";
 import {
@@ -7,12 +7,15 @@ import {
   filtersToParams,
   paramsToFilters,
   type FilterState,
+  type SavedPrefs,
   type Tab,
 } from "./lib/filters";
+import { parseOrigin, withDistance } from "./lib/locations";
 import ActivityCard from "./components/ActivityCard";
 import FilterBar from "./components/FilterBar";
 
 const SAVED_KEY = "weekwnd.saved.v1";
+const PREFS_KEY = "weekwnd.prefs.v1";
 
 function loadSaved(): Set<string> {
   try {
@@ -22,10 +25,21 @@ function loadSaved(): Set<string> {
   }
 }
 
+/** Where you are, how old your kids are and what you speak don't change between
+ *  visits, so they're remembered. A URL param still overrides them. */
+function loadPrefs(): SavedPrefs {
+  try {
+    return JSON.parse(localStorage.getItem(PREFS_KEY) || "{}") as SavedPrefs;
+  } catch {
+    return {};
+  }
+}
+
 export default function App() {
   const [dataset, setDataset] = useState<Dataset | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<FilterState>(() => paramsToFilters(location.search));
+  const [prefs] = useState<SavedPrefs>(loadPrefs);
+  const [filters, setFilters] = useState<FilterState>(() => paramsToFilters(location.search, loadPrefs()));
   const [saved, setSaved] = useState<Set<string>>(loadSaved);
   const [showFilters, setShowFilters] = useState(false);
   const [onlySaved, setOnlySaved] = useState(false);
@@ -47,6 +61,24 @@ export default function App() {
     }
   }, [saved]);
 
+  // Skip the very first run: the initial filters value already reflects a URL
+  // override (from a shared link) merged over saved prefs, and persisting that
+  // on load would silently overwrite the visitor's own home/ages/languages
+  // just for opening someone else's link. Only a later, real change re-fires.
+  const skipFirstPrefsWrite = useRef(true);
+  useEffect(() => {
+    if (skipFirstPrefsWrite.current) {
+      skipFirstPrefsWrite.current = false;
+      return;
+    }
+    try {
+      const { origin, ages, languages } = filters;
+      localStorage.setItem(PREFS_KEY, JSON.stringify({ origin, ages, languages }));
+    } catch {
+      /* private mode — ignore */
+    }
+  }, [filters.origin, filters.ages, filters.languages]);
+
   const patch = (p: Partial<FilterState>) => setFilters((f) => ({ ...f, ...p }));
   const setTab = (tab: Tab) => setFilters((f) => ({ ...f, tab }));
   const toggleSave = (id: string) =>
@@ -56,11 +88,20 @@ export default function App() {
       return next;
     });
 
+  const origin = useMemo(() => parseOrigin(filters.origin), [filters.origin]);
+
+  // distance_km ships measured from Leuven; re-derive it for the chosen origin
+  // so every downstream consumer keeps reading activity.distance_km unchanged.
+  const located = useMemo(
+    () => (dataset ? withDistance(dataset.activities, origin) : []),
+    [dataset, origin]
+  );
+
   const results = useMemo(() => {
     if (!dataset) return [];
-    const r = applyFilters(dataset.activities, filters);
+    const r = applyFilters(located, filters);
     return onlySaved ? r.filter((a) => saved.has(a.id)) : r;
-  }, [dataset, filters, onlySaved, saved]);
+  }, [dataset, located, filters, onlySaved, saved]);
 
   if (error) {
     return (
@@ -139,7 +180,9 @@ export default function App() {
                 dataset={dataset}
                 resultCount={results.length}
                 onChange={patch}
-                onReset={() => setFilters((f) => ({ ...DEFAULT_FILTERS, tab: f.tab }))}
+                origin={origin}
+                baseline={{ ...DEFAULT_FILTERS, ...prefs }}
+                onReset={() => setFilters((f) => ({ ...DEFAULT_FILTERS, ...prefs, tab: f.tab }))}
               />
             )}
           </div>
@@ -162,7 +205,13 @@ export default function App() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {results.map((a) => (
-                <ActivityCard key={a.id} activity={a} saved={saved.has(a.id)} onToggleSave={toggleSave} />
+                <ActivityCard
+                  key={a.id}
+                  activity={a}
+                  saved={saved.has(a.id)}
+                  originLabel={origin.label}
+                  onToggleSave={toggleSave}
+                />
               ))}
             </div>
           )}
