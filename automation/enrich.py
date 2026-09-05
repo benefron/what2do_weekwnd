@@ -18,11 +18,16 @@ log = logging.getLogger(__name__)
 _ENRICH_SCHEMA = json.loads((config.PROMPTS_DIR / "enrich_schema.json").read_text())
 _VERIFY_SCHEMA = json.loads((config.PROMPTS_DIR / "verify_schema.json").read_text())
 
+# Bump whenever the schema or the prompt changes in a way that makes existing
+# cached classifications wrong. It is folded into the content hash, so a bump
+# re-enriches everything rather than silently replaying stale answers.
+SCHEMA_VERSION = 2
+
 _LLM_FIELDS = (
     "category", "feature_tags", "age_min", "age_max", "fits_4yo", "fits_8yo",
-    "primary_language", "french_required", "language_note", "price_type",
-    "price_min_eur", "price_max_eur", "blurb_en", "is_special_event",
-    "is_recurring_class", "family_relevant", "confidence",
+    "primary_language", "french_required", "language_note", "language_free",
+    "price_type", "price_min_eur", "price_max_eur", "blurb_en",
+    "is_special_event", "is_recurring_class", "family_relevant", "confidence",
 )
 
 _INPUT_FIELDS = (
@@ -34,6 +39,7 @@ _INPUT_FIELDS = (
 
 def _content_hash(act: dict) -> str:
     basis = "|".join(str(act.get(k) or "") for k in ("title_nl", "description_nl", "date_start"))
+    basis = f"v{SCHEMA_VERSION}|{basis}"
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()[:12]
 
 
@@ -50,6 +56,18 @@ def _save_cache(cache: dict) -> None:
     config.ENRICHMENT_CACHE_JSON.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True))
 
 
+def _primary_language_default(act: dict) -> str:
+    """raw_language is UiTdatabank's comma-joined `languages` list, so it can be
+    "nl,fr" — which is not a member of the schema enum. Collapse it."""
+    raw = (act.get("raw_language") or "").strip().lower()
+    if not raw:
+        return "nl"
+    parts = [p.strip() for p in raw.split(",") if p.strip()]
+    if len(parts) > 1:
+        return "multi"
+    return parts[0] if parts[0] in ("nl", "fr", "en", "multi") else "nl"
+
+
 def _default_fields(act: dict) -> dict:
     return {
         "category": "other",
@@ -58,9 +76,10 @@ def _default_fields(act: dict) -> dict:
         "age_max": act.get("age_max") if act.get("age_max") is not None else 12,
         "fits_4yo": True,
         "fits_8yo": True,
-        "primary_language": act.get("raw_language") or "nl",
+        "primary_language": _primary_language_default(act),
         "french_required": False,
         "language_note": None,
+        "language_free": False,
         "price_type": act.get("price_type", "unknown"),
         "price_min_eur": act.get("price_min_eur"),
         "price_max_eur": act.get("price_max_eur"),

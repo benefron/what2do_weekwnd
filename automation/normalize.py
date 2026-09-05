@@ -62,6 +62,12 @@ def _parse_age_range(raw: str | None) -> tuple[int | None, int | None]:
 
 
 # ── weekend / holiday bucketing ─────────────────────────────────────────────
+def _wednesday(today: date) -> date:
+    """The next upcoming Wednesday, today included. Belgian primary schools
+    finish at noon on Wednesday, so it is the densest slot for kids' activities."""
+    return today + timedelta(days=(2 - today.weekday()) % 7)  # Mon=0 ... Wed=2
+
+
 def _weekend_windows(today: date) -> tuple[set[date], set[date]]:
     offset = (5 - today.weekday()) % 7
     if today.weekday() >= 5:
@@ -92,8 +98,21 @@ def _occ_dates(act: dict) -> list[date]:
     return out
 
 
+def _occ_starts(act: dict) -> list[datetime]:
+    """Occurrence starts as datetimes, so the Wednesday bucket can tell an
+    after-school slot from a morning one."""
+    out = [dt for occ in act.get("occurrences") or []
+           if (dt := _parse_any_date(occ.get("start")))]
+    if not out and act.get("date_start"):
+        dt = _parse_any_date(act["date_start"])
+        if dt:
+            out.append(dt)
+    return out
+
+
 def _bucketize(act: dict, today: date, window_end: date) -> None:
     this_wknd, next_wknd = _weekend_windows(today)
+    wednesday = _wednesday(today)
     buckets: set[str] = set()
     holiday_name = None
     in_holiday = False
@@ -103,6 +122,10 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
         act["in_school_holiday"] = False
         act["school_holiday_name"] = None
         return
+
+    for dt in _occ_starts(act):
+        if dt.date() == wednesday and (act.get("all_day") or dt.hour == 0 or dt.hour >= 12):
+            buckets.add("wednesday")
 
     for d in _occ_dates(act):
         if d in this_wknd:
@@ -122,6 +145,8 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
     ds, de = _parse_any_date(act.get("date_start")), _parse_any_date(act.get("date_end"))
     if ds and de:
         span = {ds.date() + timedelta(days=i) for i in range((de.date() - ds.date()).days + 1)}
+        if wednesday in span:
+            buckets.add("wednesday")
         if span & this_wknd:
             buckets.add("this_weekend")
         if span & next_wknd:
@@ -228,7 +253,7 @@ def _from_uitdatabank(node: dict, run_id: str) -> dict | None:
     }.get(cal, "single")
     occ = _uit_occurrences(node)
     age_min, age_max = _parse_age_range(node.get("typicalAgeRange"))
-    langs = node.get("languages") or []
+    langs = node.get("completedLanguages") or node.get("languages") or []
 
     return {
         "id": activity_id(public_url),
@@ -322,6 +347,7 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
         "primary_language": rec.get("primary_language", "multi"),
         "french_required": bool(rec.get("french_required")),
         "language_note": rec.get("notes_en"),
+        "language_free": bool(rec.get("language_free")),
         "fits_4yo": rec.get("audience") in ("kids", "family"),
         "fits_8yo": rec.get("audience") in ("kids", "family", "teens_adults"),
         "is_special_event": True,
@@ -371,7 +397,8 @@ def _from_manual(ov: dict, run_id: str) -> dict:
         "price_note_nl": ov.get("price_note_nl"),
     }
     for k in ("category", "feature_tags", "blurb_en", "primary_language",
-              "french_required", "is_special_event", "fits_4yo", "fits_8yo"):
+              "french_required", "language_free", "is_special_event",
+              "fits_4yo", "fits_8yo"):
         if k in ov:
             act[k] = ov[k]
     return act
