@@ -24,7 +24,11 @@ import config
 
 log = logging.getLogger(__name__)
 
-_EVENT_LINK_RE = re.compile(r"/agenda/e/[a-z0-9-]+/([0-9a-fA-F-]{36})")
+# UiTdatabank normally uses RFC-4122 UUIDs (36 chars), but publiq still emits
+# legacy CDBIDs in an 8-4-4-16 uppercase shape (35 chars) on some listings. The
+# exact-36 pattern silently dropped those; widen the length while keeping the
+# surrounding /agenda/e/<slug>/ path as the anchor so it can't over-match.
+_EVENT_LINK_RE = re.compile(r"/agenda/e/[a-z0-9-]+/([0-9a-fA-F-]{32,40})")
 
 
 # ── URL identity ────────────────────────────────────────────────────────────

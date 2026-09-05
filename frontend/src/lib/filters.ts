@@ -25,7 +25,7 @@ export const AGE_BUCKET_RANGE: Record<AgeBucket, [number, number]> = {
   "8": [8, 8],
   "9": [9, 9],
   "10": [10, 10],
-  "11+": [11, 17],
+  "11+": [11, 99],  // genuinely open-ended, matching ageSpan's own treatment of null/>=18 upper bounds
 };
 
 export type Language = "nl" | "fr" | "en";
