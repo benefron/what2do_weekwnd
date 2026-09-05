@@ -358,6 +358,57 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
     }
 
 
+def _from_generic(rec: dict, run_id: str) -> dict:
+    """OpenDataSoft rows and RSS entries: a title, a link, a date, maybe a place.
+    Everything else is left to enrich.py, exactly like a manual override that
+    carries no classification.
+
+    Note title_nl/description_nl are the historical field names for "the text as
+    published"; for a French source that text is French, and _default_language
+    is what tells the enricher so.
+    """
+    url = rec.get("url") or f"{rec.get('_source', 'feed')}://{rec.get('title')}"
+    start = rec.get("start")
+    end = rec.get("end")
+    multi = bool(end) and str(end)[:10] != str(start)[:10]
+    return {
+        "id": activity_id(url),
+        "source": rec.get("_source", "feed"),
+        "source_label": rec.get("_source_label", "Feed"),
+        "source_event_id": None,
+        "url": url,
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "last_seen_run": run_id,
+        "title_nl": (rec.get("title") or "").strip(),
+        "description_nl": _strip_html(rec.get("description") or "")[:600],
+        "organizer_nl": None,
+        "image_url": rec.get("image_url"),
+        "date_start": start,
+        "date_end": end,
+        "all_day": bool(rec.get("all_day")),
+        "occurrences": [{"start": start, "end": end}] if start else [],
+        "date_kind": "multi_day" if multi else "single",
+        "age_min": None,
+        "age_max": None,
+        "age_source": None,
+        "audience": "everyone",
+        # a prior for the enricher, not a verdict — it still reads the text
+        "raw_language": rec.get("_default_language"),
+        "_terms": [],
+        "_labels": [],
+        "venue_name": rec.get("venue_name"),
+        "address": rec.get("address"),
+        "city": rec.get("city"),
+        "postal_code": None,
+        "lat": rec.get("lat"),
+        "lng": rec.get("lng"),
+        "price_type": "unknown",
+        "price_min_eur": None,
+        "price_max_eur": None,
+        "price_note_nl": None,
+    }
+
+
 def _from_manual(ov: dict, run_id: str) -> dict:
     url = ov.get("url") or f"manual://{ov.get('id') or ov.get('title_nl')}"
     act = {
@@ -458,6 +509,8 @@ def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
                 act = _from_uitdatabank(rec, run_id)
             elif kind == "claude_search":
                 act = _from_claude_search(rec, run_id)
+            elif kind in ("ods", "feed"):
+                act = _from_generic(rec, run_id)
             elif kind == "manual":
                 act = _from_manual(rec, run_id)
             else:
