@@ -130,8 +130,14 @@ no enrich) — `build_places.py` is the only thing that writes it.
 
 3. **`geo.py` — geocode + distance.** Prefers payload lat/lng; else Nominatim
    (1.1s throttle, custom UA) with a **git-committed** disk cache
-   `automation/cache/geocode.json` (never expires). `distance_km` = haversine
-   from `config.LEUVEN_CENTER`. Ungeocoded → `distance_km = null`.
+   `automation/cache/geocode.json` (never expires). Tries three queries in
+   descending precision — street address, then venue + city, then city alone —
+   because OSM often lacks a specific address ("Am Stadtpark, 4700 Eupen"
+   returns nothing, "Eupen" resolves) and a town-centre point beats `null`:
+   `distance_km` is what the distance filter reads, so an ungeocoded place drops
+   out of every search. `geocode_source` records which precision won
+   (`nominatim` vs `nominatim_city`). `distance_km` = haversine from
+   `config.LEUVEN_CENTER`.
 
    Between geo and enrich, `run_weekly.py` runs a **distance prefilter** (drop
    agenda events with `distance_km > config.MAX_DISTANCE_KM`; curated sources
@@ -233,8 +239,15 @@ re-triggers this with fresh data.
   quota after ~7 kinds in a session and exit non-zero (no fallback — the kind is
   just skipped). `scripts/build_places.sh` has `--dedupe` (cross-kind, keeps the
   most specific `kind` via `KIND_RANK`), `--images` (backfill og:image) and
-  `--links` (below) modes that don't call the LLM. Nominatim also burst-limits —
-  re-run to fill the `lat: null` stragglers from the shared cache.
+  `--links` (below) modes that don't call the LLM.
+- **The geocode cache distinguishes "not found" from "lookup failed", and you
+  must keep it that way.** `automation/cache/geocode.json` never expires, so
+  caching a rate-limited request as `{lat: null}` marks a place unlocatable
+  forever — that is how 132 of 414 entries became permanently null, and why the
+  old advice to "re-run to fill the stragglers" could never work. `_nominatim`
+  now raises `geo.LookupFailed` on a transport error (uncached, retried next
+  run) and returns `None` only when Nominatim answered and genuinely has no
+  match (cached). If lookups start failing, the run logs how many were skipped.
 - **Prefer a scraper to a search where a canonical index exists.**
   `build_places._SCRAPED_KINDS` routes a kind to a deterministic module instead
   of the LLM; `multimove.py` is the worked example — the Natuur en Bos index

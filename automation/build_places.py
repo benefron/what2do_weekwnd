@@ -10,6 +10,7 @@ entries, and merges into data/places.json. Entries with source == "curated" are
 never overwritten. Does not commit — review the diff, then commit yourself.
 """
 import argparse
+import difflib
 import json
 import logging
 import re
@@ -17,6 +18,7 @@ import sys
 import time
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -37,6 +39,14 @@ KIND_RANK = {
     "zoo": 3, "castle": 4, "provincial_domain": 5, "farm": 6, "museum": 7,
     "speelbos": 8, "playground_indoor": 9, "playground_outdoor": 10,
     "attraction_park": 11, "other": 12,
+}
+
+# Trailing words that add no identity — "X" and "X Parc" are one place, while
+# "X Park" and "X Aquapark" are two, because "aqua" is not in here.
+_GENERIC_SUFFIXES = {
+    "", "park", "parc", "zoo", "safari", "safaripark", "safariparc",
+    "domein", "domaine", "centrum", "center", "centre", "belgie", "belgium",
+    "vzw", "bv", "nv", "themepark", "pretpark",
 }
 
 _OG_IMAGE_RE = re.compile(
@@ -259,6 +269,13 @@ def main() -> int:
     by_id = {p["id"]: p for p in existing["places"]}
     curated_names = {p["name"].lower() for p in existing["places"] if p.get("source") == "curated"}
 
+    def _better(p: dict, cur: dict) -> bool:
+        # curated always wins; otherwise the more specific kind wins
+        return (
+            (p.get("source") == "curated", -KIND_RANK.get(p.get("kind"), 12))
+            > (cur.get("source") == "curated", -KIND_RANK.get(cur.get("kind"), 12))
+        )
+
     def _dedupe_cross_kind(items: list[dict]) -> list[dict]:
         best: dict[str, dict] = {}
         for p in items:
@@ -266,13 +283,37 @@ def main() -> int:
             cur = best.get(key)
             if cur is None:
                 best[key] = p
-                continue
-            # curated always wins; otherwise the more specific kind wins
-            p_score = (p.get("source") == "curated", -KIND_RANK.get(p.get("kind"), 12))
-            c_score = (cur.get("source") == "curated", -KIND_RANK.get(cur.get("kind"), 12))
-            if p_score > c_score:
+            elif _better(p, cur):
                 best[key] = p
-        return list(best.values())
+
+        # Exact-name matching misses the way a search pass restates the same
+        # place ("Monde Sauvage Safari" / "Monde Sauvage Safari Parc").
+        #
+        # Similarity alone cannot separate those from the real case of one site
+        # hosting two venues: Monde Sauvage scores 0.90 and Bellewaerde
+        # Park/Aquapark 0.88, so any threshold that merges the first also merges
+        # the second. What actually distinguishes them is *how* the names differ
+        # — same host, one name a prefix of the other, and the leftover being a
+        # generic venue word rather than something meaningful like "aqua".
+        out: list[dict] = []
+        for p in sorted(best.values(), key=lambda x: len(x.get("name") or "")):
+            host = urlsplit(p.get("website") or "").netloc.lower().removeprefix("www.")
+            pk = re.sub(r"[^a-z0-9]", "", (p.get("name") or "").lower())
+            dup_at = None
+            for i, q in enumerate(out):
+                qhost = urlsplit(q.get("website") or "").netloc.lower().removeprefix("www.")
+                if not host or host != qhost or not pk:
+                    continue
+                qk = re.sub(r"[^a-z0-9]", "", (q.get("name") or "").lower())
+                short, long = sorted((pk, qk), key=len)
+                if short and long.startswith(short) and long[len(short):] in _GENERIC_SUFFIXES:
+                    dup_at = i
+                    break
+            if dup_at is None:
+                out.append(p)
+            elif _better(p, out[dup_at]):
+                out[dup_at] = p
+        return out
 
     def flush():
         merged = _dedupe_cross_kind(list(by_id.values()))
