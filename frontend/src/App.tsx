@@ -132,8 +132,9 @@ export default function App() {
             )}
           </div>
           <p className="max-w-prose text-sm text-muted">
-            Things to do with a 4- and an 8-year-old in and around Leuven — plus big concerts and
-            shows across Belgium. Dutch text, tap <em>Translate</em> for English.
+            Things to do with the kids across Belgium — set where you are, how old they are and
+            which languages you speak. Listings keep their original Dutch or French; tap{" "}
+            <em>Translate</em> for English.
           </p>
 
           <nav className="-mb-1 flex flex-wrap items-center gap-1 overflow-x-auto">

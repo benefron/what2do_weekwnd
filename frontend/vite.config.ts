@@ -14,7 +14,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icons/apple-touch-icon.png"],
       manifest: {
-        name: "What2do Weekend — Leuven",
+        name: "What2do Weekend — Belgium",
         short_name: "What2do",
         description: "Weekend activities for the kids in and around Leuven.",
         theme_color: "#f5623d",
