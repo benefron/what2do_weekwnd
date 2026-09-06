@@ -134,7 +134,21 @@ FEATURE_TAG_VOCAB = [
 
 # ── Flemish school holidays (Vlaamse Gemeenschap), inclusive date ranges.
 #    Source: onderwijs.vlaanderen.be / publicholidays.be. Update yearly. ─────
-SCHOOL_HOLIDAYS = [
+# Education is a *community* competence, so Belgium runs two school calendars
+# that no longer line up: the Vlaamse Gemeenschap kept the classic rhythm, while
+# the Federation Wallonie-Bruxelles moved to 7-weeks-on / 2-weeks-off in 2022-23
+# (shorter summer, two-week autumn and carnival breaks).
+#
+# Brussels has no third calendar of its own — Dutch-language schools there follow
+# the Flemish dates and French-language schools follow the FWB ones, side by side.
+# That is why `school_holiday_br` below is the union rather than a third table:
+# for a Brussels family, both sets of weeks are "kids are off somewhere".
+#
+# Spans are inclusive and extended to the trailing Sunday, because the official
+# Mon-Fri dates are not how a weekend-activity feed is used.
+# **Update yearly.** The Deutschsprachige Gemeinschaft's fourth calendar is
+# deliberately out of scope (~77k people, far east of the 200 km ring).
+SCHOOL_HOLIDAYS_NL = [
     {"name": "zomervakantie", "start": "2026-07-01", "end": "2026-08-31"},
     {"name": "herfstvakantie", "start": "2026-10-26", "end": "2026-11-01"},
     {"name": "kerstvakantie", "start": "2026-12-21", "end": "2027-01-04"},
@@ -142,6 +156,18 @@ SCHOOL_HOLIDAYS = [
     {"name": "paasvakantie", "start": "2027-03-29", "end": "2027-04-11"},
     {"name": "zomervakantie", "start": "2027-07-01", "end": "2027-08-31"},
 ]
+
+SCHOOL_HOLIDAYS_FR = [
+    {"name": "grandes vacances", "start": "2026-07-01", "end": "2026-08-23"},
+    {"name": "conge d'automne", "start": "2026-10-19", "end": "2026-11-01"},
+    {"name": "vacances d'hiver", "start": "2026-12-21", "end": "2027-01-03"},
+    {"name": "conge de detente", "start": "2027-02-22", "end": "2027-03-07"},
+    {"name": "vacances de printemps", "start": "2027-04-26", "end": "2027-05-09"},
+    {"name": "grandes vacances", "start": "2027-07-03", "end": "2027-08-22"},
+]
+
+# Kept so the published payload and any old caller still see one merged table.
+SCHOOL_HOLIDAYS = SCHOOL_HOLIDAYS_NL
 
 # ── HTTP ────────────────────────────────────────────────────────────────────
 REQUEST_HEADERS = {

@@ -1,6 +1,6 @@
 {
   "_comment": "The permanent guide — museums, zoos, provincial domains, speelbossen, indoor/outdoor playgrounds, attraction parks, zomerbars, playground-restaurants across Belgium. NOT re-fetched by the weekly run: run_weekly.py reads this file verbatim and merges it into the dashboard. Expand it with `python -m automation.build_places` (Claude web search) or by hand. Keep source:\"curated\" entries — the builder never overwrites them. kind: museum|zoo|provincial_domain|speelbos|playground_indoor|playground_outdoor|multimove|zomerbar|playground_restaurant|farm|attraction_park|castle|other. seasonal: null|summer|winter.",
-  "updated": "2026-09-02",
+  "updated": "2026-09-06",
   "places": [
     {
       "id": "place-attraction_park-adventure-valley-durbuy",
@@ -30,7 +30,8 @@
         "ropes course",
         "outdoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-aqualibi",
@@ -59,7 +60,9 @@
         "water park",
         "indoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://www.walibi.be/content/dam/aql/refdata/og/default.png"
     },
     {
       "id": "place-attraction_park-aquascope-virelles",
@@ -89,7 +92,11 @@
         "wildlife",
         "lake"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Aquascope_Virelles.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Aquascope_Virelles",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-attraction_park-bellewaerde",
@@ -119,7 +126,9 @@
         "animals",
         "water rides"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://www.bellewaerde.be/content/dam/blw/refdata/og/default.png"
     },
     {
       "id": "place-attraction_park-bellewaerde-aquapark",
@@ -148,7 +157,9 @@
         "water park",
         "outdoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://www.bellewaerde.be/content/dam/blw/refdata/og/default.png"
     },
     {
       "id": "place-bellewaerde",
@@ -176,7 +187,9 @@
       "tags": [
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://www.bellewaerde.be/content/dam/blw/refdata/og/default.png"
     },
     {
       "id": "place-bobbejaanland",
@@ -202,7 +215,11 @@
       "indoor": false,
       "seasonal": "summer",
       "tags": [],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Ingang_Bobbejaanland_2017.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Bobbejaanland",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-boudewijn-seapark",
@@ -232,7 +249,11 @@
         "dolphins",
         "marine animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Entrance_Boudewjinpark.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Boudewijn_Seapark",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-dinant-aventure",
@@ -262,7 +283,8 @@
         "ropes course",
         "kayak"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-familiepark-de-sierk",
@@ -292,7 +314,8 @@
         "circus",
         "indoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-familiepark-harry-malter",
@@ -322,7 +345,11 @@
         "rides",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Familiepark_Harry_Malter_13-07-2010_10-21-10.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Familiepark_Harry_Malter",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-hidrodoe",
@@ -352,7 +379,8 @@
         "interactive",
         "water"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-le-monde-sauvage-d-aywaille",
@@ -381,7 +409,11 @@
         "safari park",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Animals_in_Monde_Sauvage_d%27Aywaille_13.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Le_Monde_Sauvage",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-attraction_park-pakawi-park",
@@ -410,7 +442,11 @@
         "zoo",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/20120219_Olmense_Zoo_%2847%29.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Pakawi_Park",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-plopsa-coo",
@@ -440,7 +476,11 @@
         "Ardennes",
         "Studio 100"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Samson-Gert.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Plopsa",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-plopsa-station-antwerp",
@@ -470,7 +510,11 @@
         "theme park",
         "Studio 100"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Buitengevel_Plopsa_Station_Antwerp.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Plopsa_Station_Antwerp",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-plopsaland-de-panne",
@@ -500,7 +544,8 @@
         "roller coasters",
         "Studio 100"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-plopsaqua-de-panne",
@@ -529,7 +574,11 @@
         "water park",
         "slides"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Plopsaqua_%28B24%29.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Plopsaqua_De_Panne",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-attraction_park-plopsaqua-hannut-landen",
@@ -558,7 +607,8 @@
         "water park",
         "indoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-pukkemuk",
@@ -587,7 +637,8 @@
         "family park",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-récréalle",
@@ -618,7 +669,8 @@
         "playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.recrealle.com/public/images/layout/share.jpg"
+      "image_url": "https://www.recrealle.com/public/images/layout/share.jpg",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-sea-life-blankenberge",
@@ -648,7 +700,8 @@
         "marine animals"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.visitsealife.com/blankenberge/media/v2glr0q1/sea-life-blankenberge-white-text-rgb.png?format=jpg"
+      "image_url": "https://www.visitsealife.com/blankenberge/media/v2glr0q1/sea-life-blankenberge-white-text-rgb.png?format=jpg",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-serpentarium-blankenberge",
@@ -678,7 +731,8 @@
         "zoo",
         "indoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-speelpark-hemelrijk",
@@ -708,7 +762,8 @@
         "outdoor",
         "swimming"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-attraction_park-vakantiepark-molenheide",
@@ -739,7 +794,8 @@
         "swimming"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.molenheide.be/images/page_page/s_c/1200x630/header-oude-site_1770712930.webp"
+      "image_url": "https://www.molenheide.be/images/page_page/s_c/1200x630/header-oude-site_1770712930.webp",
+      "link_ok": true
     },
     {
       "id": "place-walibi",
@@ -767,7 +823,9 @@
       "tags": [
         "water_play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://www.walibi.be/content/dam/wbe/refdata/og/default.png"
     },
     {
       "id": "place-attraction_park-zwin-natuur-park",
@@ -797,7 +855,11 @@
         "birds",
         "reserve"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Zwin_Natuur_Park_visitor_center_with_stork_nests%2C_Knokke-Heist%2C_2024.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Zwin_Natuur_Park",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-château-de-beloeil",
@@ -828,7 +890,11 @@
         "boats",
         "stately"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Ch%C3%A2teau_de_Beloeil_-_Belgique.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Bel%C5%93il",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-de-chimay",
@@ -858,7 +924,11 @@
         "theatre",
         "guided-tour"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/00_Chimay_-_Ch%C3%A2teau_2.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Chimay",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-de-corroy-le-château",
@@ -888,7 +958,11 @@
         "moated",
         "fortress"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Castle_of_Corroy-le-Ch%C3%A2teau_%28DSCF7659-DSCF7662%29.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Corroy-le-Ch%C3%A2teau",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-de-lavaux-sainte-anne",
@@ -920,7 +994,8 @@
         "wetland"
       ],
       "geocode_source": "payload",
-      "image_url": "https://chateau-lavaux.com/wp-content/uploads/2018/03/screen1920x1080.jpg"
+      "image_url": "https://chateau-lavaux.com/wp-content/uploads/2018/03/screen1920x1080.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-château-de-modave",
@@ -951,7 +1026,11 @@
         "park",
         "furnished"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Ch%C3%A2teau_de_Modave_-_Vue_sud-est.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Modave",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-de-reinhardstein",
@@ -982,7 +1061,8 @@
         "valley"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.reinhardstein.net/instances/front/content/theme/images/apple-device-icon.png"
+      "image_url": "https://www.reinhardstein.net/instances/front/content/theme/images/apple-device-icon.png",
+      "link_ok": true
     },
     {
       "id": "place-castle-château-de-vêves",
@@ -1014,7 +1094,8 @@
         "fairy-tale"
       ],
       "geocode_source": "payload",
-      "image_url": "https://chateau-veves.be/wp-content/uploads/2019/09/home2b.jpg"
+      "image_url": "https://chateau-veves.be/wp-content/uploads/2019/09/home2b.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-château-et-jardins-de-freÿr",
@@ -1045,7 +1126,11 @@
         "renaissance",
         "meuse"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Fre%C3%BFr_Castle_R01.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Fre%C3%BFr",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-fort-d-écaussinnes-lalaing",
@@ -1075,7 +1160,11 @@
         "fortress",
         "hilltop"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Ecaussinnes-Lalaing_CH1bJPG.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27%C3%89caussinnes-Lalaing",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-fort-de-bouillon",
@@ -1107,7 +1196,8 @@
         "dungeons"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/5d9c94_7c5041afd0be45de95728319bb042aed~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5d9c94_7c5041afd0be45de95728319bb042aed~mv2.jpg"
+      "image_url": "https://static.wixstatic.com/media/5d9c94_7c5041afd0be45de95728319bb042aed~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5d9c94_7c5041afd0be45de95728319bb042aed~mv2.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-château-fort-de-logne",
@@ -1138,7 +1228,11 @@
         "museum",
         "outdoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Ch%C3%A2teau_fort_de_Logne_-_Terre_plein_sud-est.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Logne",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-château-féodal-de-la-roche-en-ardenne",
@@ -1170,7 +1264,8 @@
         "viewpoint"
       ],
       "geocode_source": "payload",
-      "image_url": "https://medias.elloha.com/crop-300x200/96e47752-e254-40f5-acf6-3cb56deb3a66/48778733234931096376632702596137279615771915n.jpg"
+      "image_url": "https://medias.elloha.com/crop-300x200/96e47752-e254-40f5-acf6-3cb56deb3a66/48778733234931096376632702596137279615771915n.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-citadelle-de-dinant",
@@ -1202,7 +1297,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://cdn.prod.website-files.com/6964cbd5a800962f3d579748/696610e664b44f7fa9104cd8_citadelle-dinant-hauteur.avif"
+      "image_url": "https://cdn.prod.website-files.com/6964cbd5a800962f3d579748/696610e664b44f7fa9104cd8_citadelle-dinant-hauteur.avif",
+      "link_ok": true
     },
     {
       "id": "place-castle-citadelle-de-namur",
@@ -1233,7 +1329,11 @@
         "road-train",
         "viewpoint"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Namur_JPG07.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Citadelle_de_Namur",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-castle-domaine-du-château-de-seneffe",
@@ -1265,7 +1365,8 @@
         "free-grounds"
       ],
       "geocode_source": "payload",
-      "image_url": "https://chateaudeseneffe.be/storage/files/072422-parc-ete-web-130-1200x630.jpg?token=8ae66ebf5de69236b6e92e0562eb626d"
+      "image_url": "https://chateaudeseneffe.be/storage/files/072422-parc-ete-web-130-1200x630.jpg?token=8ae66ebf5de69236b6e92e0562eb626d",
+      "link_ok": true
     },
     {
       "id": "place-castle-gravensteen--castle-of-the-counts",
@@ -1296,7 +1397,8 @@
         "museum",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-castle-hallepoort--halle-gate",
@@ -1327,7 +1429,8 @@
         "museum",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel---floralia-van-groot-bijgaarden",
@@ -1359,7 +1462,8 @@
         "moated"
       ],
       "geocode_source": "payload",
-      "image_url": "https://floralia-brussels.be/themes/core/static/img/social.jpg"
+      "image_url": "https://floralia-brussels.be/themes/core/static/img/social.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-beauvoorde",
@@ -1390,7 +1494,8 @@
         "garden"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2026-05/kbv_werfweekendc_jens_baert_2025_222.jpg?h=4d2029fa&amp;itok=ILNQv98n"
+      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2026-05/kbv_werfweekendc_jens_baert_2025_222.jpg?h=4d2029fa&amp;itok=ILNQv98n",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-d-ursel",
@@ -1420,7 +1525,11 @@
         "park",
         "family-activities"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Hingene_3.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_d%27Ursel",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-kasteel-de-merode",
@@ -1450,7 +1559,11 @@
         "guided-tour",
         "park"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Everberg-Prinsendreef91-93-97-De-Merodekasteel.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_de_Merode_%28Everberg%29",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-kasteel-van-beersel",
@@ -1482,7 +1595,8 @@
         "knights"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2026-03/clucid_herita_kasteelbeersel_002_verkleind.jpg?h=b881394c&amp;itok=5-f2sgYr"
+      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2026-03/clucid_herita_kasteelbeersel_002_verkleind.jpg?h=b881394c&amp;itok=5-f2sgYr",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-van-bouchout",
@@ -1513,7 +1627,8 @@
         "greenhouses"
       ],
       "geocode_source": "payload",
-      "image_url": "https://img.plantentuinmeise.be/XYWWAW6gn3cOajYO9P7stFEFgK1YhJpQ-VKrwrdq2S4/c:973:510:fp:0.5:0.33/s:1200:630:1/aHR0cHM6Ly93d3cucGxhbnRlbnR1aW5tZWlzZS5iZS8vY21zX2ZpbGVzL3N5c3RlbS9pbWFnZXMvaW1nMTAwODRfb3JpZy5hdmlm"
+      "image_url": "https://img.plantentuinmeise.be/XYWWAW6gn3cOajYO9P7stFEFgK1YhJpQ-VKrwrdq2S4/c:973:510:fp:0.5:0.33/s:1200:630:1/aHR0cHM6Ly93d3cucGxhbnRlbnR1aW5tZWlzZS5iZS8vY21zX2ZpbGVzL3N5c3RlbS9pbWFnZXMvaW1nMTAwODRfb3JpZy5hdmlm",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-van-gaasbeek",
@@ -1544,7 +1659,11 @@
         "picnic",
         "museum"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Kasteel_van_Gaasbeek_106.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_van_Gaasbeek",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-kasteel-van-horst",
@@ -1576,7 +1695,8 @@
         "walking"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2024-05/_a7_0138horst_small.jpg?h=3dbd9eac&amp;itok=yu93wdkg"
+      "image_url": "https://www.herita.be/sites/default/files/styles/social_media_image/public/2024-05/_a7_0138horst_small.jpg?h=3dbd9eac&amp;itok=yu93wdkg",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-van-laarne",
@@ -1606,7 +1726,11 @@
         "moated",
         "armour"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Laarne_Schloss_2014_04_1.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_van_Laarne",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-kasteel-van-loppem",
@@ -1638,7 +1762,8 @@
         "park"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.kasteelvanloppem.be/build/images/share-image.4a29a857.jpg"
+      "image_url": "https://www.kasteelvanloppem.be/build/images/share-image.4a29a857.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-van-ooidonk",
@@ -1669,7 +1794,8 @@
         "park"
       ],
       "geocode_source": "payload",
-      "image_url": "https://ooidonk.be/media/pages/home/c604d69207-1704375306/home-1-1280x720-crop.jpg"
+      "image_url": "https://ooidonk.be/media/pages/home/c604d69207-1704375306/home-1-1280x720-crop.jpg",
+      "link_ok": true
     },
     {
       "id": "place-castle-kasteel-van-pietersheim",
@@ -1700,7 +1826,11 @@
         "nature-park",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Kasteel_Pietersheim_1.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_Pietersheim",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-kasteel-van-wijnendale",
@@ -1730,7 +1860,11 @@
         "museum",
         "forest"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/87491_kasteel_wijnendale.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kasteel_van_Wijnendale",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-castle-landcommanderij-alden-biesen",
@@ -1762,7 +1896,8 @@
         "teutonic-order"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/6d0687_a1fa5a9bfc7c4d9c92de0c8f1de42cf5%7Emv2.png/v1/fit/w_2500,h_1330,al_c/6d0687_a1fa5a9bfc7c4d9c92de0c8f1de42cf5%7Emv2.png"
+      "image_url": "https://static.wixstatic.com/media/6d0687_a1fa5a9bfc7c4d9c92de0c8f1de42cf5%7Emv2.png/v1/fit/w_2500,h_1330,al_c/6d0687_a1fa5a9bfc7c4d9c92de0c8f1de42cf5%7Emv2.png",
+      "link_ok": true
     },
     {
       "id": "place-castle-les-ruines-de-franchimont",
@@ -1793,7 +1928,11 @@
         "casemates",
         "audioguide"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/FranchimontCastleFromENE.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Franchimont",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-farm-t-struisvogelnest",
@@ -1823,7 +1962,8 @@
         "speeltuin",
         "horeca"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-t-wollen-hof",
@@ -1852,7 +1992,8 @@
         "kinderboerderij",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-bellemhof",
@@ -1881,7 +2022,8 @@
         "kinderboerderij",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-barelhoeve",
@@ -1911,7 +2053,8 @@
         "speeltuin",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-blauwe-hoeve",
@@ -1940,7 +2083,8 @@
         "kinderboerderij",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-bollekeshoef",
@@ -1969,7 +2113,8 @@
         "kinderboerderij",
         "speeltuin"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-ijsmolenhoeve",
@@ -1998,7 +2143,8 @@
         "kinderboerderij",
         "avonturenpark"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-lange-schuur",
@@ -2028,7 +2174,8 @@
         "park",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-de-merelhoeve",
@@ -2058,7 +2205,8 @@
         "speeltuin",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-dierenpark-de-zonnegloed",
@@ -2088,7 +2236,8 @@
         "opvang",
         "educatief"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-direboe",
@@ -2117,7 +2266,8 @@
         "kinderboerderij",
         "speeltuin"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-domein-kiewit",
@@ -2129,7 +2279,7 @@
       "address": "Putvennestraat 110, 3500 Hasselt",
       "lat": 50.9606057,
       "lng": 5.3770886,
-      "website": "https://www.limburg.be/kiewit",
+      "website": "https://www.limburg.be",
       "description_nl": "A free nature and recreation domain near Hasselt with a children's farm, ponds, playgrounds and walking trails.",
       "blurb_en": "A free nature and recreation domain near Hasselt with a children's farm, ponds, playgrounds and walking trails.",
       "price_type": "free",
@@ -2147,7 +2297,11 @@
         "natuur",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Domeinkiewit_23-04-2009_12-58-16.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Domein_Kiewit",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-farm-domein-tivoli",
@@ -2177,7 +2331,8 @@
         "park",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-ferme-de-bousval",
@@ -2207,7 +2362,8 @@
         "poney",
         "atelier"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-ferme-du-monceau",
@@ -2236,7 +2392,11 @@
         "ferme pédagogique",
         "nature"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/2014-09-07_14.00.29-_Ferme_du_Monceau_%C3%A0_M%C3%A9haigne.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ferme_du_Monceau",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-farm-ferme-expérimentale-et-pédagogique-du-sart-tilma",
@@ -2266,7 +2426,8 @@
         "université"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2018-06/agenda-vachefermeexperimentale.jpg"
+      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2018-06/agenda-vachefermeexperimentale.jpg",
+      "link_ok": true
     },
     {
       "id": "place-farm-ferme-pour-enfants-de-jette",
@@ -2295,7 +2456,8 @@
         "ferme pédagogique",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-franciscushof",
@@ -2325,7 +2487,11 @@
         "pony",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Lieshout_Het_Nonneke_Rieky_Wijsbek.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Franciscushof",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-farm-fruitbos",
@@ -2356,7 +2522,8 @@
         "bloemen"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.fruitbos.be/wp-content/uploads/2020/08/stan-en-de-papa-550breed.jpg"
+      "image_url": "https://www.fruitbos.be/wp-content/uploads/2020/08/stan-en-de-papa-550breed.jpg",
+      "link_ok": true
     },
     {
       "id": "place-farm-het-neerhof",
@@ -2386,7 +2553,11 @@
         "natuur",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Lebbeke_Sasbaan_41_boerenhuis_-_111299_-_onroerenderfgoed.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Het_Neerhof",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-farm-juffertje-in--t-groen",
@@ -2416,7 +2587,11 @@
         "speeltuin",
         "horeca"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Juffertje_in_het_groen_23-06-2005_12.55.28.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Juffertje-in-het-groen",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-farm-kinderboerderij-de-zeven-torentjes",
@@ -2446,7 +2621,8 @@
         "erfgoed",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-kinderboerderij-pietersheim",
@@ -2476,7 +2652,8 @@
         "kasteeldomein",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-kinderboerderij-ravot",
@@ -2506,7 +2683,8 @@
         "speeltuin",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-kinderboerderij-rivierenhof",
@@ -2537,7 +2715,8 @@
         "gratis"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-09/rivierenhof_20240918_geiten-kinderboerderij--c--provincie-antwerpen--35-hr.jpg?itok=Nn0kzHI_"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-09/rivierenhof_20240918_geiten-kinderboerderij--c--provincie-antwerpen--35-hr.jpg?itok=Nn0kzHI_",
+      "link_ok": true
     },
     {
       "id": "place-farm-kinderboerderij-van-het-maximiliaanpark",
@@ -2567,7 +2746,8 @@
         "educatief",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-la-ferme-aux-hirondelles",
@@ -2596,7 +2776,8 @@
         "ferme pédagogique",
         "animaux"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-la-ferme-des-enfants---centre-nature-de-liège",
@@ -2625,7 +2806,8 @@
         "ferme pédagogique",
         "nature"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-la-p-tite-ferme-balthazard",
@@ -2655,7 +2837,8 @@
         "animaux"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.laptitefermebalthazard.be/images/thumbs/0000017_poule1.jpeg"
+      "image_url": "https://www.laptitefermebalthazard.be/images/thumbs/0000017_poule1.jpeg",
+      "link_ok": true
     },
     {
       "id": "place-farm-natuurbelevingshoeve-joli",
@@ -2684,7 +2867,8 @@
         "boerderij",
         "natuur"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-openluchtmuseum-bokrijk",
@@ -2714,7 +2898,11 @@
         "boerderij",
         "erfgoed"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Museum_Erve_Kots_boerderij_%2801%29.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Openluchtmuseum",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-farm-pierlapont",
@@ -2744,7 +2932,8 @@
         "gratis"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zedelgem.be/sites/default/files/styles/focal_point_ratio_40_21/public/2018-03/tile-large_0.jpg?h=ec041e41&amp;itok=yGqP9Jar"
+      "image_url": "https://www.zedelgem.be/sites/default/files/styles/focal_point_ratio_40_21/public/2018-03/tile-large_0.jpg?h=ec041e41&amp;itok=yGqP9Jar",
+      "link_ok": true
     },
     {
       "id": "place-farm-pluk-je-fruit",
@@ -2774,7 +2963,8 @@
         "fruit"
       ],
       "geocode_source": "payload",
-      "image_url": "https://plukjefruit.be/social-preview.png"
+      "image_url": "https://plukjefruit.be/social-preview.png",
+      "link_ok": true
     },
     {
       "id": "place-farm-schoolhoeve-de-campagne",
@@ -2804,7 +2994,8 @@
         "dieren",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-schuur-van-tuur",
@@ -2834,7 +3025,8 @@
         "natuur",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-farm-d-oude-smelterij",
@@ -2864,35 +3056,597 @@
         "speeltuin",
         "gratis"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
-      "id": "place-multimove-info",
+      "id": "place-multimove-multimovepad-brasschaat",
+      "province": "Antwerpen",
+      "price_note_nl": null,
+      "name": "Multimovepad Brasschaat",
       "kind": "multimove",
-      "source": "curated",
-      "name": "MultiMove (Sport Vlaanderen)",
-      "city": "Vlaanderen",
-      "province": "Vlaams-Brabant",
-      "address": null,
-      "lat": 50.8798,
-      "lng": 4.7005,
-      "website": "https://www.sport.vlaanderen/je-sport/multimove/",
-      "description_nl": "Bewegingsprogramma voor kinderen van 3 tot 8 jaar, aangeboden door lokale sportclubs. Zoek een aanbod in je gemeente via de website.",
-      "blurb_en": "Movement-skills programme for ages 3-8, run by local sports clubs; find a session in your town via the site.",
-      "price_type": "paid",
+      "city": "Brasschaat",
+      "postal_code": "2930",
+      "address": "Speelbos (Elisalei - 2930 Brasschaat)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-brasschaat",
+      "lat": 51.300273,
+      "lng": 4.457727,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
       "price_min_eur": 0,
-      "price_max_eur": 60,
-      "price_note_nl": "Per reeks, verschilt per club",
+      "price_max_eur": 0,
       "age_min": 3,
-      "age_max": 8,
+      "age_max": 12,
       "fits_4yo": true,
       "fits_8yo": true,
-      "indoor": true,
-      "seasonal": null,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.83 km long.",
+      "description_nl": null,
       "tags": [
-        "sports_active"
+        "nature_play"
       ],
-      "geocode_source": "payload"
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-de-schorre-oostende",
+      "province": "West-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad De Schorre Oostende",
+      "kind": "multimove",
+      "city": "Oostende",
+      "postal_code": "8400",
+      "address": "Kinderboerderij De Lange Schuur (Stuiverstraat 599 - 8400 Oostende)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-de-schorre-oostende",
+      "lat": 51.19978,
+      "lng": 2.92887,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.55 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-de-weefberg-averbode",
+      "province": "Vlaams-Brabant",
+      "price_note_nl": null,
+      "name": "Multimovepad De Weefberg Averbode",
+      "kind": "multimove",
+      "city": "Averbode",
+      "postal_code": "3271",
+      "address": "Boonstraat 15, 3271 Averbode",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-de-weefberg-averbode",
+      "lat": 51.03041,
+      "lng": 4.97503,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.02 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-de-zwarte-specht-herselt",
+      "province": "Antwerpen",
+      "price_note_nl": null,
+      "name": "Multimovepad De Zwarte Specht Herselt",
+      "kind": "multimove",
+      "city": "Herselt",
+      "postal_code": "2230",
+      "address": "Averbodesesteenweg 2 B 2230 Herselt",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-de-zwarte-specht-herselt",
+      "lat": 51.0447,
+      "lng": 4.93233,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.72 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-duinbossen--de-haan",
+      "province": "West-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Duinbossen (De Haan)",
+      "kind": "multimove",
+      "city": "De Haan",
+      "postal_code": "8420",
+      "address": "Parking van ’t Schelpestik (Vosseslag 131 - 8420 De Haan)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-duinbossen-de-haan",
+      "lat": 51.260629,
+      "lng": 3.007506,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.12 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-gerheserbos---heide",
+      "province": "Limburg",
+      "price_note_nl": null,
+      "name": "Multimovepad Gerheserbos-& heide",
+      "kind": "multimove",
+      "city": "Leopoldsburg",
+      "postal_code": "3971",
+      "address": "Zwembad De Merel (Zwarte Spechtstraat 57 - 3971 Leopoldsburg)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-gerheserbos-heide",
+      "lat": 51.11644,
+      "lng": 5.21709,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.16 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-houtvoort",
+      "province": "Oost-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Houtvoort",
+      "kind": "multimove",
+      "city": "Sint-Gillis-Waas",
+      "postal_code": "9170",
+      "address": "Hondenschool Mijn Hond Mijn Vriend",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-houtvoort",
+      "lat": 51.22046,
+      "lng": 4.1168,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.41 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-ichtegem-de-klokkenput",
+      "province": "West-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Ichtegem De Klokkenput",
+      "kind": "multimove",
+      "city": "Eernegem",
+      "postal_code": "8480",
+      "address": "Sport- en cultuurcentrum De Klokkenput (Bruggestraat 94, 8480 Eernegem)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-ichtegem-de-klokkenput",
+      "lat": 51.13029,
+      "lng": 3.03543,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.43 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-kelchterhoef",
+      "province": "Limburg",
+      "price_note_nl": null,
+      "name": "Multimovepad Kelchterhoef",
+      "kind": "multimove",
+      "city": "Houthalen-Helchteren",
+      "postal_code": "3530",
+      "address": "Parking Hoeve Jan (Kelchterhoefstraat 3 - Houthalen-Helchteren)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-kelchterhoef",
+      "lat": 51.02982,
+      "lng": 5.43532,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.46 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-kepkensberg-ham",
+      "province": "Limburg",
+      "price_note_nl": null,
+      "name": "Multimovepad Kepkensberg Ham",
+      "kind": "multimove",
+      "city": "Tessenderlo-Ham",
+      "postal_code": "3945",
+      "address": "Scoutslokaal Genendijk (Bivakstraat 4 - 3945 Tessenderlo-Ham)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-kepkensberg-ham",
+      "lat": 51.08278,
+      "lng": 5.10646,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.71 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-meerdaalwoud",
+      "province": "Vlaams-Brabant",
+      "price_note_nl": null,
+      "name": "Multimovepad Meerdaalwoud",
+      "kind": "multimove",
+      "city": "Oud-Heverlee",
+      "postal_code": "3001",
+      "address": "Onthaalpoort De Torenvalk (Naamsesteenweg 72 - 3052 Oud-Heverlee)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-meerdaalwoud",
+      "lat": 50.823711,
+      "lng": 4.701169,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.86 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-park-fort-liezele",
+      "province": "West-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Park Fort Liezele",
+      "kind": "multimove",
+      "city": "Liezele",
+      "postal_code": "8915",
+      "address": "Onthaalgebouw bij Fort Liezele",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-park-fort-liezele",
+      "lat": 51.06757,
+      "lng": 4.28567,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.49 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-park-itterdal-in-bree",
+      "province": "Limburg",
+      "price_note_nl": null,
+      "name": "Multimovepad Park Itterdal in Bree",
+      "kind": "multimove",
+      "city": "Bree",
+      "postal_code": "3960",
+      "address": "Care café Itterdal (Opitterkiezel 240B - 3960 Bree)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-park-itterdal-bree",
+      "lat": 51.11759,
+      "lng": 5.64484,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.54 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-parkbos--de-pinte",
+      "province": "Oost-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Parkbos (De Pinte)",
+      "kind": "multimove",
+      "city": "De Pinte",
+      "postal_code": "9840",
+      "address": "kruispunt Polderdreef / N60, 9840 De Pinte",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-parkbos-de-pinte",
+      "lat": 50.986473,
+      "lng": 3.675326,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 3.58 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-peer-breughelhoeve",
+      "province": "Limburg",
+      "price_note_nl": null,
+      "name": "Multimovepad Peer Breughelhoeve",
+      "kind": "multimove",
+      "city": "Peer",
+      "postal_code": "3990",
+      "address": "Breugelhoeve (Weyerstraat 1, 3990 Peer)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-peer-breughelhoeve",
+      "lat": 51.166581,
+      "lng": 5.505883,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 2.41 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-sint-annapark-maldegem",
+      "province": "Oost-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Sint Annapark Maldegem",
+      "kind": "multimove",
+      "city": "Maldegem",
+      "postal_code": "9990",
+      "address": "Gidsenlaan 1 9990 Maldegem",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-sint-annapark-maldegem",
+      "lat": 51.21034,
+      "lng": 3.4433,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.94 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-sixtusbossen---de-lovie",
+      "province": "West-Vlaanderen",
+      "price_note_nl": null,
+      "name": "Multimovepad Sixtusbossen - De Lovie",
+      "kind": "multimove",
+      "city": "Poperinge",
+      "postal_code": "8970",
+      "address": "Parking (Canadaweg - 8970 Poperinge - hoek met Leeuwerikstraat - 8640 Vleteren)",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-sixtusbossen-de-lovie",
+      "lat": 50.88588,
+      "lng": 2.6996,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 4.91 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-sportpark-hemelrijk-essen",
+      "province": "Antwerpen",
+      "price_note_nl": null,
+      "name": "Multimovepad Sportpark Hemelrijk Essen",
+      "kind": "multimove",
+      "city": "Essen",
+      "postal_code": "2910",
+      "address": "Hemelrijk",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-sportpark-hemelrijk-essen",
+      "lat": 51.458681,
+      "lng": 4.442096,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.27 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
+    },
+    {
+      "id": "place-multimove-multimovepad-vrijbroekpark-mechelen",
+      "province": "Antwerpen",
+      "price_note_nl": null,
+      "name": "Multimovepad Vrijbroekpark Mechelen",
+      "kind": "multimove",
+      "city": "Mechelen",
+      "postal_code": "2800",
+      "address": "Vrijbroekpark Bezoekerscentrum",
+      "website": "https://natuurenbos.be/activiteiten/multimovepad/multimovepad-vrijbroekpark-mechelen",
+      "lat": 51.01782,
+      "lng": 4.46339,
+      "geocode_source": "payload",
+      "indoor": false,
+      "indoor_outdoor": "outdoor",
+      "price_type": "free",
+      "price_min_eur": 0,
+      "price_max_eur": 0,
+      "age_min": 3,
+      "age_max": 12,
+      "fits_4yo": true,
+      "fits_8yo": true,
+      "blurb_en": "Free waymarked movement trail in the woods — climbing, balancing and scrambling obstacles built for kids roughly 3-12, 1.96 km long.",
+      "description_nl": null,
+      "tags": [
+        "nature_play"
+      ],
+      "seasonal": null,
+      "source": "natuurenbos",
+      "link_ok": true
     },
     {
       "id": "place-museum-africamuseum--royal-museum-for-central-africa",
@@ -2922,7 +3676,8 @@
         "ethnography",
         "history"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-aquarium-muséum-de-liège",
@@ -2953,7 +3708,8 @@
         "animals"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2023-10/accueil_site_batiment_aqmu.jpg"
+      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2023-10/accueil_site_batiment_aqmu.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-ascenseur-funiculaire-de-strépy-thieu",
@@ -2983,7 +3739,11 @@
         "canal",
         "boats"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Aerial_view_of_Str%C3%A9py-Thieu_boat_lift_6.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Ascenseur_de_Str%C3%A9py-Thieu",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-museum-atomium",
@@ -3013,7 +3773,11 @@
         "architecture",
         "design"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Laeken_Atomium_06.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Atomium",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-autoworld",
@@ -3044,7 +3808,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.autoworld.be/media/cache/ogimage/upload/media/default/2ffb/2d/8680c48932534a5c584652dc281607e8d7d597f8.jpg"
+      "image_url": "https://www.autoworld.be/media/cache/ogimage/upload/media/default/2ffb/2d/8680c48932534a5c584652dc281607e8d7d597f8.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-bakery-museum--bakkerijmuseum",
@@ -3074,7 +3839,8 @@
         "baking",
         "interactive"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-bastogne-war-museum",
@@ -3104,7 +3870,11 @@
         "ww2",
         "war"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bastogne_War_Museum_7-08-2025_14-59-35.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Bastogne_War_Museum",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-museum-belgian-comic-strip-center",
@@ -3134,7 +3904,8 @@
         "art",
         "culture"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-blegny-mine",
@@ -3165,7 +3936,8 @@
         "underground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.blegnymine.be/sites/default/files/cms/blegny-mine_-_visite_guidee_de_la_mine_et_des_galeries_souterraines_3.jpg"
+      "image_url": "https://www.blegnymine.be/sites/default/files/cms/blegny-mine_-_visite_guidee_de_la_mine_et_des_galeries_souterraines_3.jpg",
+      "link_ok": true
     },
     {
       "id": "place-bokrijk",
@@ -3195,7 +3967,11 @@
         "crafts",
         "treasure_hunt"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Bokrijk3.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Bokrijk_%28domein%29",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-bokrijk-open-air-museum",
@@ -3225,7 +4001,8 @@
         "history",
         "heritage"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-children-s-museum--musée-des-enfants",
@@ -3255,7 +4032,11 @@
         "play",
         "kids"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Boston_Childrens_Museum.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Boston_Children%27s_Museum",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-museum-chocolate-nation",
@@ -3286,7 +4067,8 @@
         "interactive"
       ],
       "geocode_source": "payload",
-      "image_url": "https://chocolatenation.be/nl/assets/Chocolate-Nation/Beelden/_1200x630_crop_center-center_82_none/Plan-je-bezoek_2.jpg?mtime=1788246230"
+      "image_url": "https://chocolatenation.be/nl/assets/Chocolate-Nation/Beelden/_1200x630_crop_center-center_82_none/Plan-je-bezoek_2.jpg?mtime=1788246230",
+      "link_ok": true
     },
     {
       "id": "place-museum-cosmodrome--europlanetarium",
@@ -3316,7 +4098,8 @@
         "astronomy",
         "science"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-de-wereld-van-kina--het-huis",
@@ -3347,7 +4130,8 @@
         "kids"
       ],
       "geocode_source": "payload",
-      "image_url": "https://kina.stad.gent/sites/default/files/styles/article_teaser_310x200/public/p_simple_header/240627_rosansteenbrugge_stadgent_wereldvankina23%20-%20LR.jpg?h=4e05c880&amp;itok=78NJpWjm"
+      "image_url": "https://kina.stad.gent/sites/default/files/styles/article_teaser_310x200/public/p_simple_header/240627_rosansteenbrugge_stadgent_wereldvankina23%20-%20LR.jpg?h=4e05c880&amp;itok=78NJpWjm",
+      "link_ok": true
     },
     {
       "id": "place-museum-domaine-des-grottes-de-han",
@@ -3378,7 +4162,8 @@
         "nature"
       ],
       "geocode_source": "payload",
-      "image_url": "https://grotte-de-han.be/image/header/grotte_lighter_rvb2(2).jpg"
+      "image_url": "https://grotte-de-han.be/image/header/grotte_lighter_rvb2(2).jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-euro-space-center",
@@ -3408,7 +4193,8 @@
         "science",
         "interactive"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-fondation-folon",
@@ -3439,7 +4225,8 @@
         "family"
       ],
       "geocode_source": "payload",
-      "image_url": "https://fondationfolon.be/wp-content/uploads/2023/01/Fondation-Folon-188.jpg"
+      "image_url": "https://fondationfolon.be/wp-content/uploads/2023/01/Fondation-Folon-188.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-fourneau-saint-michel",
@@ -3470,7 +4257,8 @@
         "heritage"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/e818ad_9c3d0b04c17a43b09b8d2dc1f8deca8f.jpg/v1/fill/w_2500,h_1661,al_c/e818ad_9c3d0b04c17a43b09b8d2dc1f8deca8f.jpg"
+      "image_url": "https://static.wixstatic.com/media/e818ad_9c3d0b04c17a43b09b8d2dc1f8deca8f.jpg/v1/fill/w_2500,h_1661,al_c/e818ad_9c3d0b04c17a43b09b8d2dc1f8deca8f.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-gallo-roman-museum",
@@ -3501,7 +4289,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://galloromeinsmuseum.be/wp-content/uploads/2022/08/blokje_algemeen_500x500.jpg"
+      "image_url": "https://galloromeinsmuseum.be/wp-content/uploads/2022/08/blokje_algemeen_500x500.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-historium-bruges",
@@ -3531,7 +4320,8 @@
         "immersive",
         "medieval"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-huis-van-alijn",
@@ -3562,7 +4352,8 @@
         "folk"
       ],
       "geocode_source": "payload",
-      "image_url": "https://huisvanalijn.be/files/attachments/.6757/wl1200hp1200q85_LogoHvA.jpg"
+      "image_url": "https://huisvanalijn.be/files/attachments/.6757/wl1200hp1200q85_LogoHvA.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-in-flanders-fields-museum",
@@ -3592,7 +4383,11 @@
         "ww1",
         "war"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Ieper_Lakenhal_R02.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/In_Flanders_Fields_Museum",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-industriemuseum",
@@ -3623,7 +4418,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.industriemuseum.be/files/attachments/.6583/wl1200hp1200q85_logo-social-og.jpg"
+      "image_url": "https://www.industriemuseum.be/files/attachments/.6583/wl1200hp1200q85_logo-social-og.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-le-bois-du-cazier",
@@ -3653,7 +4449,11 @@
         "industry",
         "history"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Marcinelle_-_Bois_du_Cazier_-_2018-04-22_-_01.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Bois_du_Cazier",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-m-leuven",
@@ -3682,7 +4482,8 @@
         "crafts"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.mleuven.be/themes/custom/mleuven/assets/images/share_img_new.jpg"
+      "image_url": "https://www.mleuven.be/themes/custom/mleuven/assets/images/share_img_new.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-mas--museum-aan-de-stroom",
@@ -3712,7 +4513,8 @@
         "port",
         "city"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-maison-de-la-science",
@@ -3743,7 +4545,8 @@
         "experiments"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2026-06/expocerveau-imagelarge-2560x1440px-2.jpg"
+      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2026-06/expocerveau-imagelarge-2560x1440px-2.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-mini-europe",
@@ -3773,7 +4576,11 @@
         "outdoor",
         "europe"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Mini_Europe_Birds_Eye.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Mini-Europa",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-museum-of-natural-sciences",
@@ -3803,7 +4610,11 @@
         "nature",
         "dinosaurs"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Acrocanthosaurus_skeleton.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/North_Carolina_Museum_of_Natural_Sciences",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-natuurwetenschappen",
@@ -3832,7 +4643,11 @@
         "science",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Mus%C3%A9um_des_Sciences_naturelles_de_Belgique_%28entr%C3%A9e%29.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Museum_voor_Natuurwetenschappen",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-musée-hergé",
@@ -3863,7 +4678,8 @@
         "art"
       ],
       "geocode_source": "payload",
-      "image_url": "https://museeherge.be/wp-content/uploads/2024/11/Home-French.jpg"
+      "image_url": "https://museeherge.be/wp-content/uploads/2024/11/Home-French.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-musée-de-la-vie-wallonne",
@@ -3893,7 +4709,11 @@
         "daily-life",
         "puppets"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/LIEGE_Clo%C3%AEtre_de_l%27ancien_couvent_des_Fr%C3%A8res_Mineurs_-_rue_Moray_%281-2013%29.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Mus%C3%A9e_de_la_Vie_wallonne",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-museum-musée-royal-de-mariemont",
@@ -3924,7 +4744,8 @@
         "park"
       ],
       "geocode_source": "payload",
-      "image_url": "https://musee-mariemont.be/themes/mariemont_theme/images/og/MRM-partage-reseaux-sociaux-horizontal.png"
+      "image_url": "https://musee-mariemont.be/themes/mariemont_theme/images/og/MRM-partage-reseaux-sociaux-horizontal.png",
+      "link_ok": true
     },
     {
       "id": "place-museum-navigo---national-fisheries-museum",
@@ -3955,7 +4776,8 @@
         "aquarium"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.navigomuseum.be/sites/default/files/2024-09/navigo-hero.jpg"
+      "image_url": "https://www.navigomuseum.be/sites/default/files/2024-09/navigo-hero.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-planetarium-of-brussels",
@@ -3986,7 +4808,8 @@
         "astronomy"
       ],
       "geocode_source": "payload",
-      "image_url": "https://planetarium.be/storage/files/planetarium-dome-white-stars-hans-coeckelberghs-q-1200x630.jpg?token=ee37c4c32e5f9c828389c7e89a75b64b"
+      "image_url": "https://planetarium.be/storage/files/planetarium-dome-white-stars-hans-coeckelberghs-q-1200x630.jpg?token=ee37c4c32e5f9c828389c7e89a75b64b",
+      "link_ok": true
     },
     {
       "id": "place-museum-préhistomuseum",
@@ -4017,7 +4840,8 @@
         "outdoor"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.prehisto.museum/assets/images/site-2025/share.jpg"
+      "image_url": "https://www.prehisto.museum/assets/images/site-2025/share.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-red-star-line-museum",
@@ -4047,7 +4871,11 @@
         "migration",
         "ships"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Rsl_0.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Red_Star_Line",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-sparkoh",
@@ -4077,7 +4905,11 @@
         "interactive",
         "technology"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/SPARKOH_RVB_BLEU_VERT.png",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/SPARKOH%21",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-museum-stam---ghent-city-museum",
@@ -4108,7 +4940,8 @@
         "maps"
       ],
       "geocode_source": "payload",
-      "image_url": "https://stamgent.be/volumes/general/headers/_800x418_crop_center-center_82_none/header_STAM.jpg?v=1750142750"
+      "image_url": "https://stamgent.be/volumes/general/headers/_800x418_crop_center-center_82_none/header_STAM.jpg?v=1750142750",
+      "link_ok": true
     },
     {
       "id": "place-museum-scientastic-museum",
@@ -4138,7 +4971,8 @@
         "interactive",
         "senses"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-technopolis",
@@ -4168,7 +5002,8 @@
         "crafts"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.technopolis.be/assets/images/Praktisch-en-rest/Gebouw-gevel/_1200x630_crop_center-center_none/KEGEL-07.jpg"
+      "image_url": "https://www.technopolis.be/assets/images/Praktisch-en-rest/Gebouw-gevel/_1200x630_crop_center-center_none/KEGEL-07.jpg",
+      "link_ok": true
     },
     {
       "id": "place-museum-texture",
@@ -4199,7 +5034,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.texturekortrijk.be/themes/custom/images/og.png"
+      "image_url": "https://www.texturekortrijk.be/themes/custom/images/og.png",
+      "link_ok": true
     },
     {
       "id": "place-museum-toy-museum--speelgoedmuseum",
@@ -4230,7 +5066,8 @@
         "history"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.speelgoedmuseum.be/assets/illustraties/_1200x630_crop_center-center_none/933/social-share.jpg"
+      "image_url": "https://www.speelgoedmuseum.be/assets/illustraties/_1200x630_crop_center-center_none/933/social-share.jpg",
+      "link_ok": true
     },
     {
       "id": "place-train-world",
@@ -4259,7 +5096,8 @@
         "train_ride",
         "science"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-war-heritage-institute--royal-military-museum",
@@ -4289,7 +5127,8 @@
         "military",
         "aircraft"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-museum-zwin-nature-park",
@@ -4319,7 +5158,11 @@
         "birds",
         "outdoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Zwin_Natuur_Park_visitor_center_with_stork_nests%2C_Knokke-Heist%2C_2024.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Zwin_Natuur_Park",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-museum-be-mine",
@@ -4350,7 +5193,8 @@
         "adventure"
       ],
       "geocode_source": "payload",
-      "image_url": "https://be-mine.be/wp-content/uploads/2022/03/3641ddc5-6378-4bb3-b138-58541c7e2131_7H1A8450-scaled-1.jpeg"
+      "image_url": "https://be-mine.be/wp-content/uploads/2022/03/3641ddc5-6378-4bb3-b138-58541c7e2131_7H1A8450-scaled-1.jpeg",
+      "link_ok": true
     },
     {
       "id": "place-museum-écomusée-du-bois-du-luc",
@@ -4380,7 +5224,8 @@
         "industry",
         "heritage"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-actioncenter-eastbelgium",
@@ -4411,7 +5256,8 @@
         "laser-game",
         "climbing"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-aalst",
@@ -4440,7 +5286,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-gent",
@@ -4469,7 +5316,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-harelbeke",
@@ -4498,7 +5346,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-hasselt",
@@ -4527,7 +5376,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-linter",
@@ -4556,7 +5406,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-mouscron",
@@ -4585,7 +5436,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-oostende",
@@ -4614,7 +5466,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-ballorig-tournai",
@@ -4643,7 +5496,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-binnenspeeltuin-beverland",
@@ -4673,7 +5527,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.beverlandmaaseik.be/content/img/1/2486-20824-beverlandmaaseik-3dabe56fc55bfc20.jpg"
+      "image_url": "https://www.beverlandmaaseik.be/content/img/1/2486-20824-beverlandmaaseik-3dabe56fc55bfc20.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-binnenspeeltuin-kakelbont",
@@ -4703,7 +5558,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.xx.fbcdn.net/images/emoji.php/v9/t6e/3/16/2764.png"
+      "image_url": "https://static.xx.fbcdn.net/images/emoji.php/v9/t6e/3/16/2764.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-binnenspeeltuin-kinderrijck",
@@ -4733,7 +5589,8 @@
         "soft-play",
         "themed"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-binnenspeeltuin-papayoe",
@@ -4764,7 +5621,8 @@
         "themed"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.papayoe.be/assets/site/images/social.jpg"
+      "image_url": "https://www.papayoe.be/assets/site/images/social.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-binnenspeeltuin-speelmijntje",
@@ -4794,7 +5652,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.speelmijntje.be/wp-content/uploads/2020/09/aap-locatie.png"
+      "image_url": "https://www.speelmijntje.be/wp-content/uploads/2020/09/aap-locatie.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-circus-bruul",
@@ -4825,7 +5684,8 @@
         "themed"
       ],
       "geocode_source": "payload",
-      "image_url": "https://circusbruul.be/wp-content/uploads/elementor/thumbs/CB-6-1-rf9um1zdd23temp7tvcuuju584ow38sjxgo8w7cl80.jpg"
+      "image_url": "https://circusbruul.be/wp-content/uploads/elementor/thumbs/CB-6-1-rf9um1zdd23temp7tvcuuju584ow38sjxgo8w7cl80.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-conquesta-speelparadijs",
@@ -4854,7 +5714,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-flying-kids",
@@ -4884,7 +5745,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.flyingkids.be/smarty/wireframe30/media/images/Flying-Kids-social.jpg"
+      "image_url": "https://www.flyingkids.be/smarty/wireframe30/media/images/Flying-Kids-social.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-fun-for-kid-s",
@@ -4914,7 +5776,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/643033_f6480fefcb5848f389805449865d8830~mv2.gif/v1/fill/w_2024,h_684,al_c/643033_f6480fefcb5848f389805449865d8830~mv2.gif"
+      "image_url": "https://static.wixstatic.com/media/643033_f6480fefcb5848f389805449865d8830~mv2.gif/v1/fill/w_2024,h_684,al_c/643033_f6480fefcb5848f389805449865d8830~mv2.gif",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-imagipark",
@@ -4944,7 +5807,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.imagipark.be/wp-content/uploads/2017/04/imagipark.jpg"
+      "image_url": "https://www.imagipark.be/wp-content/uploads/2017/04/imagipark.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-indoorspeeldorp-kids-kingdom",
@@ -4973,7 +5837,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-kidzcity",
@@ -5002,7 +5867,11 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/KidZcity.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/KidZcity",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-playground_indoor-kidikids",
@@ -5031,7 +5900,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-kids-city",
@@ -5060,7 +5930,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-kids--island",
@@ -5089,7 +5960,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-kinderstad-heverlee",
@@ -5117,7 +5989,11 @@
       "tags": [
         "bouncy_castle"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Kinderstad_Heerlen_%2848921666177%29.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Kinderstad_Heerlen",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-playground_indoor-koezio",
@@ -5147,7 +6023,8 @@
         "adventure-park",
         "teamwork"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-l-île-aux-enfants",
@@ -5176,7 +6053,11 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Casimir_20061112_Paris_Jouets_Collections.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/L%27%C3%8Ele_aux_enfants",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-playground_indoor-la-forêt-de-popy",
@@ -5205,7 +6086,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-le-monde-d-ayden--nivelles",
@@ -5236,7 +6118,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "http://static1.squarespace.com/static/66f0767d534b9528caad54a8/t/67063e78e9562e5d1602b5d7/1728462460604/7F82258C-FA0E-4CC7-AB8C-73337D638829.jpeg?format=1500w"
+      "image_url": "http://static1.squarespace.com/static/66f0767d534b9528caad54a8/t/67063e78e9562e5d1602b5d7/1728462460604/7F82258C-FA0E-4CC7-AB8C-73337D638829.jpeg?format=1500w",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-le-monde-d-ayden--uccle",
@@ -5267,7 +6150,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "http://static1.squarespace.com/static/66f0767d534b9528caad54a8/t/67063e78e9562e5d1602b5d7/1728462460604/7F82258C-FA0E-4CC7-AB8C-73337D638829.jpeg?format=1500w"
+      "image_url": "http://static1.squarespace.com/static/66f0767d534b9528caad54a8/t/67063e78e9562e5d1602b5d7/1728462460604/7F82258C-FA0E-4CC7-AB8C-73337D638829.jpeg?format=1500w",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-magic-parc",
@@ -5296,7 +6180,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-mega-speelstad",
@@ -5326,7 +6211,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.speelstad.be/mega-speelstad-110520.jpg"
+      "image_url": "https://www.speelstad.be/mega-speelstad-110520.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-pepsclub",
@@ -5355,7 +6241,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-pirouette",
@@ -5385,7 +6272,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.pirouette.be/web/img/pirouette.jpg"
+      "image_url": "https://www.pirouette.be/web/img/pirouette.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-planet-kids",
@@ -5414,7 +6302,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-play-beach",
@@ -5444,7 +6333,8 @@
         "soft-play",
         "beach"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-plopsa-indoor-hasselt",
@@ -5470,7 +6360,11 @@
       "indoor": true,
       "seasonal": null,
       "tags": [],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/PSi-ingang.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Plopsa_Indoor_Hasselt",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-playground_indoor-super",
@@ -5500,7 +6394,8 @@
         "soft-play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://superplay.be/wp-content/uploads/2023/03/SUPER_LOGO_01_CMYK.png"
+      "image_url": "https://superplay.be/wp-content/uploads/2023/03/SUPER_LOGO_01_CMYK.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-saraland",
@@ -5530,7 +6425,8 @@
         "soft-play",
         "swimming"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-speelpunt",
@@ -5560,7 +6456,8 @@
         "soft-play",
         "laser-game"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-stardust-park",
@@ -5589,7 +6486,11 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Stardust20110323-full.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Stardust_%28sonde_spatiale%29",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-playground_indoor-the-family-station",
@@ -5618,7 +6519,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_indoor-yoyo-arlon",
@@ -5647,7 +6549,8 @@
         "indoor-playground",
         "soft-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-theatercafé",
@@ -5679,7 +6582,8 @@
         "playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/270bd7_9d517dd2d84b4da3ba5e6d2f148e1c73~mv2_d_3487_2486_s_4_2.jpg/v1/fill/w_2500,h_1782,al_c/270bd7_9d517dd2d84b4da3ba5e6d2f148e1c73~mv2_d_3487_2486_s_4_2.jpg"
+      "image_url": "https://static.wixstatic.com/media/270bd7_9d517dd2d84b4da3ba5e6d2f148e1c73~mv2_d_3487_2486_s_4_2.jpg/v1/fill/w_2500,h_1782,al_c/270bd7_9d517dd2d84b4da3ba5e6d2f148e1c73~mv2_d_3487_2486_s_4_2.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-t-nonnebos",
@@ -5711,7 +6615,8 @@
         "trampolines"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.hetnonnebos.be/media/assets/share.jpg"
+      "image_url": "https://www.hetnonnebos.be/media/assets/share.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-t-of-in-hove",
@@ -5741,7 +6646,8 @@
         "playground",
         "terrace"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-au-tracteur",
@@ -5773,7 +6679,8 @@
         "petanque"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/724099_1b59ccc3ac3b45bc9ccc580822fa73d8~mv2.jpg/v1/fill/w_828,h_315,al_c/724099_1b59ccc3ac3b45bc9ccc580822fa73d8~mv2.jpg"
+      "image_url": "https://static.wixstatic.com/media/724099_1b59ccc3ac3b45bc9ccc580822fa73d8~mv2.jpg/v1/fill/w_828,h_315,al_c/724099_1b59ccc3ac3b45bc9ccc580822fa73d8~mv2.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-bokmolenhoeve",
@@ -5804,7 +6711,8 @@
         "animals",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie--t-pachtgoedhof",
@@ -5835,7 +6743,8 @@
         "farm animals",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie-la-coccinelle--houte-si-plou",
@@ -5865,7 +6774,8 @@
         "countryside",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie-lindenhof",
@@ -5897,7 +6807,8 @@
         "pancakes"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.bijveges.be/wp-content/uploads/elementor/thumbs/flag_en-py29wgh2oh9et7400dcyrf6i7mmimusnja482z3wao.webp"
+      "image_url": "https://www.bijveges.be/wp-content/uploads/elementor/thumbs/flag_en-py29wgh2oh9et7400dcyrf6i7mmimusnja482z3wao.webp",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie-rn-waterloo",
@@ -5928,7 +6839,8 @@
         "outdoor playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg"
+      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie-de-silly",
@@ -5959,7 +6871,8 @@
         "kids corner"
       ],
       "geocode_source": "payload",
-      "image_url": "https://silly-beer.com/wp-content/uploads/2018/04/1C5E4641-A1AB-44AD-BDE2-57B4ECAB5EB8.png"
+      "image_url": "https://silly-beer.com/wp-content/uploads/2018/04/1C5E4641-A1AB-44AD-BDE2-57B4ECAB5EB8.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-brasserie-du-prince-d-orange",
@@ -5991,7 +6904,8 @@
         "outdoor playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg"
+      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-chalet-van-laerbeek",
@@ -6023,7 +6937,8 @@
         "chalet"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg"
+      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-chez-georges",
@@ -6054,7 +6969,8 @@
         "indoor play room"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg"
+      "image_url": "https://www.restauration-nouvelle.be/layout/uploads/2023/03/rn-facebook.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-domaine-de-malchamps",
@@ -6085,7 +7001,11 @@
         "trampolines",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Fagne_de_Malchamps.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Fagne_de_Malchamps",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-playground_restaurant-eetcafé-hippodroom",
@@ -6116,7 +7036,8 @@
         "playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.eetcafehippodroom.be/wp-content/uploads/2025/09/0N2A5560-95-683x1024.jpg"
+      "image_url": "https://www.eetcafehippodroom.be/wp-content/uploads/2025/09/0N2A5560-95-683x1024.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-ferme-libert",
@@ -6147,7 +7068,8 @@
         "animals",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-het-brughuis",
@@ -6178,7 +7100,8 @@
         "large playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.hetbrughuis.eu/wp-content/uploads/2023/04/vlees.jpg"
+      "image_url": "https://www.hetbrughuis.eu/wp-content/uploads/2023/04/vlees.jpg",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-hoeve-pietersheim",
@@ -6210,7 +7133,8 @@
         "petting zoo"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.visitlimburg.be/sites/default/files/styles/og_image/public/import/Hoeve%20Pietersheim_4663_1.jpg?itok=Gys4Lo9y"
+      "image_url": "https://www.visitlimburg.be/sites/default/files/styles/og_image/public/import/Hoeve%20Pietersheim_4663_1.jpg?itok=Gys4Lo9y",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-koe-vert",
@@ -6241,7 +7165,8 @@
         "organic",
         "self-service"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-l-île-d-yvoir",
@@ -6272,7 +7197,11 @@
         "paddling pool",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/%C3%8Ele_d%27Yvoir.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/%C3%8Ele_d%27Yvoir",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-playground_restaurant-la-ferme-du-haras",
@@ -6303,7 +7232,8 @@
         "two playgrounds",
         "park"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-la-marelle",
@@ -6333,7 +7263,11 @@
         "terrace",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Image_marelle_2.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Marelle",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-playground_restaurant-le-bout-en-train",
@@ -6364,7 +7298,8 @@
         "playground",
         "games room"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-marie-siska",
@@ -6396,7 +7331,8 @@
         "coast"
       ],
       "geocode_source": "payload",
-      "image_url": "https://siska-marie.com/wp-content/uploads/2026/08/route-def.png"
+      "image_url": "https://siska-marie.com/wp-content/uploads/2026/08/route-def.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-melkerij-nachtegalenpark",
@@ -6428,7 +7364,8 @@
         "terrace"
       ],
       "geocode_source": "payload",
-      "image_url": "https://melkerij-nachtegalenpark.be/wp-content/uploads/2025/04/MNP_terras.png"
+      "image_url": "https://melkerij-nachtegalenpark.be/wp-content/uploads/2025/04/MNP_terras.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-melkerij-peerdsbos",
@@ -6459,7 +7396,8 @@
         "playground",
         "cafe"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-restaurant-de-palingbeek",
@@ -6490,7 +7428,8 @@
         "domein",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-schievelavabo-la-hulpe",
@@ -6522,7 +7461,8 @@
         "playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://schievelavabo.com/img?w=600&s=68780681c44c43bdb514a80b88928623"
+      "image_url": "https://schievelavabo.com/img?w=600&s=68780681c44c43bdb514a80b88928623",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-schulensmeer",
@@ -6553,7 +7493,11 @@
         "beach",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Schulensmeer%2C_Belgium.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Schulensmeer",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-playground_restaurant-sint-jorishoeve",
@@ -6584,7 +7528,11 @@
         "petting animals",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Kuypers_-_Sint_Jorispolder.PNG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Sint_Jorispolder_%28Nieuwvliet%29",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-playground_restaurant-tarzan---jane",
@@ -6615,7 +7563,8 @@
         "self-service"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.tarzanenjane.be/wp-content/uploads/2025/04/tarzan-en-jane-galerij-25.webp"
+      "image_url": "https://www.tarzanenjane.be/wp-content/uploads/2025/04/tarzan-en-jane-galerij-25.webp",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-waikiki-beach",
@@ -6646,7 +7595,8 @@
         "playground",
         "coast"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-weidegeluk",
@@ -6677,7 +7627,8 @@
         "large playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/20764a_bfe920946462467e8e5870e2ba7edef1%7Emv2.png/v1/fit/w_2500,h_1330,al_c/20764a_bfe920946462467e8e5870e2ba7edef1%7Emv2.png"
+      "image_url": "https://static.wixstatic.com/media/20764a_bfe920946462467e8e5870e2ba7edef1%7Emv2.png/v1/fit/w_2500,h_1330,al_c/20764a_bfe920946462467e8e5870e2ba7edef1%7Emv2.png",
+      "link_ok": true
     },
     {
       "id": "place-playground_restaurant-zavelbos-taverne--t-zaveltje",
@@ -6708,7 +7659,8 @@
         "playground",
         "camping"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-bois-de-la-cambre",
@@ -6739,7 +7691,11 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Le_bois_de_la_Cambre_et_le_lac.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Bois_de_la_Cambre",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-chevetogne",
@@ -6770,7 +7726,8 @@
         "treasure_hunt"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.domainedechevetogne.be/wp-content/uploads/2024/12/Accueil-chateau-du-Domaine-de-Chevetogne-1-300x200.jpg"
+      "image_url": "https://www.domainedechevetogne.be/wp-content/uploads/2024/12/Accueil-chateau-du-Domaine-de-Chevetogne-1-300x200.jpg",
+      "link_ok": true
     },
     {
       "id": "place-bois-des-reves",
@@ -6799,7 +7756,8 @@
         "water_play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.boisdesreves.be/wp-content/uploads/2023/05/BdR_Logotype__Couleurs_rvb.png"
+      "image_url": "https://www.boisdesreves.be/wp-content/uploads/2023/05/BdR_Logotype__Couleurs_rvb.png",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-domaine-et-musée-royal-de-mariemont",
@@ -6831,7 +7789,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://musee-mariemont.be/themes/mariemont_theme/images/og/MRM-partage-reseaux-sociaux-horizontal.png"
+      "image_url": "https://musee-mariemont.be/themes/mariemont_theme/images/og/MRM-partage-reseaux-sociaux-horizontal.png",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-domaine-provincial-de-chevetogne",
@@ -6863,7 +7822,8 @@
         "gardens"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.domainedechevetogne.be/wp-content/uploads/2024/12/Accueil-chateau-du-Domaine-de-Chevetogne-1-300x200.jpg"
+      "image_url": "https://www.domainedechevetogne.be/wp-content/uploads/2024/12/Accueil-chateau-du-Domaine-de-Chevetogne-1-300x200.jpg",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-domaine-provincial-de-mirwart",
@@ -6894,7 +7854,8 @@
         "walking",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-domaine-provincial-de-wégimont",
@@ -6925,7 +7886,8 @@
         "animals",
         "castle"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-domaine-provincial-du-bois-des-rêves",
@@ -6956,7 +7918,8 @@
         "playground",
         "forest"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-ferme-nos-pilifs",
@@ -6988,7 +7951,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.fermenospilifs.be/web/image/9353-4e92c76a/20230914_164222.jpg"
+      "image_url": "https://www.fermenospilifs.be/web/image/9353-4e92c76a/20230914_164222.jpg",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-ferme-du-parc-maximilien",
@@ -7018,7 +7982,8 @@
         "animals",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-le-pass---parc-d-aventures-scientifiques",
@@ -7049,7 +8014,8 @@
         "interactive",
         "indoor"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-natuurpark-nieuwenhoven",
@@ -7080,7 +8046,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.limburg.be/sites/default/files/styles/social_large/public/media/images/2026-07/MiKli_natuurterreinen_domeinen_teaser.jpg?itok=rOdiW3ve"
+      "image_url": "https://www.limburg.be/sites/default/files/styles/social_large/public/media/images/2026-07/MiKli_natuurterreinen_domeinen_teaser.jpg?itok=rOdiW3ve",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-parc-animalier-de-bouillon",
@@ -7110,7 +8077,11 @@
         "wildlife-park",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Wapiti_in_Parc_Animalier_de_Bouillon.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Parc_animalier_de_Bouillon",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-parc-de-woluwe",
@@ -7141,7 +8112,11 @@
         "animals",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/2286-00020_Parc_de_Woluwe_%2811%29.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Parc_de_Woluwe",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-provincial_domain-parc-à-gibier-de-la-roche-en-ardenne",
@@ -7171,7 +8146,8 @@
         "wildlife-park",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-plantentuin-meise--meise-botanic-garden",
@@ -7203,7 +8179,8 @@
         "castle"
       ],
       "geocode_source": "payload",
-      "image_url": "https://img.plantentuinmeise.be/XYWWAW6gn3cOajYO9P7stFEFgK1YhJpQ-VKrwrdq2S4/c:973:510:fp:0.5:0.33/s:1200:630:1/aHR0cHM6Ly93d3cucGxhbnRlbnR1aW5tZWlzZS5iZS8vY21zX2ZpbGVzL3N5c3RlbS9pbWFnZXMvaW1nMTAwODRfb3JpZy5hdmlm"
+      "image_url": "https://img.plantentuinmeise.be/XYWWAW6gn3cOajYO9P7stFEFgK1YhJpQ-VKrwrdq2S4/c:973:510:fp:0.5:0.33/s:1200:630:1/aHR0cHM6Ly93d3cucGxhbnRlbnR1aW5tZWlzZS5iZS8vY21zX2ZpbGVzL3N5c3RlbS9pbWFnZXMvaW1nMTAwODRfb3JpZy5hdmlm",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-bokrijk",
@@ -7234,7 +8211,8 @@
         "nature",
         "cycling"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-de-boerekreek",
@@ -7264,7 +8242,8 @@
         "watersports",
         "swimming"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-de-brielmeersen",
@@ -7295,7 +8274,8 @@
         "animals",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-de-gavers",
@@ -7326,7 +8306,11 @@
         "watersports",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/De_Gavers_sporthal_DSC_3054.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Provinciedomein_De_Gavers",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-de-ster",
@@ -7356,7 +8340,8 @@
         "swimming",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-dommelhof",
@@ -7387,7 +8372,8 @@
         "forest",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-het-leen",
@@ -7418,7 +8404,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-nieuwdonk",
@@ -7448,7 +8435,8 @@
         "swimming",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-prinsenpark",
@@ -7480,7 +8468,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-domein-puyenbroeck",
@@ -7511,7 +8500,8 @@
         "animals",
         "mini-golf"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-groendomein-kesselse-heide",
@@ -7542,7 +8532,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-groendomein-rivierenhof",
@@ -7574,7 +8565,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-groendomein-vrijbroekpark",
@@ -7606,7 +8598,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-recreatiedomein-de-lilse-bergen",
@@ -7636,7 +8629,8 @@
         "swimming",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-recreatiedomein-de-nekker",
@@ -7666,7 +8660,8 @@
         "playground",
         "swimming"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-recreatiedomein-de-schorre",
@@ -7698,7 +8693,8 @@
         "art-trail"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.deschorre.be/sites/deschorre/files/styles/social_media_image/public/2025-10/dji_0216.jpg?itok=_FnyfTPh"
+      "image_url": "https://www.deschorre.be/sites/deschorre/files/styles/social_media_image/public/2025-10/dji_0216.jpg?itok=_FnyfTPh",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciaal-recreatiedomein-zilvermeer",
@@ -7729,7 +8725,8 @@
         "playground"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zilvermeer.be/sites/zilvermeer/files/styles/social_media_image/public/2026-05/wf-zandfabriek-87.jpg?itok=pKsJ2I5V"
+      "image_url": "https://www.zilvermeer.be/sites/zilvermeer/files/styles/social_media_image/public/2026-05/wf-zandfabriek-87.jpg?itok=pKsJ2I5V",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-bergelen",
@@ -7759,7 +8756,11 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Bord_Provinciedomein_bergelen.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Domein_Bergelen",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciedomein-bulskampveld",
@@ -7790,7 +8791,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-de-averegten",
@@ -7821,7 +8823,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2026-04/zilvermeer-roeiboot.jpg?itok=FPPyQq-u",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-de-gavers",
@@ -7852,7 +8855,11 @@
         "watersports",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/De_Gavers_sporthal_DSC_3054.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Provinciedomein_De_Gavers",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciedomein-de-palingbeek",
@@ -7883,7 +8890,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-het-vinne",
@@ -7914,7 +8922,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-prov-huizingen",
@@ -7926,7 +8935,7 @@
       "address": "Torleylaan 100, 1654 Huizingen",
       "lat": 50.7439,
       "lng": 4.2757,
-      "website": "https://www.vlaamsbrabant.be/nl/vrije-tijd/provinciedomein-huizingen",
+      "website": "https://www.vlaamsbrabant.be",
       "description_nl": "Groen domein met een grote avonturenspeeltuin, dierenpark, openluchtzwembad en minigolf.",
       "blurb_en": "Green estate with a big adventure playground, animal park, outdoor pool and mini-golf.",
       "price_type": "paid",
@@ -7943,7 +8952,8 @@
         "animals",
         "water_play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-prov-kessel-lo",
@@ -7955,7 +8965,7 @@
       "address": "Gemeenteplein 5, 3010 Kessel-Lo",
       "lat": 50.8862,
       "lng": 4.7361,
-      "website": "https://www.vlaamsbrabant.be/nl/vrije-tijd/provinciedomein-kessel-lo",
+      "website": "https://www.vlaamsbrabant.be",
       "description_nl": "Provinciaal domein met vijvers, speeltuinen, een kinderboerderij, minigolf en zwemvijver in de zomer.",
       "blurb_en": "Provincial park with lakes, playgrounds, a petting farm, mini-golf and a summer swimming lake.",
       "price_type": "free",
@@ -7972,7 +8982,8 @@
         "animals",
         "water_play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-raversyde",
@@ -8003,7 +9014,11 @@
         "dunes",
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Walraversijde.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Provinciedomein_Raversijde",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciedomein-tillegembos",
@@ -8034,7 +9049,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-provincial_domain-provinciedomein-wallemote-wolvenhof",
@@ -8064,7 +9080,11 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Kasteel_Wallemote_%281%29.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Provinciedomein_Wallemote-Wolvenhof",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciedomein-d-aertrycke",
@@ -8094,7 +9114,11 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Schets_daardehutte.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Provinciedomein_kasteel_d%27Aertrycke",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-provincial_domain-provinciedomein-de-ijzerboomgaard",
@@ -8124,7 +9148,8 @@
         "water-play",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-blotevoetenpad-zutendaal",
@@ -8155,7 +9180,8 @@
         "nature",
         "water-play"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-bois-de-la-houssière",
@@ -8186,7 +9212,11 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Braine-le-Comte%2C_Belgium_-_panoramio_%284%29.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Bois_de_la_Houssi%C3%A8re",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-speelbos-bosdomein-het-leen",
@@ -8217,7 +9247,8 @@
         "arboretum",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-de-speelplekke",
@@ -8248,7 +9279,8 @@
         "adventure",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-forestia",
@@ -8280,7 +9312,8 @@
         "nature"
       ],
       "geocode_source": "payload",
-      "image_url": "https://forestia.be/wp-content/uploads/2025/08/forestia-home.jpg"
+      "image_url": "https://forestia.be/wp-content/uploads/2025/08/forestia-home.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-joekelbos",
@@ -8313,7 +9346,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.nationaalparkhogekempen.be/sites/default/files/styles/photo_share_hogekempen/public/nphk2021_rgb_wit_logo_z_baseline_web_3.png?itok=-v9PAZd_"
+      "image_url": "https://www.nationaalparkhogekempen.be/sites/default/files/styles/photo_share_hogekempen/public/nphk2021_rgb_wit_logo_z_baseline_web_3.png?itok=-v9PAZd_",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-la-pic-orée",
@@ -8344,7 +9378,8 @@
         "sensory",
         "nature"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-parc-chlorophylle",
@@ -8376,7 +9411,8 @@
         "nature"
       ],
       "geocode_source": "payload",
-      "image_url": "https://medias.elloha.com/crop-300x200/0b020835-0fa1-4773-9ed5-13c0516f50ae/10520-Parcours2.jpg"
+      "image_url": "https://medias.elloha.com/crop-300x200/0b020835-0fa1-4773-9ed5-13c0516f50ae/10520-Parcours2.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-plaisiersbos",
@@ -8408,7 +9444,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zedelgem.be/sites/default/files/styles/focal_point_ratio_40_21/public/2018-03/tile-large_0.jpg?h=ec041e41&amp;itok=yGqP9Jar"
+      "image_url": "https://www.zedelgem.be/sites/default/files/styles/focal_point_ratio_40_21/public/2018-03/tile-large_0.jpg?h=ec041e41&amp;itok=yGqP9Jar",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-prullenbos",
@@ -8439,7 +9476,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-réserve-naturelle-de-furfooz",
@@ -8470,7 +9508,8 @@
         "caves",
         "hiking"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-sentier-pieds-nus-de-montleban",
@@ -8501,7 +9540,8 @@
         "farm",
         "nature"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speel--en-sportbos-as",
@@ -8533,7 +9573,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.visitlimburg.be/themes/custom/sassy/assets/img/TL-share-nl.jpg"
+      "image_url": "https://www.visitlimburg.be/themes/custom/sassy/assets/img/TL-share-nl.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos--t-vossenhol",
@@ -8564,7 +9605,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-bourgoyen-ossemeersen",
@@ -8595,7 +9637,8 @@
         "wetland",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-de-averegten",
@@ -8628,7 +9671,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-09/opening-hobbeldonk-31.jpg?itok=G55FVc2P"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-09/opening-hobbeldonk-31.jpg?itok=G55FVc2P",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-de-gavers",
@@ -8659,7 +9703,8 @@
         "domain",
         "adventure"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-de-hoge-mouw--kabouterberg",
@@ -8671,7 +9716,7 @@
       "address": null,
       "lat": 51.24079,
       "lng": 4.96781,
-      "website": "https://www.natuurenbos.be/natuurgebieden/de-hoge-mouw",
+      "website": "https://www.natuurenbos.be",
       "description_nl": "Play zones and the Kabouterberg dune in the Natuur & Bos domain De Hoge Mouw, with sandy slopes, pine woods and walking trails for families.",
       "blurb_en": "Play zones and the Kabouterberg dune in the Natuur & Bos domain De Hoge Mouw, with sandy slopes, pine woods and walking trails for families.",
       "price_type": "free",
@@ -8691,7 +9736,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-de-palingbeek",
@@ -8703,7 +9749,7 @@
       "address": null,
       "lat": 50.85219,
       "lng": 2.8846,
-      "website": "https://www.natuurenbos.be/natuurgebieden/de-palingbeek",
+      "website": "https://www.natuurenbos.be",
       "description_nl": "Play zones in the Palingbeek forest domain south of Ieper where children can leave the paths to climb and build in the woods.",
       "blurb_en": "Play zones in the Palingbeek forest domain south of Ieper where children can leave the paths to climb and build in the woods.",
       "price_type": "free",
@@ -8722,7 +9768,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-everzwijnbad",
@@ -8753,7 +9800,8 @@
         "adventure",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-grote-getevallei",
@@ -8784,7 +9832,8 @@
         "water-play",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-het-vlasbos",
@@ -8815,7 +9864,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-kelchterhoef",
@@ -8847,7 +9897,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://kelchterhoef.be/wp-content/uploads/elementor/thumbs/Kroatie-qryjocl7pv71t7cqy7kpahvoyq8ytjh5jjwyurj3u4.jpg"
+      "image_url": "https://kelchterhoef.be/wp-content/uploads/elementor/thumbs/Kroatie-qryjocl7pv71t7cqy7kpahvoyq8ytjh5jjwyurj3u4.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-machelenput",
@@ -8878,7 +9929,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-meerdaalwoud--speelberg",
@@ -8909,7 +9961,8 @@
         "adventure",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-nieuwenhoven",
@@ -8940,7 +9993,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-oudenaarde",
@@ -8971,7 +10025,8 @@
         "barefoot-trail",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-park-groot-schijn",
@@ -9003,7 +10058,8 @@
         "outdoor",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-pollebos",
@@ -9034,7 +10090,8 @@
         "fort",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-prinsenpark",
@@ -9067,7 +10124,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-07/pp-339.jpg?itok=GqovV4bG"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-07/pp-339.jpg?itok=GqovV4bG",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-puyenbroeck",
@@ -9098,7 +10156,8 @@
         "domain",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-rivierenhof",
@@ -9131,7 +10190,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-10/rivierenhof_20250922_prairietuin-2--c--provincie-antwerpen-71-hr.jpg?itok=J_jRmjXq"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-10/rivierenhof_20250922_prairietuin-2--c--provincie-antwerpen-71-hr.jpg?itok=J_jRmjXq",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-sahara",
@@ -9164,7 +10224,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.nationaalparkbosland.be/images/activities/banner/bosland-speelbos-sahara.jpg"
+      "image_url": "https://www.nationaalparkbosland.be/images/activities/banner/bosland-speelbos-sahara.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-silsombos",
@@ -9196,7 +10257,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.natuurpunt.be/sites/default/files/styles/large/public/natuurbeleving_wimdirckx.jpg?itok=27-8YR0N"
+      "image_url": "https://www.natuurpunt.be/sites/default/files/styles/large/public/natuurbeleving_wimdirckx.jpg?itok=27-8YR0N",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-tillegembos",
@@ -9227,7 +10289,8 @@
         "domain",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-voerenberg",
@@ -9258,7 +10321,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbos-zevenbergenbos",
@@ -9289,7 +10353,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelbossen-bokrijk",
@@ -9320,7 +10385,8 @@
         "playground",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-heverleebos",
@@ -9346,7 +10412,8 @@
       "indoor": false,
       "seasonal": null,
       "tags": [],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelzone-kluisbos",
@@ -9378,7 +10445,8 @@
         "nature",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelzone-uitkerkse-polder",
@@ -9409,7 +10477,8 @@
         "birds",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelzones-hallerbos",
@@ -9440,7 +10509,8 @@
         "bluebells",
         "free"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelzones-neteland",
@@ -9473,7 +10543,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-10/spelende-kinderen-neteland.jpeg?itok=1NiAPRdD"
+      "image_url": "https://www.provincieantwerpen.be/sites/koepelsite/files/styles/social_media_image/public/2025-10/spelende-kinderen-neteland.jpeg?itok=1NiAPRdD",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-speelzones-rood-klooster--rouge-cloître",
@@ -9505,7 +10576,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://gardens.brussels/sites/default/files/2023-06/PEDE-03.jpg"
+      "image_url": "https://gardens.brussels/sites/default/files/2023-06/PEDE-03.jpg",
+      "link_ok": true
     },
     {
       "id": "place-speelbos-zones-de-jeux-forêt-de-soignes",
@@ -9537,7 +10609,8 @@
         "free"
       ],
       "geocode_source": "payload",
-      "image_url": "https://environnement.brussels/sites/default/files/styles/social_share/public/2022-06/hero_zonedejeux_B_Maindiaux.jpg?itok=hw1uYQAM"
+      "image_url": "https://environnement.brussels/sites/default/files/styles/social_share/public/2022-06/hero_zonedejeux_B_Maindiaux.jpg?itok=hw1uYQAM",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-bar-panorama--provinciedomein-puyenbroeck",
@@ -9567,7 +10640,8 @@
         "provincial domain",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-bar-volaré",
@@ -9597,7 +10671,8 @@
         "farm animals",
         "terrace"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-baraboire",
@@ -9629,7 +10704,8 @@
         "free entry"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.baraboire.be/uploads/project_picture/Bara_5bd2a2c568c39.png"
+      "image_url": "https://www.baraboire.be/uploads/project_picture/Bara_5bd2a2c568c39.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-café-kamyon",
@@ -9662,7 +10738,8 @@
         "free entry"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www-collection.imgix.net/cafe-kamyon/2024/05/fb-ck.png?auto=compress%2Cformat&fit=scale&h=717&ixlib=php-3.3.1&w=1024&wpsize=large"
+      "image_url": "https://www-collection.imgix.net/cafe-kamyon/2024/05/fb-ck.png?auto=compress%2Cformat&fit=scale&h=717&ixlib=php-3.3.1&w=1024&wpsize=large",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-de-hoorn",
@@ -9690,7 +10767,8 @@
       "tags": [
         "food"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-domaine-du-lac-de-chérapont",
@@ -9721,7 +10799,8 @@
         "brasserie",
         "camping"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-gazon-antwerpen",
@@ -9752,7 +10831,8 @@
         "brunch"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/282a3d_981d148e28da43b6879fd0a2f356ac74~mv2.png/v1/fill/w_1648,h_880,al_c/282a3d_981d148e28da43b6879fd0a2f356ac74~mv2.png"
+      "image_url": "https://static.wixstatic.com/media/282a3d_981d148e28da43b6879fd0a2f356ac74~mv2.png/v1/fill/w_1648,h_880,al_c/282a3d_981d148e28da43b6879fd0a2f356ac74~mv2.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-gazon-gent",
@@ -9783,7 +10863,8 @@
         "kids corner"
       ],
       "geocode_source": "payload",
-      "image_url": "https://static.wixstatic.com/media/8c0760_65d8f8e7288043d0bcb911fdf9e2ad56%7Emv2.png/v1/fit/w_2500,h_1330,al_c/8c0760_65d8f8e7288043d0bcb911fdf9e2ad56%7Emv2.png"
+      "image_url": "https://static.wixstatic.com/media/8c0760_65d8f8e7288043d0bcb911fdf9e2ad56%7Emv2.png/v1/fit/w_2500,h_1330,al_c/8c0760_65d8f8e7288043d0bcb911fdf9e2ad56%7Emv2.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-guinguette-fabiola--parc-roi-baudouin",
@@ -9814,7 +10895,8 @@
         "picnic",
         "free entry"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-guinguette-de-la-ferme-des-coquelicots",
@@ -9845,7 +10927,8 @@
         "kids activities",
         "concerts"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-kafee-forée",
@@ -9876,7 +10959,8 @@
         "forest",
         "free entry"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-kafee-kongée",
@@ -9907,7 +10991,8 @@
         "playground",
         "cycling stop"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-la-guinguette-mobile--la-plante",
@@ -9937,7 +11022,8 @@
         "riverside",
         "Meuse"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-la-guinguette-du-parc-de-forest",
@@ -9968,7 +11054,8 @@
         "family dining"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.villa-guinguette-parc-forest.be/og-image.jpg"
+      "image_url": "https://www.villa-guinguette-parc-forest.be/og-image.jpg",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-la-plage-de-renipont",
@@ -9999,7 +11086,8 @@
         "guinguette",
         "water slide"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-labierint-maïsdoolhof---zomerbar",
@@ -10029,7 +11117,8 @@
         "corn maze",
         "family activity"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-les-7-meuses",
@@ -10060,7 +11149,8 @@
         "play area"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.les7meuses.be/wp-content/uploads/2024/01/vague.png"
+      "image_url": "https://www.les7meuses.be/wp-content/uploads/2024/01/vague.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-parckfarm-tour---taxis",
@@ -10091,7 +11181,8 @@
         "playground",
         "free entry"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-provinciedomein-halve-maan",
@@ -10121,7 +11212,8 @@
         "swimming pond",
         "adventure playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-strandbar-koki-beach",
@@ -10151,7 +11243,8 @@
         "seaside",
         "swings"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-terhills-cablepark-beach-bar",
@@ -10183,7 +11276,8 @@
         "aquapark"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.terhillscablepark.be/wp-content/uploads/Beelden-website-Terhills-1.png"
+      "image_url": "https://www.terhillscablepark.be/wp-content/uploads/Beelden-website-Terhills-1.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-unl-clubhouse",
@@ -10213,7 +11307,8 @@
         "riverside",
         "terrace"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-woodpecker-parc-royal",
@@ -10245,7 +11340,8 @@
         "free entry"
       ],
       "geocode_source": "payload",
-      "image_url": "https://woodpecker.family/wp-content/uploads/2024/05/park2.jpeg"
+      "image_url": "https://woodpecker.family/wp-content/uploads/2024/05/park2.jpeg",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-woodpecker-wolvendael",
@@ -10277,7 +11373,8 @@
         "free entry"
       ],
       "geocode_source": "payload",
-      "image_url": "https://woodpecker.family/wp-content/uploads/2022/12/woodpecker-wolvendael.jpeg"
+      "image_url": "https://woodpecker.family/wp-content/uploads/2022/12/woodpecker-wolvendael.jpeg",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-zomerbar-op-het-publieksterras-van-m-leuven",
@@ -10308,7 +11405,8 @@
         "city centre"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.mleuven.be/themes/custom/mleuven/assets/images/share_img_new.jpg"
+      "image_url": "https://www.mleuven.be/themes/custom/mleuven/assets/images/share_img_new.jpg",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-zomerbar-buffie-s-farm",
@@ -10338,7 +11436,8 @@
         "farm",
         "flower picking"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-zomerbar-het-voldershof",
@@ -10369,7 +11468,8 @@
         "playground",
         "farm"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-zomerbar-zomer-van-antwerpen--park-groot-schijn",
@@ -10401,7 +11501,8 @@
         "free entry"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zva.be/assets/website/images/og-image.a8fdce31.png"
+      "image_url": "https://www.zva.be/assets/website/images/og-image.a8fdce31.png",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-zomerfabriek",
@@ -10433,7 +11534,8 @@
         "live music"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zomerfabriek.be/assets/website/images/og-image.644c49fd.jpg"
+      "image_url": "https://www.zomerfabriek.be/assets/website/images/og-image.644c49fd.jpg",
+      "link_ok": true
     },
     {
       "id": "place-zomerbar-île-d-yvoir",
@@ -10464,7 +11566,11 @@
         "playground",
         "pedal boats"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/%C3%8Ele_d%27Yvoir.jpg",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/%C3%8Ele_d%27Yvoir",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-monde-sauvage",
@@ -10492,7 +11598,11 @@
       "tags": [
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Animals_in_Monde_Sauvage_d%27Aywaille_13.JPG",
+      "image_credit_url": "https://fr.wikipedia.org/wiki/Le_Monde_Sauvage",
+      "image_credit": "Wikipedia (fr)"
     },
     {
       "id": "place-zoo-olmense",
@@ -10520,7 +11630,8 @@
       "tags": [
         "animals"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "link_ok": true
     },
     {
       "id": "place-pairi-daiza",
@@ -10549,7 +11660,8 @@
         "animals"
       ],
       "geocode_source": "payload",
-      "image_url": "https://cms.pairidaiza.eu/thumbor/tjPp0nLvgM7zeCrELckSBcK0xYk=/fit-in/1024x/filters:quality(92)/--/uploads/2024/04/sharing.png"
+      "image_url": "https://cms.pairidaiza.eu/thumbor/tjPp0nLvgM7zeCrELckSBcK0xYk=/fit-in/1024x/filters:quality(92)/--/uploads/2024/04/sharing.png",
+      "link_ok": true
     },
     {
       "id": "place-zoo-antwerpen",
@@ -10578,7 +11690,8 @@
         "animals"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zooantwerpen.be/assets/zoo-antwerpen/images/facebook-share-image.jpg"
+      "image_url": "https://www.zooantwerpen.be/assets/zoo-antwerpen/images/facebook-share-image.jpg",
+      "link_ok": true
     },
     {
       "id": "place-planckendael",
@@ -10609,7 +11722,8 @@
         "water_play"
       ],
       "geocode_source": "payload",
-      "image_url": "https://www.zooplanckendael.be/assets/planckendael/images/facebook-share-image.jpg"
+      "image_url": "https://www.zooplanckendael.be/assets/planckendael/images/facebook-share-image.jpg",
+      "link_ok": true
     }
   ]
 }

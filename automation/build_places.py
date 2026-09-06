@@ -22,7 +22,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import config
 import geo
+import linkcheck
 import llm_runner
+import multimove
+import wikiimage
 from sources import http_get
 
 log = logging.getLogger("build_places")
@@ -60,9 +63,14 @@ def _og_image(url: str) -> str | None:
     if not img.startswith("http"):
         return None
     low = img.lower()
-    # skip logos / favicons / generic social-share defaults — worse than nothing
-    if any(bad in low for bad in (
-        "favicon", "/logo", "logo.", "-logo", "default.png", "default.jpg",
+    # Skip logos, favicons and true placeholders — a logo on a card is worse
+    # than the emoji tile the frontend falls back to. But a file called
+    # default.png sitting under an /og/ path is the site's purpose-built
+    # 1200x630 share image (the Walibi/Bellewaerde pattern), which is exactly
+    # what we want; only treat "default" as generic when it is not OG art.
+    generic_default = ("default.png" in low or "default.jpg" in low) and "/og/" not in low
+    if generic_default or any(bad in low for bad in (
+        "favicon", "/logo", "logo.", "-logo",
         "placeholder", "cropped-", "sprite", "icon-", "/icons/", "apple-touch",
     )):
         return None
@@ -125,6 +133,7 @@ _SCHEMA = {
                     "age_min": {"type": ["integer", "null"]},
                     "age_max": {"type": ["integer", "null"]},
                     "indoor": {"type": "boolean"},
+                    "indoor_outdoor": {"type": "string", "enum": ["indoor", "outdoor", "both"]},
                     "seasonal": {"type": ["string", "null"], "enum": ["summer", "winter", None]},
                     "tags": {"type": "array", "items": {"type": "string"}},
                 },
@@ -142,8 +151,11 @@ def _prompt(kind: str, desc: str) -> str:
     return f"""Use web search to compile as COMPLETE a list as you can of {desc}
 across ALL of Belgium — every province, Flanders AND Wallonia AND Brussels.
 
-This is for a permanent "things to do with kids (ages 4 and 8)" guide, so only
-include places that are genuinely worth a family visit and are permanently open
+This is for a permanent "things to do with the kids" guide used by families all
+over Belgium with children of any age from toddler to early teens, speaking
+Dutch, French or English. So do not filter to one age or one language region:
+include what is worth a family visit anywhere in the country, and give each
+entry its real age range rather than assuming one. Only permanently open places
 (not one-off events). Aim for 20-60 entries.
 
 Only list places that genuinely fit "{desc}". Do NOT pad the list with places
@@ -152,14 +164,32 @@ theme-parks list, a zoo does not belong in a castles list).
 
 For each: the real name, city, province (one of the enum values), a one-sentence
 factual English description, the official website (homepage URL), rough price,
-typical age range, whether it is mainly indoor, and whether it is seasonal
-(summer/winter/null).
+typical age range, and whether it is seasonal (summer/winter/null). For
+indoor_outdoor answer "indoor", "outdoor", or "both" — "both" when a visit
+genuinely has an indoor and an outdoor part, or there is a real wet-weather
+fallback (a zoo with pavilions, a castle with grounds, a farm with a barn).
 
 Do not invent places. If unsure a place exists or is still open, leave it out.
 Return JSON matching the schema exactly."""
 
 
+# Kinds with a canonical public index, which we scrape instead of paying for a
+# web search. The LLM pass found 1 of the 19 Multimovepaden and gave it a URL
+# that 404s; the index gives all 19 with exact coordinates, for free.
+_SCRAPED_KINDS = {"multimove": multimove.fetch_places}
+
+
 def build_kind(kind: str) -> list[dict]:
+    if kind in _SCRAPED_KINDS:
+        out = []
+        for p in _SCRAPED_KINDS[kind]():
+            rec = {"id": f"place-{kind}-{_slug(p['name'])}", "province": None,
+                   "price_note_nl": None}
+            rec.update(p)
+            out.append(rec)
+        log.info("build_places[%s]: %d places (scraped)", kind, len(out))
+        return out
+
     desc = KINDS[kind]
     try:
         structured = llm_runner.run_search_with_schema(
@@ -196,6 +226,7 @@ def build_kind(kind: str) -> list[dict]:
             "fits_4yo": (p.get("age_min") or 0) <= 4 <= (p.get("age_max") or 99),
             "fits_8yo": (p.get("age_min") or 0) <= 8 <= (p.get("age_max") or 99),
             "indoor": p.get("indoor", False),
+            "indoor_outdoor": p.get("indoor_outdoor"),
             "seasonal": p.get("seasonal"),
             "tags": p.get("tags", []),
         })
@@ -211,6 +242,9 @@ def main() -> int:
                     help="only backfill og:image for places missing a photo, then exit")
     ap.add_argument("--dedupe", action="store_true",
                     help="only re-run cross-kind dedupe + geocode, then exit")
+    ap.add_argument("--links", action="store_true",
+                    help="only check every website, repair 404s to their site root, "
+                         "set link_ok, then exit")
     args = ap.parse_args()
     # priority order — the kinds the guide is thinnest on come first
     default_order = [
@@ -254,11 +288,22 @@ def main() -> int:
 
     if args.images:
         added = backfill_images(existing["places"])
+        # Most venue sites carry no og:image at all, so Wikipedia does the bulk
+        # of the work here; it only fills what the site itself didn't provide.
+        added += wikiimage.backfill(existing["places"])
         places_path.write_text(json.dumps(
             {"_comment": existing.get("_comment", ""), "updated": date.today().isoformat(),
              "places": existing["places"]},
             ensure_ascii=False, indent=2))
         log.info("images: +%d og:image backfilled", added)
+        return 0
+
+    if args.links:
+        linkcheck.check_places(existing["places"])
+        places_path.write_text(json.dumps(
+            {"_comment": existing.get("_comment", ""), "updated": date.today().isoformat(),
+             "places": existing["places"]},
+            ensure_ascii=False, indent=2))
         return 0
 
     if args.dedupe:

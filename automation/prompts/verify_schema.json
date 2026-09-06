@@ -24,7 +24,8 @@
           "is_special_event",
           "is_recurring_class",
           "family_relevant",
-          "confidence"
+          "confidence",
+          "indoor_outdoor"
         ],
         "properties": {
           "id": {
@@ -163,6 +164,15 @@
               "medium",
               "low"
             ]
+          },
+          "indoor_outdoor": {
+            "type": "string",
+            "enum": [
+              "indoor",
+              "outdoor",
+              "both"
+            ],
+            "description": "Where it actually happens. 'both' when the visit has a real indoor part AND a real outdoor part, or when bad weather has an indoor fallback."
           }
         }
       }

@@ -21,13 +21,14 @@ _VERIFY_SCHEMA = json.loads((config.PROMPTS_DIR / "verify_schema.json").read_tex
 # Bump whenever the schema or the prompt changes in a way that makes existing
 # cached classifications wrong. It is folded into the content hash, so a bump
 # re-enriches everything rather than silently replaying stale answers.
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 _LLM_FIELDS = (
     "category", "feature_tags", "age_min", "age_max", "fits_4yo", "fits_8yo",
     "primary_language", "french_required", "language_note", "language_free",
     "price_type", "price_min_eur", "price_max_eur", "blurb_en",
     "is_special_event", "is_recurring_class", "family_relevant", "confidence",
+    "indoor_outdoor",
 )
 
 _INPUT_FIELDS = (
@@ -88,6 +89,9 @@ def _default_fields(act: dict) -> dict:
         "is_recurring_class": False,
         "family_relevant": True,
         "confidence": "low",
+        # "both" is the safe default: it survives either side of the rainy-day
+        # filter, so an unclassified event is never wrongly hidden.
+        "indoor_outdoor": "both",
     }
 
 

@@ -60,6 +60,14 @@ For every activity, return one object in `activities` with the same `id` and:
   lectures, nightlife, sports for adults, senior activities, business/networking
   events, and anything with no broad family or big-event appeal. When in doubt
   about a plain adult film screening, set false.
+- indoor_outdoor: where it physically happens, for picking something on a rainy
+  day. "indoor" for a museum, theatre, cinema, sports hall, indoor playground.
+  "outdoor" for a park, forest walk, open-air market, playground, street parade.
+  "both" when the visit genuinely has an indoor AND an outdoor part (a zoo or
+  provincial domain with pavilions, a castle with grounds, a farm with a barn),
+  or when there is a real indoor fallback if it rains. Prefer "both" over
+  guessing when the text does not say — it is the answer that keeps the activity
+  visible either way.
 - confidence: "high", "medium", or "low". Use "low" when the input text is too
   thin to classify reliably or when you had to guess the price or ages.
 

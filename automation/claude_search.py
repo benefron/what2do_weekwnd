@@ -52,6 +52,11 @@ _SCHEMA = {
                     "primary_language": {"type": "string", "enum": ["nl", "fr", "en", "multi"]},
                     "french_required": {"type": "boolean"},
                     "language_free": {"type": "boolean"},
+                    "indoor_outdoor": {
+                        "type": "string",
+                        "enum": ["indoor", "outdoor", "both"],
+                        "description": "Where it happens; 'both' if it has a real indoor and outdoor part, or an indoor fallback if it rains.",
+                    },
                     "notes_en": {"type": ["string", "null"]},
                 },
             },
@@ -80,6 +85,13 @@ BELGIUM — all provinces, Flanders AND Wallonia AND Brussels — between {today
 6. Major touring children's / family shows.
 7. Seasonal: Halloween and Christmas events at parks and domains, winter markets
    with a kids offer, light festivals.
+8. English-language and expat-facing family events, especially in and around
+   Brussels — story times in English, international school fairs and fetes,
+   English-language children's theatre, expat community days. The Dutch and
+   French agendas systematically miss these. Good places to look: thebulletin.be
+   (its "What's on this week" roundups), agenda.brussels, and the what's-on
+   pages of the big Brussels international communities. Set primary_language
+   "en" for these.
 
 For each event set:
 - audience: "kids" (young children), "family" (works for the whole family),

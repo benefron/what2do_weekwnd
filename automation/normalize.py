@@ -78,11 +78,16 @@ def _weekend_windows(today: date) -> tuple[set[date], set[date]]:
     return this_wknd, next_wknd
 
 
-def _holiday_for(d: date):
-    for h in config.SCHOOL_HOLIDAYS:
+def _holiday_in(table: list[dict], d: date):
+    for h in table:
         if date.fromisoformat(h["start"]) <= d <= date.fromisoformat(h["end"]):
             return h["name"]
     return None
+
+
+def _holiday_for(d: date):
+    """Flemish-calendar holiday name, or None. Kept for callers that want one name."""
+    return _holiday_in(config.SCHOOL_HOLIDAYS_NL, d)
 
 
 def _occ_dates(act: dict) -> list[date]:
@@ -114,54 +119,48 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
     this_wknd, next_wknd = _weekend_windows(today)
     wednesday = _wednesday(today)
     buckets: set[str] = set()
-    holiday_name = None
-    in_holiday = False
 
     if act.get("date_kind") == "permanent":
         act["weekend_bucket"] = ["later"]
         act["in_school_holiday"] = False
         act["school_holiday_name"] = None
+        act["school_holiday_nl"] = None
+        act["school_holiday_fr"] = None
         return
 
     for dt in _occ_starts(act):
         if dt.date() == wednesday and (act.get("all_day") or dt.hour == 0 or dt.hour >= 12):
             buckets.add("wednesday")
 
-    for d in _occ_dates(act):
-        if d in this_wknd:
-            buckets.add("this_weekend")
-        if d in next_wknd:
-            buckets.add("next_weekend")
-        hn = _holiday_for(d)
-        if hn:
-            in_holiday = True
-            holiday_name = holiday_name or hn
-            buckets.add("school_holiday")
-        if today <= d <= window_end:
-            buckets.add("later")
-
-    # a periodic/multi-day run that spans a weekend or holiday even if we only
-    # captured its start/end
+    # every date this activity touches: its own occurrences, plus the full span
+    # of a periodic/multi-day run where we only captured start and end.
+    days: set[date] = set(_occ_dates(act))
     ds, de = _parse_any_date(act.get("date_start")), _parse_any_date(act.get("date_end"))
     if ds and de:
         span = {ds.date() + timedelta(days=i) for i in range((de.date() - ds.date()).days + 1)}
         if wednesday in span:
             buckets.add("wednesday")
-        if span & this_wknd:
+        days |= span
+
+    for d in days:
+        if d in this_wknd:
             buckets.add("this_weekend")
-        if span & next_wknd:
+        if d in next_wknd:
             buckets.add("next_weekend")
-        for d in span:
-            if _holiday_for(d):
-                in_holiday = True
-                holiday_name = holiday_name or _holiday_for(d)
-                buckets.add("school_holiday")
-        if any(today <= d <= window_end for d in span):
+        if today <= d <= window_end:
             buckets.add("later")
 
+    name_nl = next((n for d in sorted(days) if (n := _holiday_in(config.SCHOOL_HOLIDAYS_NL, d))), None)
+    name_fr = next((n for d in sorted(days) if (n := _holiday_in(config.SCHOOL_HOLIDAYS_FR, d))), None)
+    if name_nl or name_fr:
+        buckets.add("school_holiday")
+
     act["weekend_bucket"] = sorted(buckets)
-    act["in_school_holiday"] = in_holiday
-    act["school_holiday_name"] = holiday_name
+    act["school_holiday_nl"] = name_nl          # Flemish Community -> Flanders
+    act["school_holiday_fr"] = name_fr          # FWB -> Wallonia
+    # Brussels sees both calendars, so the union is what a Brussels family wants.
+    act["in_school_holiday"] = bool(name_nl or name_fr)
+    act["school_holiday_name"] = name_nl or name_fr
 
 
 # ── UiTdatabank JSON-LD ─────────────────────────────────────────────────────

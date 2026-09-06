@@ -18,6 +18,10 @@ export type FeatureTag =
 export type WeekendBucket =
   | "wednesday" | "this_weekend" | "next_weekend" | "school_holiday" | "later";
 
+// Where it actually happens — "both" covers a zoo with pavilions, a castle with
+// grounds, anything with a real wet-weather fallback.
+export type VenueSetting = "indoor" | "outdoor" | "both";
+
 export type PlaceKind =
   | "museum" | "zoo" | "provincial_domain" | "speelbos" | "playground_indoor"
   | "playground_outdoor" | "multimove" | "zomerbar" | "playground_restaurant"
@@ -49,6 +53,10 @@ export interface Activity {
   weekend_bucket: WeekendBucket[];
   in_school_holiday: boolean;
   school_holiday_name: string | null;
+  /** Flemish Community calendar (Flanders). Brussels NL-schools follow it too. */
+  school_holiday_nl?: string | null;
+  /** Federation Wallonie-Bruxelles calendar (Wallonia + Brussels FR-schools). */
+  school_holiday_fr?: string | null;
 
   venue_name: string | null;
   address: string | null;
@@ -60,7 +68,14 @@ export interface Activity {
   geocode_source: string;
   kind?: PlaceKind | null;
   province?: string | null;
+  /** @deprecated superseded by `indoor_outdoor`; kept for older payloads. */
   indoor?: boolean | null;
+  indoor_outdoor?: VenueSetting | null;
+  /** false when the website 404s and could not be repaired — render no link. */
+  link_ok?: boolean | null;
+  /** Set when image_url came from a third party (Wikipedia) needing credit. */
+  image_credit?: string | null;
+  image_credit_url?: string | null;
   seasonal?: "summer" | "winter" | null;
 
   category: Category;

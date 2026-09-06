@@ -40,6 +40,8 @@ def load_places_as_activities(run_id: str) -> list[dict]:
             "organizer_nl": None,
             "blurb_en": p.get("blurb_en"),
             "image_url": p.get("image_url"),
+            "image_credit": p.get("image_credit"),
+            "image_credit_url": p.get("image_credit_url"),
             "date_start": None,
             "date_end": None,
             "all_day": False,
@@ -48,6 +50,8 @@ def load_places_as_activities(run_id: str) -> list[dict]:
             "weekend_bucket": ["later"],
             "in_school_holiday": False,
             "school_holiday_name": None,
+            "school_holiday_nl": None,
+            "school_holiday_fr": None,
             "venue_name": p.get("name"),
             "address": p.get("address"),
             "city": p.get("city"),
@@ -59,6 +63,8 @@ def load_places_as_activities(run_id: str) -> list[dict]:
             "kind": p.get("kind", "other"),
             "province": p.get("province"),
             "indoor": p.get("indoor"),
+            "indoor_outdoor": _indoor_outdoor(p),
+            "link_ok": p.get("link_ok", True),
             "seasonal": p.get("seasonal"),
             "category": _KIND_TO_CATEGORY.get(p.get("kind"), "other"),
             "feature_tags": tags,
@@ -109,6 +115,26 @@ _LANGUAGE_FREE_KINDS = {
     "speelbos", "playground_indoor", "playground_outdoor", "playground_restaurant",
     "provincial_domain", "zomerbar", "zoo", "attraction_park", "farm",
 }
+
+# Kinds where a visit almost always has a real indoor part AND a real outdoor
+# part, so the curated `indoor` boolean (which forced a single choice) under-
+# describes them. Everything else falls back to that boolean.
+_BOTH_KINDS = {
+    "zoo", "castle", "playground_restaurant", "provincial_domain",
+    "attraction_park", "farm",
+}
+
+
+def _indoor_outdoor(p: dict) -> str:
+    """Tri-state for the rainy-day filter. build_places sets it directly on new
+    entries; older ones are derived from the legacy `indoor` boolean."""
+    val = p.get("indoor_outdoor")
+    if val in ("indoor", "outdoor", "both"):
+        return val
+    if p.get("kind") in _BOTH_KINDS:
+        return "both"
+    return "indoor" if p.get("indoor") else "outdoor"
+
 
 _KIND_TO_CATEGORY = {
     "museum": "museum_exhibition",

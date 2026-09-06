@@ -35,6 +35,10 @@ automation/.venv/bin/python -m automation.probe_source ods odwb_wallonie   # rea
 automation/.venv/bin/python -m automation.probe_source url https://www.quefaire.be/region-de-bruxelles
 scripts/build_places.sh            # rebuild/expand data/places.json (manual, ~$10 of web search)
 scripts/build_places.sh --kinds zomerbar,speelbos   # just some kinds
+scripts/build_places.sh --kinds multimove   # free: scrapes the Natuur en Bos index, no LLM
+scripts/build_places.sh --links    # free: check every website, repair 404s, set link_ok
+scripts/build_places.sh --images   # free: backfill og:image where missing
+scripts/build_places.sh --dedupe   # free: cross-kind dedupe + geocode only
 scripts/run_now.sh --no-push --no-enrich     # fast offline run (no Claude), writes data/latest.json
 scripts/run_now.sh --no-push                 # full run incl. Claude enrichment, no commit
 scripts/run_now.sh                           # full run + commit + push (push triggers Pages deploy)
@@ -107,8 +111,16 @@ no enrich) — `build_places.py` is the only thing that writes it.
    into `occurrences[]` + `date_kind` (`single|multi_day|recurring|permanent`);
    computes `weekend_bucket`
    (`wednesday|this_weekend|next_weekend|school_holiday|later`, including
-   span-overlap for multi-day runs) and `in_school_holiday` from
-   `config.SCHOOL_HOLIDAYS` (hardcoded Flemish table — **update yearly**).
+   span-overlap for multi-day runs) and the school-holiday flags. Education is a
+   *community* competence, so there are two hardcoded calendars — **update
+   yearly** — and three flags derived from them:
+   `config.SCHOOL_HOLIDAYS_NL` (Vlaamse Gemeenschap) → `school_holiday_nl`,
+   `config.SCHOOL_HOLIDAYS_FR` (Fédération Wallonie-Bruxelles, on its
+   7-weeks-on/2-off rhythm since 2022-23, so the dates genuinely differ) →
+   `school_holiday_fr`, and `in_school_holiday` = either. Brussels has no third
+   calendar: its Dutch-language schools follow the Flemish dates and its
+   French-language schools the FWB ones, which is why the union is the right
+   answer for a Brussels family rather than a separate table.
    **Kid-relevance prefilter** (`_is_kid_relevant`): an event survives to the
    Claude step only if `age_min <= config.PREFILTER_MAX_AGE_MIN` OR it carries a
    family/kids term/label OR its text matches a `config.KID_KEYWORDS` entry.
@@ -153,7 +165,11 @@ no enrich) — `build_places.py` is the only thing that writes it.
 `language_free` are Claude-set booleans in the same schema — `run_weekly.py`
 drops `family_relevant: false`; `language_free` ("enjoyable without following any
 spoken language") is what lets the language filter keep playgrounds and pools for
-a speaker of any language. Anything added to `enrich._LLM_FIELDS` **must** also
+a speaker of any language. `indoor_outdoor` (`indoor|outdoor|both`) is the
+rainy-day filter; "both" always survives the filter, as does an unset value, so
+an unclassified activity is never silently hidden. It supersedes the old
+places-only `indoor` boolean, which is still published for older clients but is
+`null` on every event. Anything added to `enrich._LLM_FIELDS` **must** also
 go in `enrich._default_fields` (a cache hit does
 `cached.get(f, _default_fields(act)[f])` and would otherwise `KeyError`) and in
 `publish._PUBLISHED_FIELDS` (an unlisted field is silently dropped), and needs
@@ -174,7 +190,12 @@ from `VITE_BASE` (the deploy workflow sets `/what2do_weekwnd/`; dev uses `/`).
   state. **This is where all filtering logic lives.** Ages are multi-select
   buckets matched by span overlap against `age_min`/`age_max` (null / 99 / ≥18
   all mean "no upper bound"); languages keep anything `multi` or `language_free`
-  as well as the selected ones. `paramsToFilters(search, base)` layers URL params
+  as well as the selected ones; `matchesVenue` is the rainy-day filter and keeps
+  `both` plus anything unclassified, so it can never blank a tab the way the old
+  `indoorOnly && a.indoor !== true` test did (events all carry `indoor: null`).
+  Every one of these predicates is written to **keep** a record whose field is
+  missing — a filter should narrow the list, never silently hide data we failed
+  to classify. `paramsToFilters(search, base)` layers URL params
   over saved prefs — **the URL always wins**, so shared links are stable.
 - `lib/locations.ts` — `HOME_LOCATIONS` presets, `haversineKm` (mirrors
   `automation/geo.py` exactly), and `withDistance`, which re-derives
@@ -211,21 +232,49 @@ re-triggers this with fresh data.
 - `build_places.py` / `claude_search` web-search calls hit a Claude server-tool
   quota after ~7 kinds in a session and exit non-zero (no fallback — the kind is
   just skipped). `scripts/build_places.sh` has `--dedupe` (cross-kind, keeps the
-  most specific `kind` via `KIND_RANK`) and `--images` (backfill og:image) modes
-  that don't call the LLM. Nominatim also burst-limits — re-run to fill the
-  `lat: null` stragglers from the shared cache.
-  `scripts/_oneshot_buildplaces.sh` + its `com.benefron.weekwnd-oneshot`
-  LaunchAgent are a **self-deleting** job that fills the remaining gap kinds
-  (zoo/multimove/playground_outdoor) the next day at 10:00 and then uninstalls
-  itself; delete the plist to cancel.
-- **The Brussels/Wallonia sources are structurally researched but not
-  fetch-verified** — they were added from an environment where every `.be` host
-  is blocked. Before trusting them run `scripts/verify_sources.sh` and
-  `probe_source.py`. Specifically unconfirmed: whether `?page=N` paginates on the
-  faceted UiT paths (`first_page` is the knob if page 0 is JS-hydrated); the real
-  ODS field names (`sources._ODS_*` are candidate lists, and the probe prints the
-  actual ones); and whether opendata.brussels' `agenda` dataset has a forward
-  horizon or is literally "du jour" — it is `enabled: False` until that is known.
+  most specific `kind` via `KIND_RANK`), `--images` (backfill og:image) and
+  `--links` (below) modes that don't call the LLM. Nominatim also burst-limits —
+  re-run to fill the `lat: null` stragglers from the shared cache.
+- **Prefer a scraper to a search where a canonical index exists.**
+  `build_places._SCRAPED_KINDS` routes a kind to a deterministic module instead
+  of the LLM; `multimove.py` is the worked example — the Natuur en Bos index
+  yields all 19 Multimovepaden with exact coordinates for free, where the search
+  pass had found 1 and given it a URL that 404s. Check for an index before
+  spending a search on a new kind.
+- **Place images come from two sources, in order.** `--images` first tries the
+  venue's own `og:image`, then falls back to `wikiimage.py` (Wikipedia
+  `pageimages`, no key, no LLM). The fallback exists because ~57% of Belgian
+  venue sites publish no `og:image` at all. Wikipedia's search generator
+  *always* answers, usually with the wrong article — "Kasteel van Beersel"
+  returns the municipality and its flag SVG — so `wikiimage` guards every hit
+  with a title-similarity test (containment allowed only when the article is
+  *more* specific than the place, else a domain matches the village it sits in)
+  and a blocklist for flags/arms/maps/SVGs. Loosen either and you get coats of
+  arms on cards. Hits set `image_credit`/`image_credit_url`, which the card
+  renders as a corner link — these are CC-licensed photos.
+- **Link rot is handled, not ignored.** `scripts/build_places.sh --links` runs
+  `linkcheck.py` over every place: a definitive 404/410 is retried against the
+  site root and the URL rewritten if that works, otherwise `link_ok: false` and
+  the card renders without a link. A place is never dropped for a dead URL — it
+  still exists in the real world. Network errors and 403s are deliberately *not*
+  treated as dead: naive checking reports a third of the file as broken because
+  Belgian tourism sites rate-limit and fingerprint, so everything goes through
+  `sources.http_get` and its tls_client retry.
+- The Brussels/Wallonia sources were **fetch-verified on 2026-09-06**: all four
+  UiT feeds paginate on `?page=N` (including the faceted region paths), and both
+  ODWB datasets map cleanly now that `sources._ODS_*` carries their real field
+  names (`startdate`/`enddate`, `address_city`, `event_url`, `coordinates`).
+  Re-run `scripts/verify_sources.sh` after any source change; it is the cheap
+  check that catches a renamed field before a run silently yields nothing.
+  Still open: `opendata.brussels`' `agenda` dataset 404s under the ODS v2.1 API
+  (wrong dataset id or the portal is no longer OpenDataSoft), so it stays
+  `enabled: False`.
+- **thebulletin.be was evaluated and rejected as a fetcher** (2026-09-06): no
+  RSS, no ld+json, no JSON API, and its `/events` view is "taking place today"
+  with 2 entries total — a "Post your own" board nobody posts to. It is instead
+  named in the `claude_search` prompt as a place to look for English-language
+  and expat family events, which is the slice it genuinely has (in editorial
+  "What's on this week" prose, not structured data).
 - `_EVENT_LINK_RE` requires exactly 36 chars, but publiq still emits legacy
   CDBIDs in an 8-4-4-16 uppercase shape (35). If Brussels yield looks
   suspiciously low, loosen it to `[0-9A-Fa-f-]{32,40}`.
@@ -238,9 +287,9 @@ re-triggers this with fresh data.
   `UITDATABANK_ENABLED`. The UiTdatabank Search API would give real server-side
   radius filtering but the Basic plan is €125/year; the free test environment is
   worth using to measure coverage first.
-- **`SCHOOL_HOLIDAYS` is Flemish-only.** The Fédération Wallonie-Bruxelles
-  calendar differs, so `in_school_holiday` / `school_holiday_name` are wrong for
-  francophone Brussels families. Needs a second table keyed by community.
+- Both school calendars are hardcoded and run out after the 2027-28 summer.
+  `SCHOOL_HOLIDAYS_NL` / `SCHOOL_HOLIDAYS_FR` in `config.py` need extending each
+  year; nothing warns you when they lapse, it just stops flagging holidays.
 - The Claude CLI (`claude -p --json-schema`) exited non-zero in one test env and
   fell back to the Copilot API; if that recurs on the target Mac, raise
   `ENRICH_MAX_BUDGET_USD` / `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.

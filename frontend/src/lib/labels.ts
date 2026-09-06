@@ -1,4 +1,4 @@
-import type { Category, FeatureTag, PlaceKind } from "../types";
+import type { Category, FeatureTag, PlaceKind, VenueSetting } from "../types";
 
 export const PLACE_KIND_LABELS: Record<PlaceKind, string> = {
   museum: "Museum",
@@ -119,4 +119,16 @@ export const LANGUAGE_EMOJI: Record<"nl" | "fr" | "en" | "multi", string> = {
   fr: "🇫🇷",
   en: "🇬🇧",
   multi: "🌍",
+};
+
+export const VENUE_LABELS: Record<VenueSetting, string> = {
+  indoor: "Indoor",
+  outdoor: "Outdoor",
+  both: "Both",
+};
+
+export const VENUE_EMOJI: Record<VenueSetting, string> = {
+  indoor: "🏠",
+  outdoor: "🌳",
+  both: "🌦️",
 };

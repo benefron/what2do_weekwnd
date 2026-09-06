@@ -1,4 +1,4 @@
-import type { Activity, Category, FeatureTag, PlaceKind, WeekendBucket } from "../types";
+import type { Activity, Category, FeatureTag, PlaceKind, VenueSetting, WeekendBucket } from "../types";
 import { firstFutureDate, formatPrice } from "./format";
 import { DEFAULT_ORIGIN } from "./locations";
 
@@ -31,6 +31,9 @@ export const AGE_BUCKET_RANGE: Record<AgeBucket, [number, number]> = {
 export type Language = "nl" | "fr" | "en";
 export const LANGUAGES: Language[] = ["nl", "fr", "en"];
 
+/** Rainy-day filter. Picking "indoor" also keeps "both" — see matchesVenue. */
+export const VENUE_SETTINGS: VenueSetting[] = ["indoor", "outdoor"];
+
 export type PriceFilter = "any" | "free" | "cheap";
 export type WhenFilter = "any" | WeekendBucket;
 export type SortKey = "date" | "distance" | "price";
@@ -43,7 +46,7 @@ export interface FilterState {
   features: FeatureTag[];
   origin: string;
   maxDistance: number;
-  indoorOnly: boolean;
+  venue: VenueSetting[];
   price: PriceFilter;
   ages: AgeBucket[];
   languages: Language[];
@@ -61,7 +64,7 @@ export const DEFAULT_FILTERS: FilterState = {
   features: [],
   origin: DEFAULT_ORIGIN.key,
   maxDistance: 50,
-  indoorOnly: false,
+  venue: [],
   price: "any",
   ages: [],
   languages: [],
@@ -84,7 +87,7 @@ export function filtersToParams(f: FilterState): string {
   if (f.features.length) p.set("feat", f.features.join(","));
   if (f.origin !== DEFAULT_FILTERS.origin) p.set("from", f.origin);
   if (f.maxDistance !== DEFAULT_FILTERS.maxDistance) p.set("km", String(f.maxDistance));
-  if (f.indoorOnly) p.set("indoor", "1");
+  if (f.venue.length) p.set("venue", f.venue.join(","));
   if (f.price !== "any") p.set("price", f.price);
   if (f.ages.length) p.set("age", f.ages.join(","));
   if (f.languages.length) p.set("lang", f.languages.join(","));
@@ -135,7 +138,12 @@ export function paramsToFilters(search: string, base: SavedPrefs = {}): FilterSt
     features: list(p.get("feat")),
     origin: p.get("from") ?? defaults.origin,
     maxDistance: p.get("km") ? Number(p.get("km")) : defaults.maxDistance,
-    indoorOnly: p.get("indoor") === "1",
+    // indoor=1 was the old boolean "indoor only" toggle
+    venue: p.get("venue")
+      ? VENUE_SETTINGS.filter((v) => p.get("venue")!.split(",").includes(v))
+      : p.get("indoor") === "1"
+        ? ["indoor"]
+        : [],
     price: (p.get("price") as PriceFilter) || "any",
     ages: p.get("age") ? parseAges(p.get("age")) : defaults.ages,
     // nofr=1 was the old "hide French-only" toggle
@@ -200,6 +208,20 @@ function matchesLanguages(a: Activity, langs: Language[]): boolean {
   return langs.includes(a.primary_language as Language);
 }
 
+/**
+ * Rainy-day filter. "both" always survives — a zoo with pavilions is a valid
+ * answer to "somewhere indoor" — and so does an activity we could not classify,
+ * because silently hiding it is worse than showing it. The old boolean form of
+ * this test required `indoor === true`, which hid every event in the feed, since
+ * only curated places ever carried the flag.
+ */
+function matchesVenue(a: Activity, want: VenueSetting[]): boolean {
+  if (!want.length) return true;
+  const setting = a.indoor_outdoor ?? (a.indoor == null ? null : a.indoor ? "indoor" : "outdoor");
+  if (setting == null || setting === "both") return true;
+  return want.includes(setting);
+}
+
 const SPECIAL_TAB_KINDS: PlaceKind[] = ["zomerbar", "playground_restaurant"];
 
 export function applyFilters(activities: Activity[], f: FilterState): Activity[] {
@@ -223,7 +245,7 @@ export function applyFilters(activities: Activity[], f: FilterState): Activity[]
     if (f.tab === "weekend" && f.categories.length && !f.categories.includes(a.category)) return false;
     if (f.tab === "places" && f.placeKinds.length && !f.placeKinds.includes((a.kind ?? "other") as PlaceKind))
       return false;
-    if (f.indoorOnly && a.indoor !== true) return false;
+    if (!matchesVenue(a, f.venue)) return false;
     if (f.features.length && !f.features.some((t) => a.feature_tags.includes(t))) return false;
     if (a.distance_km != null && a.distance_km > f.maxDistance) return false;
 

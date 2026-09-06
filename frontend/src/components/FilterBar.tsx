@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Dataset } from "../types";
+import type { Dataset, VenueSetting } from "../types";
 import {
   CATEGORY_LABELS,
   FEATURE_EMOJI,
@@ -8,10 +8,13 @@ import {
   LANGUAGE_LABELS,
   PLACE_KIND_EMOJI,
   PLACE_KIND_LABELS,
+  VENUE_EMOJI,
+  VENUE_LABELS,
 } from "../lib/labels";
 import {
   AGE_BUCKETS,
   LANGUAGES,
+  VENUE_SETTINGS,
   type AgeBucket,
   type FilterState,
   type Language,
@@ -100,15 +103,16 @@ export default function FilterBar({
   // A fixed reference order per key, so a selection serialises identically no
   // matter what order the chips were clicked in — clicking "8" then "4" must
   // produce the same array (and URL/JSON) as "4" then "8".
-  const CANONICAL_ORDER: Record<"categories" | "features" | "placeKinds" | "ages" | "languages", readonly string[]> = {
+  const CANONICAL_ORDER: Record<"categories" | "features" | "placeKinds" | "ages" | "languages" | "venue", readonly string[]> = {
     ages: AGE_BUCKETS,
     languages: LANGUAGES,
+    venue: VENUE_SETTINGS,
     categories: dataset.categories.map((c) => c.key),
     placeKinds: (dataset.place_kinds ?? []).map((k) => k.key),
     features: dataset.feature_tags.map((t) => t.key),
   };
 
-  const toggleIn = <K extends "categories" | "features" | "placeKinds" | "ages" | "languages">(
+  const toggleIn = <K extends "categories" | "features" | "placeKinds" | "ages" | "languages" | "venue">(
     key: K,
     val: FilterState[K][number]
   ) => {
@@ -271,6 +275,23 @@ export default function FilterBar({
         />
       </section>
 
+      <section>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+          Indoor / outdoor{" "}
+          <span className="font-normal normal-case text-muted/70">
+            &mdash; for a rainy day; places that are both always show
+          </span>
+        </p>
+        <MultiToggle<VenueSetting>
+          active={f.venue}
+          onToggle={(v) => toggleIn("venue", v)}
+          options={VENUE_SETTINGS.map((v) => ({
+            key: v,
+            label: `${VENUE_EMOJI[v]} ${VENUE_LABELS[v]}`,
+          }))}
+        />
+      </section>
+
       <section className="flex flex-wrap gap-1.5">
         {f.tab === "weekend" && (
           <button
@@ -278,14 +299,6 @@ export default function FilterBar({
             className={`chip ${f.hideClasses ? "chip--accent-on" : ""}`}
           >
             Hide weekly classes
-          </button>
-        )}
-        {f.tab !== "weekend" && (
-          <button
-            onClick={() => onChange({ indoorOnly: !f.indoorOnly })}
-            className={`chip ${f.indoorOnly ? "chip--accent-on" : ""}`}
-          >
-            Indoor only
           </button>
         )}
         <button

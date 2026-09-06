@@ -35,19 +35,37 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
         {saved ? "★" : "☆"}
       </button>
 
-      <div className="aspect-[16/10] w-full overflow-hidden bg-forest-soft">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-forest-soft">
         {showImg ? (
-          <img
-            src={a.image_url!}
-            alt=""
-            loading="lazy"
-            referrerPolicy="no-referrer"
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            onError={() => setImgOk(false)}
-          />
+          <>
+            <img
+              src={a.image_url!}
+              alt=""
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              onError={() => setImgOk(false)}
+            />
+            {/* Wikipedia photos are CC-licensed — credit them where shown. */}
+            {a.image_credit && a.image_credit_url && (
+              <a
+                href={a.image_credit_url}
+                target="_blank"
+                rel="noreferrer"
+                className="absolute bottom-0 right-0 bg-black/45 px-1.5 py-0.5 text-[10px] text-white/90 hover:bg-black/70"
+              >
+                {a.image_credit}
+              </a>
+            )}
+          </>
         ) : (
           <div className="flex h-full items-center justify-center text-4xl opacity-40">
-            {FEATURE_EMOJI[a.feature_tags[0]] ?? "🎈"}
+            {/* Most permanent places have no og:image on their site, so this
+                tile is the common case, not the exception — the place kind
+                says far more than a generic balloon. */}
+            {(a.kind ? PLACE_KIND_EMOJI[a.kind] : undefined) ??
+              FEATURE_EMOJI[a.feature_tags[0]] ??
+              "🎈"}
           </div>
         )}
       </div>
@@ -110,9 +128,17 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
         {a.language_note && <p className="text-xs italic text-berry">{a.language_note}</p>}
 
         <div className="mt-auto flex items-center gap-3 pt-3 text-sm font-medium">
-          <a href={a.url} target="_blank" rel="noreferrer" className="text-tangerine hover:text-tangerine-dark">
-            Details ↗
-          </a>
+          {/* The place is still real when its URL rots — show it, just don't
+              send anyone to a 404. linkcheck sets link_ok. */}
+          {a.link_ok === false ? (
+            <span className="text-muted" title="This website has moved or gone offline">
+              No working link
+            </span>
+          ) : (
+            <a href={a.url} target="_blank" rel="noreferrer" className="text-tangerine hover:text-tangerine-dark">
+              Details ↗
+            </a>
+          )}
           <a
             href={googleTranslateUrl(`${a.title_nl}. ${a.description_nl}`, a.primary_language)}
             target="_blank"
