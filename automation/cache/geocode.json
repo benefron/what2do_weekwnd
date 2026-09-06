@@ -15,6 +15,10 @@
     "lat": 50.3656937,
     "lng": 4.3313056
   },
+  "Abbaye de Forest / Abdij van Vorst Brussels België": {
+    "lat": 50.8109719,
+    "lng": 4.3168244
+  },
   "Abbaye de Villers-la-Ville Villers-la-Ville België": {
     "lat": 50.5902865,
     "lng": 4.5288605
@@ -38,6 +42,10 @@
   "Ancienne Belgique (AB) Brussels België": {
     "lat": 50.8470454,
     "lng": 4.3492674
+  },
+  "Antwerp city centre Antwerp België": {
+    "lat": 51.2194374,
+    "lng": 4.4155304
   },
   "Antwerpen": {
     "lat": 51.2211097,
@@ -114,6 +122,10 @@
   "Bekaflaan, 3390 Tielt-Winge": {
     "lat": null,
     "lng": null
+  },
+  "België": {
+    "lat": 50.6402809,
+    "lng": 4.6667145
   },
   "Bellemdorpweg, 9880 Aalter": {
     "lat": 51.094093,
@@ -219,6 +231,10 @@
     "lat": null,
     "lng": null
   },
+  "Brussels city centre (Grand-Place, Marché aux Poissons) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "Canadaring 41, 8310 Assebroek": {
     "lat": 51.1893393,
     "lng": 3.2452439
@@ -283,7 +299,15 @@
     "lat": null,
     "lng": null
   },
+  "City centre (Grand-Place, Bourse, Marché aux Poissons) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "City centre (Grand-Place, Bourse, Vismet) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
+  "City centre (Groenplaats, Grote Markt) Antwerp België": {
     "lat": null,
     "lng": null
   },
@@ -443,6 +467,10 @@
     "lat": 51.0538286,
     "lng": 3.7250121
   },
+  "Ghent historic centre Ghent België": {
+    "lat": null,
+    "lng": null
+  },
   "Gijzelstraat 14, 9031 Drongen": {
     "lat": 51.0669877,
     "lng": 3.6294874
@@ -563,11 +591,19 @@
     "lat": null,
     "lng": null
   },
+  "Kasteel van Gaasbeek / Domein Groenenberg Gaasbeek (Lennik) België": {
+    "lat": null,
+    "lng": null
+  },
   "Kasteel van Gaasbeek / Groenenberg Lennik (Gaasbeek) België": {
     "lat": null,
     "lng": null
   },
   "Kasteel van Gaasbeek Gaasbeek (Lennik) België": {
+    "lat": 50.7965012,
+    "lng": 4.1970478
+  },
+  "Kasteel van Gaasbeek Lennik België": {
     "lat": 50.7965012,
     "lng": 4.1970478
   },
@@ -614,6 +650,10 @@
   "Kielenstraat 15, 3700 Tongeren": {
     "lat": 50.7811539,
     "lng": 5.4664386
+  },
+  "Kinepolis Gent & city venues Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "Kloosterstraat, 3910 Pelt": {
     "lat": 51.2291021,
@@ -691,6 +731,10 @@
     "lat": 50.8293803,
     "lng": 4.5177804
   },
+  "Liège city centre Liège België": {
+    "lat": 50.645898,
+    "lng": 5.5680846
+  },
   "Lonestraat 02A, 8640 Vleteren": {
     "lat": null,
     "lng": null
@@ -746,6 +790,10 @@
   "Museum of Natural Sciences Brussel België": {
     "lat": 50.8365093,
     "lng": 4.3764944
+  },
+  "Namur city centre Namur België": {
+    "lat": null,
+    "lng": null
   },
   "Natuurpark Nieuwenhoven Sint-Truiden België": {
     "lat": 50.8531717,
@@ -1411,6 +1459,10 @@
     "lat": 51.2311025,
     "lng": 4.4412828
   },
+  "Sportpaleis Antwerp België": {
+    "lat": 51.2318372,
+    "lng": 4.4409059
+  },
   "Stadsschouwburg Antwerpen Antwerp België": {
     "lat": 51.2157136,
     "lng": 4.4098911
@@ -1434,6 +1486,10 @@
   "Theater Elckerlyc (premiere), then touring Antwerp België": {
     "lat": null,
     "lng": null
+  },
+  "Théâtre de Namur Namur België": {
+    "lat": 50.8380321,
+    "lng": 4.3632229
   },
   "Tiensestraat, 3380 Glabbeek": {
     "lat": null,
