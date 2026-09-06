@@ -11338,7 +11338,8 @@
         "natural-history-museum",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2023-10/accueil_site_batiment_aqmu.jpg"
     },
     {
       "id": "place-zoo-boudewijn-seapark",
@@ -11370,7 +11371,10 @@
         "aquarium",
         "rides"
       ],
-      "geocode_source": "nominatim_cache_city"
+      "geocode_source": "nominatim_cache_city",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Entrance_Boudewjinpark.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Boudewijn_Seapark",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-zoo-de-zonnegloed",
@@ -11433,7 +11437,8 @@
         "safari",
         "caves"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://grotte-de-han.be/image/header/grotte_lighter_rvb2(2).jpg"
     },
     {
       "id": "place-zoo-espace-hexapoda---insectarium-jean-leclercq",
@@ -11464,7 +11469,8 @@
         "animals",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://www.uliege.be/upload/docs/image/jpeg/2022-04/dsc_0297_bis.jpg"
     },
     {
       "id": "place-zoo-forestia",
@@ -11496,7 +11502,8 @@
         "forest",
         "adventure"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://forestia.be/wp-content/uploads/2025/08/forestia-home.jpg"
     },
     {
       "id": "place-zoo-labiomista",
@@ -11528,7 +11535,10 @@
         "birds",
         "nature"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/The_Battery_LABIOMISTA.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/LABIOMISTA",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-monde-sauvage",
@@ -11592,7 +11602,8 @@
         "sea-lion-show",
         "playground"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://montmosan.be/wp-content/uploads/2024/03/mont-mosan-huy-la-grande-route-liege-belgique.jpg"
     },
     {
       "id": "place-zoo-olmense",
@@ -11683,7 +11694,10 @@
         "playground",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/20120219_Olmense_Zoo_%2847%29.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Pakawi_Park",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-zoo-parc-animalier-castel-saint-pierre",
@@ -11745,7 +11759,10 @@
         "animals",
         "forest"
       ],
-      "geocode_source": "nominatim_cache_city"
+      "geocode_source": "nominatim_cache_city",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Wapiti_in_Parc_Animalier_de_Bouillon.JPG",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Parc_animalier_de_Bouillon",
+      "image_credit": "Wikipedia (nl)"
     },
     {
       "id": "place-zoo-parc-à-gibier-de-saint-hubert",
@@ -11808,7 +11825,8 @@
         "marine-life",
         "rainy-day"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://www.visitsealife.com/blankenberge/media/v2glr0q1/sea-life-blankenberge-white-text-rgb.png?format=jpg"
     },
     {
       "id": "place-zoo-tierpark-eupen",
@@ -11840,7 +11858,8 @@
         "free",
         "playground"
       ],
-      "geocode_source": "nominatim_cache_city"
+      "geocode_source": "nominatim_cache_city",
+      "image_url": "https://www.eupen.be/wp-content/uploads/eupenstartseiteheader1.jpg"
     },
     {
       "id": "place-zoo-antwerpen",
@@ -11933,7 +11952,10 @@
         "nature-reserve",
         "birdwatching"
       ],
-      "geocode_source": "payload"
+      "geocode_source": "payload",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Zwin_Natuur_Park_visitor_center_with_stork_nests%2C_Knokke-Heist%2C_2024.jpg",
+      "image_credit_url": "https://nl.wikipedia.org/wiki/Zwin_Natuur_Park",
+      "image_credit": "Wikipedia (nl)"
     }
   ]
 }
