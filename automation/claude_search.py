@@ -51,6 +51,7 @@ _SCHEMA = {
                     "price_max_eur": {"type": ["number", "null"]},
                     "primary_language": {"type": "string", "enum": ["nl", "fr", "en", "multi"]},
                     "french_required": {"type": "boolean"},
+                    "language_free": {"type": "boolean"},
                     "notes_en": {"type": ["string", "null"]},
                 },
             },

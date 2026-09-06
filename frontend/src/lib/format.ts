@@ -56,8 +56,18 @@ export function formatPrice(a: Activity): { text: string; free: boolean } {
   return { text: "Price ?", free: false };
 }
 
-export function formatDistance(a: Activity): string | null {
+export function formatDistance(a: Activity, originLabel: string): string | null {
   if (a.distance_km == null) return null;
-  if (a.distance_km < 1) return "in Leuven";
+  if (a.distance_km < 1) return `in ${originLabel}`;
   return `${Math.round(a.distance_km)} km`;
+}
+
+/** "4-12" / "6+" / "All ages" from the (possibly open-ended) age bounds. */
+export function formatAgeRange(a: Activity): string {
+  const lo = a.age_min ?? 0;
+  const openTop = a.age_max == null || a.age_max >= 18;
+  if (lo <= 0 && openTop) return "All ages";
+  if (openTop) return `${lo}+`;
+  if (lo <= 0) return `up to ${a.age_max}`;
+  return lo === a.age_max ? `${lo}` : `${lo}\u2013${a.age_max}`;
 }

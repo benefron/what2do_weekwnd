@@ -22,13 +22,17 @@ Modelled on `../israel-news-digest`.
 
 The frontend has four tabs: `weekend` (dated events), `places` (permanent, minus
 the two below), `zomerbar`, `eatplay` (playground-restaurants) — split by
-`Activity.kind`.
+`Activity.kind`. It is no longer specific to one family: you pick where you are,
+which ages you're shopping for, and which languages you speak.
 
 ## Commands
 
 ```bash
 # Pipeline (from repo root)
 scripts/verify_sources.sh                    # ping every source; run this before trusting a change
+automation/.venv/bin/python -m automation.probe_source uit           # what a listing page actually returns
+automation/.venv/bin/python -m automation.probe_source ods odwb_wallonie   # real ODS field names
+automation/.venv/bin/python -m automation.probe_source url https://www.quefaire.be/region-de-bruxelles
 scripts/build_places.sh            # rebuild/expand data/places.json (manual, ~$10 of web search)
 scripts/build_places.sh --kinds zomerbar,speelbos   # just some kinds
 scripts/run_now.sh --no-push --no-enrich     # fast offline run (no Claude), writes data/latest.json
@@ -64,9 +68,12 @@ publish. Guards copied from israel-news-digest's `run_daily.py`: file lock
 no enrich) — `build_places.py` is the only thing that writes it.
 
 1. **`sources.py` — fetch.** Flat list of raw records tagged `_kind` =
-   `uitdatabank` | `claude_search` | `manual`.
+   `uitdatabank` | `ods` | `feed` | `claude_search` | `manual`.
    - `fetch_uit_agenda()`: for each entry in `config.UIT_AGENDA_SOURCES`
-     (`uitinleuven` city + `uitinvlaanderen` all-Flanders), scrape the
+     (`uitinbrussel` + `uitinvlaamsbrabant` region feeds, then `uitinleuven`
+     city + `uitinvlaanderen` all-Flanders — **order matters**, uuids seen from
+     an earlier source are skipped so the narrow feeds keep their own label),
+     scrape the
      server-rendered `?page=N` listing (per-source `max_pages`/`first_page`) for
      `/agenda/e/<slug>/<uuid>` links, dedupe UUIDs across sources, then hydrate
      each via the **public, no-auth** `https://io.uitdatabank.be/events/<uuid>` —
@@ -79,7 +86,17 @@ no enrich) — `build_places.py` is the only thing that writes it.
      big-name touring acts the agendas miss — internationally known concerts,
      musicals, major family shows anywhere in Belgium. Returns records with
      classification already filled → they bypass `enrich.py`.
-   - `data/manual_overrides.json`.
+   - `fetch_opendatasoft()`: OpenDataSoft v2.1 portals (`config.ODS_SOURCES`) —
+     public, no auth, structured dated events. Covers Wallonia/Brabant Wallon,
+     which UiTdatabank barely reaches. Dataset field names vary, so
+     `sources._ODS_*` are candidate-name tuples rather than one fixed schema.
+   - `fetch_feeds()`: RSS/Atom via `feedparser` (`config.FEED_SOURCES`, empty by
+     default) — the cheap hook for any feed found later.
+   - `data/manual_overrides.json`. Also the right home for anything found by
+     hand (e.g. a Facebook group): an entry carrying `category` + `blurb_en`
+     bypasses the LLM entirely.
+   `http_get(url, lang)` takes a per-source language so a French source gets
+   `Accept-Language: fr-BE` instead of the global `nl-BE`.
    `http_get()` retries a 403 via `tls_client`. A dead source logs and is
    skipped. `config.UITDATABANK_ENABLED` (publiq creds in `secrets.local.json`)
    also pulls `uitdatabank_client.py` (paid Search API).
@@ -88,8 +105,9 @@ no enrich) — `build_places.py` is the only thing that writes it.
    `_from_uitdatabank` / `_from_manual` map each `_kind`.
    `id = sha1(canonicalize_url(public_url))[:10]`. Parses `calendarType`/`subEvent`
    into `occurrences[]` + `date_kind` (`single|multi_day|recurring|permanent`);
-   computes `weekend_bucket` (`this_weekend|next_weekend|school_holiday|later`,
-   including span-overlap for multi-day runs) and `in_school_holiday` from
+   computes `weekend_bucket`
+   (`wednesday|this_weekend|next_weekend|school_holiday|later`, including
+   span-overlap for multi-day runs) and `in_school_holiday` from
    `config.SCHOOL_HOLIDAYS` (hardcoded Flemish table — **update yearly**).
    **Kid-relevance prefilter** (`_is_kid_relevant`): an event survives to the
    Claude step only if `age_min <= config.PREFILTER_MAX_AGE_MIN` OR it carries a
@@ -131,8 +149,16 @@ no enrich) — `build_places.py` is the only thing that writes it.
 
 `CATEGORY_VOCAB` and `FEATURE_TAG_VOCAB` in `config.py` are duplicated in
 `automation/prompts/enrich_schema.json` (+ `verify_schema.json`, a byte copy) and
-`frontend/src/types.ts` + `frontend/src/lib/labels.ts`. `family_relevant` is a
-Claude-set boolean in the same schema — `run_weekly.py` drops `false`. The place
+`frontend/src/types.ts` + `frontend/src/lib/labels.ts`. `family_relevant` and
+`language_free` are Claude-set booleans in the same schema — `run_weekly.py`
+drops `family_relevant: false`; `language_free` ("enjoyable without following any
+spoken language") is what lets the language filter keep playgrounds and pools for
+a speaker of any language. Anything added to `enrich._LLM_FIELDS` **must** also
+go in `enrich._default_fields` (a cache hit does
+`cached.get(f, _default_fields(act)[f])` and would otherwise `KeyError`) and in
+`publish._PUBLISHED_FIELDS` (an unlisted field is silently dropped), and needs
+`enrich.SCHEMA_VERSION` bumped — it is folded into `_content_hash`, so without a
+bump every cached record replays the old field set and prompt changes do nothing. The place
 `kind` enum lives in `data/places.json`, `automation/build_places.py` (`KINDS`),
 `automation/places.py` (`_KIND_TO_CATEGORY`), `frontend/src/types.ts` (`PlaceKind`)
 and `frontend/src/lib/labels.ts`. Changing any vocab means editing every copy.
@@ -145,13 +171,30 @@ from `VITE_BASE` (the deploy workflow sets `/what2do_weekwnd/`; dev uses `/`).
 - `lib/data.ts` fetches `${BASE_URL}data/latest.json`.
 - `lib/filters.ts` — `FilterState`, `DEFAULT_FILTERS`, `applyFilters` (pure
   predicates), and `filtersToParams`/`paramsToFilters` for URL-synced filter
-  state. **This is where all filtering logic lives.**
+  state. **This is where all filtering logic lives.** Ages are multi-select
+  buckets matched by span overlap against `age_min`/`age_max` (null / 99 / ≥18
+  all mean "no upper bound"); languages keep anything `multi` or `language_free`
+  as well as the selected ones. `paramsToFilters(search, base)` layers URL params
+  over saved prefs — **the URL always wins**, so shared links are stable.
+- `lib/locations.ts` — `HOME_LOCATIONS` presets, `haversineKm` (mirrors
+  `automation/geo.py` exactly), and `withDistance`, which re-derives
+  `distance_km` for the chosen origin in `App.tsx` **before** filtering. Because
+  of that, the predicate, the sort and the card all still just read
+  `activity.distance_km`; nothing else knows about origins. The shipped
+  `distance_km` is the Leuven fallback.
 - `lib/format.ts` — date/price/distance display helpers.
 - `App.tsx` holds filter state, syncs it to `history.replaceState`, keeps a
-  `localStorage` saved-set (`weekwnd.saved.v1`), and splits activities into the
+  `localStorage` saved-set (`weekwnd.saved.v1`) plus remembered filter prefs
+  (`weekwnd.prefs.v1` — origin, ages, languages), and splits activities into the
   "weekend" tab (`date_kind != permanent`) vs "places" tab (`date_kind == permanent`).
-- `components/ActivityCard.tsx` — Dutch title/description verbatim + a "Translate"
-  link to Google Translate (`lib/data.ts#googleTranslateUrl`).
+- `components/ActivityCard.tsx` — title/description verbatim + a "Translate"
+  link to Google Translate (`lib/data.ts#googleTranslateUrl`, source language
+  taken from `primary_language`).
+- `components/FilterBar.tsx` — `Toggle` (single-select) and `MultiToggle`
+  (multi-select) chip rows; use them rather than hand-rolling a fourth copy.
+  Picking the "This Wednesday" chip also clears `hideClasses`, because the weekly
+  classes that flag hides are most of what actually runs on the school half-day
+  (38 events vs 2 on a sample Wednesday).
 
 Placeholder PNG icons in `frontend/public/icons/` are solid tangerine squares —
 replace with real artwork.
@@ -175,10 +218,29 @@ re-triggers this with fresh data.
   LaunchAgent are a **self-deleting** job that fills the remaining gap kinds
   (zoo/multimove/playground_outdoor) the next day at 10:00 and then uninstalls
   itself; delete the plist to cancel.
-- Agenda coverage is `uitinleuven` + `uitinvlaanderen` (all Flanders). Wallonia
-  and non-UiT venues rely on the `claude_search` pass. Add more `?page=`-paginated
-  UiT front-ends to `UIT_AGENDA_SOURCES`, or enable the UiTdatabank Search API
-  (`uitdatabank_client.py`, publiq key) for real server-side region/radius filtering.
+- **The Brussels/Wallonia sources are structurally researched but not
+  fetch-verified** — they were added from an environment where every `.be` host
+  is blocked. Before trusting them run `scripts/verify_sources.sh` and
+  `probe_source.py`. Specifically unconfirmed: whether `?page=N` paginates on the
+  faceted UiT paths (`first_page` is the knob if page 0 is JS-hydrated); the real
+  ODS field names (`sources._ODS_*` are candidate lists, and the probe prints the
+  actual ones); and whether opendata.brussels' `agenda` dataset has a forward
+  horizon or is literally "du jour" — it is `enabled: False` until that is known.
+- `_EVENT_LINK_RE` requires exactly 36 chars, but publiq still emits legacy
+  CDBIDs in an 8-4-4-16 uppercase shape (35). If Brussels yield looks
+  suspiciously low, loosen it to `[0-9A-Fa-f-]{32,40}`.
+- Agenda coverage is UiT (Flanders + the Dutch-speaking Brussels offer) plus the
+  ODWB OpenDataSoft datasets for Wallonia. Francophone Brussels is still thin:
+  events encoded into `agenda.brussels` are forwarded to UiT the next day, which
+  is why it partly works, but francophone-only organisers are missed. The
+  canonical fix is the `api.brussels` agenda API (trilingual, OAuth-gated,
+  free-with-registration unconfirmed) — same `secrets.local.json` pattern as
+  `UITDATABANK_ENABLED`. The UiTdatabank Search API would give real server-side
+  radius filtering but the Basic plan is €125/year; the free test environment is
+  worth using to measure coverage first.
+- **`SCHOOL_HOLIDAYS` is Flemish-only.** The Fédération Wallonie-Bruxelles
+  calendar differs, so `in_school_holiday` / `school_holiday_name` are wrong for
+  francophone Brussels families. Needs a second table keyed by community.
 - The Claude CLI (`claude -p --json-schema`) exited non-zero in one test env and
   fell back to the Copilot API; if that recurs on the target Mac, raise
   `ENRICH_MAX_BUDGET_USD` / `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.

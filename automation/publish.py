@@ -21,7 +21,7 @@ _PUBLISHED_FIELDS = (
     "category", "feature_tags", "audience", "age_min", "age_max", "age_source",
     "fits_4yo", "fits_8yo",
     "price_type", "price_min_eur", "price_max_eur", "price_note_nl",
-    "primary_language", "french_required", "language_note",
+    "primary_language", "french_required", "language_note", "language_free",
     "is_special_event", "is_recurring_class", "booking_required",
     "enrichment_model", "confidence",
 )

@@ -106,3 +106,17 @@ export const FEATURE_EMOJI: Partial<Record<FeatureTag, string>> = {
   easter: "🐣",
   halloween: "👻",
 };
+
+export const LANGUAGE_LABELS: Record<"nl" | "fr" | "en" | "multi", string> = {
+  nl: "Dutch",
+  fr: "French",
+  en: "English",
+  multi: "Bilingual",
+};
+
+export const LANGUAGE_EMOJI: Record<"nl" | "fr" | "en" | "multi", string> = {
+  nl: "🇳🇱",
+  fr: "🇫🇷",
+  en: "🇬🇧",
+  multi: "🌍",
+};

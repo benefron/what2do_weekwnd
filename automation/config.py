@@ -181,7 +181,27 @@ UIT_READ_ENDPOINT = "https://io.uitdatabank.be/events/{uuid}"
 # UIT_AGENDA_MAX_PAGES for a longer horizon at the cost of more hydration
 # requests + a bigger enrichment bill on the first run.
 UIT_AGENDA_MAX_PAGES = 25  # default; per-source override below
+# Order matters: fetch_uit_agenda() skips uuids already seen from an earlier
+# source, so the narrow region feeds come first and keep their own label rather
+# than being swallowed by the all-Flanders scrape.
+#
+# Slug trap: provinces take a "provincie-" prefix, a bare name is the
+# *municipality* (/agenda/alle/antwerpen is the city, not the province).
+# Brussels-Capital takes no prefix. "voor-kinderen" is a path segment as well as
+# a query param; the path form is used so list_agenda_uuids can append ?page=N.
 UIT_AGENDA_SOURCES = {
+    "uitinbrussel": {
+        "label": "UiT in Brussel",
+        "list_url": "https://www.uitinvlaanderen.be/agenda/alle/brussels-hoofdstedelijk-gewest/voor-kinderen",
+        "max_pages": 20,
+        "first_page": 1,
+    },
+    "uitinvlaamsbrabant": {
+        "label": "UiT in Vlaams-Brabant",
+        "list_url": "https://www.uitinvlaanderen.be/agenda/alle/provincie-vlaams-brabant/voor-kinderen",
+        "max_pages": 20,
+        "first_page": 1,
+    },
     "uitinleuven": {
         "label": "UiT in Leuven",
         "list_url": "https://www.uitinleuven.be/agenda",
@@ -204,11 +224,69 @@ UIT_AGENDA_SOURCES = {
 # carries a family/kids term/label, OR its text matches a kid keyword.
 PREFILTER_MAX_AGE_MIN = 12
 KID_KEYWORDS = [
+    # Dutch
     "kinder", "kleuter", "peuter", "gezin", "familie", "jeugd", "baby",
     "kids", "kind ", "voor kinderen", "4+", "6+", "3+", "kindvriendelijk",
     "springkasteel", "poppentheater", "schmink", "knutsel", "verhaal",
     "sprookje", "workshop voor kinderen", "kinderboerderij", "speeltuin",
+    # French. A French-language event with no typicalAgeRange is dropped by
+    # _is_kid_relevant unless it matches here, so any francophone source needs
+    # these. Specific phrases only: a bare "atelier" or "spectacle" would let
+    # adult programming through.
+    "enfant", "pour enfants", "jeune public", "en famille", "familial",
+    "bébé", "bebe", "tout-petits", "dès 3 ans", "dès 4 ans", "dès 5 ans",
+    "dès 6 ans", "à partir de 3", "à partir de 4", "à partir de 6",
+    "plaine de jeux", "aire de jeux", "conte", "marionnette", "bricolage",
+    "grimage", "château gonflable", "ferme pédagogique", "kermesse",
+    # English
+    "children", "for kids", "family friendly",
 ]
+
+# Accept-Language header per source language (see sources._headers).
+ACCEPT_LANGUAGE = {
+    "nl": "nl-BE,nl;q=0.9,en;q=0.6",
+    "fr": "fr-BE,fr;q=0.9,en;q=0.6",
+    "en": "en;q=0.9,nl-BE;q=0.6,fr-BE;q=0.6",
+}
+
+# OpenDataSoft v2.1 portals — public, no auth, structured dated events. One
+# fetcher serves all of them, so a new portal is a config entry.
+#
+# UNVERIFIED: dataset ids come from the portals' catalogue pages but the field
+# names below could not be checked from the dev environment (every .be host is
+# blocked there). `scripts/probe_source.sh --ods <key>` prints the real field
+# names; a mismatch shows up as 0 records and the source is skipped, not fatal.
+ODS_SOURCES = {
+    "odwb_wallonie": {
+        "label": "Événements en Wallonie",
+        "base": "https://www.odwb.be",
+        "dataset": "evenements-en-wallonie",
+        "default_language": "fr",
+        "max_records": 600,
+    },
+    "odwb_letsgocity": {
+        "label": "Letsgocity Wallonie",
+        "base": "https://www.odwb.be",
+        "dataset": "letsgocity-evenements-des-communes-en-wallonie",
+        "default_language": "fr",
+        "max_records": 400,
+    },
+    # "Agenda du jour" — may only carry today's activities, which is useless for
+    # a Monday run that needs the coming weekend. Off until the probe confirms a
+    # forward horizon.
+    "opendata_brussels": {
+        "label": "Agenda Ville de Bruxelles",
+        "base": "https://opendata.brussels.be",
+        "dataset": "agenda",
+        "default_language": "fr",
+        "max_records": 200,
+        "enabled": False,
+    },
+}
+
+# RSS/Atom feeds. feedparser is already a dependency; classification is left
+# entirely to enrich.py, so a feed only needs to yield a title, a link and a date.
+FEED_SOURCES: dict[str, dict] = {}
 
 # Direct venue scrapers — disabled in v1 (each Belgian venue site renders its
 # calendar with client-side JS, so a plain fetch yields no JSON-LD). Add real

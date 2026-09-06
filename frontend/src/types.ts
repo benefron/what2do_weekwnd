@@ -14,7 +14,9 @@ export type FeatureTag =
   | "fireworks" | "parade" | "train_ride" | "pumpkin_picking"
   | "christmas_market" | "easter" | "halloween";
 
-export type WeekendBucket = "this_weekend" | "next_weekend" | "school_holiday" | "later";
+// "wednesday" = the coming Wednesday; Belgian schools finish at noon that day.
+export type WeekendBucket =
+  | "wednesday" | "this_weekend" | "next_weekend" | "school_holiday" | "later";
 
 export type PlaceKind =
   | "museum" | "zoo" | "provincial_domain" | "speelbos" | "playground_indoor"
@@ -78,6 +80,9 @@ export interface Activity {
   primary_language: "nl" | "fr" | "en" | "multi";
   french_required: boolean;
   language_note: string | null;
+  /** Enjoyable without understanding the spoken language. Absent in payloads
+   *  generated before this field existed. */
+  language_free?: boolean | null;
 
   is_special_event: boolean;
   is_recurring_class: boolean;

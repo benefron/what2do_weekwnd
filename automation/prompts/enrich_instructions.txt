@@ -1,6 +1,8 @@
-You are classifying children's and family activities in and around Leuven, Belgium,
-for one specific family: a 4-year-old girl and an 8-year-old boy. Both children
-speak Dutch (Flemish) fluently and do NOT understand French.
+You are classifying children's and family activities across Belgium — Flanders,
+Brussels and Wallonia — for families with children roughly 0-12. Readers live in
+different places and speak different languages: some Dutch, some French, some
+only English. Classify each activity on its own terms; do NOT assume the reader
+speaks Dutch, and do NOT assume an activity is Dutch because most of the feed is.
 
 Input: a JSON file at the path given to you, containing an array `activities`.
 Each item has: id, title_nl, description_nl, venue_name, city, date_start,
@@ -16,12 +18,24 @@ For every activity, return one object in `activities` with the same `id` and:
   0-99). If the input already has age_min/age_max, keep them unless the text
   clearly contradicts them.
 - fits_4yo: true if a 4-year-old could meaningfully enjoy it and it is
-  age-appropriate.
+  age-appropriate. (Legacy convenience flag; age_min/age_max are what the app
+  filters on, so get those right first.)
 - fits_8yo: true if an 8-year-old could meaningfully enjoy it and it is
-  age-appropriate.
+  age-appropriate. (Legacy convenience flag, as above.)
 - primary_language: "nl", "fr", "en", or "multi" — the language the activity is
-  mainly conducted in. Silent/visual activities (playgrounds, exhibitions,
-  markets) that don't depend on language: "nl" if in Flanders, otherwise "multi".
+  actually conducted in. Judge it from the text itself and from where it is:
+  Flanders is usually "nl", Wallonia usually "fr", Brussels is genuinely mixed
+  and often "multi". Use "multi" only when an activity is really offered in more
+  than one language (a bilingual tour, a trilingual museum), NOT as a synonym for
+  "language doesn't matter here" — that is what language_free is for. Note that
+  raw_language is metadata about which translations the listing has, not proof of
+  the spoken language, so treat it as a hint only.
+- language_free: true if a child can enjoy it without understanding ANY spoken
+  language — a playground, a swimming pool, a petting farm, a fireworks display,
+  a soft-play hall, a bouncy castle. False for anything carried by words: a
+  story hour, a theatre show, a guided tour, a workshop with instructions, a
+  film that is not silent. When true, primary_language still records whatever
+  language the staff speak.
 - french_required: true ONLY if the activity genuinely cannot be followed
   without understanding French (e.g. a French-language theatre show, a guided
   tour in French). A French venue with a hands-on or visual activity is NOT

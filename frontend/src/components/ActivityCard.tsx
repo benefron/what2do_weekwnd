@@ -1,18 +1,22 @@
 import { useState } from "react";
 import type { Activity } from "../types";
-import { CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS, PLACE_KIND_EMOJI, PLACE_KIND_LABELS } from "../lib/labels";
-import { formatDate, formatDistance, formatPrice } from "../lib/format";
+import {
+  CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS, LANGUAGE_EMOJI, LANGUAGE_LABELS,
+  PLACE_KIND_EMOJI, PLACE_KIND_LABELS,
+} from "../lib/labels";
+import { formatAgeRange, formatDate, formatDistance, formatPrice } from "../lib/format";
 import { googleTranslateUrl } from "../lib/data";
 
 interface Props {
   activity: Activity;
   saved: boolean;
+  originLabel: string;
   onToggleSave: (id: string) => void;
 }
 
-export default function ActivityCard({ activity: a, saved, onToggleSave }: Props) {
+export default function ActivityCard({ activity: a, saved, originLabel, onToggleSave }: Props) {
   const price = formatPrice(a);
-  const distance = formatDistance(a);
+  const distance = formatDistance(a, originLabel);
   const [imgOk, setImgOk] = useState(true);
   const showImg = a.image_url && imgOk;
 
@@ -61,7 +65,10 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
           </span>
         </div>
 
-        <h3 className="font-display text-lg font-semibold leading-snug text-ink" lang="nl">
+        <h3
+          className="font-display text-lg font-semibold leading-snug text-ink"
+          lang={a.primary_language === "multi" ? undefined : a.primary_language}
+        >
           {a.title_nl}
         </h3>
 
@@ -74,10 +81,16 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
           {distance && (
             <span className="rounded-full bg-ink/5 px-2 py-0.5 text-xs font-medium text-ink">📍 {distance}</span>
           )}
-          {a.fits_4yo && <span className="rounded-full border border-line px-2 py-0.5 text-xs">4y</span>}
-          {a.fits_8yo && <span className="rounded-full border border-line px-2 py-0.5 text-xs">8y</span>}
+          <span className="rounded-full border border-line px-2 py-0.5 text-xs">{formatAgeRange(a)}</span>
+          {a.primary_language !== "nl" && (
+            <span className="rounded-full bg-ink/5 px-2 py-0.5 text-xs font-medium text-ink">
+              {LANGUAGE_EMOJI[a.primary_language]} {LANGUAGE_LABELS[a.primary_language]}
+            </span>
+          )}
           {a.french_required && (
-            <span className="rounded-full bg-berry/10 px-2 py-0.5 text-xs font-medium text-berry">🇫🇷 French</span>
+            <span className="rounded-full bg-berry/10 px-2 py-0.5 text-xs font-medium text-berry">
+              🇫🇷 French needed
+            </span>
           )}
         </div>
 
@@ -101,7 +114,7 @@ export default function ActivityCard({ activity: a, saved, onToggleSave }: Props
             Details ↗
           </a>
           <a
-            href={googleTranslateUrl(`${a.title_nl}. ${a.description_nl}`)}
+            href={googleTranslateUrl(`${a.title_nl}. ${a.description_nl}`, a.primary_language)}
             target="_blank"
             rel="noreferrer"
             className="text-muted hover:text-ink"
