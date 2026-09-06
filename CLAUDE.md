@@ -335,9 +335,20 @@ re-triggers this with fresh data.
 - Both school calendars are hardcoded and run out after the 2027-28 summer.
   `SCHOOL_HOLIDAYS_NL` / `SCHOOL_HOLIDAYS_FR` in `config.py` need extending each
   year; nothing warns you when they lapse, it just stops flagging holidays.
-- The Claude CLI (`claude -p --json-schema`) exited non-zero in one test env and
-  fell back to the Copilot API; if that recurs on the target Mac, raise
-  `ENRICH_MAX_BUDGET_USD` / `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.
+- The Claude CLI (`claude -p --json-schema`) exits non-zero under transient
+  rate-limiting and falls back to the Copilot API. That path is now bounded by
+  `COPILOT_TOTAL_TIMEOUT_SECONDS` — before it was, two batches in one run stalled
+  for 52 minutes and 3h21m, because httpx's timeout is per-read and a trickling
+  response resets it forever. If failures recur, raise `ENRICH_MAX_BUDGET_USD` /
+  `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.
+- **`enrich_all` writes `data/enrichment_cache.json` exactly once, at the very
+  end** — after every Haiku batch *and* the verify pass. So a long run is
+  all-or-nothing: kill it at batch 40 of 47 and all forty batches are lost, since
+  the `state/enrich_batch_*.json` scratch files are debugging output and are
+  never read back. This matters most on a `SCHEMA_VERSION` bump, when the whole
+  cache is invalid and the run is hours rather than minutes. Saving per batch
+  (and again after verify) would make a long run resumable; worth doing before
+  the next vocab change.
 - `automation/prompts/verify_schema.json` is a byte copy of `enrich_schema.json`;
   narrow it to the correctable fields if desired.
 - Placeholder icons in `frontend/public/icons/` are solid squares — replace.
