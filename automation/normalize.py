@@ -69,8 +69,13 @@ def _wednesday(today: date) -> date:
 
 
 def _weekend_windows(today: date) -> tuple[set[date], set[date]]:
+    # Saturday of the weekend we are in or heading towards. On a Sunday the
+    # modulo lands on *next* Saturday, skipping the weekend actually underway,
+    # so step back a week — but only on Sunday. Saturday already resolves to
+    # itself (offset 0), and correcting it too made "this weekend" mean the
+    # weekend that had just ended, with the current one labelled next_weekend.
     offset = (5 - today.weekday()) % 7
-    if today.weekday() >= 5:
+    if today.weekday() == 6:
         offset -= 7
     saturday = today + timedelta(days=offset)
     this_wknd = {saturday, saturday + timedelta(days=1)}
