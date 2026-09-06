@@ -106,15 +106,25 @@ def _rule_conflict(act: dict, fields: dict) -> bool:
     return False
 
 
-def _run_batches(instructions_path, schema, model, budget, copilot_model, effort, payloads, tag):
-    """payloads: list of dicts to classify. Returns {id: fields}."""
+def _run_batches(instructions_path, schema, model, budget, copilot_model, effort, payloads, tag,
+                 on_batch=None):
+    """payloads: list of dicts to classify. Returns {id: fields}.
+
+    `on_batch(batch_results)` is called after each batch that produced anything,
+    so the caller can persist as it goes. A full re-enrichment is dozens of
+    batches over several hours, and any of them can stall on a flaky backend —
+    without this the whole run was all-or-nothing.
+    """
     results: dict[str, dict] = {}
     instructions = instructions_path.read_text()
     config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+    total = (len(payloads) + config.ENRICH_BATCH_SIZE - 1) // config.ENRICH_BATCH_SIZE
     for i in range(0, len(payloads), config.ENRICH_BATCH_SIZE):
+        n = i // config.ENRICH_BATCH_SIZE
         chunk = payloads[i : i + config.ENRICH_BATCH_SIZE]
-        scratch = config.STATE_DIR / f"{tag}_batch_{i // config.ENRICH_BATCH_SIZE}.json"
+        scratch = config.STATE_DIR / f"{tag}_batch_{n}.json"
         scratch.write_text(json.dumps({"activities": chunk}, ensure_ascii=False, indent=2))
+        batch: dict[str, dict] = {}
         try:
             structured = llm_runner.run_with_schema(
                 instructions=instructions,
@@ -127,9 +137,16 @@ def _run_batches(instructions_path, schema, model, budget, copilot_model, effort
             )
             for entry in structured.get("activities", []):
                 if entry.get("id"):
-                    results[entry["id"]] = entry
+                    batch[entry["id"]] = entry
         except Exception as exc:  # noqa: BLE001 - degrade this batch, keep going
-            log.warning("%s batch %d failed: %s", tag, i // config.ENRICH_BATCH_SIZE, exc)
+            log.warning("%s batch %d/%d failed: %s", tag, n + 1, total, exc)
+        results.update(batch)
+        if batch and on_batch is not None:
+            try:
+                on_batch(batch)
+            except Exception as exc:  # noqa: BLE001 - never lose a batch to a bad hook
+                log.warning("%s batch %d/%d: persist hook failed: %s", tag, n + 1, total, exc)
+        log.info("%s: batch %d/%d done (%d classified so far)", tag, n + 1, total, len(results))
     return results
 
 
@@ -157,10 +174,38 @@ def enrich_all(activities: list[dict]) -> dict:
 
     if to_classify:
         stats["batches"] = (len(to_classify) + config.ENRICH_BATCH_SIZE - 1) // config.ENRICH_BATCH_SIZE
+
+        def _persist(batch: dict) -> None:
+            """Fold one finished batch into the cache immediately.
+
+            Records heading for the Sonnet verify pass are deliberately skipped:
+            caching a low-confidence classification would let a later run serve
+            it straight from cache and never verify it. Those are written by the
+            final save instead, once verify has had its say.
+            """
+            written = 0
+            for act_id, f in batch.items():
+                act = by_id.get(act_id)
+                if act is None:
+                    continue
+                fields = {k: f.get(k, _default_fields(act).get(k)) for k in _LLM_FIELDS}
+                if fields.get("confidence") == "low" or _rule_conflict(act, fields):
+                    continue
+                cache[act_id] = {
+                    "hash": _content_hash(act),
+                    "model": config.ENRICH_MODEL,
+                    **fields,
+                }
+                written += 1
+            if written:
+                _save_cache(cache)
+                log.info("enrich: cached %d records (%d total)", written, len(cache))
+
         fields_by_id = _run_batches(
             config.PROMPTS_DIR / "enrich_instructions.txt", _ENRICH_SCHEMA,
             config.ENRICH_MODEL, config.ENRICH_MAX_BUDGET_USD,
             config.COPILOT_FALLBACK_ENRICH_MODEL, None, to_classify, "enrich",
+            on_batch=_persist,
         )
 
         # apply + collect records needing a Sonnet second pass
@@ -193,7 +238,8 @@ def enrich_all(activities: list[dict]) -> dict:
                         act[k] = v.get(k, act.get(k))
                     act["enrichment_model"] = f"{config.ENRICH_MODEL}+verify"
 
-        # write cache for everything we just classified
+        # Final pass: rewrite everything, including the verified records the
+        # incremental hook deliberately held back.
         for act in activities:
             if act.get("enrichment_model", "").startswith(config.ENRICH_MODEL):
                 cache[act["id"]] = {
@@ -201,7 +247,13 @@ def enrich_all(activities: list[dict]) -> dict:
                     "model": act["enrichment_model"],
                     **{k: act.get(k) for k in _LLM_FIELDS},
                 }
-        _save_cache(cache)
+        try:
+            _save_cache(cache)
+        except Exception as exc:  # noqa: BLE001
+            # The activities are already classified in memory, so the run can
+            # still publish; only next week's token bill suffers.
+            log.warning("enrich: final cache write failed (%s) — records stay classified "
+                        "for this run but will be re-classified next time", exc)
 
     # final safety net
     for act in activities:

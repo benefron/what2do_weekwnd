@@ -4,9 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A "what to do with the kids (4 & 8) in Belgium" dashboard for a family in Leuven
-(Dutch speakers, no French). A local Python pipeline scrapes/enriches events and
-writes JSON into the repo; GitHub Actions only builds and deploys the frontend.
+A "what to do with the kids in Belgium" dashboard. It began as a tool for one
+family in Leuven (a 4- and an 8-year-old, Dutch speakers) and several prompts and
+strings still drift back to that framing — if you find one, it is stale: the app
+now serves families anywhere in the country, of any age mix, speaking Dutch,
+French or English. A local Python pipeline scrapes/enriches events and writes
+JSON into the repo; GitHub Actions only builds and deploys the frontend.
 Modelled on `../israel-news-digest`.
 
 **Two data tiers:**
@@ -341,14 +344,14 @@ re-triggers this with fresh data.
   for 52 minutes and 3h21m, because httpx's timeout is per-read and a trickling
   response resets it forever. If failures recur, raise `ENRICH_MAX_BUDGET_USD` /
   `VERIFY_MAX_BUDGET_USD` or shrink `ENRICH_BATCH_SIZE`.
-- **`enrich_all` writes `data/enrichment_cache.json` exactly once, at the very
-  end** — after every Haiku batch *and* the verify pass. So a long run is
-  all-or-nothing: kill it at batch 40 of 47 and all forty batches are lost, since
-  the `state/enrich_batch_*.json` scratch files are debugging output and are
-  never read back. This matters most on a `SCHEMA_VERSION` bump, when the whole
-  cache is invalid and the run is hours rather than minutes. Saving per batch
-  (and again after verify) would make a long run resumable; worth doing before
-  the next vocab change.
+- `enrich_all` persists `data/enrichment_cache.json` **after every batch**, via
+  the `on_batch` hook on `_run_batches` — so a run killed at batch 40 of 47 keeps
+  those forty and the next run resumes from them. Records queued for the Sonnet
+  verify pass are deliberately *not* cached early: caching a `confidence: low`
+  classification would let a later run serve it from cache and skip the verify it
+  was queued for, so those are written only by the final pass. Both writes are
+  wrapped — a cache write that fails must never lose a run that has already paid
+  for its tokens.
 - `automation/prompts/verify_schema.json` is a byte copy of `enrich_schema.json`;
   narrow it to the correctable fields if desired.
 - Placeholder icons in `frontend/public/icons/` are solid squares — replace.
