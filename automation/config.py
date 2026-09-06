@@ -79,6 +79,13 @@ CLAUDE_SEARCH_EFFORT = "medium"
 
 COPILOT_API_BASE = "https://api.githubcopilot.com"
 COPILOT_INTEGRATION_ID = "vscode-chat"
+# httpx's timeout is per-operation, so a trickling response resets it forever;
+# one such call blocked a weekly run for 52 minutes. READ bounds an idle socket,
+# TOTAL is the wall-clock ceiling the Claude path already gets from
+# subprocess.run(timeout=...). Keep TOTAL comfortably under that 240s so a slow
+# fallback costs less than the primary path it is standing in for.
+COPILOT_READ_TIMEOUT_SECONDS = 120
+COPILOT_TOTAL_TIMEOUT_SECONDS = 200
 COPILOT_FALLBACK_ENRICH_MODEL = "claude-sonnet-5"
 COPILOT_FALLBACK_VERIFY_MODEL = "claude-sonnet-5"
 

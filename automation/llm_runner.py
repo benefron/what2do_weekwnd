@@ -11,6 +11,8 @@ Ported near-verbatim from israel-news-digest/automation/llm_runner.py.
 import json
 import logging
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeout
 from pathlib import Path
 
 import httpx
@@ -29,8 +31,7 @@ def _gh_token() -> str:
     return result.stdout.strip()
 
 
-def _call_copilot(system_msg: str, user_msg: str, model: str) -> str:
-    token = _gh_token()
+def _post_copilot(token: str, system_msg: str, user_msg: str, model: str) -> str:
     resp = httpx.post(
         f"{config.COPILOT_API_BASE}/chat/completions",
         headers={
@@ -45,10 +46,39 @@ def _call_copilot(system_msg: str, user_msg: str, model: str) -> str:
                 {"role": "user", "content": user_msg},
             ],
         },
-        timeout=180,
+        timeout=config.COPILOT_READ_TIMEOUT_SECONDS,
     )
     resp.raise_for_status()
     return resp.json()["choices"][0]["message"]["content"]
+
+
+def _call_copilot(system_msg: str, user_msg: str, model: str) -> str:
+    """Copilot chat completion under a hard wall-clock deadline.
+
+    httpx's `timeout` is a per-operation idle timeout, not a total one: a
+    response that trickles bytes resets the read clock indefinitely. One such
+    call ran for 52 minutes before failing, stalling a whole weekly run, while
+    the Claude path was bounded all along by subprocess.run(timeout=...). This
+    gives the fallback the same kind of ceiling.
+
+    The worker thread is left to die on its own — httpx offers no cancellation
+    — but the pipeline stops waiting on it. Note the executor is shut down with
+    wait=False: `with ThreadPoolExecutor(...)` joins its workers on exit, which
+    would re-block for exactly the request we just gave up on and make the
+    deadline purely decorative.
+    """
+    token = _gh_token()
+    pool = ThreadPoolExecutor(max_workers=1)
+    try:
+        future = pool.submit(_post_copilot, token, system_msg, user_msg, model)
+        try:
+            return future.result(timeout=config.COPILOT_TOTAL_TIMEOUT_SECONDS)
+        except FuturesTimeout:
+            raise RuntimeError(
+                f"copilot exceeded {config.COPILOT_TOTAL_TIMEOUT_SECONDS}s wall clock"
+            ) from None
+    finally:
+        pool.shutdown(wait=False)
 
 
 def _try_claude(
