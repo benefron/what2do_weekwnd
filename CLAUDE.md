@@ -58,8 +58,40 @@ scripts/install_launchd.sh                     # weekly Monday 07:30 LaunchAgent
 launchctl kickstart -k gui/$(id -u)/com.benefron.weekwnd
 ```
 
-No test suite yet. `automation/.venv/bin/python -m py_compile automation/*.py` is the
-current smoke check for the pipeline; `npm run build` type-checks the frontend.
+## Tests
+
+```bash
+automation/.venv/bin/pip install -r automation/requirements-dev.txt   # once
+automation/.venv/bin/python -m pytest        # ~350 tests, <1s, from the repo root
+cd frontend && npm run test                  # ~100 Vitest tests
+```
+
+Both suites are pure and offline — **no test may touch the network.** A
+`conftest.py` autouse fixture patches `httpx.get` to raise, because a suite that
+really called Belgian venue sites would fail whenever one rate-limits, which is
+the exact flakiness that made a naive link check report 58 dead links that were
+all alive. Fetchers are monkeypatched; `automation/tests/fixtures/` holds trimmed
+captures of real pages.
+
+What the suite is actually for: every bug this file has recorded was in date
+arithmetic, cache semantics or a cross-file vocabulary, and none of them were
+catchable by `py_compile` or `tsc`. So the highest-value file is
+`test_invariants.py`, which enforces the duplication this document warns about —
+`_LLM_FIELDS` ⊆ `_default_fields` (else `KeyError` on a cache hit) ⊆
+`_PUBLISHED_FIELDS` (else silently dropped), the two JSON schemas staying byte-
+identical, and `CATEGORY_VOCAB`/`FEATURE_TAG_VOCAB`/`PlaceKind` agreeing across
+`config.py`, both schemas, `types.ts` and `labels.ts`. Add a field to a vocab and
+forget a copy, and a test fails instead of the frontend rendering a blank chip.
+
+Regression tests are named for the bug they pin, and the comment says what broke
+— `test_this_weekend_is_never_in_the_past`,
+`test_transport_failure_is_NOT_cached`, `test_type_words_are_not_stripped`.
+Where a heuristic has a known-bad neighbour, both sides are pinned: Monde Sauvage
+must merge, Bellewaerde Park/Aquapark must not.
+
+`npm run build` still type-checks the frontend, and
+`automation/.venv/bin/python -m py_compile automation/*.py` remains a fast syntax
+check.
 
 ## Pipeline architecture (`automation/`)
 

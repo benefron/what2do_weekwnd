@@ -11,6 +11,10 @@
     "lat": 51.2311025,
     "lng": 4.4412828
   },
+  "AFAS Dome (former Sportpaleis) Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
   "Aarsele, 8700 Tielt": {
     "lat": 50.9845,
     "lng": 3.4185022
@@ -46,6 +50,14 @@
   "Ancienne Belgique (AB) Brussels België": {
     "lat": 50.8470454,
     "lng": 4.3492674
+  },
+  "Antwerp België": {
+    "lat": 51.2211097,
+    "lng": 4.3997081
+  },
+  "Antwerp city centre & Operaplein Antwerp België": {
+    "lat": 51.2194374,
+    "lng": 4.4155304
   },
   "Antwerp city centre Antwerp België": {
     "lat": 51.2194374,
@@ -191,9 +203,25 @@
     "lat": 51.3199034,
     "lng": 4.5188752
   },
+  "Bruges België": {
+    "lat": 51.2085526,
+    "lng": 3.226772
+  },
+  "Bruges historic centre (Markt, Minnewater, Simon Stevinplein) Bruges België": {
+    "lat": null,
+    "lng": null
+  },
   "Bruggestraat, 8820 Torhout": {
     "lat": 51.0691975,
     "lng": 3.1039876
+  },
+  "Brussels België": {
+    "lat": 50.8467372,
+    "lng": 4.352493
+  },
+  "Brussels city centre (Grand-Place, Bourse, Marché aux Poissons) Brussels België": {
+    "lat": null,
+    "lng": null
   },
   "Bukenberg 45, 2491 Olmen (Balen)": {
     "lat": 51.1269543,
@@ -1146,6 +1174,10 @@
   "ZOO Antwerpen Antwerp België": {
     "lat": 51.2164396,
     "lng": 4.4234205
+  },
+  "ZOO Planckendael Mechelen (Muizen) België": {
+    "lat": 51.0022386,
+    "lng": 4.5144687
   },
   "ZOO Planckendael Mechelen België": {
     "lat": 51.0022386,

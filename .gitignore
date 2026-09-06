@@ -14,3 +14,7 @@ _site_deploy/
 # keep archive dir
 !data/archive/.gitkeep
 .claude/scheduled_tasks.lock
+
+# pytest
+.pytest_cache/
+automation/**/__pycache__/

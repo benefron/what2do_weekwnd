@@ -143,7 +143,14 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
     ds, de = _parse_any_date(act.get("date_start")), _parse_any_date(act.get("date_end"))
     if ds and de:
         span = {ds.date() + timedelta(days=i) for i in range((de.date() - ds.date()).days + 1)}
-        if wednesday in span:
+        # A run of several days that covers Wednesday is open that afternoon, so
+        # it qualifies outright. A single-day entry must still clear the
+        # half-day test — otherwise a 09:00 Wednesday event lands on the
+        # "Wednesday" chip, which exists precisely for children who are in
+        # school until noon.
+        if wednesday in span and (
+            len(span) > 1 or act.get("all_day") or ds.hour == 0 or ds.hour >= 12
+        ):
             buckets.add("wednesday")
         days |= span
 
