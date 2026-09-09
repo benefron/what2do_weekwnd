@@ -22,11 +22,6 @@ const MS_PER_DAY = 86_400_000;
 /** config.WINDOW_WEEKS — the "later" horizon. */
 export const WINDOW_WEEKS = 13;
 
-/** A span longer than this is almost certainly bad data; cap the expansion so a
- *  malformed `date_end` can't spin the browser. The pipeline has no such guard
- *  but also never renders in a tight loop. */
-const MAX_SPAN_DAYS = 800;
-
 /** Whole days between the Unix epoch and y-m-d, in UTC. `month` is 1-based. */
 export function ymdToDayNum(year: number, month: number, day: number): number {
   return Math.floor(Date.UTC(year, month - 1, day) / MS_PER_DAY);
@@ -49,6 +44,8 @@ export type BelgiumDate = [year: number, month: number, day: number];
  *  this is both more correct and more deterministic than the viewer's own zone
  *  (and matches the pipeline, which runs on Brussels local time). */
 export function belgiumToday(now: Date = new Date()): BelgiumDate {
+  // formatToParts, not format() + split — the assembled string is
+  // locale/implementation-dependent, the parts are not.
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Brussels",
     year: "numeric",
@@ -176,24 +173,28 @@ export function computeBuckets(
     }
   }
 
-  // Every date this activity touches: its own occurrences, plus the full span
-  // of a periodic/multi-day run where we only captured start and end.
+  // Every date this activity touches: its own occurrences, plus the span of a
+  // periodic/multi-day run where we only captured start and end. Only the part
+  // of that span that can still land in a bucket matters — every bucket window
+  // (this/next weekend, Wednesday, the 13-week horizon) sits within
+  // [todayNum - 7, windowEnd] — so a run that started years ago but is still
+  // going contributes just its live tail, not thousands of dead past days.
   const days = new Set<number>(stamps.map((s) => s.dayNum));
   const ds = parseStamp(a.date_start);
   const de = parseStamp(a.date_end);
   if (ds && de && de.dayNum >= ds.dayNum) {
-    const last = Math.min(de.dayNum, ds.dayNum + MAX_SPAN_DAYS);
-    const spanLen = last - ds.dayNum + 1;
     // A multi-day run covering Wednesday is open that afternoon, so it qualifies
     // outright. A single-day entry must still clear the half-day test.
     if (
       ds.dayNum <= wednesday &&
-      wednesday <= last &&
-      (spanLen > 1 || a.all_day || ds.hour === 0 || ds.hour >= 12)
+      wednesday <= de.dayNum &&
+      (de.dayNum > ds.dayNum || a.all_day || ds.hour === 0 || ds.hour >= 12)
     ) {
       buckets.add("wednesday");
     }
-    for (let d = ds.dayNum; d <= last; d++) days.add(d);
+    const from = Math.max(ds.dayNum, todayNum - 7);
+    const to = Math.min(de.dayNum, windowEnd);
+    for (let d = from; d <= to; d++) days.add(d);
   }
 
   for (const d of days) {

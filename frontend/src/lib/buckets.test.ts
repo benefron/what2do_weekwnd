@@ -110,6 +110,21 @@ describe("later horizon", () => {
     const b = computeBuckets(on("2027-02-01"), MON).weekend_bucket;
     expect(b).toEqual([]);
   });
+
+  it("still buckets a long-running run that began years ago but is ongoing", () => {
+    // Started 2023; date_end is next month. The live tail must reach 'later'
+    // (and this/next weekend) even though date_start + 800 days is long past.
+    const a = act({
+      date_kind: "recurring",
+      date_start: "2023-01-01T10:00:00",
+      date_end: "2026-10-15T10:00:00",
+      occurrences: [{ start: "2023-01-01T10:00:00", end: "2026-10-15T10:00:00" }],
+    });
+    const b = computeBuckets(a, MON).weekend_bucket;
+    expect(b).toContain("later");
+    expect(b).toContain("this_weekend");
+    expect(b).toContain("next_weekend");
+  });
 });
 
 describe("school holidays", () => {
@@ -191,6 +206,14 @@ describe("withBuckets", () => {
     stale.weekend_bucket = ["later"];
     const [fresh] = withBuckets([stale], NL, FR, [2026, 9, 14]);
     expect(fresh.weekend_bucket).toContain("this_weekend");
+  });
+
+  it("still tags holidays when only one (legacy) calendar table is supplied", () => {
+    // App falls back to dataset.school_holidays (== the NL table) for older
+    // payloads that predate the split fields.
+    const [fresh] = withBuckets([on("2026-10-28")], NL, undefined, [2026, 9, 14]);
+    expect(fresh.weekend_bucket).toContain("school_holiday");
+    expect(fresh.school_holiday_nl).toBe("Herfstvakantie");
   });
 });
 
