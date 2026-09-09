@@ -11,6 +11,7 @@ import {
   type Tab,
 } from "./lib/filters";
 import { parseOrigin, withDistance } from "./lib/locations";
+import { belgiumToday, withBuckets } from "./lib/buckets";
 import ActivityCard from "./components/ActivityCard";
 import FilterBar from "./components/FilterBar";
 
@@ -46,6 +47,22 @@ export default function App() {
 
   useEffect(() => {
     loadDataset().then(setDataset).catch((e) => setError(String(e)));
+  }, []);
+
+  // The weekend/holiday buckets are derived against "today" (Brussels). Keep a
+  // day-granular clock so a PWA left open across midnight — or reopened days
+  // later — re-buckets on its own, without waiting for another state change.
+  const [todayKey, setTodayKey] = useState(() => belgiumToday().join("-"));
+  useEffect(() => {
+    const tick = () => setTodayKey(belgiumToday().join("-"));
+    const id = window.setInterval(tick, 10 * 60 * 1000);
+    document.addEventListener("visibilitychange", tick);
+    window.addEventListener("focus", tick);
+    return () => {
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", tick);
+      window.removeEventListener("focus", tick);
+    };
   }, []);
 
   useEffect(() => {
@@ -90,11 +107,24 @@ export default function App() {
 
   const origin = useMemo(() => parseOrigin(filters.origin), [filters.origin]);
 
-  // distance_km ships measured from Leuven; re-derive it for the chosen origin
-  // so every downstream consumer keeps reading activity.distance_km unchanged.
+  // distance_km ships measured from Leuven; re-derive it for the chosen origin.
+  // weekend_bucket / holiday flags are baked at pipeline time (Mondays only), so
+  // re-derive those against today too. Both keep every downstream consumer
+  // reading activity.distance_km / activity.weekend_bucket unchanged.
   const located = useMemo(
-    () => (dataset ? withDistance(dataset.activities, origin) : []),
-    [dataset, origin]
+    () =>
+      dataset
+        ? withBuckets(
+            withDistance(dataset.activities, origin),
+            // older cached payloads only carry the merged `school_holidays`
+            // (== the NL calendar); fall back to it so the holiday filter still
+            // works before the client picks up a fresh feed.
+            dataset.school_holidays_nl ?? dataset.school_holidays,
+            dataset.school_holidays_fr,
+          )
+        : [],
+    // todayKey is the daily re-bucket trigger (see the clock effect above).
+    [dataset, origin, todayKey]
   );
 
   const results = useMemo(() => {

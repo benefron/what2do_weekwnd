@@ -119,6 +119,11 @@ export interface Dataset {
   window: { start: string; end: string };
   leuven_center: [number, number];
   school_holidays: SchoolHoliday[];
+  /** Split calendars: Flemish Community (Flanders + NL-speaking Brussels) and
+   *  Fédération Wallonie-Bruxelles (Wallonia + FR-speaking Brussels). The
+   *  frontend re-derives holiday buckets from these against today's date. */
+  school_holidays_nl?: SchoolHoliday[];
+  school_holidays_fr?: SchoolHoliday[];
   categories: { key: Category; count: number }[];
   feature_tags: { key: FeatureTag; count: number }[];
   place_kinds?: { key: PlaceKind; count: number }[];

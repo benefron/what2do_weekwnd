@@ -1,6 +1,7 @@
 import type { Activity, Category, FeatureTag, PlaceKind, VenueSetting, WeekendBucket } from "../types";
 import { firstFutureDate, formatPrice } from "./format";
 import { DEFAULT_ORIGIN } from "./locations";
+import { isPastEvent } from "./buckets";
 
 export type Tab = "weekend" | "places" | "zomerbar" | "eatplay";
 
@@ -228,7 +229,13 @@ export function applyFilters(activities: Activity[], f: FilterState): Activity[]
   const isPlace = (a: Activity) => a.date_kind === "permanent";
   let out: Activity[];
   if (f.tab === "weekend") {
-    out = activities.filter((a) => !isPlace(a));
+    // Dated events only, and only ones still live: nothing whose dates have all
+    // passed, and nothing that fell outside the 13-week horizon (empty bucket).
+    // Mirrors the pipeline's own drop in normalize.normalize_all — needed here
+    // too because the feed's buckets are only as fresh as the last Monday run.
+    out = activities.filter(
+      (a) => !isPlace(a) && a.weekend_bucket.length > 0 && !isPastEvent(a)
+    );
   } else {
     const kinds = TAB_PLACE_KINDS[f.tab];
     out = activities.filter(

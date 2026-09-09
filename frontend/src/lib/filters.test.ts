@@ -256,6 +256,23 @@ describe("when", () => {
   });
 });
 
+describe("stale weekend feed", () => {
+  it("drops a dated event whose bucket has gone empty (past the 13-week horizon)", () => {
+    const stale = act({ weekend_bucket: [] });
+    expect(applyFilters([stale], base({ tab: "weekend" }))).toHaveLength(0);
+  });
+
+  it("drops a dated event whose dates have all passed", () => {
+    const past = act({
+      weekend_bucket: ["later"],
+      date_start: "2020-01-01T10:00:00",
+      date_end: "2020-01-01T12:00:00",
+      occurrences: [{ start: "2020-01-01T10:00:00", end: "2020-01-01T12:00:00" }],
+    });
+    expect(applyFilters([past], base({ tab: "weekend" }))).toHaveLength(0);
+  });
+});
+
 // ── URL round-trip ──────────────────────────────────────────────────────────
 describe("URL serialisation", () => {
   it("omits defaults so a clean state gives a clean URL", () => {
