@@ -11,6 +11,7 @@ import {
   type Tab,
 } from "./lib/filters";
 import { parseOrigin, withDistance } from "./lib/locations";
+import { withBuckets } from "./lib/buckets";
 import ActivityCard from "./components/ActivityCard";
 import FilterBar from "./components/FilterBar";
 
@@ -90,10 +91,19 @@ export default function App() {
 
   const origin = useMemo(() => parseOrigin(filters.origin), [filters.origin]);
 
-  // distance_km ships measured from Leuven; re-derive it for the chosen origin
-  // so every downstream consumer keeps reading activity.distance_km unchanged.
+  // distance_km ships measured from Leuven; re-derive it for the chosen origin.
+  // weekend_bucket / holiday flags are baked at pipeline time (Mondays only), so
+  // re-derive those against today too. Both keep every downstream consumer
+  // reading activity.distance_km / activity.weekend_bucket unchanged.
   const located = useMemo(
-    () => (dataset ? withDistance(dataset.activities, origin) : []),
+    () =>
+      dataset
+        ? withBuckets(
+            withDistance(dataset.activities, origin),
+            dataset.school_holidays_nl,
+            dataset.school_holidays_fr,
+          )
+        : [],
     [dataset, origin]
   );
 
