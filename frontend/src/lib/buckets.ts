@@ -49,13 +49,21 @@ export type BelgiumDate = [year: number, month: number, day: number];
  *  this is both more correct and more deterministic than the viewer's own zone
  *  (and matches the pipeline, which runs on Brussels local time). */
 export function belgiumToday(now: Date = new Date()): BelgiumDate {
-  const iso = new Intl.DateTimeFormat("en-CA", {
+  const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Brussels",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(now); // "2026-09-09"
-  const [y, m, d] = iso.split("-").map(Number);
+  }).formatToParts(now);
+
+  let y = 0;
+  let m = 0;
+  let d = 0;
+  for (const p of parts) {
+    if (p.type === "year") y = Number(p.value);
+    else if (p.type === "month") m = Number(p.value);
+    else if (p.type === "day") d = Number(p.value);
+  }
   return [y, m, d];
 }
 
