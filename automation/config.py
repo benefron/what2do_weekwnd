@@ -26,6 +26,13 @@ FRONTEND_DATA_DIR = REPO_ROOT / "frontend" / "public" / "data"
 
 LAST_RUN_STATE = STATE_DIR / "last_run.json"
 RUN_LOCK = STATE_DIR / "run.lock"
+# Per-stage checkpoint written by run_weekly.py (fetch/normalize/geocode/
+# enrich/merge_places/published) so a crash's last-known stage is visible
+# without grepping the run log. Read by watchdog.py to decide whether to retry.
+RUN_PROGRESS = STATE_DIR / "run_progress.json"
+# watchdog.py's own bookkeeping: which stuck run_id it has retried and how
+# many times, so retries back off and eventually give up.
+WATCHDOG_STATE = STATE_DIR / "watchdog_state.json"
 
 # ── secrets (gitignored) ────────────────────────────────────────────────────
 def _load_secrets() -> dict:
@@ -53,6 +60,14 @@ WINDOW_WEEKS = 13
 # from re-running, while still allowing a manual --force.
 MIN_HOURS_BETWEEN_RUNS = 20
 LOCK_STALE_SECONDS = 2 * 60 * 60
+
+# watchdog.py: a run that's genuinely still going (enrichment alone can run
+# well over an hour) keeps RUN_LOCK's mtime fresh via a per-batch heartbeat
+# (see enrich._touch_lock), so "stale" here still means "dead", not "slow".
+# Backoff between retry attempts, and how many attempts before giving up and
+# leaving it for next Monday rather than retrying forever.
+WATCHDOG_RETRY_BACKOFF_SECONDS = 45 * 60
+WATCHDOG_MAX_RETRIES = 3
 
 # ── LLM (Claude CLI, --safe-mode; Copilot API fallback) ─────────────────────
 ENRICH_MODEL = "claude-haiku-4-5-20251001"

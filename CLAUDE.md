@@ -57,8 +57,9 @@ npm run dev                                   # or: scripts/dev_serve.sh (syncs 
 npm run build                                 # tsc + vite build -> frontend/dist
 
 # Scheduling
-scripts/install_launchd.sh                     # weekly Monday 07:30 LaunchAgent
+scripts/install_launchd.sh                     # weekly Monday 07:30 LaunchAgent + the watchdog (every 30 min)
 launchctl kickstart -k gui/$(id -u)/com.benefron.weekwnd
+tail -f automation/logs/watchdog.log            # watchdog's own decisions (usually "lock is fresh" / "no lock")
 ```
 
 ## Tests
@@ -105,6 +106,19 @@ publish. Guards copied from israel-news-digest's `run_daily.py`: file lock
 **abort without overwriting `data/latest.json`** if a stage yields nothing.
 `places.load_places_as_activities()` reads `data/places.json` verbatim (no fetch,
 no enrich) — `build_places.py` is the only thing that writes it.
+
+Each stage also checkpoints to `state/run_progress.json` (`_write_progress`) —
+which stage a crashed run reached, without grepping its log. `enrich.py` touches
+`run.lock`'s mtime after every batch (`_touch_lock`) so a merely-slow run (the
+enrich stage alone can run well over an hour) doesn't look dead. **`watchdog.py`**
+— its own LaunchAgent, every 30 min — is what actually recovers a crashed run:
+if the lock is stale *and* the last run never reached `stage: "published"`, it
+retries `run_weekly.py --force` (caffeinated, so it doesn't die the same way)
+with backoff, giving up after `WATCHDOG_MAX_RETRIES` so a genuinely broken run
+fails loud instead of retrying forever. This is why the 2026-09-14 run — killed
+mid-enrichment when the Mac slept, silently stale until someone asked — can't
+recur unnoticed: caffeinate now holds the sleep assertion for the whole run,
+and if it dies anyway, the watchdog retries it the same morning.
 
 1. **`sources.py` — fetch.** Flat list of raw records tagged `_kind` =
    `uitdatabank` | `ods` | `feed` | `claude_search` | `manual`.

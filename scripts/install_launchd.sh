@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-# Installs the weekly LaunchAgent: runs automation/run_weekly.py every Monday
-# at 07:30, catching up on the next wake if the Mac was asleep/off (see the
-# .plist.template for why RunAtLoad is deliberately not used).
+# Installs two LaunchAgents:
+#   com.benefron.weekwnd          run_weekly.py every Monday at 07:30,
+#                                  catching up on the next wake if the Mac was
+#                                  asleep/off (see its .plist.template for why
+#                                  RunAtLoad is deliberately not used).
+#   com.benefron.weekwnd.watchdog every 30 min, retries a run that crashed
+#                                  mid-week (see watchdog.py) instead of
+#                                  leaving the feed stale until next Monday.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LABEL="com.benefron.weekwnd"
-TEMPLATE="$REPO_ROOT/scripts/$LABEL.plist.template"
-DEST="$HOME/Library/LaunchAgents/$LABEL.plist"
+LABELS=(com.benefron.weekwnd com.benefron.weekwnd.watchdog)
 
 echo "== preflight =="
 
@@ -41,16 +44,21 @@ fi
 echo "== installing =="
 mkdir -p "$REPO_ROOT/automation/logs" "$REPO_ROOT/automation/state" "$HOME/Library/LaunchAgents"
 
-sed -e "s#__REPO_ROOT__#$REPO_ROOT#g" -e "s#__CLAUDE_BIN_DIR__#$CLAUDE_BIN_DIR#g" \
-  "$TEMPLATE" > "$DEST"
-
 UID_NUM="$(id -u)"
-launchctl bootout "gui/$UID_NUM/$LABEL" >/dev/null 2>&1 || true
-launchctl bootstrap "gui/$UID_NUM" "$DEST"
-launchctl enable "gui/$UID_NUM/$LABEL"
+for LABEL in "${LABELS[@]}"; do
+  TEMPLATE="$REPO_ROOT/scripts/$LABEL.plist.template"
+  DEST="$HOME/Library/LaunchAgents/$LABEL.plist"
+  sed -e "s#__REPO_ROOT__#$REPO_ROOT#g" -e "s#__CLAUDE_BIN_DIR__#$CLAUDE_BIN_DIR#g" \
+    "$TEMPLATE" > "$DEST"
+  launchctl bootout "gui/$UID_NUM/$LABEL" >/dev/null 2>&1 || true
+  launchctl bootstrap "gui/$UID_NUM" "$DEST"
+  launchctl enable "gui/$UID_NUM/$LABEL"
+  echo "Installed: $DEST"
+done
 
 echo "== done =="
-echo "Installed: $DEST"
-echo "Scheduled: Monday 07:30 (or next wake if missed)"
+echo "Weekly run scheduled: Monday 07:30 (or next wake if missed)"
+echo "Watchdog scheduled: every 30 min, retries a crashed run with backoff (see automation/watchdog.py)"
 echo "Manual test run: $REPO_ROOT/scripts/run_now.sh --no-push"
-echo "Force a scheduled run now: launchctl kickstart -k gui/$UID_NUM/$LABEL"
+echo "Force a scheduled run now: launchctl kickstart -k gui/$UID_NUM/com.benefron.weekwnd"
+echo "Check watchdog status: automation/logs/watchdog.log, automation/state/watchdog_state.json"

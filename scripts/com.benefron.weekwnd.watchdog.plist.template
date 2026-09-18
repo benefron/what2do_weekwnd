@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.benefron.weekwnd.watchdog</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__REPO_ROOT__/automation/.venv/bin/python3</string>
+        <string>__REPO_ROOT__/automation/watchdog.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>__REPO_ROOT__/automation</string>
+
+    <!-- Every 30 min, cheap check-and-exit (see watchdog.py: reads two small
+         JSON files, does nothing unless the weekly run's lock is stale AND it
+         never reached "published"). This is what actually recovers a crashed
+         Monday run — com.benefron.weekwnd only fires once a week, so without
+         this a run killed mid-morning (2026-09-14: the Mac slept mid-enrich
+         and killed it) sits broken until the following Monday. -->
+    <key>StartInterval</key>
+    <integer>1800</integer>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>__REPO_ROOT__/automation/logs/watchdog.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>__REPO_ROOT__/automation/logs/watchdog.err.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>__CLAUDE_BIN_DIR__:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+        <key>LC_ALL</key>
+        <string>en_US.UTF-8</string>
+    </dict>
+</dict>
+</plist>

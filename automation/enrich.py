@@ -18,6 +18,18 @@ log = logging.getLogger(__name__)
 _ENRICH_SCHEMA = json.loads((config.PROMPTS_DIR / "enrich_schema.json").read_text())
 _VERIFY_SCHEMA = json.loads((config.PROMPTS_DIR / "verify_schema.json").read_text())
 
+
+def _touch_lock() -> None:
+    """Refresh run_weekly's lock file so a long enrichment pass (an hour-plus,
+    one Claude call per batch) doesn't look "stale" to watchdog.py partway
+    through — staleness should mean dead, not merely slow. A no-op outside a
+    run_weekly invocation (no lock file) or in tests (STATE_DIR doesn't exist)."""
+    try:
+        if config.RUN_LOCK.exists():
+            config.RUN_LOCK.touch()
+    except OSError:
+        pass
+
 # Bump whenever the schema or the prompt changes in a way that makes existing
 # cached classifications wrong. It is folded into the content hash, so a bump
 # re-enriches everything rather than silently replaying stale answers.
@@ -183,6 +195,7 @@ def enrich_all(activities: list[dict]) -> dict:
             it straight from cache and never verify it. Those are written by the
             final save instead, once verify has had its say.
             """
+            _touch_lock()
             written = 0
             for act_id, f in batch.items():
                 act = by_id.get(act_id)
@@ -230,6 +243,7 @@ def enrich_all(activities: list[dict]) -> dict:
                 config.PROMPTS_DIR / "verify_instructions.txt", _VERIFY_SCHEMA,
                 config.VERIFY_MODEL, config.VERIFY_MAX_BUDGET_USD,
                 config.COPILOT_FALLBACK_VERIFY_MODEL, config.VERIFY_EFFORT, needs_verify, "verify",
+                on_batch=lambda _batch: _touch_lock(),
             )
             for act in activities:
                 v = verified_by_id.get(act["id"])

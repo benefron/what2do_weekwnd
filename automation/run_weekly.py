@@ -5,6 +5,14 @@
 Guards (from israel-news-digest/run_daily.py): file lock, a ~20h idempotency
 window so a Tuesday wake-catchup doesn't re-run, and an abort-without-overwrite
 when zero activities come back.
+
+Each stage also checkpoints to state/run_progress.json (_write_progress) —
+not just for the record, but so watchdog.py (its own LaunchAgent, checks every
+30 min) can tell a crashed run from a slow one and retry it with backoff
+instead of leaving the feed stale until next Monday. A crash mid-run does not
+lose the work that got done: enrich.py's per-batch cache write and geo.py's
+geocode cache both survive a restart, so a retry mostly replays from cache
+rather than re-fetching/re-paying for tokens.
 """
 import argparse
 import json
@@ -47,13 +55,35 @@ def _save_state(state: dict) -> None:
     config.LAST_RUN_STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2))
 
 
+def _write_progress(run_id: str, stage: str, **extra) -> None:
+    """Checkpoint after each stage: what a crashed run got to, without having
+    to grep its log. watchdog.py reads this to decide whether — and where —
+    to retry. `stage="published"` is the terminal, all-clear value."""
+    config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+    payload = {"run_id": run_id, "stage": stage, "at": datetime.now(timezone.utc).isoformat(), **extra}
+    config.RUN_PROGRESS.write_text(json.dumps(payload, ensure_ascii=False, indent=2))
+
+
+def _read_progress() -> dict:
+    if config.RUN_PROGRESS.exists():
+        try:
+            return json.loads(config.RUN_PROGRESS.read_text())
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+
 def _acquire_lock() -> bool:
     config.STATE_DIR.mkdir(parents=True, exist_ok=True)
     if config.RUN_LOCK.exists():
         age = time.time() - config.RUN_LOCK.stat().st_mtime
         if age < config.LOCK_STALE_SECONDS:
             return False
-        log.warning("stale lock (age=%.0fs), taking over", age)
+        progress = _read_progress()
+        log.warning(
+            "stale lock (age=%.0fs) — previous run %s died at stage %r, taking over",
+            age, progress.get("run_id", "?"), progress.get("stage", "unknown"),
+        )
     config.RUN_LOCK.write_text(str(time.time()))
     return True
 
@@ -83,15 +113,19 @@ def main() -> int:
         return 0
 
     try:
+        _write_progress(run_id, "started")
+
         fetched = sources.fetch_all()
         if not fetched["raw"]:
             log.error("no raw records from any source, aborting without overwriting latest.json")
             return 1
+        _write_progress(run_id, "fetch", raw_count=len(fetched["raw"]))
 
         activities = normalize.normalize_all(fetched["raw"], run_id)
         if not activities:
             log.error("0 activities after normalize, aborting without overwriting latest.json")
             return 1
+        _write_progress(run_id, "normalize", activity_count=len(activities))
 
         geo.geocode_activities(activities)
 
@@ -106,6 +140,7 @@ def main() -> int:
             or a["distance_km"] <= config.MAX_DISTANCE_KM
         ]
         log.info("distance prefilter: %d -> %d (<= %d km)", before, len(activities), config.MAX_DISTANCE_KM)
+        _write_progress(run_id, "geocode", activity_count=len(activities))
 
         if args.no_enrich:
             for a in activities:
@@ -122,6 +157,7 @@ def main() -> int:
         degraded = bool(enrich_stats.get("skipped")) or all(
             a.get("enrichment_model") == "degraded" for a in activities
         )
+        _write_progress(run_id, "enrich", activity_count=len(activities), degraded=degraded)
 
         # drop adult-only films / courses / nightlife — keep only things to do
         # with the kids plus big-name concerts & shows (family_relevant).
@@ -133,6 +169,7 @@ def main() -> int:
         # merge in the permanent guide (data/places.json) verbatim — never
         # fetched or enriched by the weekly run.
         activities += places.load_places_as_activities(run_id)
+        _write_progress(run_id, "merge_places", activity_count=len(activities))
 
         payload = publish.build_payload(
             activities, run_id, fetched["sources_fetched"], fetched["sources_failed"], degraded
@@ -147,6 +184,7 @@ def main() -> int:
         state["last_run_id"] = run_id
         state["last_activity_count"] = len(activities)
         _save_state(state)
+        _write_progress(run_id, "published", activity_count=len(activities))
         log.info("run complete for %s", run_id)
         return 0
     finally:
