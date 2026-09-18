@@ -5,8 +5,19 @@
     <key>Label</key>
     <string>com.benefron.weekwnd</string>
 
+    <!-- caffeinate -ims: hold an idle+system+disk sleep assertion for the life
+         of the pipeline. Without it a LaunchAgent is just another background
+         process — it does not itself keep the Mac awake, so a run that starts
+         on a wake-triggered catch-up can be suspended by the very next idle
+         sleep and never resume. That is what silently dropped the 2026-09-14
+         run: it got 6/14 enrichment batches in, the Mac slept, and it was
+         killed before reaching publish/commit/push. (This does not cover a
+         closed lid with no external display — only caffeinate -u or staying
+         open prevents that.) -->
     <key>ProgramArguments</key>
     <array>
+        <string>/usr/bin/caffeinate</string>
+        <string>-ims</string>
         <string>__REPO_ROOT__/automation/.venv/bin/python3</string>
         <string>__REPO_ROOT__/automation/run_weekly.py</string>
     </array>

@@ -175,6 +175,10 @@
     "lat": 50.6216298,
     "lng": 4.1927077
   },
+  "Bokrijk Openluchtmuseum Genk België": {
+    "lat": 50.9630827,
+    "lng": 5.4030747
+  },
   "Bokrijklaan 1, 3600 Genk": {
     "lat": 50.9630827,
     "lng": 5.4030747
@@ -207,6 +211,10 @@
     "lat": 51.2085526,
     "lng": 3.226772
   },
+  "Bruges city centre Bruges België": {
+    "lat": 51.208146,
+    "lng": 3.2271506
+  },
   "Bruges historic centre (Markt, Minnewater, Simon Stevinplein) Bruges België": {
     "lat": null,
     "lng": null
@@ -222,6 +230,10 @@
   "Brussels city centre (Grand-Place, Bourse, Marché aux Poissons) Brussels België": {
     "lat": null,
     "lng": null
+  },
+  "Brussels city centre Brussels België": {
+    "lat": 50.8469765,
+    "lng": 4.3527807
   },
   "Bukenberg 45, 2491 Olmen (Balen)": {
     "lat": 51.1269543,
@@ -383,6 +395,10 @@
     "lat": 50.8096462,
     "lng": 4.3260748
   },
+  "Forest National Brussels België": {
+    "lat": 50.8096462,
+    "lng": 4.3260748
+  },
   "Forestia Theux België": {
     "lat": 50.510157,
     "lng": 5.7751667
@@ -402,6 +418,14 @@
   "Gent": {
     "lat": 51.0538286,
     "lng": 3.7250121
+  },
+  "Ghent België": {
+    "lat": 51.0538286,
+    "lng": 3.7250121
+  },
+  "Ghent city centre Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "Gijzelstraat 14, 9031 Drongen": {
     "lat": 51.0669877,
@@ -855,6 +879,10 @@
     "lat": 50.8410262,
     "lng": 5.1258896
   },
+  "Provinciedomein Huizingen Beersel België": {
+    "lat": 50.7430772,
+    "lng": 4.2860763
+  },
   "Provinciedomein Raversyde Oostende België": {
     "lat": 51.2019667,
     "lng": 2.8533566
@@ -1111,11 +1139,19 @@
     "lat": 50.9172475,
     "lng": 3.3258228
   },
+  "Théâtre Royal de Mons Mons België": {
+    "lat": 50.4553157,
+    "lng": 3.9523597
+  },
   "Théâtre de Namur Namur België": {
     "lat": 50.8380321,
     "lng": 4.3632229
   },
   "Tierpark Eupen Eupen België": {
+    "lat": null,
+    "lng": null
+  },
+  "Touring production, various venues Antwerp België": {
     "lat": null,
     "lng": null
   },
@@ -1139,6 +1175,10 @@
     "lat": 51.1048944,
     "lng": 3.1606518
   },
+  "Vercingetorix camp / town centre Wervik België": {
+    "lat": null,
+    "lng": null
+  },
   "Veugenstraat 48, 3690 Zutendaal": {
     "lat": 50.947827,
     "lng": 5.5516792
@@ -1158,6 +1198,14 @@
   "Walhain": {
     "lat": 50.6180106,
     "lng": 4.6953383
+  },
+  "Walibi Belgium Wavre België": {
+    "lat": 50.6988062,
+    "lng": 4.5899191
+  },
+  "Wervik België": {
+    "lat": 50.7782244,
+    "lng": 3.0439698
   },
   "Wijnendalestraat 214, 8820 Torhout": {
     "lat": 51.0960034,
