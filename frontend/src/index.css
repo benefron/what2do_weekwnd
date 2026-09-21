@@ -12,11 +12,16 @@
   h1, h2, h3 {
     @apply font-display;
   }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.tangerine.deep");
+    outline-offset: 2px;
+  }
 }
 
 @layer components {
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5
+    @apply inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5
            text-sm font-medium text-ink transition-colors;
   }
   .chip:hover {
@@ -26,7 +31,27 @@
     @apply border-transparent bg-ink text-paper;
   }
   .chip--accent-on {
-    @apply border-transparent bg-tangerine text-white;
+    @apply border-transparent bg-tangerine-deep text-white;
+  }
+
+  .skip-link {
+    @apply fixed left-2 top-2 z-50 rounded-md bg-ink px-4 py-2 text-sm font-medium text-paper;
+    transform: translateY(-200%);
+    transition: transform 0.15s ease-in-out;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

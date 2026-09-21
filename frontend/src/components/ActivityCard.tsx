@@ -23,14 +23,15 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl2 border border-line bg-white shadow-card">
       {a.is_special_event && a.date_kind !== "permanent" && (
-        <span className="absolute left-3 top-3 z-10 rounded-full bg-tangerine px-2.5 py-1 text-xs font-semibold text-white shadow">
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-tangerine-deep px-2.5 py-1 text-xs font-semibold text-white shadow">
           Special event
         </span>
       )}
       <button
         onClick={() => onToggleSave(a.id)}
         aria-label={saved ? "Remove from saved" : "Save"}
-        className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/90 text-lg shadow transition hover:scale-110"
+        aria-pressed={saved}
+        className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-lg shadow transition hover:scale-110"
       >
         {saved ? "★" : "☆"}
       </button>
@@ -42,6 +43,7 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
               src={a.image_url!}
               alt=""
               loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
               className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               onError={() => setImgOk(false)}
@@ -135,7 +137,7 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
               No working link
             </span>
           ) : (
-            <a href={a.url} target="_blank" rel="noreferrer" className="text-tangerine hover:text-tangerine-dark">
+            <a href={a.url} target="_blank" rel="noreferrer" className="py-2 text-tangerine-deep hover:text-ink">
               Details ↗
             </a>
           )}
@@ -143,7 +145,7 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
             href={googleTranslateUrl(`${a.title_nl}. ${a.description_nl}`, a.primary_language)}
             target="_blank"
             rel="noreferrer"
-            className="text-muted hover:text-ink"
+            className="py-2 text-muted hover:text-ink"
           >
             Translate
           </a>

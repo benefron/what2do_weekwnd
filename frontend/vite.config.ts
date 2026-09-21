@@ -14,6 +14,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icons/apple-touch-icon.png"],
       manifest: {
+        id: base,
+        lang: "en",
+        categories: ["lifestyle", "travel", "kids"],
         name: "What2do Weekend — Belgium",
         short_name: "What2do",
         description: "Weekend activities and places to go with the kids, across Belgium.",
@@ -24,8 +27,13 @@ export default defineConfig({
         scope: base,
         icons: [
           { src: "icons/icon-192.png", sizes: "192x192", type: "image/png" },
-          { src: "icons/icon-512.png", sizes: "512x512", type: "image/png" },
-          { src: "icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+          { src: "icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+          {
+            src: "icons/icon-maskable-512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
         ],
       },
       workbox: {
@@ -36,6 +44,7 @@ export default defineConfig({
             handler: "NetworkFirst",
             options: {
               cacheName: "weekwnd-data",
+              networkTimeoutSeconds: 4,
               expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
           },

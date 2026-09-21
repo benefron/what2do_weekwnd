@@ -8,7 +8,7 @@ export default {
         ink: "#26201a",
         muted: "#6f6357",
         line: "#e7ddcd",
-        tangerine: { DEFAULT: "#f5623d", dark: "#d94a27" },
+        tangerine: { DEFAULT: "#f5623d", dark: "#d94a27", deep: "#b93d1c" },
         forest: { DEFAULT: "#2f6b4f", soft: "#e4efe7" },
         berry: "#8a3d6b",
       },

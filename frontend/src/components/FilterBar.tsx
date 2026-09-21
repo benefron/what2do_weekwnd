@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import type { Dataset, VenueSetting } from "../types";
 import {
   CATEGORY_LABELS,
@@ -35,21 +35,63 @@ interface Props {
   onReset: () => void;
 }
 
+/** Section heading styled like the old `<p>` label, but a real heading so the
+ * section (and any radiogroup/group inside it) has an accessible name.
+ * index.css applies font-display to h1-h3, so font-sans keeps this looking
+ * like the small uppercase label it always was. */
+function SectionLabel({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <h2 id={id} className="mb-2 font-sans text-xs font-semibold uppercase tracking-wide text-muted">
+      {children}
+    </h2>
+  );
+}
+
+/** Single-select chip row — a standard ARIA radiogroup: one `role="radio"` per
+ * chip, roving tabindex (only the checked chip is tab-stoppable), and
+ * Left/Right/Up/Down arrow keys move + select. */
 function Toggle<T extends string>({
   options,
   active,
   onPick,
+  labelledBy,
 }: {
   options: { key: T; label: string }[];
   active: T;
   onPick: (v: T) => void;
+  labelledBy: string;
 }) {
+  const refs = useRef<Partial<Record<T, HTMLButtonElement | null>>>({});
+
+  const pickAndFocus = (key: T) => {
+    onPick(key);
+    refs.current[key]?.focus();
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let dir = 0;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") dir = 1;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") dir = -1;
+    else return;
+    e.preventDefault();
+    const next = options[(index + dir + options.length) % options.length];
+    pickAndFocus(next.key);
+  };
+
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {options.map((o) => (
+    <div role="radiogroup" aria-labelledby={labelledBy} className="flex flex-wrap gap-1.5">
+      {options.map((o, i) => (
         <button
           key={o.key}
+          ref={(el) => {
+            refs.current[o.key] = el;
+          }}
+          type="button"
+          role="radio"
+          aria-checked={active === o.key}
+          tabIndex={active === o.key ? 0 : -1}
           onClick={() => onPick(o.key)}
+          onKeyDown={(e) => handleKeyDown(e, i)}
           className={`chip ${active === o.key ? "chip--on" : ""}`}
         >
           {o.label}
@@ -59,29 +101,57 @@ function Toggle<T extends string>({
   );
 }
 
-/** Same chip row, but any number can be on at once. */
+/** Same chip row, but any number can be on at once — an ARIA group of
+ * toggle buttons (`aria-pressed`), not a radiogroup. */
 function MultiToggle<T extends string>({
   options,
   active,
   onToggle,
+  labelledBy,
 }: {
-  options: { key: T; label: string }[];
+  options: { key: T; label: string; count?: number }[];
   active: readonly T[];
   onToggle: (v: T) => void;
+  labelledBy: string;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div role="group" aria-labelledby={labelledBy} className="flex flex-wrap gap-1.5">
       {options.map((o) => (
         <button
           key={o.key}
+          type="button"
           onClick={() => onToggle(o.key)}
           aria-pressed={active.includes(o.key)}
           className={`chip ${active.includes(o.key) ? "chip--on" : ""}`}
         >
           {o.label}
+          {o.count != null && <span className="ml-1 opacity-80">{o.count}</span>}
         </button>
       ))}
     </div>
+  );
+}
+
+/** A single boolean chip ("Hide weekly classes", "Special events only") with
+ * proper pressed-state semantics for a screen reader. */
+function BoolChip({
+  pressed,
+  onClick,
+  children,
+}: {
+  pressed: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={pressed}
+      className={`chip ${pressed ? "chip--accent-on" : ""}`}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -96,21 +166,48 @@ export default function FilterBar({
 }: Props) {
   const [geoError, setGeoError] = useState<string | null>(null);
 
-  // compared against the effective defaults, so restored preferences don't
-  // permanently light up "Clear filters"
-  const dirty = JSON.stringify({ ...f, tab: "x" }) !== JSON.stringify({ ...baseline, tab: "x" });
+  const whenId = useId();
+  const startingFromId = useId();
+  const distanceId = useId();
+  const priceId = useId();
+  const sortId = useId();
+  const agesId = useId();
+  const languagesId = useId();
+  const venueId = useId();
+  const typeId = useId();
+  const kindId = useId();
+  const featuresId = useId();
+
+  // compared field-by-field against the effective defaults, so restored
+  // preferences don't permanently light up "Clear filters", and an
+  // as-yet-unknown extra key on FilterState is handled generically rather
+  // than requiring this comparison to be updated for every new field.
+  const dirty = (Object.keys(f) as (keyof FilterState)[]).some((key) => {
+    if (key === "tab") return false;
+    const a = f[key];
+    const b = baseline[key];
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return a.length !== b.length || a.some((v, i) => v !== b[i]);
+    }
+    return a !== b;
+  });
 
   // A fixed reference order per key, so a selection serialises identically no
   // matter what order the chips were clicked in — clicking "8" then "4" must
   // produce the same array (and URL/JSON) as "4" then "8".
-  const CANONICAL_ORDER: Record<"categories" | "features" | "placeKinds" | "ages" | "languages" | "venue", readonly string[]> = {
-    ages: AGE_BUCKETS,
-    languages: LANGUAGES,
-    venue: VENUE_SETTINGS,
-    categories: dataset.categories.map((c) => c.key),
-    placeKinds: (dataset.place_kinds ?? []).map((k) => k.key),
-    features: dataset.feature_tags.map((t) => t.key),
-  };
+  const canonicalOrder = useMemo<
+    Record<"categories" | "features" | "placeKinds" | "ages" | "languages" | "venue", readonly string[]>
+  >(
+    () => ({
+      ages: AGE_BUCKETS,
+      languages: LANGUAGES,
+      venue: VENUE_SETTINGS,
+      categories: dataset.categories.map((c) => c.key),
+      placeKinds: (dataset.place_kinds ?? []).map((k) => k.key),
+      features: dataset.feature_tags.map((t) => t.key),
+    }),
+    [dataset.categories, dataset.place_kinds, dataset.feature_tags]
+  );
 
   const toggleIn = <K extends "categories" | "features" | "placeKinds" | "ages" | "languages" | "venue">(
     key: K,
@@ -118,7 +215,7 @@ export default function FilterBar({
   ) => {
     const set = new Set(f[key] as string[]);
     set.has(val as string) ? set.delete(val as string) : set.add(val as string);
-    const order = CANONICAL_ORDER[key];
+    const order = canonicalOrder[key];
     const next = [...set].sort((a, b) => order.indexOf(a) - order.indexOf(b));
     onChange({ [key]: next } as unknown as Partial<FilterState>);
   };
@@ -158,14 +255,15 @@ export default function FilterBar({
         value={f.search}
         onChange={(e) => onChange({ search: e.target.value })}
         placeholder="Search activities, places, what's on…"
-        className="w-full rounded-xl2 border border-line bg-white px-4 py-3 text-base shadow-card outline-none placeholder:text-muted/70 focus:border-tangerine"
+        className="w-full rounded-xl2 border border-line bg-white px-4 py-3 text-base shadow-card outline-none placeholder:text-muted focus:border-tangerine"
       />
 
       {f.tab === "weekend" && (
-        <section>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">When</p>
+        <section aria-labelledby={whenId}>
+          <SectionLabel id={whenId}>When</SectionLabel>
           <Toggle<WhenFilter>
             active={f.when}
+            labelledBy={whenId}
             onPick={(when) =>
               // Wednesday afternoon is the school half-day, and most of what runs
               // then is weekly classes — which are hidden by default.
@@ -182,8 +280,8 @@ export default function FilterBar({
         </section>
       )}
 
-      <section>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Starting from</p>
+      <section aria-labelledby={startingFromId}>
+        <SectionLabel id={startingFromId}>Starting from</SectionLabel>
         <div className="mb-3 flex gap-1.5">
           <select
             value={isCustomOrigin(origin) ? "__custom" : origin.key}
@@ -202,16 +300,16 @@ export default function FilterBar({
             onClick={useMyLocation}
             title="Use my location"
             aria-label="Use my location"
-            className="shrink-0 rounded-xl2 border border-line bg-white px-3 py-2 text-sm hover:border-tangerine"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl2 border border-line bg-white text-sm hover:border-tangerine"
           >
-            📍
+            <span aria-hidden="true">📍</span>
           </button>
         </div>
         {geoError && <p className="mb-2 text-xs text-berry">{geoError}</p>}
 
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+        <SectionLabel id={distanceId}>
           Distance — within {f.maxDistance} km of {origin.label}
-        </p>
+        </SectionLabel>
         <input
           type="range"
           min={5}
@@ -219,15 +317,18 @@ export default function FilterBar({
           step={5}
           value={f.maxDistance}
           onChange={(e) => onChange({ maxDistance: Number(e.target.value) })}
+          aria-label="Maximum distance"
+          aria-valuetext={`${f.maxDistance} km`}
           className="w-full accent-tangerine"
         />
       </section>
 
       <section className="flex flex-wrap gap-x-8 gap-y-4">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Price</p>
+          <SectionLabel id={priceId}>Price</SectionLabel>
           <Toggle<PriceFilter>
             active={f.price}
+            labelledBy={priceId}
             onPick={(price) => onChange({ price })}
             options={[
               { key: "any", label: "Any" },
@@ -237,9 +338,10 @@ export default function FilterBar({
           />
         </div>
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Sort</p>
+          <SectionLabel id={sortId}>Sort</SectionLabel>
           <Toggle<SortKey>
             active={f.sort}
+            labelledBy={sortId}
             onPick={(sort) => onChange({ sort })}
             options={[
               { key: "date", label: "Date" },
@@ -250,23 +352,25 @@ export default function FilterBar({
         </div>
       </section>
 
-      <section>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
-          Ages <span className="font-normal normal-case text-muted/70">— your kids&rsquo; ages</span>
-        </p>
+      <section aria-labelledby={agesId}>
+        <SectionLabel id={agesId}>
+          Ages <span className="font-normal normal-case text-muted">— your kids&rsquo; ages</span>
+        </SectionLabel>
         <MultiToggle<AgeBucket>
           active={f.ages}
+          labelledBy={agesId}
           onToggle={(b) => toggleIn("ages", b)}
           options={AGE_BUCKETS.map((b) => ({ key: b, label: b }))}
         />
       </section>
 
-      <section>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
-          Languages <span className="font-normal normal-case text-muted/70">— that you speak</span>
-        </p>
+      <section aria-labelledby={languagesId}>
+        <SectionLabel id={languagesId}>
+          Languages <span className="font-normal normal-case text-muted">— that you speak</span>
+        </SectionLabel>
         <MultiToggle<Language>
           active={f.languages}
+          labelledBy={languagesId}
           onToggle={(l) => toggleIn("languages", l)}
           options={LANGUAGES.map((l) => ({
             key: l,
@@ -275,15 +379,16 @@ export default function FilterBar({
         />
       </section>
 
-      <section>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+      <section aria-labelledby={venueId}>
+        <SectionLabel id={venueId}>
           Indoor / outdoor{" "}
-          <span className="font-normal normal-case text-muted/70">
+          <span className="font-normal normal-case text-muted">
             &mdash; for a rainy day; places that are both always show
           </span>
-        </p>
+        </SectionLabel>
         <MultiToggle<VenueSetting>
           active={f.venue}
+          labelledBy={venueId}
           onToggle={(v) => toggleIn("venue", v)}
           options={VENUE_SETTINGS.map((v) => ({
             key: v,
@@ -294,74 +399,63 @@ export default function FilterBar({
 
       <section className="flex flex-wrap gap-1.5">
         {f.tab === "weekend" && (
-          <button
-            onClick={() => onChange({ hideClasses: !f.hideClasses })}
-            className={`chip ${f.hideClasses ? "chip--accent-on" : ""}`}
-          >
+          <BoolChip pressed={f.hideClasses} onClick={() => onChange({ hideClasses: !f.hideClasses })}>
             Hide weekly classes
-          </button>
+          </BoolChip>
         )}
-        <button
-          onClick={() => onChange({ specialOnly: !f.specialOnly })}
-          className={`chip ${f.specialOnly ? "chip--accent-on" : ""}`}
-        >
+        <BoolChip pressed={f.specialOnly} onClick={() => onChange({ specialOnly: !f.specialOnly })}>
           Special events only
-        </button>
+        </BoolChip>
       </section>
 
       {f.tab === "weekend" && dataset.categories.length > 0 && (
-        <section>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Type</p>
-          <div className="flex flex-wrap gap-1.5">
-            {dataset.categories.map((c) => (
-              <button
-                key={c.key}
-                onClick={() => toggleIn("categories", c.key)}
-                className={`chip ${f.categories.includes(c.key) ? "chip--on" : ""}`}
-              >
-                {CATEGORY_LABELS[c.key]} <span className="opacity-50">{c.count}</span>
-              </button>
-            ))}
-          </div>
+        <section aria-labelledby={typeId}>
+          <SectionLabel id={typeId}>Type</SectionLabel>
+          <MultiToggle
+            active={f.categories}
+            labelledBy={typeId}
+            onToggle={(k) => toggleIn("categories", k)}
+            options={dataset.categories.map((c) => ({
+              key: c.key,
+              label: CATEGORY_LABELS[c.key],
+              count: c.count,
+            }))}
+          />
         </section>
       )}
 
       {f.tab === "places" && (dataset.place_kinds?.length ?? 0) > 0 && (
-        <section>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">Kind</p>
-          <div className="flex flex-wrap gap-1.5">
-            {dataset.place_kinds!
-              .filter((k) => k.key !== "zomerbar" && k.key !== "playground_restaurant")
-              .map((k) => (
-                <button
-                  key={k.key}
-                  onClick={() => toggleIn("placeKinds", k.key)}
-                  className={`chip ${f.placeKinds.includes(k.key) ? "chip--on" : ""}`}
-                >
-                  {PLACE_KIND_EMOJI[k.key]} {PLACE_KIND_LABELS[k.key]}{" "}
-                  <span className="opacity-50">{k.count}</span>
-                </button>
-              ))}
-          </div>
+        <section aria-labelledby={kindId}>
+          <SectionLabel id={kindId}>Kind</SectionLabel>
+          <MultiToggle
+            active={f.placeKinds}
+            labelledBy={kindId}
+            onToggle={(k) => toggleIn("placeKinds", k)}
+            options={dataset
+              .place_kinds!.filter((k) => k.key !== "zomerbar" && k.key !== "playground_restaurant")
+              .map((k) => ({
+                key: k.key,
+                label: `${PLACE_KIND_EMOJI[k.key]} ${PLACE_KIND_LABELS[k.key]}`,
+                count: k.count,
+              }))}
+          />
         </section>
       )}
 
       {dataset.feature_tags.filter((t) => FEATURE_LABELS[t.key]).length > 0 && (
-        <section>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">What's there</p>
-          <div className="flex flex-wrap gap-1.5">
-            {dataset.feature_tags
+        <section aria-labelledby={featuresId}>
+          <SectionLabel id={featuresId}>What's there</SectionLabel>
+          <MultiToggle
+            active={f.features}
+            labelledBy={featuresId}
+            onToggle={(k) => toggleIn("features", k)}
+            options={dataset.feature_tags
               .filter((t) => FEATURE_LABELS[t.key])
-              .map((t) => (
-                <button
-                  key={t.key}
-                  onClick={() => toggleIn("features", t.key)}
-                  className={`chip ${f.features.includes(t.key) ? "chip--on" : ""}`}
-                >
-                  {FEATURE_EMOJI[t.key] ?? ""} {FEATURE_LABELS[t.key]}
-                </button>
-              ))}
-          </div>
+              .map((t) => ({
+                key: t.key,
+                label: `${FEATURE_EMOJI[t.key] ?? ""} ${FEATURE_LABELS[t.key]}`,
+              }))}
+          />
         </section>
       )}
 
@@ -370,7 +464,10 @@ export default function FilterBar({
           <strong className="text-ink">{resultCount}</strong> match{resultCount === 1 ? "" : "es"}
         </span>
         {dirty && (
-          <button onClick={onReset} className="font-medium text-tangerine hover:text-tangerine-dark">
+          <button
+            onClick={onReset}
+            className="inline-flex min-h-[44px] items-center px-2 font-medium text-tangerine-deep hover:text-tangerine-dark"
+          >
             Clear filters
           </button>
         )}
