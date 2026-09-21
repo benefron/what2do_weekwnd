@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#f5623d"/>
+  <!-- kite body, scaled ~0.74 about the center so every point (incl. tail) sits
+       inside the 80% safe-zone circle (r=205 around 256,256) -->
+  <polygon points="256,116 360,238 256,402 152,238"
+    fill="#fbf7f0" stroke="#26201a" stroke-width="12" stroke-linejoin="round"/>
+  <!-- cross struts -->
+  <line x1="256" y1="130" x2="256" y2="388" stroke="#26201a" stroke-width="8" stroke-linecap="round"/>
+  <line x1="165" y1="238" x2="347" y2="238" stroke="#26201a" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="256" cy="238" r="7" fill="#26201a"/>
+  <!-- tail -->
+  <path d="M256 402 C 234 412, 280 422, 256 433 C 234 443, 278 452, 256 461"
+    fill="none" stroke="#2f6b4f" stroke-width="10" stroke-linecap="round"/>
+  <polygon points="231,409 210,401 214,419" fill="#8a3d6b"/>
+  <polygon points="281,427 304,421 298,440" fill="#8a3d6b"/>
+  <polygon points="231,443 210,437 216,455" fill="#8a3d6b"/>
+</svg>
