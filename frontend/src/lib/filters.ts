@@ -3,7 +3,8 @@ import { firstFutureDate, formatPrice } from "./format";
 import { DEFAULT_ORIGIN } from "./locations";
 import { isPastEvent } from "./buckets";
 
-export type Tab = "weekend" | "places" | "zomerbar" | "eatplay";
+export const TABS = ["weekend", "places", "zomerbar", "eatplay"] as const;
+export type Tab = (typeof TABS)[number];
 
 // which place kinds belong to which tab
 export const TAB_PLACE_KINDS: Record<Exclude<Tab, "weekend">, PlaceKind[] | null> = {
@@ -35,9 +36,27 @@ export const LANGUAGES: Language[] = ["nl", "fr", "en"];
 /** Rainy-day filter. Picking "indoor" also keeps "both" — see matchesVenue. */
 export const VENUE_SETTINGS: VenueSetting[] = ["indoor", "outdoor"];
 
-export type PriceFilter = "any" | "free" | "cheap";
-export type WhenFilter = "any" | WeekendBucket;
-export type SortKey = "date" | "distance" | "price";
+export const PRICE_FILTERS = ["any", "free", "cheap"] as const;
+export type PriceFilter = (typeof PRICE_FILTERS)[number];
+
+// Kept in sync with types.ts#WeekendBucket by the `satisfies` check below —
+// if that union gains/loses a value without this array following, tsc fails.
+const WEEKEND_BUCKETS = [
+  "wednesday",
+  "this_weekend",
+  "next_weekend",
+  "school_holiday",
+  "later",
+] as const satisfies readonly WeekendBucket[];
+export const WHEN_FILTERS = ["any", ...WEEKEND_BUCKETS] as const;
+export type WhenFilter = (typeof WHEN_FILTERS)[number];
+
+export const SORT_KEYS = ["date", "distance", "price"] as const;
+export type SortKey = (typeof SORT_KEYS)[number];
+
+/** The distance slider's own range — a `km` URL param outside it is clamped, not trusted. */
+export const MIN_DISTANCE_KM = 5;
+export const MAX_DISTANCE_KM = 200;
 
 export interface FilterState {
   tab: Tab;
@@ -55,6 +74,8 @@ export interface FilterState {
   when: WhenFilter;
   specialOnly: boolean;
   sort: SortKey;
+  /** "My saved list only" — the saved-id set itself lives in App.tsx's localStorage. */
+  onlySaved: boolean;
 }
 
 export const DEFAULT_FILTERS: FilterState = {
@@ -73,6 +94,7 @@ export const DEFAULT_FILTERS: FilterState = {
   when: "any",
   specialOnly: false,
   sort: "date",
+  onlySaved: false,
 };
 
 /** The filter fields worth remembering between visits (see App.tsx prefs). */
@@ -96,6 +118,7 @@ export function filtersToParams(f: FilterState): string {
   if (f.when !== "any") p.set("when", f.when);
   if (f.specialOnly) p.set("special", "1");
   if (f.sort !== "date") p.set("sort", f.sort);
+  if (f.onlySaved) p.set("saved", "1");
   const s = p.toString();
   return s ? `?${s}` : "";
 }
@@ -124,6 +147,24 @@ function parseAges(raw: string | null): AgeBucket[] {
  * present therefore means "reproduce exactly this state" and prefs are ignored;
  * `base` only fills a bare first visit with no query string at all.
  */
+/**
+ * Whitelist a URL value against its real union rather than trusting a bare
+ * cast. Regression: `?km=abc`/`?tab=zzz` used to cast straight through
+ * (`Number("abc")` → NaN, `"zzz" as Tab` → a tab nothing renders), so a
+ * mangled or hand-edited link broke the UI instead of degrading to defaults.
+ */
+function pick<T extends string>(value: string | null, allowed: readonly T[], fallback: T): T {
+  return value != null && (allowed as readonly string[]).includes(value) ? (value as T) : fallback;
+}
+
+/** `?km=` must be a finite number clamped to the slider's own range, never NaN. */
+function parseKm(value: string | null, fallback: number): number {
+  if (value == null) return fallback;
+  const n = Number(value);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.min(MAX_DISTANCE_KM, Math.max(MIN_DISTANCE_KM, n));
+}
+
 export function paramsToFilters(search: string, base: SavedPrefs = {}): FilterState {
   const p = new URLSearchParams(search);
   const list = (v: string | null) => (v ? (v.split(",").filter(Boolean) as never[]) : []);
@@ -132,20 +173,24 @@ export function paramsToFilters(search: string, base: SavedPrefs = {}): FilterSt
   const defaults = { ...DEFAULT_FILTERS, ...(Array.from(p.keys()).length ? {} : base) };
   return {
     ...defaults,
-    tab: (p.get("tab") as Tab) || "weekend",
+    tab: pick(p.get("tab"), TABS, "weekend"),
     search: p.get("q") ?? "",
     categories: list(p.get("cat")),
     placeKinds: list(p.get("pk")),
     features: list(p.get("feat")),
+    // `origin` is an opaque id here — locations.parseOrigin (used downstream in
+    // App.tsx) is what turns a preset key or "lat,lng" pair into a real point,
+    // and it already falls back to DEFAULT_ORIGIN for anything it doesn't
+    // recognise, so an unknown id here can never produce an undefined distance.
     origin: p.get("from") ?? defaults.origin,
-    maxDistance: p.get("km") ? Number(p.get("km")) : defaults.maxDistance,
+    maxDistance: parseKm(p.get("km"), defaults.maxDistance),
     // indoor=1 was the old boolean "indoor only" toggle
     venue: p.get("venue")
       ? VENUE_SETTINGS.filter((v) => p.get("venue")!.split(",").includes(v))
       : p.get("indoor") === "1"
         ? ["indoor"]
         : [],
-    price: (p.get("price") as PriceFilter) || "any",
+    price: pick(p.get("price"), PRICE_FILTERS, "any"),
     ages: p.get("age") ? parseAges(p.get("age")) : defaults.ages,
     // nofr=1 was the old "hide French-only" toggle
     languages: p.get("lang")
@@ -154,9 +199,10 @@ export function paramsToFilters(search: string, base: SavedPrefs = {}): FilterSt
         ? ["nl", "en"]
         : defaults.languages,
     hideClasses: p.get("classes") !== "1",
-    when: (p.get("when") as WhenFilter) || "any",
+    when: pick(p.get("when"), WHEN_FILTERS, "any"),
     specialOnly: p.get("special") === "1",
-    sort: (p.get("sort") as SortKey) || "date",
+    sort: pick(p.get("sort"), SORT_KEYS, "date"),
+    onlySaved: p.get("saved") === "1",
   };
 }
 
