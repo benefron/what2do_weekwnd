@@ -95,6 +95,25 @@ def _holiday_for(d: date):
     return _holiday_in(config.SCHOOL_HOLIDAYS_NL, d)
 
 
+def calendars_lapse_warning(today: date) -> str | None:
+    """Warn once a run is within 6 months of either school-holiday table's last
+    entry — the tables are hardcoded (see config.py) and nothing else notices
+    when they run out; holiday flags just silently stop being set. Returns a
+    human-readable message, or None if both tables still have headroom."""
+    lapsing = []
+    for label, table in (("NL", config.SCHOOL_HOLIDAYS_NL), ("FR", config.SCHOOL_HOLIDAYS_FR)):
+        last_end = max(date.fromisoformat(h["end"]) for h in table)
+        months_left = (last_end.year - today.year) * 12 + (last_end.month - today.month)
+        if last_end < today or months_left < 6:
+            lapsing.append(f"{label} calendar ends {last_end.isoformat()}")
+    if not lapsing:
+        return None
+    return (
+        "SCHOOL_HOLIDAYS_* in config.py needs extending soon (< 6 months left): "
+        + "; ".join(lapsing)
+    )
+
+
 def _occ_dates(act: dict) -> list[date]:
     out = []
     for occ in act.get("occurrences") or []:
@@ -511,6 +530,10 @@ def _dedupe(activities: list[dict]) -> list[dict]:
 def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
     today = datetime.now(timezone.utc).astimezone().date()
     window_end = today + timedelta(weeks=config.WINDOW_WEEKS)
+
+    lapse_warning = calendars_lapse_warning(today)
+    if lapse_warning:
+        log.warning(lapse_warning)
 
     activities: list[dict] = []
     for rec in raw_records:
