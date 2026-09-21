@@ -4,6 +4,7 @@ import {
   formatAgeRange,
   formatDate,
   formatDistance,
+  formatOtherDates,
   formatPrice,
 } from "./format";
 import type { Activity } from "../types";
@@ -192,5 +193,36 @@ describe("formatAgeRange", () => {
 
   it("shows an upper bound alone", () => {
     expect(formatAgeRange(act({ age_min: 0, age_max: 8 }))).toBe("up to 8");
+  });
+});
+
+// ── formatOtherDates ────────────────────────────────────────────────────────
+describe("formatOtherDates", () => {
+  it("returns null for an empty list", () => {
+    expect(formatOtherDates([])).toBeNull();
+  });
+
+  it("joins a short list with no tail", () => {
+    const s = formatOtherDates(["2026-09-27", "2026-10-04"]);
+    expect(s).toMatch(/^Also on /);
+    expect(s).not.toMatch(/more/);
+  });
+
+  it("caps at `max` and appends a +N more tail", () => {
+    const s = formatOtherDates(
+      ["2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18", "2026-10-25"],
+      3
+    );
+    expect(s).toMatch(/\+2 more$/);
+  });
+
+  it("drops unparseable dates", () => {
+    const s = formatOtherDates(["not-a-date", "2026-10-04"]);
+    expect(s).toMatch(/^Also on /);
+    expect(s?.split(",").length).toBe(1);
+  });
+
+  it("returns null when every date is unparseable", () => {
+    expect(formatOtherDates(["not-a-date", "also-bad"])).toBeNull();
   });
 });

@@ -62,6 +62,25 @@ export function formatDistance(a: Activity, originLabel: string): string | null 
   return `${Math.round(a.distance_km)} km`;
 }
 
+/**
+ * "Also on Sat 27 Sep, Sat 4 Oct +2 more" for a grouped weekly series
+ * (lib/series.ts#groupSeries). Shows at most `max` dates, then a "+N more"
+ * tail; unparseable dates are dropped rather than rendered as "Invalid Date".
+ * series.ts only dedupes by exact ISO `date_start`, so two occurrences on the
+ * same calendar day but different times would otherwise print the same label
+ * twice — dedupe on the formatted label too.
+ */
+export function formatOtherDates(dates: string[], max = 3): string | null {
+  const parsed = dates
+    .map((d) => new Date(d))
+    .filter((d) => !isNaN(d.getTime()));
+  if (!parsed.length) return null;
+  const labels = Array.from(new Set(parsed.map((d) => d.toLocaleDateString("en-GB", WDMY))));
+  const shown = labels.slice(0, max);
+  const extra = labels.length - shown.length;
+  return `Also on ${shown.join(", ")}${extra > 0 ? ` +${extra} more` : ""}`;
+}
+
 /** "4-12" / "6+" / "All ages" from the (possibly open-ended) age bounds. */
 export function formatAgeRange(a: Activity): string {
   const lo = a.age_min ?? 0;

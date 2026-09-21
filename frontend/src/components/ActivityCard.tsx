@@ -4,7 +4,7 @@ import {
   CATEGORY_LABELS, FEATURE_EMOJI, FEATURE_LABELS, LANGUAGE_EMOJI, LANGUAGE_LABELS,
   PLACE_KIND_EMOJI, PLACE_KIND_LABELS,
 } from "../lib/labels";
-import { formatAgeRange, formatDate, formatDistance, formatPrice } from "../lib/format";
+import { formatAgeRange, formatDate, formatDistance, formatOtherDates, formatPrice } from "../lib/format";
 import { googleTranslateUrl } from "../lib/data";
 
 interface Props {
@@ -84,6 +84,10 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
             {a.date_kind === "permanent" && a.city ? a.city : formatDate(a)}
           </span>
         </div>
+
+        {a.other_dates && a.other_dates.length > 0 && (
+          <p className="text-muted text-xs">{formatOtherDates(a.other_dates)}</p>
+        )}
 
         <h3
           className="font-display text-lg font-semibold leading-snug text-ink"
