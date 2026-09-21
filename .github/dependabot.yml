@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: weekly
+    groups:
+      minor-patch:
+        dependency-type: all
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: pip
+    directory: /automation
+    schedule:
+      interval: weekly

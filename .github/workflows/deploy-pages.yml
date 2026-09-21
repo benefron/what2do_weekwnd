@@ -6,7 +6,8 @@ on:
     paths:
       - 'frontend/**'
       - 'data/latest.json'
-      - '.github/workflows/deploy-pages.yml'
+      - 'automation/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
@@ -19,14 +20,45 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v6
         with:
-          node-version: 20
+          python-version: '3.13'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r automation/requirements.txt -r automation/requirements-dev.txt
+
+      - name: Run Python tests
+        run: python -m pytest -q
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run Node tests
+        working-directory: frontend
+        run: npm run test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
