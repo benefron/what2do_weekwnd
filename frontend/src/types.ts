@@ -105,6 +105,13 @@ export interface Activity {
 
   enrichment_model: string;
   confidence: "high" | "medium" | "low";
+
+  /** Frontend-derived (lib/series.ts) — never present in data/latest.json.
+   *  ISO `date_start` of a weekly series' other occurrences, ascending, deduped. */
+  other_dates?: string[];
+  /** Frontend-derived (lib/series.ts) — never present in data/latest.json.
+   *  ids of every member of the series, including the representative shown. */
+  series_ids?: string[];
 }
 
 export interface SchoolHoliday {
