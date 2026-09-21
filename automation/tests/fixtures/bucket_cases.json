@@ -1,0 +1,890 @@
+[
+  {
+    "name": "wed_morning_before_noon_not_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T09:00:00",
+      "date_end": "2026-09-16T09:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T09:00:00",
+          "end": "2026-09-16T09:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "wed_afternoon_is_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T14:00:00",
+      "date_end": "2026-09-16T14:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T14:00:00",
+          "end": "2026-09-16T14:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "wed_all_day_is_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": true,
+      "date_start": "2026-09-16T09:00:00",
+      "date_end": "2026-09-16T09:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T09:00:00",
+          "end": "2026-09-16T09:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "wed_midnight_hour_zero_is_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T00:00:00",
+      "date_end": "2026-09-16T00:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T00:00:00",
+          "end": "2026-09-16T00:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "wed_noon_exactly_is_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T12:00:00",
+      "date_end": "2026-09-16T12:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T12:00:00",
+          "end": "2026-09-16T12:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "wed_11am_not_bucketed",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T11:00:00",
+      "date_end": "2026-09-16T11:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T11:00:00",
+          "end": "2026-09-16T11:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "next_wed_not_bucketed_when_today_is_monday",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-23T14:00:00",
+      "date_end": "2026-09-23T14:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-23T14:00:00",
+          "end": "2026-09-23T14:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "today_is_wednesday_same_day_afternoon",
+    "today": "2026-09-16",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T14:00:00",
+      "date_end": "2026-09-16T14:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-16T14:00:00",
+          "end": "2026-09-16T14:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "multiday_span_covering_wed_qualifies_outright",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-09-15T09:00:00",
+      "date_end": "2026-09-17T09:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "single_day_span_wed_morning_still_needs_halfday",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-16T09:00:00",
+      "date_end": "2026-09-16T09:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "fri_today_sat_is_this_weekend",
+    "today": "2026-09-18",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-19T10:00:00",
+      "date_end": "2026-09-19T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-19T10:00:00",
+          "end": "2026-09-19T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "fri_today_sun_is_this_weekend",
+    "today": "2026-09-18",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-20T10:00:00",
+      "date_end": "2026-09-20T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-20T10:00:00",
+          "end": "2026-09-20T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "sat_today_same_sat_is_this_weekend",
+    "today": "2026-09-19",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-19T10:00:00",
+      "date_end": "2026-09-19T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-19T10:00:00",
+          "end": "2026-09-19T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "sun_today_saturday_just_gone_is_still_this_weekend",
+    "today": "2026-09-20",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-19T10:00:00",
+      "date_end": "2026-09-19T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-19T10:00:00",
+          "end": "2026-09-19T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "sun_today_next_saturday_is_next_weekend",
+    "today": "2026-09-20",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-26T10:00:00",
+      "date_end": "2026-09-26T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-26T10:00:00",
+          "end": "2026-09-26T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "next_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "mon_today_far_saturday_is_next_weekend",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-26T10:00:00",
+      "date_end": "2026-09-26T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-26T10:00:00",
+          "end": "2026-09-26T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "next_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "multiday_span_overlapping_this_weekend",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-09-18T10:00:00",
+      "date_end": "2026-09-21T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "multiday_span_overlapping_both_weekends",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-09-19T10:00:00",
+      "date_end": "2026-09-27T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "next_weekend",
+        "this_weekend"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "event_exactly_at_window_end_is_later",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-12-21T10:00:00",
+      "date_end": "2026-12-21T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-12-21T10:00:00",
+          "end": "2026-12-21T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": "vacances d'hiver",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "event_one_day_past_window_end_is_not_later",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-12-22T10:00:00",
+      "date_end": "2026-12-22T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-12-22T10:00:00",
+          "end": "2026-12-22T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": "vacances d'hiver",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "event_today_itself_is_later",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-21T10:00:00",
+      "date_end": "2026-09-21T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-21T10:00:00",
+          "end": "2026-09-21T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "past_only_event_has_no_buckets",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-01T10:00:00",
+      "date_end": "2026-09-01T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-01T10:00:00",
+          "end": "2026-09-01T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "past_multiday_span_has_no_buckets",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-08-01T10:00:00",
+      "date_end": "2026-08-05T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "school_holiday"
+      ],
+      "school_holiday_nl": "zomervakantie",
+      "school_holiday_fr": "grandes vacances",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "recurring_mix_of_past_this_weekend_and_later",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "recurring",
+      "all_day": false,
+      "date_start": "2026-09-01T10:00:00",
+      "date_end": "2026-10-15T12:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-01T10:00:00",
+          "end": "2026-09-01T12:00:00"
+        },
+        {
+          "start": "2026-09-19T10:00:00",
+          "end": "2026-09-19T12:00:00"
+        },
+        {
+          "start": "2026-10-15T10:00:00",
+          "end": "2026-10-15T12:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "next_weekend",
+        "this_weekend",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "recurring_hits_wednesday_afternoon_among_others",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "recurring",
+      "all_day": false,
+      "date_start": "2026-09-10T10:00:00",
+      "date_end": "2026-10-01T12:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-10T10:00:00",
+          "end": "2026-09-10T12:00:00"
+        },
+        {
+          "start": "2026-09-16T10:00:00",
+          "end": "2026-09-16T12:00:00"
+        },
+        {
+          "start": "2026-10-01T10:00:00",
+          "end": "2026-10-01T12:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "next_weekend",
+        "this_weekend",
+        "wednesday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "permanent_is_always_later_no_holiday",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "permanent",
+      "all_day": false,
+      "date_start": null,
+      "date_end": null,
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "nl_only_holiday_krokus",
+    "today": "2027-01-25",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2027-02-17T10:00:00",
+      "date_end": "2027-02-17T10:00:00",
+      "occurrences": [
+        {
+          "start": "2027-02-17T10:00:00",
+          "end": "2027-02-17T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "krokusvakantie",
+      "school_holiday_fr": null,
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "fr_only_holiday_conge_de_detente",
+    "today": "2027-01-25",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2027-02-25T10:00:00",
+      "date_end": "2027-02-25T10:00:00",
+      "occurrences": [
+        {
+          "start": "2027-02-25T10:00:00",
+          "end": "2027-02-25T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": "conge de detente",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "both_calendars_overlap_at_christmas",
+    "today": "2026-12-01",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-12-25T10:00:00",
+      "date_end": "2026-12-25T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-12-25T10:00:00",
+          "end": "2026-12-25T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": "vacances d'hiver",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "year_boundary_new_years_eve_both_calendars",
+    "today": "2026-12-01",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-12-31T10:00:00",
+      "date_end": "2026-12-31T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-12-31T10:00:00",
+          "end": "2026-12-31T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": "vacances d'hiver",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "nl_only_tail_day_after_fr_holiday_ends",
+    "today": "2026-12-01",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2027-01-04T10:00:00",
+      "date_end": "2027-01-04T10:00:00",
+      "occurrences": [
+        {
+          "start": "2027-01-04T10:00:00",
+          "end": "2027-01-04T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": null,
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "nl_only_holiday_paasvakantie",
+    "today": "2027-03-01",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2027-04-05T10:00:00",
+      "date_end": "2027-04-05T10:00:00",
+      "occurrences": [
+        {
+          "start": "2027-04-05T10:00:00",
+          "end": "2027-04-05T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "paasvakantie",
+      "school_holiday_fr": null,
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "fr_only_holiday_printemps",
+    "today": "2027-03-01",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2027-04-30T10:00:00",
+      "date_end": "2027-04-30T10:00:00",
+      "occurrences": [
+        {
+          "start": "2027-04-30T10:00:00",
+          "end": "2027-04-30T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": "vacances de printemps",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "multiday_span_overlapping_nl_holiday_only",
+    "today": "2027-01-25",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2027-02-16T10:00:00",
+      "date_end": "2027-02-18T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "krokusvakantie",
+      "school_holiday_fr": null,
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "multiday_span_overlapping_holiday_year_boundary",
+    "today": "2026-12-01",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-12-30T10:00:00",
+      "date_end": "2027-01-02T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later",
+        "school_holiday"
+      ],
+      "school_holiday_nl": "kerstvakantie",
+      "school_holiday_fr": "vacances d'hiver",
+      "in_school_holiday": true
+    }
+  },
+  {
+    "name": "no_holiday_ordinary_weekday",
+    "today": "2026-09-14",
+    "activity": {
+      "date_kind": "single",
+      "all_day": false,
+      "date_start": "2026-09-17T10:00:00",
+      "date_end": "2026-09-17T10:00:00",
+      "occurrences": [
+        {
+          "start": "2026-09-17T10:00:00",
+          "end": "2026-09-17T10:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "weekend_bucket": [
+        "later"
+      ],
+      "school_holiday_nl": null,
+      "school_holiday_fr": null,
+      "in_school_holiday": false
+    }
+  },
+  {
+    "name": "stale_multiday_span_tail_crosses_into_holiday",
+    "today": "2026-09-21",
+    "activity": {
+      "date_kind": "multi_day",
+      "all_day": false,
+      "date_start": "2026-06-28T10:00:00",
+      "date_end": "2026-07-03T10:00:00",
+      "occurrences": []
+    },
+    "expected": {
+      "weekend_bucket": [
+        "school_holiday"
+      ],
+      "school_holiday_nl": "zomervakantie",
+      "school_holiday_fr": "grandes vacances",
+      "in_school_holiday": true
+    },
+    "known_divergence": "normalize._bucketize walks the full literal date_start..date_end span unconditionally, so a stale multi-day span (no explicit `occurrences`, which is also how normalize_all's own future-event filter treats it as always 'future') whose tail crosses into a holiday still gets school_holiday here even though the whole span is >7 days in the past. buckets.ts clips that same span extension to [today-7, today+13w] as a documented perf optimization ('only the live tail matters'), so on the browser side only the synthetic date_start occurrence-stamp survives, and here date_start (2026-06-28) itself misses the holiday. Ambiguous which side is 'right': arguably a many-months-stale event showing a holiday chip forever is itself a latent normalize.py bug (its `not act.get('occurrences')` => always-future heuristic), not something buckets.ts should faithfully reproduce. Not fixed here per the file-ownership boundary (normalize.py is out of scope for this worker); flagged for follow-up."
+  }
+]
