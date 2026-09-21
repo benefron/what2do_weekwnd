@@ -34,6 +34,10 @@ RUN_PROGRESS = STATE_DIR / "run_progress.json"
 # many times, so retries back off and eventually give up.
 WATCHDOG_STATE = STATE_DIR / "watchdog_state.json"
 
+# ── publish ─────────────────────────────────────────────────────────────────
+# How many archive snapshots to keep; oldest are deleted first.
+ARCHIVE_KEEP = 8
+
 # ── secrets (gitignored) ────────────────────────────────────────────────────
 def _load_secrets() -> dict:
     if SECRETS_LOCAL_JSON.exists():
@@ -68,6 +72,14 @@ LOCK_STALE_SECONDS = 2 * 60 * 60
 # leaving it for next Monday rather than retrying forever.
 WATCHDOG_RETRY_BACKOFF_SECONDS = 45 * 60
 WATCHDOG_MAX_RETRIES = 3
+
+# run_weekly.py: a launchd-scheduled run can start right after the Mac wakes,
+# before the network interface is actually up (DNS resolution fails with
+# "nodename nor servname provided" — 2026-09-21). Poll for DNS before fetching
+# rather than let every source fail and abort the run.
+NETWORK_CHECK_HOST = "io.uitdatabank.be"
+NETWORK_POLL_SECONDS = 30
+NETWORK_WAIT_SECONDS = 15 * 60
 
 # ── LLM (Claude CLI, --safe-mode; Copilot API fallback) ─────────────────────
 ENRICH_MODEL = "claude-haiku-4-5-20251001"
@@ -177,6 +189,16 @@ SCHOOL_HOLIDAYS_NL = [
     {"name": "krokusvakantie", "start": "2027-02-15", "end": "2027-02-21"},
     {"name": "paasvakantie", "start": "2027-03-29", "end": "2027-04-11"},
     {"name": "zomervakantie", "start": "2027-07-01", "end": "2027-08-31"},
+    {"name": "herfstvakantie", "start": "2027-11-01", "end": "2027-11-07"},
+    {"name": "kerstvakantie", "start": "2027-12-27", "end": "2028-01-09"},
+    {"name": "krokusvakantie", "start": "2028-02-28", "end": "2028-03-05"},
+    {"name": "paasvakantie", "start": "2028-04-03", "end": "2028-04-17"},
+    {"name": "zomervakantie", "start": "2028-07-01", "end": "2028-08-31"},
+    {"name": "herfstvakantie", "start": "2028-10-30", "end": "2028-11-05"},
+    {"name": "kerstvakantie", "start": "2028-12-25", "end": "2029-01-07"},
+    {"name": "krokusvakantie", "start": "2029-02-12", "end": "2029-02-18"},
+    {"name": "paasvakantie", "start": "2029-04-02", "end": "2029-04-15"},
+    {"name": "zomervakantie", "start": "2029-07-01", "end": "2029-08-31"},
 ]
 
 SCHOOL_HOLIDAYS_FR = [
@@ -186,6 +208,16 @@ SCHOOL_HOLIDAYS_FR = [
     {"name": "conge de detente", "start": "2027-02-22", "end": "2027-03-07"},
     {"name": "vacances de printemps", "start": "2027-04-26", "end": "2027-05-09"},
     {"name": "grandes vacances", "start": "2027-07-03", "end": "2027-08-22"},
+    {"name": "conge d'automne", "start": "2027-10-25", "end": "2027-11-07"},
+    {"name": "vacances d'hiver", "start": "2027-12-27", "end": "2028-01-09"},
+    {"name": "conge de detente", "start": "2028-02-28", "end": "2028-03-12"},
+    {"name": "vacances de printemps", "start": "2028-05-01", "end": "2028-05-14"},
+    {"name": "grandes vacances", "start": "2028-07-08", "end": "2028-08-27"},
+    {"name": "conge d'automne", "start": "2028-10-23", "end": "2028-11-05"},
+    {"name": "vacances d'hiver", "start": "2028-12-25", "end": "2029-01-07"},
+    {"name": "conge de detente", "start": "2029-02-26", "end": "2029-03-11"},
+    {"name": "vacances de printemps", "start": "2029-04-30", "end": "2029-05-13"},
+    {"name": "grandes vacances", "start": "2029-07-07", "end": "2029-08-26"},
 ]
 
 # Kept so the published payload and any old caller still see one merged table.
