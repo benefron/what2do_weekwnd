@@ -14,6 +14,15 @@ import llm_runner
 
 log = logging.getLogger(__name__)
 
+
+class SearchFailed(Exception):
+    """The Claude search pass errored out (CLI/Copilot failure, bad schema, etc).
+
+    Distinct from "ran and found nothing" (an empty list is a genuine success).
+    Callers must not fold this into an empty result, or a broken search reads
+    as a quiet week in sources_fetched instead of showing up in sources_failed.
+    """
+
 _SCHEMA = {
     "type": "object",
     "required": ["events"],
@@ -117,7 +126,7 @@ def fetch_events() -> list[dict]:
         )
     except Exception as exc:  # noqa: BLE001
         log.warning("claude_search: %s", exc)
-        return []
+        raise SearchFailed(str(exc)) from exc
     events = structured.get("events", [])
     log.info("claude_search: %d events", len(events))
     return events
