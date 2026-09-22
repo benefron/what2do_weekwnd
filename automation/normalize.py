@@ -95,6 +95,25 @@ def _holiday_for(d: date):
     return _holiday_in(config.SCHOOL_HOLIDAYS_NL, d)
 
 
+def calendars_lapse_warning(today: date) -> str | None:
+    """Warn once a run is within 6 months of either school-holiday table's last
+    entry — the tables are hardcoded (see config.py) and nothing else notices
+    when they run out; holiday flags just silently stop being set. Returns a
+    human-readable message, or None if both tables still have headroom."""
+    lapsing = []
+    for label, table in (("NL", config.SCHOOL_HOLIDAYS_NL), ("FR", config.SCHOOL_HOLIDAYS_FR)):
+        last_end = max(date.fromisoformat(h["end"]) for h in table)
+        months_left = (last_end.year - today.year) * 12 + (last_end.month - today.month)
+        if last_end < today or months_left < 6:
+            lapsing.append(f"{label} calendar ends {last_end.isoformat()}")
+    if not lapsing:
+        return None
+    return (
+        "SCHOOL_HOLIDAYS_* in config.py needs extending soon (< 6 months left): "
+        + "; ".join(lapsing)
+    )
+
+
 def _occ_dates(act: dict) -> list[date]:
     out = []
     for occ in act.get("occurrences") or []:
@@ -118,6 +137,34 @@ def _occ_starts(act: dict) -> list[datetime]:
         if dt:
             out.append(dt)
     return out
+
+
+def _is_future_or_ongoing(act: dict, today: date) -> bool:
+    """True unless `act` is demonstrably over. Used by `normalize_all` to drop
+    past events before `_bucketize` ever sees them.
+
+    `permanent` places are always kept. An activity carrying `occurrences` is
+    future if any occurrence date, or `date_end`, is today or later. An
+    activity with NO occurrences is judged by `date_end` (falling back to
+    `date_start`); if neither parses, it is kept — a filter must never
+    silently drop something we failed to parse.
+
+    Regression: this used to hardcode `future = True` for any occurrence-less
+    activity, full stop. A stale multi-day span (`date_start`/`date_end` only,
+    no `occurrences`) from months ago then never got dropped here — it rode
+    along to `_bucketize`, which walks its literal date_start..date_end span
+    unconditionally and could still match it against a school-holiday table,
+    tagging a long-dead event `school_holiday` forever."""
+    if act.get("date_kind") == "permanent":
+        return True
+    if act.get("occurrences"):
+        for d in _occ_dates(act):
+            if d >= today:
+                return True
+        de = _parse_any_date(act.get("date_end"))
+        return bool(de and de.date() >= today)
+    de = _parse_any_date(act.get("date_end")) or _parse_any_date(act.get("date_start"))
+    return de is None or de.date() >= today
 
 
 def _bucketize(act: dict, today: date, window_end: date) -> None:
@@ -152,7 +199,16 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
             len(span) > 1 or act.get("all_day") or ds.hour == 0 or ds.hour >= 12
         ):
             buckets.add("wednesday")
-        days |= span
+        # Only the part of the span that can still land in a bucket matters --
+        # every bucket window (this/next weekend, the horizon, a holiday hit)
+        # sits within [today - 7, window_end], so a run that started long ago
+        # but is still going (or, now that normalize_all's future filter is
+        # fixed, a stale run that slips through some other path) contributes
+        # just its live tail here, not years of dead days. Mirrors
+        # buckets.ts#computeBuckets's identical clip exactly, so the two stay
+        # in parity (see automation/tests/fixtures/bucket_cases.json).
+        window_start = today - timedelta(days=7)
+        days |= {d for d in span if window_start <= d <= window_end}
 
     for d in days:
         if d in this_wknd:
@@ -334,9 +390,9 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
         "all_day": False,
         "occurrences": [{"start": ds, "end": rec.get("date_end")}] if ds else [],
         "date_kind": "single",
-        "age_min": None,
-        "age_max": None,
-        "age_source": None,
+        "age_min": rec.get("age_min"),
+        "age_max": rec.get("age_max"),
+        "age_source": "claude_search" if rec.get("age_min") is not None else None,
         "audience": rec.get("audience", "family"),
         "raw_language": rec.get("primary_language"),
         "_terms": [],
@@ -356,11 +412,9 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
         "feature_tags": _search_tags(rec),
         "blurb_en": (rec.get("description_en") or title)[:160],
         "primary_language": rec.get("primary_language", "multi"),
-        "french_required": bool(rec.get("french_required")),
         "language_note": rec.get("notes_en"),
         "language_free": bool(rec.get("language_free")),
-        "fits_4yo": rec.get("audience") in ("kids", "family"),
-        "fits_8yo": rec.get("audience") in ("kids", "family", "teens_adults"),
+        "indoor_outdoor": rec.get("indoor_outdoor"),
         "is_special_event": True,
         "is_recurring_class": False,
         "confidence": "medium",
@@ -459,8 +513,7 @@ def _from_manual(ov: dict, run_id: str) -> dict:
         "price_note_nl": ov.get("price_note_nl"),
     }
     for k in ("category", "feature_tags", "blurb_en", "primary_language",
-              "french_required", "language_free", "is_special_event",
-              "fits_4yo", "fits_8yo"):
+              "language_free", "is_special_event"):
         if k in ov:
             act[k] = ov[k]
     return act
@@ -512,6 +565,10 @@ def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
     today = datetime.now(timezone.utc).astimezone().date()
     window_end = today + timedelta(weeks=config.WINDOW_WEEKS)
 
+    lapse_warning = calendars_lapse_warning(today)
+    if lapse_warning:
+        log.warning(lapse_warning)
+
     activities: list[dict] = []
     for rec in raw_records:
         kind = rec.get("_kind")
@@ -538,14 +595,7 @@ def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
     for act in kid:
         if (act.get("age_min") or 0) >= 16:
             continue
-        future = act.get("date_kind") == "permanent" or not act.get("occurrences")
-        for d in _occ_dates(act):
-            if d >= today:
-                future = True
-        de = _parse_any_date(act.get("date_end"))
-        if de and de.date() >= today:
-            future = True
-        if not future:
+        if not _is_future_or_ongoing(act, today):
             continue
         _bucketize(act, today, window_end)
         # drop things whose only future window is beyond our horizon

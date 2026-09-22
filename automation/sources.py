@@ -334,18 +334,23 @@ def fetch_all() -> dict:
         failed.append("feeds")
 
     if config.CLAUDE_SEARCH_ENABLED:
+        import claude_search
         try:
-            import claude_search
             hits = claude_search.fetch_events()
+        except Exception as exc:  # noqa: BLE001 — includes claude_search.SearchFailed
+            # A SearchFailed (the search ran but errored) must land in
+            # sources_failed, never as "claude_search(empty)", or a broken pass
+            # reads as a quiet week. See CLAUDE.md "A dead source logs and is
+            # skipped" — it must not abort the rest of fetch_all either.
+            log.warning("claude web search failed: %s", exc)
+            failed.append("claude_search")
+        else:
             for h in hits:
                 h["_kind"] = "claude_search"
                 h["_source"] = "claude_search"
                 h["_source_label"] = "Claude web search"
                 raw.append(h)
             fetched.append("claude_search" if hits else "claude_search(empty)")
-        except Exception as exc:  # noqa: BLE001
-            log.warning("claude web search failed: %s", exc)
-            failed.append("claude_search")
 
     overrides = load_manual_overrides()
     for ov in overrides:

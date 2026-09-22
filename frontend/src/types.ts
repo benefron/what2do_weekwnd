@@ -84,8 +84,6 @@ export interface Activity {
   age_min: number | null;
   age_max: number | null;
   age_source: string | null;
-  fits_4yo: boolean;
-  fits_8yo: boolean;
 
   price_type: "free" | "paid" | "donation" | "unknown";
   price_min_eur: number | null;
@@ -93,7 +91,6 @@ export interface Activity {
   price_note_nl: string | null;
 
   primary_language: "nl" | "fr" | "en" | "multi";
-  french_required: boolean;
   language_note: string | null;
   /** Enjoyable without understanding the spoken language. Absent in payloads
    *  generated before this field existed. */
@@ -105,6 +102,13 @@ export interface Activity {
 
   enrichment_model: string;
   confidence: "high" | "medium" | "low";
+
+  /** Frontend-derived (lib/series.ts) — never present in data/latest.json.
+   *  ISO `date_start` of a weekly series' other occurrences, ascending, deduped. */
+  other_dates?: string[];
+  /** Frontend-derived (lib/series.ts) — never present in data/latest.json.
+   *  ids of every member of the series, including the representative shown. */
+  series_ids?: string[];
 }
 
 export interface SchoolHoliday {

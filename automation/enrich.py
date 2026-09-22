@@ -1,5 +1,5 @@
-"""Claude enrichment: classify each activity (category, feature tags, age fit,
-language + French flag, price, English blurb, special-event flag).
+"""Claude enrichment: classify each activity (category, feature tags, age
+range, language, price, English blurb, special-event flag).
 
 Bulk pass on Haiku, batched ~25/call. A skip-unchanged cache keyed by
 id + hash(title+description+date) keeps steady-state runs to a handful of
@@ -33,15 +33,26 @@ def _touch_lock() -> None:
 # Bump whenever the schema or the prompt changes in a way that makes existing
 # cached classifications wrong. It is folded into the content hash, so a bump
 # re-enriches everything rather than silently replaying stale answers.
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 _LLM_FIELDS = (
-    "category", "feature_tags", "age_min", "age_max", "fits_4yo", "fits_8yo",
-    "primary_language", "french_required", "language_note", "language_free",
+    "category", "feature_tags", "age_min", "age_max",
+    "primary_language", "language_note", "language_free",
     "price_type", "price_min_eur", "price_max_eur", "blurb_en",
     "is_special_event", "is_recurring_class", "family_relevant", "confidence",
     "indoor_outdoor",
 )
+
+# Fields in `enrich_schema.json`'s `required` list that genuinely allow a
+# null *value* — an event can honestly have no known upper price bound or
+# nothing worth noting about its language mix. Every other _LLM_FIELDS entry
+# is a real classification: if the model's answer object is missing the KEY
+# (not merely null), it didn't classify that field and it was papered over by
+# _default_fields(). A default means "we don't know", and — same bug class as
+# the geocode cache (see CLAUDE.md's "known gaps") — must never be frozen into
+# `data/enrichment_cache.json` as if it were an answer.
+_OPTIONAL_LLM_FIELDS = frozenset({"language_note", "price_min_eur", "price_max_eur"})
+_REQUIRED_LLM_FIELDS = tuple(f for f in _LLM_FIELDS if f not in _OPTIONAL_LLM_FIELDS)
 
 _INPUT_FIELDS = (
     "id", "title_nl", "description_nl", "venue_name", "city", "date_start",
@@ -87,10 +98,7 @@ def _default_fields(act: dict) -> dict:
         "feature_tags": [],
         "age_min": act.get("age_min") if act.get("age_min") is not None else 0,
         "age_max": act.get("age_max") if act.get("age_max") is not None else 12,
-        "fits_4yo": True,
-        "fits_8yo": True,
         "primary_language": _primary_language_default(act),
-        "french_required": False,
         "language_note": None,
         "language_free": False,
         "price_type": act.get("price_type", "unknown"),
@@ -105,6 +113,14 @@ def _default_fields(act: dict) -> dict:
         # filter, so an unclassified event is never wrongly hidden.
         "indoor_outdoor": "both",
     }
+
+
+def _has_defaulted_field(entry: dict) -> bool:
+    """True if the model's raw answer omits a required classification field
+    (the KEY is absent), meaning it will be filled from _default_fields().
+    A null/absent *value* for an _OPTIONAL_LLM_FIELDS member doesn't count —
+    that is a legitimate answer, not a gap."""
+    return any(k not in entry for k in _REQUIRED_LLM_FIELDS)
 
 
 def _rule_conflict(act: dict, fields: dict) -> bool:
@@ -183,6 +199,9 @@ def enrich_all(activities: list[dict]) -> dict:
             to_classify.append({k: act.get(k) for k in _INPUT_FIELDS})
 
     stats = {"classified": len(to_classify), "verified": 0, "batches": 0}
+    # ids the model defaulted a required field for (or never answered at all)
+    # — these must never be written to the cache, this run or the final pass.
+    defaulted_ids: set[str] = set()
 
     if to_classify:
         stats["batches"] = (len(to_classify) + config.ENRICH_BATCH_SIZE - 1) // config.ENRICH_BATCH_SIZE
@@ -193,13 +212,19 @@ def enrich_all(activities: list[dict]) -> dict:
             Records heading for the Sonnet verify pass are deliberately skipped:
             caching a low-confidence classification would let a later run serve
             it straight from cache and never verify it. Those are written by the
-            final save instead, once verify has had its say.
+            final save instead, once verify has had its say. Records where the
+            model defaulted a required field are skipped the same way — and, unlike
+            the verify case, never written later either, since the field was never
+            actually classified this run.
             """
             _touch_lock()
             written = 0
             for act_id, f in batch.items():
                 act = by_id.get(act_id)
                 if act is None:
+                    continue
+                if _has_defaulted_field(f):
+                    defaulted_ids.add(act_id)
                     continue
                 fields = {k: f.get(k, _default_fields(act).get(k)) for k in _LLM_FIELDS}
                 if fields.get("confidence") == "low" or _rule_conflict(act, fields):
@@ -227,9 +252,16 @@ def enrich_all(activities: list[dict]) -> dict:
             f = fields_by_id.get(act["id"])
             if f is None:
                 if "category" not in act:
+                    # The model returned nothing for this record at all — not
+                    # just a defaulted field, the whole thing is missing from
+                    # the batch response. Defaults fill the output, but this
+                    # is not a classification and must not be cached.
                     act.update(_default_fields(act))
                     act["enrichment_model"] = "degraded"
+                    defaulted_ids.add(act["id"])
                 continue
+            if _has_defaulted_field(f):
+                defaulted_ids.add(act["id"])
             for k in _LLM_FIELDS:
                 act[k] = f.get(k, _default_fields(act).get(k))
             act["enrichment_model"] = config.ENRICH_MODEL
@@ -248,13 +280,20 @@ def enrich_all(activities: list[dict]) -> dict:
             for act in activities:
                 v = verified_by_id.get(act["id"])
                 if v:
+                    if _has_defaulted_field(v):
+                        defaulted_ids.add(act["id"])
                     for k in _LLM_FIELDS:
                         act[k] = v.get(k, act.get(k))
                     act["enrichment_model"] = f"{config.ENRICH_MODEL}+verify"
 
         # Final pass: rewrite everything, including the verified records the
-        # incremental hook deliberately held back.
+        # incremental hook deliberately held back — except records marked
+        # `defaulted_ids`, which never got a real classification for every
+        # required field this run and so must be re-asked next run rather than
+        # cached with a guess frozen in.
         for act in activities:
+            if act["id"] in defaulted_ids:
+                continue
             if act.get("enrichment_model", "").startswith(config.ENRICH_MODEL):
                 cache[act["id"]] = {
                     "hash": _content_hash(act),
@@ -268,6 +307,13 @@ def enrich_all(activities: list[dict]) -> dict:
             # still publish; only next week's token bill suffers.
             log.warning("enrich: final cache write failed (%s) — records stay classified "
                         "for this run but will be re-classified next time", exc)
+
+        if defaulted_ids:
+            log.warning(
+                "enrich: %d record(s) left uncached because the model defaulted a "
+                "required field (or never answered) — will be re-asked next run",
+                len(defaulted_ids),
+            )
 
     # final safety net
     for act in activities:

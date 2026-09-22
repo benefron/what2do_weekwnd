@@ -32,9 +32,7 @@ def classification(act_id, **over):
         "category": "other",
         "feature_tags": [],
         "age_min": 4, "age_max": 10,
-        "fits_4yo": True, "fits_8yo": True,
         "primary_language": "nl",
-        "french_required": False,
         "language_note": None,
         "language_free": False,
         "price_type": "paid",
@@ -212,6 +210,85 @@ def test_every_batch_still_reaches_the_result(cache_file, monkeypatch, make_acti
     assert stats["batches"] == 3
     assert all(a["enrichment_model"].startswith(config.ENRICH_MODEL) for a in acts)
     assert set(read_cache(cache_file)) == {f"id{i}" for i in range(6)}
+
+
+# ── defaulted-field caching (a record the model half-answered) ─────────────
+def test_defaulted_fields_are_NOT_cached(cache_file, monkeypatch, make_activity):
+    """A field the model's answer omits gets filled from _default_fields(), but
+    a default means "we don't know" and must not be frozen into the cache —
+    same bug class as caching a geocode lookup failure as "not found"."""
+    acts = [make_activity(id="id0")]
+
+    def responder(ids):
+        c = classification(ids[0])
+        del c["indoor_outdoor"]  # model simply forgot this field
+        return [c]
+
+    stub_backend(monkeypatch, responder)
+    enrich.enrich_all(acts)
+
+    assert "id0" not in read_cache(cache_file)
+    assert acts[0]["indoor_outdoor"] == "both", "the default must still apply in memory this run"
+
+
+def test_record_missing_from_batch_response_is_NOT_cached(cache_file, monkeypatch, make_activity):
+    """The model returned nothing at all for this id — not a defaulted field,
+    the whole record is absent from the batch. Must not be cached either."""
+    acts = [make_activity(id="id0"), make_activity(id="id1")]
+
+    def responder(ids):
+        return [classification(i) for i in ids if i != "id0"]
+
+    stub_backend(monkeypatch, responder)
+    enrich.enrich_all(acts)
+
+    cached = read_cache(cache_file)
+    assert "id0" not in cached
+    assert "id1" in cached
+    assert acts[0]["enrichment_model"] == "degraded"
+    assert acts[0]["category"] == "other", "the default must still apply in memory this run"
+
+
+def test_complete_answer_is_cached(cache_file, monkeypatch, make_activity):
+    """The good neighbour: a fully-answered record is cached as before."""
+    acts = [make_activity(id="id0")]
+    stub_backend(monkeypatch, lambda ids: [classification(i) for i in ids])
+    enrich.enrich_all(acts)
+
+    assert "id0" in read_cache(cache_file)
+
+
+def test_explicit_null_optional_field_is_still_cached(cache_file, monkeypatch, make_activity):
+    """price_min_eur/price_max_eur/language_note may legitimately be null in the
+    answer — that's a real classification (no price info), not a gap. Only a
+    missing KEY should make a record uncacheable."""
+    acts = [make_activity(id="id0")]
+
+    def responder(ids):
+        c = classification(ids[0], price_min_eur=None, price_max_eur=None, language_note=None)
+        return [c]
+
+    stub_backend(monkeypatch, responder)
+    enrich.enrich_all(acts)
+
+    assert "id0" in read_cache(cache_file)
+
+
+def test_defaulted_record_still_gets_defaults_in_output(cache_file, monkeypatch, make_activity):
+    """Being left out of the cache must not mean being left out of this run's
+    published output — the record still gets its (safe) defaults."""
+    acts = [make_activity(id="id0")]
+
+    def responder(ids):
+        c = classification(ids[0])
+        del c["family_relevant"]
+        return [c]
+
+    stub_backend(monkeypatch, responder)
+    enrich.enrich_all(acts)
+
+    assert acts[0]["family_relevant"] is True
+    assert "id0" not in read_cache(cache_file)
 
 
 def test_a_failed_batch_degrades_only_its_own_records(cache_file, monkeypatch, make_activity):

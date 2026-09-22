@@ -233,8 +233,6 @@ def build_kind(kind: str) -> list[dict]:
             "price_note_nl": None,
             "age_min": p.get("age_min"),
             "age_max": p.get("age_max"),
-            "fits_4yo": (p.get("age_min") or 0) <= 4 <= (p.get("age_max") or 99),
-            "fits_8yo": (p.get("age_min") or 0) <= 8 <= (p.get("age_max") or 99),
             "indoor": p.get("indoor", False),
             "indoor_outdoor": p.get("indoor_outdoor"),
             "seasonal": p.get("seasonal"),

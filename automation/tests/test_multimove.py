@@ -88,7 +88,6 @@ def test_a_multimovepad_is_free_and_outdoor(meerdaalwoud):
 def test_age_range_matches_the_multimove_programme(meerdaalwoud):
     assert meerdaalwoud["age_min"] == 3
     assert meerdaalwoud["age_max"] == 12
-    assert meerdaalwoud["fits_4yo"] and meerdaalwoud["fits_8yo"]
 
 
 def test_blurb_mentions_the_distance_when_the_page_gives_one(meerdaalwoud):

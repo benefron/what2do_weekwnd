@@ -14,6 +14,15 @@ import llm_runner
 
 log = logging.getLogger(__name__)
 
+
+class SearchFailed(Exception):
+    """The Claude search pass errored out (CLI/Copilot failure, bad schema, etc).
+
+    Distinct from "ran and found nothing" (an empty list is a genuine success).
+    Callers must not fold this into an empty result, or a broken search reads
+    as a quiet week in sources_fetched instead of showing up in sources_failed.
+    """
+
 _SCHEMA = {
     "type": "object",
     "required": ["events"],
@@ -49,8 +58,9 @@ _SCHEMA = {
                     "family_relevant": {"type": "boolean"},
                     "price_min_eur": {"type": ["number", "null"]},
                     "price_max_eur": {"type": ["number", "null"]},
+                    "age_min": {"type": ["integer", "null"], "minimum": 0, "maximum": 18},
+                    "age_max": {"type": ["integer", "null"], "minimum": 0, "maximum": 99},
                     "primary_language": {"type": "string", "enum": ["nl", "fr", "en", "multi"]},
-                    "french_required": {"type": "boolean"},
                     "language_free": {"type": "boolean"},
                     "indoor_outdoor": {
                         "type": "string",
@@ -99,6 +109,13 @@ For each event set:
 - family_relevant: true if this is either (a) genuinely doable with young
   children, or (b) a big-name concert/musical worth a trip even though it is an
   adults' outing. false only for things with no broad appeal.
+- age_min, age_max: the sensible age range for this event (integers), or null
+  if genuinely unknown. The app filters by age range, not by the audience
+  label above, so fill these whenever the event gives you enough to judge —
+  a puppet show might be 2-8, a big-name concert might be 12-99.
+- indoor_outdoor: "indoor", "outdoor", or "both" — where it physically
+  happens, used for a rainy-day filter. Prefer "both" over guessing when the
+  venue has both an indoor and outdoor part, or a real indoor fallback.
 - Prefer the official venue or ticketing URL.
 - Give real, verifiable dates. Do not invent events. If you are unsure an event
   is real or the date is right, omit it.
@@ -117,7 +134,7 @@ def fetch_events() -> list[dict]:
         )
     except Exception as exc:  # noqa: BLE001
         log.warning("claude_search: %s", exc)
-        return []
+        raise SearchFailed(str(exc)) from exc
     events = structured.get("events", [])
     log.info("claude_search: %d events", len(events))
     return events

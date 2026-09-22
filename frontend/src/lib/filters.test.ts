@@ -3,6 +3,8 @@ import {
   AGE_BUCKETS,
   DEFAULT_FILTERS,
   LANGUAGES,
+  MAX_DISTANCE_KM,
+  MIN_DISTANCE_KM,
   VENUE_SETTINGS,
   ageSpan,
   applyFilters,
@@ -49,14 +51,11 @@ function act(over: Partial<Activity> = {}): Activity {
     age_min: 4,
     age_max: 10,
     age_source: "uit",
-    fits_4yo: true,
-    fits_8yo: true,
     price_type: "paid",
     price_min_eur: 5,
     price_max_eur: 5,
     price_note_nl: null,
     primary_language: "nl",
-    french_required: false,
     language_note: null,
     language_free: false,
     is_special_event: true,
@@ -354,6 +353,55 @@ describe("saved preferences vs shared links", () => {
   it("still honours explicit params over preferences", () => {
     const f = paramsToFilters("?from=antwerp-2000", prefs as never);
     expect(f.origin).toBe("antwerp-2000");
+  });
+});
+
+describe("malformed URLs degrade to defaults instead of breaking", () => {
+  it("non-numeric km falls back to the default instead of NaN", () => {
+    expect(paramsToFilters("?km=abc").maxDistance).toBe(DEFAULT_FILTERS.maxDistance);
+  });
+
+  it("km is clamped to the slider range", () => {
+    expect(paramsToFilters("?km=1").maxDistance).toBe(MIN_DISTANCE_KM);
+    expect(paramsToFilters("?km=9999").maxDistance).toBe(MAX_DISTANCE_KM);
+    expect(paramsToFilters("?km=75").maxDistance).toBe(75);
+  });
+
+  it("unknown tab/price/when/sort fall back to defaults", () => {
+    expect(paramsToFilters("?tab=zzz").tab).toBe(DEFAULT_FILTERS.tab);
+    expect(paramsToFilters("?price=zzz").price).toBe(DEFAULT_FILTERS.price);
+    expect(paramsToFilters("?when=zzz").when).toBe(DEFAULT_FILTERS.when);
+    expect(paramsToFilters("?sort=zzz").sort).toBe(DEFAULT_FILTERS.sort);
+  });
+
+  it("still honours valid tab/price/when/sort values — the URL wins", () => {
+    expect(paramsToFilters("?tab=places").tab).toBe("places");
+    expect(paramsToFilters("?price=free").price).toBe("free");
+    expect(paramsToFilters("?when=wednesday").when).toBe("wednesday");
+    expect(paramsToFilters("?sort=distance").sort).toBe("distance");
+  });
+
+  it("a mangled km does not leave an uncontrolled NaN slider value even alongside other params", () => {
+    const f = paramsToFilters("?tab=places&km=notanumber");
+    expect(Number.isFinite(f.maxDistance)).toBe(true);
+    expect(f.maxDistance).toBe(DEFAULT_FILTERS.maxDistance);
+  });
+});
+
+describe("onlySaved", () => {
+  it("defaults to false", () => {
+    expect(DEFAULT_FILTERS.onlySaved).toBe(false);
+  });
+
+  it("saved=1 round-trips through filtersToParams/paramsToFilters", () => {
+    const state = base({ onlySaved: true });
+    const url = filtersToParams(state);
+    expect(url).toContain("saved=1");
+    expect(paramsToFilters(url).onlySaved).toBe(true);
+  });
+
+  it("is omitted from the URL when false, like the other booleans", () => {
+    expect(filtersToParams(DEFAULT_FILTERS)).not.toContain("saved");
   });
 });
 

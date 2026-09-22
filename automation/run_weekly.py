@@ -17,6 +17,7 @@ rather than re-fetching/re-paying for tokens.
 import argparse
 import json
 import logging
+import socket
 import sys
 import time
 from datetime import datetime, timezone
@@ -73,6 +74,66 @@ def _read_progress() -> dict:
     return {}
 
 
+def _clean_scratch() -> None:
+    """Remove temporary batch files from the state directory after a successful run.
+
+    enrich.py and verify logic create scratch files like enrich_batch_*.json,
+    verify_batch_*.json, and smoke_batch_*.json during processing. These are
+    useful for debugging a crashed run but should be cleaned up after success.
+    Deletion failures are only logged, never fatal."""
+    try:
+        state_dir = config.STATE_DIR
+        if not state_dir.exists():
+            return
+        for pattern in ("enrich_batch_*.json", "verify_batch_*.json", "smoke_batch_*.json"):
+            for f in state_dir.glob(pattern):
+                try:
+                    f.unlink()
+                except OSError as exc:
+                    log.warning("failed to delete %s: %s", f, exc)
+    except Exception as exc:
+        log.warning("scratch cleanup failed: %s", exc)
+
+
+def _wait_for_network(
+    resolver=socket.gethostbyname,
+    sleep=time.sleep,
+    now=time.monotonic,
+    host: str = None,
+) -> bool:
+    """Poll DNS before the fetch stage. A launchd-scheduled run can start
+    right after the Mac wakes, before the network interface is actually up —
+    on 2026-09-21 every source failed with "[Errno 8] nodename nor servname
+    provided, or not known" and the run aborted for nothing. Retries
+    `resolver(host)` every `config.NETWORK_POLL_SECONDS` until it succeeds or
+    `config.NETWORK_WAIT_SECONDS` elapses. `resolver`/`sleep`/`now` are
+    injectable so tests never really resolve DNS or sleep. Touches the run
+    lock's mtime on each poll so watchdog.py sees a live run, not a stale one,
+    while we wait."""
+    host = host or config.NETWORK_CHECK_HOST
+    start = now()
+    waited_logged = False
+    while True:
+        try:
+            resolver(host)
+            if waited_logged:
+                log.info("network is up (%s resolved)", host)
+            return True
+        except OSError:
+            if not waited_logged:
+                log.info("network not up yet (%s did not resolve), waiting up to %ds", host, config.NETWORK_WAIT_SECONDS)
+                waited_logged = True
+            if now() - start >= config.NETWORK_WAIT_SECONDS:
+                log.error("network still not up after %ds, giving up", config.NETWORK_WAIT_SECONDS)
+                return False
+            try:
+                if config.RUN_LOCK.exists():
+                    config.RUN_LOCK.touch()
+            except OSError:
+                pass
+            sleep(config.NETWORK_POLL_SECONDS)
+
+
 def _acquire_lock() -> bool:
     config.STATE_DIR.mkdir(parents=True, exist_ok=True)
     if config.RUN_LOCK.exists():
@@ -115,15 +176,25 @@ def main() -> int:
     try:
         _write_progress(run_id, "started")
 
+        if not _wait_for_network():
+            reason = f"network never came up within {config.NETWORK_WAIT_SECONDS}s"
+            log.error("%s, aborting without overwriting latest.json", reason)
+            _write_progress(run_id, "failed", reason=reason)
+            return 1
+
         fetched = sources.fetch_all()
         if not fetched["raw"]:
-            log.error("no raw records from any source, aborting without overwriting latest.json")
+            reason = "no raw records from any source"
+            log.error("%s, aborting without overwriting latest.json", reason)
+            _write_progress(run_id, "failed", reason=reason)
             return 1
         _write_progress(run_id, "fetch", raw_count=len(fetched["raw"]))
 
         activities = normalize.normalize_all(fetched["raw"], run_id)
         if not activities:
-            log.error("0 activities after normalize, aborting without overwriting latest.json")
+            reason = "0 activities after normalize"
+            log.error("%s, aborting without overwriting latest.json", reason)
+            _write_progress(run_id, "failed", reason=reason)
             return 1
         _write_progress(run_id, "normalize", activity_count=len(activities))
 
@@ -184,9 +255,16 @@ def main() -> int:
         state["last_run_id"] = run_id
         state["last_activity_count"] = len(activities)
         _save_state(state)
+
+        _clean_scratch()
+
         _write_progress(run_id, "published", activity_count=len(activities))
         log.info("run complete for %s", run_id)
         return 0
+    except Exception as exc:
+        log.exception("run failed with an unexpected exception")
+        _write_progress(run_id, "failed", reason=f"{type(exc).__name__}: {exc}")
+        raise
     finally:
         config.RUN_LOCK.unlink(missing_ok=True)
 

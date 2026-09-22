@@ -105,8 +105,6 @@ def _parse_detail(slug: str, raw: str) -> dict | None:
         "price_max_eur": 0,
         "age_min": 3,
         "age_max": 12,
-        "fits_4yo": True,
-        "fits_8yo": True,
         "blurb_en": blurb,
         "description_nl": None,
         "tags": ["nature_play"],

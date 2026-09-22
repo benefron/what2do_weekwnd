@@ -1,5 +1,5 @@
 """Payload construction: field slimming, filter counts, and the metadata the
-frontend reads.
+frontend reads. Archive pruning after successful publish.
 """
 import pytest
 
@@ -46,6 +46,17 @@ def place(make_activity):
 def test_only_published_fields_survive(event):
     payload = build([event(secret_internal_field="leaked")])
     assert "secret_internal_field" not in payload["activities"][0]
+
+
+def test_legacy_single_family_fields_are_dropped(event):
+    """places.json entries (and old cache/archive records) may still carry
+    fits_4yo/fits_8yo/french_required from before the app served families
+    anywhere in Belgium of any age mix. publish must slim them away rather than
+    ship a field the frontend no longer knows about."""
+    act = build([event(fits_4yo=True, fits_8yo=True, french_required=False)])["activities"][0]
+    assert "fits_4yo" not in act
+    assert "fits_8yo" not in act
+    assert "french_required" not in act
 
 
 def test_every_published_field_is_present_even_when_unset(event):
@@ -134,3 +145,100 @@ def test_empty_input_still_builds_a_valid_payload():
     assert payload["activities"] == []
     assert payload["categories"] == []
     assert payload["place_kinds"] == []
+
+
+# ── archive pruning ─────────────────────────────────────────────────────────
+def test_archive_is_pruned_to_newest_n(tmp_path, monkeypatch):
+    """Pruning keeps only the newest `keep` snapshots, sorted lexically."""
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+
+    # Create 12 snapshots with lexically sortable names (run_id format).
+    for i in range(12):
+        (archive_dir / f"2026-09-{10+i:02d}_0000.json").write_text(f'{{"n": {i}}}')
+
+    monkeypatch.setattr(config, "ARCHIVE_KEEP", 8)
+    removed = publish.prune_archive(archive_dir, keep=8)
+
+    # Should remove 4 oldest, keep 8 newest.
+    assert len(removed) == 4
+    assert len(list(archive_dir.glob("*.json"))) == 8
+
+    # Check that the oldest files were removed.
+    for i in range(4):
+        assert not (archive_dir / f"2026-09-{10+i:02d}_0000.json").exists()
+
+    # Check that the newest files remain.
+    for i in range(4, 12):
+        assert (archive_dir / f"2026-09-{10+i:02d}_0000.json").exists()
+
+
+def test_prune_keeps_everything_when_under_the_limit(tmp_path):
+    """If fewer than `keep` files exist, none are deleted."""
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+
+    for i in range(5):
+        (archive_dir / f"2026-09-{10+i:02d}_0000.json").write_text(f'{{"n": {i}}}')
+
+    removed = publish.prune_archive(archive_dir, keep=8)
+
+    assert removed == []
+    assert len(list(archive_dir.glob("*.json"))) == 5
+
+
+def test_prune_ignores_non_json_files(tmp_path):
+    """Non-.json files in the archive dir are not touched."""
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+
+    # Create 12 .json files and some other files.
+    for i in range(12):
+        (archive_dir / f"2026-09-{10+i:02d}_0000.json").write_text(f'{{"n": {i}}}')
+    (archive_dir / "README.txt").write_text("keep me")
+    (archive_dir / "old_backup.bak").write_text("keep me too")
+
+    removed = publish.prune_archive(archive_dir, keep=8)
+
+    assert len(removed) == 4
+    assert (archive_dir / "README.txt").exists()
+    assert (archive_dir / "old_backup.bak").exists()
+
+
+def test_prune_failure_does_not_fail_the_run(tmp_path, monkeypatch):
+    """A failure to delete one file is logged but not raised."""
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+
+    for i in range(10):
+        (archive_dir / f"2026-09-{10+i:02d}_0000.json").write_text(f'{{"n": {i}}}')
+
+    deleted_files = []
+    original_unlink = type(archive_dir).unlink
+
+    def failing_unlink(self):
+        deleted_files.append(self)
+        if len(deleted_files) == 2:  # Fail on second delete
+            raise OSError("Permission denied")
+        original_unlink(self)
+
+    # Monkeypatch unlink on Path instances
+    monkeypatch.setattr("pathlib.Path.unlink", failing_unlink)
+
+    removed = publish.prune_archive(archive_dir, keep=8)
+
+    # First file should succeed, second should fail and be logged,
+    # but the function continues.
+    # removed list only includes successfully deleted files.
+    assert len(removed) == 1
+    # But the files are still attempted to be deleted (2 were processed).
+    assert len(deleted_files) >= 2
+    # At least one successful deletion happened.
+    assert len(list(archive_dir.glob("*.json"))) < 10
+
+
+def test_prune_archive_dir_not_exists(tmp_path):
+    """Pruning a nonexistent directory returns empty list."""
+    archive_dir = tmp_path / "nonexistent"
+    removed = publish.prune_archive(archive_dir, keep=8)
+    assert removed == []

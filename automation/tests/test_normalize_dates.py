@@ -83,15 +83,20 @@ def test_fwb_autumn_week_is_not_a_flemish_holiday():
     assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, d) is None
 
 
-def test_flemish_herfstvakantie_is_shared():
-    d = date(2026, 10, 28)
-    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, d)
-    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, d)
+def test_autumn_2026_breaks_do_not_overlap():
+    # Education is a community competence: FWB's congé d'automne is
+    # 19 Oct-1 Nov 2026, Flanders' herfstvakantie 2-8 Nov. This used to assert
+    # 28 Oct was "shared" because the Flemish table was a week early.
+    fr_only, nl_only = date(2026, 10, 28), date(2026, 11, 4)
+    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, fr_only)
+    assert not normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, fr_only)
+    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, nl_only)
+    assert not normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, nl_only)
 
 
 def test_holiday_for_uses_the_flemish_table():
-    assert normalize._holiday_for(date(2026, 10, 28)) == "herfstvakantie"
-    assert normalize._holiday_for(date(2026, 10, 20)) is None
+    assert normalize._holiday_for(date(2026, 11, 4)) == "herfstvakantie"
+    assert normalize._holiday_for(date(2026, 10, 28)) is None  # FWB is off, Flanders is not
 
 
 # ── _bucketize ──────────────────────────────────────────────────────────────
@@ -124,11 +129,25 @@ def test_fwb_only_week_sets_fr_flag_only(make_activity):
 
 
 def test_shared_holiday_week_sets_both_flags(make_activity):
+    # Christmas is the one break both communities take in the same week.
+    act = bucketize(make_activity(
+        date_start="2026-12-23T10:00:00", date_end="2026-12-23T12:00:00",
+        occurrences=[{"start": "2026-12-23T10:00:00"}]))
+    assert act["school_holiday_nl"] == "kerstvakantie"
+    assert act["school_holiday_fr"] == "vacances d'hiver"
+
+
+def test_fr_only_autumn_week_flags_fr_but_not_nl(make_activity):
+    # 2026-10-28 used to pin "both flags" because SCHOOL_HOLIDAYS_NL had
+    # herfstvakantie a week early (26 Oct); the real week is 2-8 Nov (checked
+    # against a Leuven school's calendar), which does not overlap FWB's
+    # 19 Oct-1 Nov congé d'automne at all. Pin the corrected divergence.
     act = bucketize(make_activity(
         date_start="2026-10-28T10:00:00", date_end="2026-10-28T12:00:00",
         occurrences=[{"start": "2026-10-28T10:00:00"}]))
-    assert act["school_holiday_nl"] == "herfstvakantie"
+    assert act["school_holiday_nl"] is None
     assert act["school_holiday_fr"] == "conge d'automne"
+    assert act["in_school_holiday"] is True
 
 
 def test_term_time_event_has_no_holiday_flags(make_activity):
@@ -238,3 +257,73 @@ def test_past_event_gets_no_later_bucket(make_activity):
         date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00",
         occurrences=[{"start": "2026-09-01T10:00:00"}]))
     assert "later" not in act["weekend_bucket"]
+
+
+# ── _is_future_or_ongoing (normalize_all's past-event filter) ───────────────
+# Regression: `future = act.get("date_kind") == "permanent" or not
+# act.get("occurrences")` treated ANY occurrence-less activity as future, full
+# stop. A stale multi-day span (date_start/date_end only, no `occurrences`)
+# from months ago rode straight through to `_bucketize`, which walks its
+# literal date_start..date_end span unconditionally and could still match a
+# long-dead day against a school-holiday table -- tagging a months-over event
+# `school_holiday` forever. Fixed to judge an occurrence-less activity by its
+# own date_end (falling back to date_start), same as an occurrence-bearing one
+# is judged by its occurrence dates.
+def test_occurrence_less_span_that_already_ended_is_dropped(make_activity):
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start="2026-06-28T10:00:00", date_end="2026-07-03T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is False
+
+
+def test_occurrence_less_span_ending_today_is_kept(make_activity):
+    """Good neighbour: a span whose date_end is today is not yet over."""
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start=f"{TODAY - timedelta(days=3)}T10:00:00",
+        date_end=f"{TODAY}T18:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_occurrence_less_span_still_ahead_is_kept(make_activity):
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start="2026-11-01T10:00:00", date_end="2026-11-05T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_activity_with_no_dates_at_all_is_kept(make_activity):
+    """Good neighbour: a filter must never silently drop something we failed
+    to parse -- an occurrence-less activity with neither date_end nor
+    date_start stays in, rather than being assumed past."""
+    act = make_activity(
+        date_kind="multi_day", occurrences=[], date_start=None, date_end=None)
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_permanent_is_always_kept_regardless_of_dates(make_activity):
+    """Good neighbour: the permanent-place path is untouched by this fix."""
+    act = make_activity(
+        date_kind="permanent", occurrences=[],
+        date_start="2020-01-01T10:00:00", date_end="2020-01-01T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_occurrence_bearing_past_only_activity_is_still_dropped(make_activity):
+    """Good neighbour: behaviour for activities that DO carry `occurrences` is
+    unchanged by this fix -- a past-only occurrence list is still dropped."""
+    act = make_activity(
+        occurrences=[{"start": "2026-09-01T10:00:00"}],
+        date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is False
+
+
+def test_occurrence_bearing_activity_with_one_future_date_is_kept(make_activity):
+    """Good neighbour: unchanged -- any single future occurrence keeps it."""
+    act = make_activity(
+        occurrences=[
+            {"start": "2026-09-01T10:00:00"},
+            {"start": f"{TODAY + timedelta(days=5)}T10:00:00"},
+        ],
+        date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True

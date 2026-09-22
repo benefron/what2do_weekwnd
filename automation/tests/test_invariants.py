@@ -16,6 +16,7 @@ from pathlib import Path
 import pytest
 
 import build_places
+import claude_search
 import config
 import enrich
 import places
@@ -102,6 +103,39 @@ def test_schema_required_fields_all_have_properties():
         items = schema_items(name)
         orphans = [f for f in items["required"] if f not in items["properties"]]
         assert not orphans, f"{name} requires undefined fields: {orphans}"
+
+
+# ── single-family legacy fields are gone ────────────────────────────────────
+_LEGACY_SINGLE_FAMILY_FIELDS = ("fits_4yo", "fits_8yo", "french_required")
+
+
+def test_schemas_do_not_mention_the_legacy_single_family_fields():
+    """fits_4yo/fits_8yo/french_required described one Leuven family (a 4- and
+    an 8-year-old, Dutch speakers with no French). The app now serves families
+    anywhere in Belgium with any age mix and any of nl/fr/en — classification
+    is age_min/age_max + primary_language/language_free, not these three."""
+    for name in ("enrich_schema.json", "verify_schema.json"):
+        items = schema_items(name)
+        for field in _LEGACY_SINGLE_FAMILY_FIELDS:
+            assert field not in items["properties"], f"{name} still has {field}"
+            assert field not in items["required"], f"{name} still requires {field}"
+
+
+def test_enrich_module_does_not_carry_the_legacy_fields():
+    for field in _LEGACY_SINGLE_FAMILY_FIELDS:
+        assert field not in enrich._LLM_FIELDS
+        assert field not in publish._PUBLISHED_FIELDS
+        assert field not in enrich._default_fields({"date_kind": "single"})
+
+
+# ── claude_search now classifies ages and venue setting ────────────────────
+def test_claude_search_schema_has_age_and_venue_fields():
+    """Without these, every claude_search record (big-name concerts, touring
+    shows) shipped with null ages and an unset indoor/outdoor, which is why the
+    age and rainy-day filters could never narrow them."""
+    props = claude_search._SCHEMA["properties"]["events"]["items"]["properties"]
+    for field in ("age_min", "age_max", "indoor_outdoor"):
+        assert field in props, f"claude_search schema is missing {field}"
 
 
 # ── controlled vocabularies ─────────────────────────────────────────────────

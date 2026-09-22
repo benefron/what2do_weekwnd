@@ -6,6 +6,7 @@ import logging
 import subprocess
 from collections import Counter
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import config
 
@@ -22,9 +23,8 @@ _PUBLISHED_FIELDS = (
     "distance_km", "geocode_source", "kind", "province", "indoor",
     "indoor_outdoor", "link_ok", "seasonal",
     "category", "feature_tags", "audience", "age_min", "age_max", "age_source",
-    "fits_4yo", "fits_8yo",
     "price_type", "price_min_eur", "price_max_eur", "price_note_nl",
-    "primary_language", "french_required", "language_note", "language_free",
+    "primary_language", "language_note", "language_free",
     "is_special_event", "is_recurring_class", "booking_required",
     "enrichment_model", "confidence",
 )
@@ -61,6 +61,27 @@ def build_payload(activities: list[dict], run_id: str, sources_fetched, sources_
     }
 
 
+def prune_archive(archive_dir: Path, keep: int = config.ARCHIVE_KEEP) -> list[Path]:
+    """Delete all but the newest `keep` snapshots, sorted by filename.
+
+    Run IDs are YYYY-MM-DD_HHMM so lexical order is chronological.
+    Ignores non-.json files and returns the list of removed paths.
+    """
+    if not archive_dir.exists():
+        return []
+
+    json_files = sorted([f for f in archive_dir.iterdir() if f.is_file() and f.suffix == ".json"])
+    to_remove = json_files[:-keep] if len(json_files) > keep else []
+    removed = []
+    for f in to_remove:
+        try:
+            f.unlink()
+            removed.append(f)
+        except OSError as exc:
+            log.warning("failed to delete %s: %s", f, exc)
+    return removed
+
+
 def write_latest(payload: dict, run_id: str) -> None:
     text = json.dumps(payload, ensure_ascii=False, indent=2)
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -71,6 +92,11 @@ def write_latest(payload: dict, run_id: str) -> None:
 
     config.ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     (config.ARCHIVE_DIR / f"{run_id}.json").write_text(text)
+
+    try:
+        prune_archive(config.ARCHIVE_DIR, config.ARCHIVE_KEEP)
+    except Exception as exc:
+        log.warning("archive pruning failed: %s", exc)
 
 
 def _git(*args: str) -> subprocess.CompletedProcess:
@@ -87,6 +113,8 @@ def commit_and_push(run_id: str) -> bool:
         str(config.DATA_DIR / "places.json"),
     ]
     _git("add", *[p for p in paths])
+    # Stage deletions in archive directory (pruning)
+    _git("add", "-A", str(config.ARCHIVE_DIR))
     status = _git("status", "--porcelain", "--", *paths)
     if not status.stdout.strip():
         log.info("nothing to commit for %s", run_id)
