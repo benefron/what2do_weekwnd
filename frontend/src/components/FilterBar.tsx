@@ -214,7 +214,11 @@ export default function FilterBar({
     val: FilterState[K][number]
   ) => {
     const set = new Set(f[key] as string[]);
-    set.has(val as string) ? set.delete(val as string) : set.add(val as string);
+    if (set.has(val as string)) {
+      set.delete(val as string);
+    } else {
+      set.add(val as string);
+    }
     const order = canonicalOrder[key];
     const next = [...set].sort((a, b) => order.indexOf(a) - order.indexOf(b));
     onChange({ [key]: next } as unknown as Partial<FilterState>);
