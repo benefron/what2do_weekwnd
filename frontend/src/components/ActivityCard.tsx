@@ -23,7 +23,7 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl2 border border-line bg-white shadow-card">
       {a.is_special_event && a.date_kind !== "permanent" && (
-        <span className="absolute left-3 top-3 z-10 rounded-full bg-tangerine-deep px-2.5 py-1 text-xs font-semibold text-white shadow">
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-tangerine-deep px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
           Special event
         </span>
       )}
@@ -31,12 +31,12 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
         onClick={() => onToggleSave(a.id)}
         aria-label={saved ? "Remove from saved" : "Save"}
         aria-pressed={saved}
-        className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-lg shadow transition hover:scale-110"
+        className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-lg shadow-sm transition hover:scale-110"
       >
         {saved ? "★" : "☆"}
       </button>
 
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-forest-soft">
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-forest-soft">
         {showImg ? (
           <>
             <img

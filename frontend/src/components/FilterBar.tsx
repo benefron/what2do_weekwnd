@@ -255,7 +255,7 @@ export default function FilterBar({
         value={f.search}
         onChange={(e) => onChange({ search: e.target.value })}
         placeholder="Search activities, places, what's on…"
-        className="w-full rounded-xl2 border border-line bg-white px-4 py-3 text-base shadow-card outline-none placeholder:text-muted focus:border-tangerine"
+        className="w-full rounded-xl2 border border-line bg-white px-4 py-3 text-base shadow-card outline-hidden placeholder:text-muted focus:border-tangerine"
       />
 
       {f.tab === "weekend" && (

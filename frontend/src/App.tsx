@@ -265,7 +265,7 @@ export default function App() {
         Skip to results
       </a>
 
-      <header className="border-b border-line bg-paper/85 backdrop-blur">
+      <header className="border-b border-line bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:px-6">
           <div className="flex items-baseline justify-between gap-4">
             <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -366,7 +366,7 @@ export default function App() {
               </button>
               <details className="mx-auto mt-4 max-w-sm text-left text-xs text-muted">
                 <summary className="cursor-pointer">Technical details</summary>
-                <pre className="mt-2 whitespace-pre-wrap break-words">{error}</pre>
+                <pre className="mt-2 whitespace-pre-wrap wrap-break-word">{error}</pre>
               </details>
             </div>
           ) : !dataset ? (

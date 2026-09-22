@@ -1,6 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #fbf7f0;
+  --color-ink: #26201a;
+  --color-muted: #6f6357;
+  --color-line: #e7ddcd;
+
+  --color-tangerine: #f5623d;
+  --color-tangerine-dark: #d94a27;
+  --color-tangerine-deep: #b93d1c;
+
+  --color-forest: #2f6b4f;
+  --color-forest-soft: #e4efe7;
+
+  --color-berry: #8a3d6b;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --shadow-card:
+    0 1px 2px rgba(38, 32, 26, 0.06), 0 8px 24px -12px rgba(38, 32, 26, 0.18);
+
+  --radius-xl2: 1.25rem;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility chip {
+  @apply inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5
+           text-sm font-medium text-ink transition-colors;
+  &:hover {
+    @apply border-ink/30;
+  }
+}
+
+@utility chip--on {
+  @apply border-transparent bg-ink text-paper;
+}
+
+@utility chip--accent-on {
+  @apply border-transparent bg-tangerine-deep text-white;
+}
+
+@utility skip-link {
+  @apply fixed left-2 top-2 z-50 rounded-md bg-ink px-4 py-2 text-sm font-medium text-paper;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease-in-out;
+  &:focus {
+    transform: translateY(0);
+  }
+}
 
 @layer base {
   html {
@@ -14,33 +79,8 @@
   }
 
   :focus-visible {
-    outline: 2px solid theme("colors.tangerine.deep");
+    outline: 2px solid var(--color-tangerine-deep);
     outline-offset: 2px;
-  }
-}
-
-@layer components {
-  .chip {
-    @apply inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5
-           text-sm font-medium text-ink transition-colors;
-  }
-  .chip:hover {
-    @apply border-ink/30;
-  }
-  .chip--on {
-    @apply border-transparent bg-ink text-paper;
-  }
-  .chip--accent-on {
-    @apply border-transparent bg-tangerine-deep text-white;
-  }
-
-  .skip-link {
-    @apply fixed left-2 top-2 z-50 rounded-md bg-ink px-4 py-2 text-sm font-medium text-paper;
-    transform: translateY(-200%);
-    transition: transform 0.15s ease-in-out;
-  }
-  .skip-link:focus {
-    transform: translateY(0);
   }
 }
 
