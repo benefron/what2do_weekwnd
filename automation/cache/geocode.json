@@ -183,6 +183,14 @@
     "lat": 50.6216298,
     "lng": 4.1927077
   },
+  "Bois des Rêves Ottignies-Louvain-la-Neuve België": {
+    "lat": 50.6592682,
+    "lng": 4.5898537
+  },
+  "Bokrijk Genk België": {
+    "lat": 50.9630827,
+    "lng": 5.4030747
+  },
   "Bokrijk Openluchtmuseum Genk België": {
     "lat": 50.9630827,
     "lng": 5.4030747
@@ -206,6 +214,10 @@
   "Boudewijn Seapark Brugge België": {
     "lat": 51.1822903,
     "lng": 3.2148553
+  },
+  "Boulevard d'Avroy Liège België": {
+    "lat": 50.6302814,
+    "lng": 5.5688748
   },
   "Boulevard du Midi 150, 1000 Brussels": {
     "lat": 50.8330975,
@@ -259,6 +271,10 @@
     "lat": 51.0481106,
     "lng": 3.7321395
   },
+  "Centrum Aalter Aalter België": {
+    "lat": 51.0824954,
+    "lng": 3.445737
+  },
   "Chaussée de Bruxelles 187, 1410 Waterloo": {
     "lat": 50.716472,
     "lng": 4.3985872
@@ -295,9 +311,21 @@
     "lat": 50.176708,
     "lng": 5.927026
   },
+  "Cinquantenaire Park Brussels België": {
+    "lat": 50.8410369,
+    "lng": 4.3934924
+  },
   "Circus Bruul Geel België": {
     "lat": 51.1638444,
     "lng": 5.0416396
+  },
+  "City centre (Grand-Place to Sainte-Catherine) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
+  "City centre (Sint-Baafsplein to Korenmarkt) Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "City centre Bruges België": {
     "lat": 51.208146,
@@ -643,6 +671,10 @@
     "lat": 51.0125405,
     "lng": 5.4924166
   },
+  "Markt & Simon Stevinplein Bruges België": {
+    "lat": null,
+    "lng": null
+  },
   "Markt 1, 8000 Bruges": {
     "lat": 51.2092401,
     "lng": 3.2250659
@@ -674,6 +706,10 @@
   "Museum of Natural Sciences Brussel België": {
     "lat": 50.8365093,
     "lng": 4.3764944
+  },
+  "Namur België": {
+    "lat": 50.4665284,
+    "lng": 4.8661892
   },
   "Natuurpark De Balokken Wervik België": {
     "lat": null,
@@ -1187,9 +1223,17 @@
     "lat": 50.8380321,
     "lng": 4.3632229
   },
+  "Théâtre de Namur area Namur België": {
+    "lat": null,
+    "lng": null
+  },
   "Tierpark Eupen Eupen België": {
     "lat": null,
     "lng": null
+  },
+  "Tour & Taxis Brussels België": {
+    "lat": 50.8665091,
+    "lng": 4.3470849
   },
   "Touring production, various venues Antwerp België": {
     "lat": null,
@@ -1210,6 +1254,10 @@
   "Vakantiepark Molenheide Houthalen-Helchteren België": {
     "lat": 51.0823453,
     "lng": 5.3975219
+  },
+  "Various locations Antwerp België": {
+    "lat": null,
+    "lng": null
   },
   "Veldegem, 8210 Zedelgem": {
     "lat": 51.1048944,
