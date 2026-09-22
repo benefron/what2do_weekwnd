@@ -83,15 +83,20 @@ def test_fwb_autumn_week_is_not_a_flemish_holiday():
     assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, d) is None
 
 
-def test_flemish_herfstvakantie_is_shared():
-    d = date(2026, 10, 28)
-    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, d)
-    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, d)
+def test_autumn_2026_breaks_do_not_overlap():
+    # Education is a community competence: FWB's congé d'automne is
+    # 19 Oct-1 Nov 2026, Flanders' herfstvakantie 2-8 Nov. This used to assert
+    # 28 Oct was "shared" because the Flemish table was a week early.
+    fr_only, nl_only = date(2026, 10, 28), date(2026, 11, 4)
+    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, fr_only)
+    assert not normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, fr_only)
+    assert normalize._holiday_in(config.SCHOOL_HOLIDAYS_NL, nl_only)
+    assert not normalize._holiday_in(config.SCHOOL_HOLIDAYS_FR, nl_only)
 
 
 def test_holiday_for_uses_the_flemish_table():
-    assert normalize._holiday_for(date(2026, 10, 28)) == "herfstvakantie"
-    assert normalize._holiday_for(date(2026, 10, 20)) is None
+    assert normalize._holiday_for(date(2026, 11, 4)) == "herfstvakantie"
+    assert normalize._holiday_for(date(2026, 10, 28)) is None  # FWB is off, Flanders is not
 
 
 # ── _bucketize ──────────────────────────────────────────────────────────────
