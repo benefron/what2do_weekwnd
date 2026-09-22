@@ -1,14 +1,16 @@
 # what2do_weekwnd
 
-A personal weekend dashboard for finding things to do with the kids (a 4-year-old
-and an 8-year-old, Dutch speakers, no French) in and around Leuven.
+A weekend activity dashboard for families anywhere in Belgium, of any age mix,
+speaking Dutch, French, or English. Pick your location, which ages you're shopping
+for, which languages you speak, and filter to find things to do with the kids.
 
-A local Python pipeline runs every Monday morning: it pulls family events from the
-Flemish agenda ecosystem + a set of venue scrapers, geocodes them, has Claude
-classify each one (type, features, age fit, language, price), and writes
-`data/latest.json` into the repo. A GitHub Actions workflow then builds the
-Vite/React PWA and deploys it to GitHub Pages. Same shape as
-[israel-news-digest](https://github.com/benefron/israel-news-digest).
+A local Python pipeline runs every Monday morning: it pulls family events from
+three sources (UiT agendas covering Flanders + Brussels; OpenDataSoft datasets for
+Wallonia; a Claude web-search pass for big-name touring acts and concerts
+anywhere in the country), geocodes them, has Claude classify each one (type,
+features, age fit, language, price), and writes `data/latest.json` into the repo.
+A GitHub Actions workflow then builds the Vite/React PWA and deploys it to GitHub
+Pages. Same shape as [israel-news-digest](https://github.com/benefron/israel-news-digest).
 
 ## Layout
 

@@ -66,8 +66,8 @@ tail -f automation/logs/watchdog.log            # watchdog's own decisions (usua
 
 ```bash
 automation/.venv/bin/pip install -r automation/requirements-dev.txt   # once
-automation/.venv/bin/python -m pytest        # ~350 tests, <1s, from the repo root
-cd frontend && npm run test                  # ~100 Vitest tests
+automation/.venv/bin/python -m pytest        # ~480 tests, <1s, from the repo root
+cd frontend && npm run test                  # ~205 Vitest tests
 ```
 
 Both suites are pure and offline — **no test may touch the network.** A
@@ -76,6 +76,15 @@ really called Belgian venue sites would fail whenever one rate-limits, which is
 the exact flakiness that made a naive link check report 58 dead links that were
 all alive. Fetchers are monkeypatched; `automation/tests/fixtures/` holds trimmed
 captures of real pages.
+
+The date-bucket logic is shared via a parity fixture (`automation/tests/fixtures/bucket_cases.json`),
+which is asserted by both `test_bucket_parity.py` (Python) and `frontend/src/lib/buckets.parity.test.ts`
+(TypeScript) against 37 test cases. The fixture embeds the school-holiday calendars
+(asserted equal to `config.py`'s tables each run); regenerate it if those tables change
+— read the docstring in `test_bucket_parity.py` for the recipe. `test_config_calendars.py`
+is the one test suite that uses `date.today()` deliberately: it fails 12 months before
+either calendar lapses, and it also checks structural sanity (sorted, non-overlapping,
+complete school years).
 
 What the suite is actually for: every bug this file has recorded was in date
 arithmetic, cache semantics or a cross-file vocabulary, and none of them were
@@ -99,11 +108,15 @@ check.
 
 ## Pipeline architecture (`automation/`)
 
-`run_weekly.py` orchestrates: fetch → normalize/prefilter/dedupe → geocode →
+`run_weekly.py` orchestrates: **network wait** → fetch → normalize/prefilter/dedupe → geocode →
 distance prefilter → enrich → `family_relevant` filter → merge `places.json` →
-publish. Guards copied from israel-news-digest's `run_daily.py`: file lock
-(`state/run.lock`), `MIN_HOURS_BETWEEN_RUNS` (~20h) idempotency window, and
-**abort without overwriting `data/latest.json`** if a stage yields nothing.
+publish. The network wait (`_wait_for_network`, `config.NETWORK_*`) polls for DNS
+before fetching, because a run scheduled to start right after launchd's wake can
+start before the network interface is up (2026-09-21 incident: DNS resolution failed
+with "nodname nor servname provided"). Guards copied from israel-news-digest's `run_daily.py`:
+file lock (`state/run.lock`), `MIN_HOURS_BETWEEN_RUNS` (~20h) idempotency window, and
+**abort without overwriting `data/latest.json`** if a stage yields nothing. Every
+abort path writes `stage: "failed"` + `reason` to `state/run_progress.json`.
 `places.load_places_as_activities()` reads `data/places.json` verbatim (no fetch,
 no enrich) — `build_places.py` is the only thing that writes it.
 
@@ -111,13 +124,13 @@ Each stage also checkpoints to `state/run_progress.json` (`_write_progress`) —
 which stage a crashed run reached, without grepping its log. `enrich.py` touches
 `run.lock`'s mtime after every batch (`_touch_lock`) so a merely-slow run (the
 enrich stage alone can run well over an hour) doesn't look dead. **`watchdog.py`**
-— its own LaunchAgent, every 30 min — is what actually recovers a crashed run:
-if the lock is stale *and* the last run never reached `stage: "published"`, it
-retries `run_weekly.py --force` (caffeinated, so it doesn't die the same way)
-with backoff, giving up after `WATCHDOG_MAX_RETRIES` so a genuinely broken run
-fails loud instead of retrying forever. This is why the 2026-09-14 run — killed
-mid-enrichment when the Mac slept, silently stale until someone asked — can't
-recur unnoticed: caffeinate now holds the sleep assertion for the whole run,
+— its own LaunchAgent, every 30 min — recovers two kinds of stuck runs: a stale lock
+with `stage != "published"` (a mid-enrichment crash), and a clean abort without a lock
+after a settle window, not superseded by a fresh `last_run.json`. It retries `run_weekly.py --force`
+(caffeinated, so it doesn't die the same way) with backoff per failure episode, giving up after
+`WATCHDOG_MAX_RETRIES` so a genuinely broken run fails loud instead of retrying forever.
+This is why the 2026-09-14 run — killed mid-enrichment when the Mac slept, silently stale until
+someone asked — can't recur unnoticed: caffeinate now holds the sleep assertion for the whole run,
 and if it dies anyway, the watchdog retries it the same morning.
 
 1. **`sources.py` — fetch.** Flat list of raw records tagged `_kind` =
@@ -138,7 +151,10 @@ and if it dies anyway, the watchdog retries it the same morning.
      `llm_runner.run_search_with_schema`, no Copilot fallback) that finds the
      big-name touring acts the agendas miss — internationally known concerts,
      musicals, major family shows anywhere in Belgium. Returns records with
-     classification already filled → they bypass `enrich.py`.
+     classification already filled → they bypass `enrich.py`. A `SearchFailed`
+     exception (search ran but errored) lands in `sources_failed`, never as
+     "claude_search(empty)", so a broken search pass doesn't silently pass through
+     as zero results.
    - `fetch_opendatasoft()`: OpenDataSoft v2.1 portals (`config.ODS_SOURCES`) —
      public, no auth, structured dated events. Covers Wallonia/Brabant Wallon,
      which UiTdatabank barely reaches. Dataset field names vary, so
@@ -203,14 +219,19 @@ and if it dies anyway, the watchdog retries it the same morning.
    caught by `_rule_conflict` (e.g. "€" in text but `price_type == free`) get a
    Sonnet second pass. Prompt/schema pairs in `automation/prompts/`
    (`enrich_*`, `verify_*`). A manual override that already carries `category` +
-   `blurb_en` bypasses the LLM entirely.
+   `blurb_en` bypasses the LLM entirely. Records whose required LLM fields were
+   defaulted (key missing from the model answer) are NOT cached and are re-asked
+   next run. `SCHEMA_VERSION` is currently 4 and is bumped when the schema or
+   prompt changes in a way that makes existing cached classifications wrong.
 
 5. **`publish.py`.** `build_payload` slims each activity to `_PUBLISHED_FIELDS`
    and adds `categories`/`feature_tags` count arrays for the filter chips.
    `write_latest` writes `data/latest.json`, mirrors to
    `frontend/public/data/latest.json` (gitignored — CI regenerates it), and
-   snapshots `data/archive/<run_id>.json`. `commit_and_push` commits latest +
-   archive + both caches + `manual_overrides.json` and pushes to `main`.
+   snapshots `data/archive/<run_id>.json`. The archive is pruned to keep only the
+   newest `config.ARCHIVE_KEEP` (8) snapshots. `commit_and_push` commits latest +
+   archive + both caches + `manual_overrides.json` and pushes to `main`, and cleans
+   up enrich scratch batches (`state/enrich_batch_*.json`) after a successful publish.
 
 ### Controlled vocabularies
 
@@ -224,8 +245,10 @@ a speaker of any language. `indoor_outdoor` (`indoor|outdoor|both`) is the
 rainy-day filter; "both" always survives the filter, as does an unset value, so
 an unclassified activity is never silently hidden. It supersedes the old
 places-only `indoor` boolean, which is still published for older clients but is
-`null` on every event. Anything added to `enrich._LLM_FIELDS` **must** also
-go in `enrich._default_fields` (a cache hit does
+`null` on every event. The three legacy age fields (`fits_4yo`, `fits_8yo`,
+`french_required`) were retired per the 2026-09-22 commit; old `age=4yo|8yo|both`
+URLs still map to the new age-range buckets via `lib/filters.ts`. Anything added to
+`enrich._LLM_FIELDS` **must** also go in `enrich._default_fields` (a cache hit does
 `cached.get(f, _default_fields(act)[f])` and would otherwise `KeyError`) and in
 `publish._PUBLISHED_FIELDS` (an unlisted field is silently dropped), and needs
 `enrich.SCHEMA_VERSION` bumped — it is folded into `_content_hash`, so without a
@@ -250,19 +273,44 @@ from `VITE_BASE` (the deploy workflow sets `/what2do_weekwnd/`; dev uses `/`).
   `indoorOnly && a.indoor !== true` test did (events all carry `indoor: null`).
   Every one of these predicates is written to **keep** a record whose field is
   missing — a filter should narrow the list, never silently hide data we failed
-  to classify. `paramsToFilters(search, base)` layers URL params
+  to classify. `paramsToFilters(search, base)` whitelists enum params and clamps
+  `km` to `[MIN_DISTANCE_KM, MAX_DISTANCE_KM]`; it layers URL params
   over saved prefs — **the URL always wins**, so shared links are stable.
+  `FilterState.onlySaved` (URL `saved=1`) is the starred-only view; it is a
+  view, not a preference, so it is URL-synced but never written to prefs, and
+  `applyFilters` deliberately ignores it — `App.tsx` applies it against the
+  saved-set (on the *ungrouped* list, so a saved non-representative member of a
+  series still surfaces).
 - `lib/locations.ts` — `HOME_LOCATIONS` presets, `haversineKm` (mirrors
   `automation/geo.py` exactly), and `withDistance`, which re-derives
   `distance_km` for the chosen origin in `App.tsx` **before** filtering. Because
   of that, the predicate, the sort and the card all still just read
   `activity.distance_km`; nothing else knows about origins. The shipped
   `distance_km` is the Leuven fallback.
-- `lib/format.ts` — date/price/distance display helpers.
-- `App.tsx` holds filter state, syncs it to `history.replaceState`, keeps a
-  `localStorage` saved-set (`weekwnd.saved.v1`) plus remembered filter prefs
-  (`weekwnd.prefs.v1` — origin, ages, languages), and splits activities into the
-  "weekend" tab (`date_kind != permanent`) vs "places" tab (`date_kind == permanent`).
+- `lib/series.ts` — `groupSeries(activities, today)`: pure, O(n). The pipeline
+  dedupes only on identical `date_start`, so a weekly series ("Baboes" ×5) ships
+  as N cards; this collapses same normalised title + city + `source` with
+  different dates into one representative (next upcoming) carrying
+  `other_dates[]` and `series_ids[]` (all members — "saved" means any member
+  is saved). Applied after filter+sort, before pagination, weekend tab only.
+  Both sides are pinned: same title in another city, another source, or the
+  same `date_start` never merge.
+- `lib/format.ts` — date/price/distance display helpers (+ `formatOtherDates`).
+- `lib/appState.ts` — pure helpers extracted from `App.tsx` so they can be
+  unit-tested without jsdom: `activeFilterCount` (mirrors `FilterBar`'s
+  `dirty` baseline — keep them agreeing), `isTabOnlyChange` (decides
+  pushState vs replaceState), `isActivitySaved` (series-aware).
+- `App.tsx` holds filter state, keeps a `localStorage` saved-set
+  (`weekwnd.saved.v1`) plus remembered filter prefs (`weekwnd.prefs.v1` —
+  origin, ages, languages). URL sync uses `pushState` only when the tab alone
+  changed and `replaceState` otherwise (so chips don't spam history), with a
+  `popstate` handler that re-derives state via `paramsToFilters` — Back
+  returns to the previous tab instead of leaving the site. Renders 24 cards,
+  then +24 via an IntersectionObserver sentinel with a "Show more" button
+  fallback; the count is reset whenever the filtered list changes. The tab bar
+  is a real `role="tablist"` with arrow-key roving focus. The empty state has
+  a "Clear filters" button and saved-specific copy; a fetch failure keeps the
+  chrome mounted and offers Retry (raw error in a `<details>`).
 - `components/ActivityCard.tsx` — title/description verbatim + a "Translate"
   link to Google Translate (`lib/data.ts#googleTranslateUrl`, source language
   taken from `primary_language`).
@@ -270,17 +318,22 @@ from `VITE_BASE` (the deploy workflow sets `/what2do_weekwnd/`; dev uses `/`).
   (multi-select) chip rows; use them rather than hand-rolling a fourth copy.
   Picking the "This Wednesday" chip also clears `hideClasses`, because the weekly
   classes that flag hides are most of what actually runs on the school half-day
-  (38 events vs 2 on a sample Wednesday).
+  (38 events vs 2 on a sample Wednesday). The mobile toggle shows the active filter
+  count.
 
-Placeholder PNG icons in `frontend/public/icons/` are solid tangerine squares —
-replace with real artwork.
+Icons in `frontend/public/icons/` are real artwork (made by `frontend/scripts/make-icons.mjs`).
+Color tokens: `tangerine.deep` is the AA-compliant text/badge color (plain tangerine fails
+WCAG AA contrast for text).
 
 ## Deploy (`.github/workflows/deploy-pages.yml`)
 
-Push to `main` touching `frontend/**` or `data/latest.json` → `npm ci` +
-`npm run build` in `frontend/` (with `data/latest.json` copied into
-`public/data/`) → `actions/deploy-pages`. The weekly pipeline's commit is what
-re-triggers this with fresh data.
+Push to `main` touching `frontend/**`, `data/latest.json`, `automation/**`, or
+`.github/workflows/**` → CI runs a `test` job (Python pytest + Node vitest) before
+building. If tests pass: `npm ci` + `npm run build` in `frontend/` (with
+`data/latest.json` copied into `public/data/`) → `actions/deploy-pages`. The
+weekly pipeline's commit is what re-triggers this with fresh data. `.nvmrc` pins
+Node version for CI and dev; `.python-version` pins Python. `.github/dependabot.yml`
+auto-opens PRs for dependency updates.
 
 ## Known gaps / next steps
 
@@ -337,9 +390,6 @@ re-triggers this with fresh data.
   named in the `claude_search` prompt as a place to look for English-language
   and expat family events, which is the slice it genuinely has (in editorial
   "What's on this week" prose, not structured data).
-- `_EVENT_LINK_RE` requires exactly 36 chars, but publiq still emits legacy
-  CDBIDs in an 8-4-4-16 uppercase shape (35). If Brussels yield looks
-  suspiciously low, loosen it to `[0-9A-Fa-f-]{32,40}`.
 - Agenda coverage is UiT (Flanders + the Dutch-speaking Brussels offer) plus the
   ODWB OpenDataSoft datasets for Wallonia. Francophone Brussels is still thin:
   events encoded into `agenda.brussels` are forwarded to UiT the next day, which
@@ -349,9 +399,14 @@ re-triggers this with fresh data.
   `UITDATABANK_ENABLED`. The UiTdatabank Search API would give real server-side
   radius filtering but the Basic plan is €125/year; the free test environment is
   worth using to measure coverage first.
-- Both school calendars are hardcoded and run out after the 2027-28 summer.
+- Both school calendars are hardcoded and run out after the 2028-29 school year.
   `SCHOOL_HOLIDAYS_NL` / `SCHOOL_HOLIDAYS_FR` in `config.py` need extending each
-  year; nothing warns you when they lapse, it just stops flagging holidays.
+  year; `test_config_calendars.py` fails 12 months before either calendar lapses,
+  and `normalize.py`'s `calendars_lapse_warning` logs a warning at runtime if they
+  expire. Flemish 2027-29 dates sourced from secondary sources (kampkompas.be,
+  gezondheid.be) — confirm against onderwijs.vlaanderen.be before extending further.
+- Link checking (`scripts/build_places.sh --links`) runs only over `data/places.json`,
+  not over agenda events. Some events carry `link_ok: null` because they are never checked.
 - The Claude CLI (`claude -p --json-schema`) exits non-zero under transient
   rate-limiting and falls back to the Copilot API. That path is now bounded by
   `COPILOT_TOTAL_TIMEOUT_SECONDS` — before it was, two batches in one run stalled
