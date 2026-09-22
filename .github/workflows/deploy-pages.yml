@@ -8,6 +8,10 @@ on:
       - 'data/latest.json'
       - 'automation/**'
       - '.github/workflows/**'
+  # PRs run the test job only (build/deploy are gated below) — otherwise the
+  # suites would first execute remotely *after* a merge.
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,8 +20,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
@@ -52,6 +56,7 @@ jobs:
 
   build:
     needs: test
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
