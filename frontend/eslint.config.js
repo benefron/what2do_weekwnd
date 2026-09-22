@@ -5,12 +5,16 @@ import tseslint from "typescript-eslint";
 import reactHooks from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
-// Non-type-checked linting only: typescript-eslint's typed rules need the
-// TS compiler's Program/type-checker API, which typescript-eslint hasn't
-// yet ported to TypeScript 7's native (Corsa/Go) compiler -- its own peer
-// range is still `>=4.8.4 <6.1.0` (see the deps upgrade log). Syntax-only
-// linting (typescript-eslint.configs.recommended, no `parserOptions.project`)
-// works fine against TS7's parser output, so that's what's wired up here.
+// TypeScript itself (package.json) is deliberately held at 6.x: typescript-eslint
+// (still 8.70.1 as of this writing) hard-refuses to load against TypeScript 7 --
+// https://github.com/typescript-eslint/typescript-eslint/issues/10940 is open.
+// Dependabot will propose bumping `typescript` to 7 once that issue closes and
+// typescript-eslint's peer range allows it; until then, such a PR should fail
+// CI at `npm run lint`, which is the signal we want.
+//
+// Non-type-checked linting only here: typed rules need the TS compiler's
+// Program/type-checker API (`parserOptions.project`), which isn't wired up.
+// typescript-eslint.configs.recommended (syntax-only) is enough for now.
 export default tseslint.config(
   {
     ignores: ["dist/**", "dev-dist/**", "node_modules/**"],
