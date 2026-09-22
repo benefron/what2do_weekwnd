@@ -242,3 +242,43 @@ def test_prune_archive_dir_not_exists(tmp_path):
     archive_dir = tmp_path / "nonexistent"
     removed = publish.prune_archive(archive_dir, keep=8)
     assert removed == []
+
+
+# ── commit_and_push ──────────────────────────────────────────────────────────
+# The run takes an hour+; a PR merged on GitHub meanwhile put local main behind
+# origin/main and the final `git push` was rejected as non-fast-forward after
+# every enrichment token had been paid for (2026-09-22). The push must be
+# preceded by a fetch + rebase, and a rebase conflict must abort cleanly.
+def _fake_git(calls, fail_on=None):
+    import subprocess
+
+    def _git(*args):
+        calls.append(args)
+        if fail_on and args[:len(fail_on)] == fail_on:
+            raise subprocess.CalledProcessError(1, ["git", *args], stderr="CONFLICT")
+        if args[:2] == ("status", "--porcelain"):
+            return subprocess.CompletedProcess(args, 0, stdout=" M data/latest.json\n", stderr="")
+        return subprocess.CompletedProcess(args, 0, stdout="", stderr="")
+
+    return _git
+
+
+def test_push_is_preceded_by_fetch_and_rebase_onto_origin_main(monkeypatch):
+    calls = []
+    monkeypatch.setattr(publish, "_git", _fake_git(calls))
+    assert publish.commit_and_push("2026-09-22_0937") is True
+    verbs = [c[0] for c in calls]
+    assert verbs.index("commit") < verbs.index("fetch") < verbs.index("rebase") < verbs.index("push")
+    assert ("rebase", "origin/main") in calls
+    assert ("push", "origin", "main") in calls
+
+
+def test_rebase_conflict_aborts_and_raises_instead_of_pushing(monkeypatch):
+    calls = []
+    monkeypatch.setattr(publish, "_git", _fake_git(calls, fail_on=("rebase", "origin/main")))
+    with pytest.raises(RuntimeError, match="did not rebase cleanly"):
+        publish.commit_and_push("2026-09-22_0937")
+    assert ("rebase", "--abort") in calls
+    assert ("push", "origin", "main") not in calls
+    # the local commit stays for a human; nothing was force-pushed
+    assert not any("--force" in c for c in calls)
