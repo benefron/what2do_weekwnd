@@ -111,11 +111,6 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
               {LANGUAGE_EMOJI[a.primary_language]} {LANGUAGE_LABELS[a.primary_language]}
             </span>
           )}
-          {a.french_required && (
-            <span className="rounded-full bg-berry/10 px-2 py-0.5 text-xs font-medium text-berry">
-              🇫🇷 French needed
-            </span>
-          )}
         </div>
 
         {a.feature_tags.length > 0 && (

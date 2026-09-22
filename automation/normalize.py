@@ -390,9 +390,9 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
         "all_day": False,
         "occurrences": [{"start": ds, "end": rec.get("date_end")}] if ds else [],
         "date_kind": "single",
-        "age_min": None,
-        "age_max": None,
-        "age_source": None,
+        "age_min": rec.get("age_min"),
+        "age_max": rec.get("age_max"),
+        "age_source": "claude_search" if rec.get("age_min") is not None else None,
         "audience": rec.get("audience", "family"),
         "raw_language": rec.get("primary_language"),
         "_terms": [],
@@ -412,11 +412,9 @@ def _from_claude_search(rec: dict, run_id: str) -> dict | None:
         "feature_tags": _search_tags(rec),
         "blurb_en": (rec.get("description_en") or title)[:160],
         "primary_language": rec.get("primary_language", "multi"),
-        "french_required": bool(rec.get("french_required")),
         "language_note": rec.get("notes_en"),
         "language_free": bool(rec.get("language_free")),
-        "fits_4yo": rec.get("audience") in ("kids", "family"),
-        "fits_8yo": rec.get("audience") in ("kids", "family", "teens_adults"),
+        "indoor_outdoor": rec.get("indoor_outdoor"),
         "is_special_event": True,
         "is_recurring_class": False,
         "confidence": "medium",
@@ -515,8 +513,7 @@ def _from_manual(ov: dict, run_id: str) -> dict:
         "price_note_nl": ov.get("price_note_nl"),
     }
     for k in ("category", "feature_tags", "blurb_en", "primary_language",
-              "french_required", "language_free", "is_special_event",
-              "fits_4yo", "fits_8yo"):
+              "language_free", "is_special_event"):
         if k in ov:
             act[k] = ov[k]
     return act

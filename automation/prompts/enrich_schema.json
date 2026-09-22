@@ -14,10 +14,7 @@
           "feature_tags",
           "age_min",
           "age_max",
-          "fits_4yo",
-          "fits_8yo",
           "primary_language",
-          "french_required",
           "language_free",
           "price_type",
           "blurb_en",
@@ -96,12 +93,6 @@
             "minimum": 0,
             "maximum": 99
           },
-          "fits_4yo": {
-            "type": "boolean"
-          },
-          "fits_8yo": {
-            "type": "boolean"
-          },
           "primary_language": {
             "type": "string",
             "enum": [
@@ -110,9 +101,6 @@
               "en",
               "multi"
             ]
-          },
-          "french_required": {
-            "type": "boolean"
           },
           "language_note": {
             "type": [

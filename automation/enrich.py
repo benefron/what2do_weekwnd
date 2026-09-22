@@ -1,5 +1,5 @@
-"""Claude enrichment: classify each activity (category, feature tags, age fit,
-language + French flag, price, English blurb, special-event flag).
+"""Claude enrichment: classify each activity (category, feature tags, age
+range, language, price, English blurb, special-event flag).
 
 Bulk pass on Haiku, batched ~25/call. A skip-unchanged cache keyed by
 id + hash(title+description+date) keeps steady-state runs to a handful of
@@ -33,11 +33,11 @@ def _touch_lock() -> None:
 # Bump whenever the schema or the prompt changes in a way that makes existing
 # cached classifications wrong. It is folded into the content hash, so a bump
 # re-enriches everything rather than silently replaying stale answers.
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 _LLM_FIELDS = (
-    "category", "feature_tags", "age_min", "age_max", "fits_4yo", "fits_8yo",
-    "primary_language", "french_required", "language_note", "language_free",
+    "category", "feature_tags", "age_min", "age_max",
+    "primary_language", "language_note", "language_free",
     "price_type", "price_min_eur", "price_max_eur", "blurb_en",
     "is_special_event", "is_recurring_class", "family_relevant", "confidence",
     "indoor_outdoor",
@@ -98,10 +98,7 @@ def _default_fields(act: dict) -> dict:
         "feature_tags": [],
         "age_min": act.get("age_min") if act.get("age_min") is not None else 0,
         "age_max": act.get("age_max") if act.get("age_max") is not None else 12,
-        "fits_4yo": True,
-        "fits_8yo": True,
         "primary_language": _primary_language_default(act),
-        "french_required": False,
         "language_note": None,
         "language_free": False,
         "price_type": act.get("price_type", "unknown"),

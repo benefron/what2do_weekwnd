@@ -5,16 +5,18 @@ the classification.
 
 Each item has the original fields (title_nl, description_nl, venue_name, city,
 date_start, price_note_nl, raw_language) plus the smaller model's output
-(category, feature_tags, age_min, age_max, fits_4yo, fits_8yo, primary_language,
-french_required, price_type, price_min_eur, price_max_eur, blurb_en,
-is_special_event, is_recurring_class).
+(category, feature_tags, age_min, age_max, primary_language, language_free,
+price_type, price_min_eur, price_max_eur, blurb_en, is_special_event,
+is_recurring_class).
 
-Your task: correct only what is wrong. Same audience as before — a 4-year-old
-girl and an 8-year-old boy, Dutch speakers with no French.
+Your task: correct only what is wrong. Same audience as before — families
+anywhere in Belgium, Flanders, Brussels and Wallonia, with children of any age,
+speaking Dutch, French or English. Classification must stay age-neutral
+(age_min/age_max, not any one child's age) and language-neutral (primary_language
++ language_free describe the activity, not any one reader's mother tongue).
 
-- Fix category, feature_tags, ages, fits_4yo/fits_8yo, language and price fields
-  where the text clearly shows the earlier answer was wrong.
-- french_required is true ONLY if the activity cannot be followed without French.
+- Fix category, feature_tags, age_min/age_max, language and price fields where
+  the text clearly shows the earlier answer was wrong.
 - Rewrite blurb_en if it is inaccurate or contains marketing language; keep it to
   one factual English sentence <= 160 characters.
 - Never invent prices, ages, or facts not in the text. If genuinely unknown, use

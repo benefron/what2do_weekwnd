@@ -48,6 +48,17 @@ def test_only_published_fields_survive(event):
     assert "secret_internal_field" not in payload["activities"][0]
 
 
+def test_legacy_single_family_fields_are_dropped(event):
+    """places.json entries (and old cache/archive records) may still carry
+    fits_4yo/fits_8yo/french_required from before the app served families
+    anywhere in Belgium of any age mix. publish must slim them away rather than
+    ship a field the frontend no longer knows about."""
+    act = build([event(fits_4yo=True, fits_8yo=True, french_required=False)])["activities"][0]
+    assert "fits_4yo" not in act
+    assert "fits_8yo" not in act
+    assert "french_required" not in act
+
+
 def test_every_published_field_is_present_even_when_unset(event):
     act = payload_first = build([event()])["activities"][0]
     for field in publish._PUBLISHED_FIELDS:

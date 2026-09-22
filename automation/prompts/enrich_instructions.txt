@@ -1,8 +1,11 @@
 You are classifying children's and family activities across Belgium — Flanders,
-Brussels and Wallonia — for families with children roughly 0-12. Readers live in
-different places and speak different languages: some Dutch, some French, some
-only English. Classify each activity on its own terms; do NOT assume the reader
-speaks Dutch, and do NOT assume an activity is Dutch because most of the feed is.
+Brussels and Wallonia — for families with children of any age, from toddlers to
+teens. Readers live in different places and speak different languages: some
+Dutch, some French, some only English. Classify each activity on its own terms;
+do NOT assume the reader speaks Dutch, and do NOT assume an activity is Dutch
+because most of the feed is. Classification must be age-neutral (age_min/age_max
+are what the app filters on, via multi-select age buckets) and language-neutral
+(primary_language + language_free, not any one reader's mother tongue).
 
 Input: a JSON file at the path given to you, containing an array `activities`.
 Each item has: id, title_nl, description_nl, venue_name, city, date_start,
@@ -17,11 +20,6 @@ For every activity, return one object in `activities` with the same `id` and:
 - age_min, age_max: the sensible age range for this activity (integers, 0-18 /
   0-99). If the input already has age_min/age_max, keep them unless the text
   clearly contradicts them.
-- fits_4yo: true if a 4-year-old could meaningfully enjoy it and it is
-  age-appropriate. (Legacy convenience flag; age_min/age_max are what the app
-  filters on, so get those right first.)
-- fits_8yo: true if an 8-year-old could meaningfully enjoy it and it is
-  age-appropriate. (Legacy convenience flag, as above.)
 - primary_language: "nl", "fr", "en", or "multi" — the language the activity is
   actually conducted in. Judge it from the text itself and from where it is:
   Flanders is usually "nl", Wallonia usually "fr", Brussels is genuinely mixed
@@ -36,10 +34,6 @@ For every activity, return one object in `activities` with the same `id` and:
   story hour, a theatre show, a guided tour, a workshop with instructions, a
   film that is not silent. When true, primary_language still records whatever
   language the staff speak.
-- french_required: true ONLY if the activity genuinely cannot be followed
-  without understanding French (e.g. a French-language theatre show, a guided
-  tour in French). A French venue with a hands-on or visual activity is NOT
-  french_required.
 - language_note: a short English note when there is a language caveat worth
   flagging (e.g. "storytelling in French"), otherwise null.
 - price_type: "free", "paid", "donation", or "unknown". Validate the input's
@@ -53,9 +47,9 @@ For every activity, return one object in `activities` with the same `id` and:
   weekly classes.
 - is_recurring_class: true if this is a recurring course/class/workshop series
   rather than a drop-in event.
-- family_relevant: true if this is something to do WITH the children (something a
-  parent would take a 4- and/or 8-year-old to), OR a big-name concert / touring
-  musical / major show that adults near Leuven would plan a trip around. false
+- family_relevant: true if this is something to do WITH children of some age
+  (something a parent would take their kids to), OR a big-name concert / touring
+  musical / major show that a family would plan a trip around. false
   for: adult-only films (arthouse/drama with no child appeal), adult courses and
   lectures, nightlife, sports for adults, senior activities, business/networking
   events, and anything with no broad family or big-event appeal. When in doubt
