@@ -5,7 +5,7 @@ import {
   PLACE_KIND_EMOJI, PLACE_KIND_LABELS,
 } from "../lib/labels";
 import { formatAgeRange, formatDate, formatDistance, formatOtherDates, formatPrice } from "../lib/format";
-import { googleTranslateUrl } from "../lib/data";
+import { googleMapsUrl, googleTranslateUrl } from "../lib/data";
 
 interface Props {
   activity: Activity;
@@ -17,6 +17,7 @@ interface Props {
 export default function ActivityCard({ activity: a, saved, originLabel, onToggleSave }: Props) {
   const price = formatPrice(a);
   const distance = formatDistance(a, originLabel);
+  const mapsUrl = googleMapsUrl(a);
   const [imgOk, setImgOk] = useState(true);
   const showImg = a.image_url && imgOk;
 
@@ -148,7 +149,21 @@ export default function ActivityCard({ activity: a, saved, originLabel, onToggle
           >
             Translate
           </a>
-          {a.venue_name && <span className="ml-auto truncate text-xs text-muted">{a.venue_name}</span>}
+          {mapsUrl ? (
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="ml-auto inline-flex min-w-0 items-center gap-1 py-2 text-xs text-muted hover:text-ink"
+              aria-label={`Open ${a.venue_name ?? "this location"} in Google Maps`}
+              title="Open in Google Maps"
+            >
+              <span aria-hidden="true">📍</span>
+              <span className="truncate underline decoration-line underline-offset-2">{a.venue_name ?? "Map"}</span>
+            </a>
+          ) : (
+            a.venue_name && <span className="ml-auto truncate text-xs text-muted">{a.venue_name}</span>
+          )}
         </div>
       </div>
     </article>
