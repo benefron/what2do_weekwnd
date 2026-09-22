@@ -67,8 +67,16 @@ export default function App() {
       .catch((e) => setError(String(e)));
   };
   useEffect(() => {
+    // Fetching data on mount is exactly the case React's own docs carve out
+    // as a legitimate effect (see "Fetching data" at
+    // https://react.dev/learn/you-might-not-need-an-effect) -- setError/
+    // setDataset only run inside the promise's .then/.catch, never
+    // synchronously in the effect body, so this isn't the render-cascade
+    // the rule is guarding against.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Intentionally run once on mount; `load` is stable across renders and
+    // re-running it on every render would refetch the whole dataset.
   }, []);
 
   // The weekend/holiday buckets are derived against "today" (Brussels). Keep a
@@ -140,6 +148,10 @@ export default function App() {
     } catch {
       /* private mode — ignore */
     }
+    // Deliberately narrower than the whole `filters` object: only
+    // origin/ages/languages are persisted, so a tab switch or search-term
+    // edit must not re-fire this write.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.origin, filters.ages, filters.languages]);
 
   const patch = (p: Partial<FilterState>) => setFilters((f) => ({ ...f, ...p }));
@@ -147,7 +159,11 @@ export default function App() {
   const toggleSave = (id: string) =>
     setSaved((s) => {
       const next = new Set(s);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
       return next;
     });
 
@@ -174,7 +190,11 @@ export default function App() {
             dataset.school_holidays_fr,
           )
         : [],
-    // todayKey is the daily re-bucket trigger (see the clock effect above).
+    // todayKey is the daily re-bucket trigger (see the clock effect above):
+    // withBuckets() defaults its `today` param to belgiumToday() itself, so
+    // todayKey is never read in the callback body above -- it's here only
+    // to force recomputation when the day rolls over.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dataset, origin, todayKey]
   );
 
@@ -203,8 +223,13 @@ export default function App() {
 
   // Reset pagination whenever the result set itself changes identity (a new
   // filter/tab/origin/search produced a different array), not on every
-  // render.
+  // render. This is React's documented "adjusting state when a prop
+  // changes" pattern (https://react.dev/learn/you-might-not-need-an-effect) --
+  // the alternative (a `key` per result set to remount) doesn't fit here
+  // since `visibleCount` needs to persist across the *same* result set as
+  // more of it renders.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleCount(PAGE_SIZE);
   }, [results]);
 
@@ -265,7 +290,7 @@ export default function App() {
         Skip to results
       </a>
 
-      <header className="border-b border-line bg-paper/85 backdrop-blur">
+      <header className="border-b border-line bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:px-6">
           <div className="flex items-baseline justify-between gap-4">
             <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -366,7 +391,7 @@ export default function App() {
               </button>
               <details className="mx-auto mt-4 max-w-sm text-left text-xs text-muted">
                 <summary className="cursor-pointer">Technical details</summary>
-                <pre className="mt-2 whitespace-pre-wrap break-words">{error}</pre>
+                <pre className="mt-2 whitespace-pre-wrap wrap-break-word">{error}</pre>
               </details>
             </div>
           ) : !dataset ? (
