@@ -8,6 +8,15 @@
 // snippet). A case with a `known_divergence` field is a confirmed, documented
 // disagreement between the two sides rather than a bug in this test.
 //
+// The fixture also embeds the two school calendars
+// (`holidays_nl`/`holidays_fr` -- `config.SCHOOL_HOLIDAYS_NL`/`_FR` verbatim,
+// in the same shape `publish.build_payload` ships as `school_holidays_nl`/
+// `_fr`). Read them from here rather than hand-copying config.py's tables
+// into this file a third time -- that hand-maintained copy is exactly the
+// drift this test exists to prevent, and the Python side's
+// `test_fixture_calendars_match_config` already asserts the embedded copy
+// matches config.py.
+//
 // Loaded via `fs.readFileSync` + `import.meta.url` rather than a JSON import:
 // the fixture lives outside `frontend/src` (tsconfig's `include` is just
 // `["src"]`), so a relative `import ... from "../../../automation/..."` would
@@ -38,36 +47,19 @@ interface Case {
   known_divergence?: string;
 }
 
-const cases: Case[] = JSON.parse(readFileSync(FIXTURE_PATH, "utf-8"));
+interface Fixture {
+  holidays_nl: SchoolHoliday[];
+  holidays_fr: SchoolHoliday[];
+  cases: Case[];
+}
+
+const fixture: Fixture = JSON.parse(readFileSync(FIXTURE_PATH, "utf-8"));
+const { holidays_nl: SCHOOL_HOLIDAYS_NL, holidays_fr: SCHOOL_HOLIDAYS_FR, cases } = fixture;
 
 function toBelgiumDate(iso: string): BelgiumDate {
   const [y, m, d] = iso.split("-").map(Number);
   return [y, m, d];
 }
-
-/** Holidays in the fixture activities are given by name+start+end directly on
- *  the case; but `_bucketize`/`computeBuckets` both consult the GLOBAL
- *  calendars (`config.SCHOOL_HOLIDAYS_NL/_FR`), not a per-activity field. So
- *  the parity test needs the same two calendars the fixture was generated
- *  against — copied here (see `automation/config.py`) rather than duplicating
- *  the whole config module in a browser test. */
-const SCHOOL_HOLIDAYS_NL: SchoolHoliday[] = [
-  { name: "zomervakantie", start: "2026-07-01", end: "2026-08-31" },
-  { name: "herfstvakantie", start: "2026-10-26", end: "2026-11-01" },
-  { name: "kerstvakantie", start: "2026-12-21", end: "2027-01-04" },
-  { name: "krokusvakantie", start: "2027-02-15", end: "2027-02-21" },
-  { name: "paasvakantie", start: "2027-03-29", end: "2027-04-11" },
-  { name: "zomervakantie", start: "2027-07-01", end: "2027-08-31" },
-];
-
-const SCHOOL_HOLIDAYS_FR: SchoolHoliday[] = [
-  { name: "grandes vacances", start: "2026-07-01", end: "2026-08-23" },
-  { name: "conge d'automne", start: "2026-10-19", end: "2026-11-01" },
-  { name: "vacances d'hiver", start: "2026-12-21", end: "2027-01-03" },
-  { name: "conge de detente", start: "2027-02-22", end: "2027-03-07" },
-  { name: "vacances de printemps", start: "2027-04-26", end: "2027-05-09" },
-  { name: "grandes vacances", start: "2027-07-03", end: "2027-08-22" },
-];
 
 function act(over: Partial<Activity>): Activity {
   return {
@@ -83,6 +75,11 @@ function act(over: Partial<Activity>): Activity {
 describe("bucket parity fixture (shared with automation/tests/test_bucket_parity.py)", () => {
   it("has at least 25 cases", () => {
     expect(cases.length).toBeGreaterThanOrEqual(25);
+  });
+
+  it("embeds both school calendars", () => {
+    expect(SCHOOL_HOLIDAYS_NL.length).toBeGreaterThan(0);
+    expect(SCHOOL_HOLIDAYS_FR.length).toBeGreaterThan(0);
   });
 
   for (const c of cases) {

@@ -238,3 +238,73 @@ def test_past_event_gets_no_later_bucket(make_activity):
         date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00",
         occurrences=[{"start": "2026-09-01T10:00:00"}]))
     assert "later" not in act["weekend_bucket"]
+
+
+# ── _is_future_or_ongoing (normalize_all's past-event filter) ───────────────
+# Regression: `future = act.get("date_kind") == "permanent" or not
+# act.get("occurrences")` treated ANY occurrence-less activity as future, full
+# stop. A stale multi-day span (date_start/date_end only, no `occurrences`)
+# from months ago rode straight through to `_bucketize`, which walks its
+# literal date_start..date_end span unconditionally and could still match a
+# long-dead day against a school-holiday table -- tagging a months-over event
+# `school_holiday` forever. Fixed to judge an occurrence-less activity by its
+# own date_end (falling back to date_start), same as an occurrence-bearing one
+# is judged by its occurrence dates.
+def test_occurrence_less_span_that_already_ended_is_dropped(make_activity):
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start="2026-06-28T10:00:00", date_end="2026-07-03T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is False
+
+
+def test_occurrence_less_span_ending_today_is_kept(make_activity):
+    """Good neighbour: a span whose date_end is today is not yet over."""
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start=f"{TODAY - timedelta(days=3)}T10:00:00",
+        date_end=f"{TODAY}T18:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_occurrence_less_span_still_ahead_is_kept(make_activity):
+    act = make_activity(
+        date_kind="multi_day", occurrences=[],
+        date_start="2026-11-01T10:00:00", date_end="2026-11-05T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_activity_with_no_dates_at_all_is_kept(make_activity):
+    """Good neighbour: a filter must never silently drop something we failed
+    to parse -- an occurrence-less activity with neither date_end nor
+    date_start stays in, rather than being assumed past."""
+    act = make_activity(
+        date_kind="multi_day", occurrences=[], date_start=None, date_end=None)
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_permanent_is_always_kept_regardless_of_dates(make_activity):
+    """Good neighbour: the permanent-place path is untouched by this fix."""
+    act = make_activity(
+        date_kind="permanent", occurrences=[],
+        date_start="2020-01-01T10:00:00", date_end="2020-01-01T10:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True
+
+
+def test_occurrence_bearing_past_only_activity_is_still_dropped(make_activity):
+    """Good neighbour: behaviour for activities that DO carry `occurrences` is
+    unchanged by this fix -- a past-only occurrence list is still dropped."""
+    act = make_activity(
+        occurrences=[{"start": "2026-09-01T10:00:00"}],
+        date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is False
+
+
+def test_occurrence_bearing_activity_with_one_future_date_is_kept(make_activity):
+    """Good neighbour: unchanged -- any single future occurrence keeps it."""
+    act = make_activity(
+        occurrences=[
+            {"start": "2026-09-01T10:00:00"},
+            {"start": f"{TODAY + timedelta(days=5)}T10:00:00"},
+        ],
+        date_start="2026-09-01T10:00:00", date_end="2026-09-01T12:00:00")
+    assert normalize._is_future_or_ongoing(act, TODAY) is True

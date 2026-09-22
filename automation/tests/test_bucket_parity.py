@@ -10,8 +10,20 @@ implementation's date arithmetic that isn't mirrored on the other side fails a
 test on whichever side drifted, instead of silently shipping a frontend that
 disagrees with the weekly feed.
 
-Regenerating the fixture (Python is the source of truth: run this snippet,
-hand-check a handful of cases, then re-run both suites):
+The fixture is `{"holidays_nl": [...], "holidays_fr": [...], "cases": [...]}`.
+`holidays_nl`/`holidays_fr` are `config.SCHOOL_HOLIDAYS_NL`/`_FR` verbatim, in
+the exact shape `publish.build_payload` ships them to the frontend as
+`school_holidays_nl`/`_fr` (`{"name", "start", "end"}`) — embedded in the
+fixture itself, not hand-copied into the TS test a third time. If config.py's
+calendars are edited without regenerating the fixture,
+`test_fixture_calendars_match_config` below fails loudly with a pointer here,
+instead of the two parity suites quietly agreeing with each other while both
+disagreeing with the real calendars.
+
+Regenerating the fixture (Python is the source of truth — run this, then
+hand-check a handful of cases, then re-run both suites; if a case OTHER than
+the one you meant to touch changes, stop and find out why before accepting
+it):
 
     import sys, json
     from datetime import date, timedelta
@@ -26,13 +38,13 @@ hand-check a handful of cases, then re-run both suites):
         return {k: act.get(k) for k in
                 ("weekend_bucket", "school_holiday_nl", "school_holiday_fr", "in_school_holiday")}
 
-    # then update fixtures/bucket_cases.json's "expected" for each case with
-    # bucketize(case["today"], case["activity"]).
-
-The full generator used to build the current fixture lives in this PR's
-scratch history; the one-liner above is enough to regenerate any single case
-by hand after editing `config.SCHOOL_HOLIDAYS_NL` / `_FR` or `_bucketize`
-itself.
+    path = "automation/tests/fixtures/bucket_cases.json"
+    data = json.load(open(path))
+    data["holidays_nl"] = config.SCHOOL_HOLIDAYS_NL
+    data["holidays_fr"] = config.SCHOOL_HOLIDAYS_FR
+    for case in data["cases"]:
+        case["expected"] = bucketize(case["today"], case["activity"])
+    json.dump(data, open(path, "w"), indent=2, ensure_ascii=False)
 """
 import json
 from datetime import date, timedelta
@@ -40,15 +52,17 @@ from pathlib import Path
 
 import pytest
 
+import config
 import normalize
 
 FIXTURE = Path(__file__).parent / "fixtures" / "bucket_cases.json"
-CASES = json.loads(FIXTURE.read_text(encoding="utf-8"))
+FIXTURE_DATA = json.loads(FIXTURE.read_text(encoding="utf-8"))
+CASES = FIXTURE_DATA["cases"]
 
 
 def _run(case):
     today = date.fromisoformat(case["today"])
-    window_end = today + timedelta(weeks=13)  # config.WINDOW_WEEKS
+    window_end = today + timedelta(weeks=config.WINDOW_WEEKS)
     act = dict(case["activity"])
     normalize._bucketize(act, today, window_end)
     return {
@@ -69,3 +83,21 @@ def test_bucket_case(case):
 
 def test_fixture_has_enough_coverage():
     assert len(CASES) >= 25
+
+
+def test_fixture_calendars_match_config():
+    """See the module docstring: the fixture embeds its own copy of the two
+    school calendars so the TS test can read them from the fixture instead of
+    hand-copying config.py's tables a third time. This is what catches a
+    config.py calendar edit (e.g. extending the tables for a new school year)
+    that forgot to regenerate the fixture -- a silent drift would otherwise
+    make both parity suites agree with each other while disagreeing with the
+    real calendars."""
+    assert FIXTURE_DATA["holidays_nl"] == config.SCHOOL_HOLIDAYS_NL, (
+        "bucket_cases.json's holidays_nl is stale -- regenerate the fixture "
+        "(see test_bucket_parity.py's module docstring)"
+    )
+    assert FIXTURE_DATA["holidays_fr"] == config.SCHOOL_HOLIDAYS_FR, (
+        "bucket_cases.json's holidays_fr is stale -- regenerate the fixture "
+        "(see test_bucket_parity.py's module docstring)"
+    )

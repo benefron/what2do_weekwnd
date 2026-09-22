@@ -139,6 +139,34 @@ def _occ_starts(act: dict) -> list[datetime]:
     return out
 
 
+def _is_future_or_ongoing(act: dict, today: date) -> bool:
+    """True unless `act` is demonstrably over. Used by `normalize_all` to drop
+    past events before `_bucketize` ever sees them.
+
+    `permanent` places are always kept. An activity carrying `occurrences` is
+    future if any occurrence date, or `date_end`, is today or later. An
+    activity with NO occurrences is judged by `date_end` (falling back to
+    `date_start`); if neither parses, it is kept — a filter must never
+    silently drop something we failed to parse.
+
+    Regression: this used to hardcode `future = True` for any occurrence-less
+    activity, full stop. A stale multi-day span (`date_start`/`date_end` only,
+    no `occurrences`) from months ago then never got dropped here — it rode
+    along to `_bucketize`, which walks its literal date_start..date_end span
+    unconditionally and could still match it against a school-holiday table,
+    tagging a long-dead event `school_holiday` forever."""
+    if act.get("date_kind") == "permanent":
+        return True
+    if act.get("occurrences"):
+        for d in _occ_dates(act):
+            if d >= today:
+                return True
+        de = _parse_any_date(act.get("date_end"))
+        return bool(de and de.date() >= today)
+    de = _parse_any_date(act.get("date_end")) or _parse_any_date(act.get("date_start"))
+    return de is None or de.date() >= today
+
+
 def _bucketize(act: dict, today: date, window_end: date) -> None:
     this_wknd, next_wknd = _weekend_windows(today)
     wednesday = _wednesday(today)
@@ -171,7 +199,16 @@ def _bucketize(act: dict, today: date, window_end: date) -> None:
             len(span) > 1 or act.get("all_day") or ds.hour == 0 or ds.hour >= 12
         ):
             buckets.add("wednesday")
-        days |= span
+        # Only the part of the span that can still land in a bucket matters --
+        # every bucket window (this/next weekend, the horizon, a holiday hit)
+        # sits within [today - 7, window_end], so a run that started long ago
+        # but is still going (or, now that normalize_all's future filter is
+        # fixed, a stale run that slips through some other path) contributes
+        # just its live tail here, not years of dead days. Mirrors
+        # buckets.ts#computeBuckets's identical clip exactly, so the two stay
+        # in parity (see automation/tests/fixtures/bucket_cases.json).
+        window_start = today - timedelta(days=7)
+        days |= {d for d in span if window_start <= d <= window_end}
 
     for d in days:
         if d in this_wknd:
@@ -561,14 +598,7 @@ def normalize_all(raw_records: list[dict], run_id: str) -> list[dict]:
     for act in kid:
         if (act.get("age_min") or 0) >= 16:
             continue
-        future = act.get("date_kind") == "permanent" or not act.get("occurrences")
-        for d in _occ_dates(act):
-            if d >= today:
-                future = True
-        de = _parse_any_date(act.get("date_end"))
-        if de and de.date() >= today:
-            future = True
-        if not future:
+        if not _is_future_or_ongoing(act, today):
             continue
         _bucketize(act, today, window_end)
         # drop things whose only future window is beyond our horizon
