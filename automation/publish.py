@@ -120,6 +120,28 @@ def commit_and_push(run_id: str) -> bool:
         log.info("nothing to commit for %s", run_id)
         return False
     _git("commit", "-m", f"weekend update — {run_id}")
+    _sync_with_remote()
     _git("push", "origin", "main")
     log.info("pushed weekend update for %s", run_id)
     return True
+
+
+def _sync_with_remote() -> None:
+    """Rebase the fresh data commit onto origin/main before pushing.
+
+    The run takes over an hour, and a PR merged on GitHub in the meantime
+    leaves local main behind — a plain push is then rejected as
+    non-fast-forward *after* every enrichment token has been paid for
+    (2026-09-22: two PRs merged mid-run). The data commit only touches
+    data/ and the caches, so rebasing over code merges is always clean; if
+    it somehow isn't, abort the rebase and fail loud rather than force-push
+    or leave the checkout mid-rebase for the next run to trip over.
+    """
+    _git("fetch", "origin", "main")
+    try:
+        _git("rebase", "origin/main")
+    except subprocess.CalledProcessError as exc:
+        _git("rebase", "--abort")
+        raise RuntimeError(
+            f"data commit did not rebase cleanly onto origin/main: {exc.stderr.strip()}"
+        ) from exc
