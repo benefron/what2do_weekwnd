@@ -124,11 +124,25 @@ def test_fwb_only_week_sets_fr_flag_only(make_activity):
 
 
 def test_shared_holiday_week_sets_both_flags(make_activity):
+    # Christmas is the one break both communities take in the same week.
+    act = bucketize(make_activity(
+        date_start="2026-12-23T10:00:00", date_end="2026-12-23T12:00:00",
+        occurrences=[{"start": "2026-12-23T10:00:00"}]))
+    assert act["school_holiday_nl"] == "kerstvakantie"
+    assert act["school_holiday_fr"] == "vacances d'hiver"
+
+
+def test_fr_only_autumn_week_flags_fr_but_not_nl(make_activity):
+    # 2026-10-28 used to pin "both flags" because SCHOOL_HOLIDAYS_NL had
+    # herfstvakantie a week early (26 Oct); the real week is 2-8 Nov (checked
+    # against a Leuven school's calendar), which does not overlap FWB's
+    # 19 Oct-1 Nov congé d'automne at all. Pin the corrected divergence.
     act = bucketize(make_activity(
         date_start="2026-10-28T10:00:00", date_end="2026-10-28T12:00:00",
         occurrences=[{"start": "2026-10-28T10:00:00"}]))
-    assert act["school_holiday_nl"] == "herfstvakantie"
+    assert act["school_holiday_nl"] is None
     assert act["school_holiday_fr"] == "conge d'automne"
+    assert act["in_school_holiday"] is True
 
 
 def test_term_time_event_has_no_holiday_flags(make_activity):

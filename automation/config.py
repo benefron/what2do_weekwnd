@@ -184,9 +184,9 @@ FEATURE_TAG_VOCAB = [
 # deliberately out of scope (~77k people, far east of the 200 km ring).
 SCHOOL_HOLIDAYS_NL = [
     {"name": "zomervakantie", "start": "2026-07-01", "end": "2026-08-31"},
-    {"name": "herfstvakantie", "start": "2026-10-26", "end": "2026-11-01"},
+    {"name": "herfstvakantie", "start": "2026-11-02", "end": "2026-11-08"},
     {"name": "kerstvakantie", "start": "2026-12-21", "end": "2027-01-04"},
-    {"name": "krokusvakantie", "start": "2027-02-15", "end": "2027-02-21"},
+    {"name": "krokusvakantie", "start": "2027-02-08", "end": "2027-02-14"},
     {"name": "paasvakantie", "start": "2027-03-29", "end": "2027-04-11"},
     {"name": "zomervakantie", "start": "2027-07-01", "end": "2027-08-31"},
     {"name": "herfstvakantie", "start": "2027-11-01", "end": "2027-11-07"},
