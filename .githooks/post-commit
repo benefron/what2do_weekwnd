@@ -1,0 +1,100 @@
+#!/bin/sh
+# living-ledger — post-commit hook: keep the ledger in sync automatically.
+#
+# Runs .claude/hooks/ledger-sync.sh after every commit. If that produced real new
+# entries, it commits the ledger — and ONLY the ledger — as a follow-up
+# "chore: ledger sync (auto, …)" commit, leaving every other staged or unstaged
+# file exactly where it was.
+#
+# Cannot loop: the follow-up commit is made with LEDGER_SYNC_IN_PROGRESS set (so the
+# re-entered hook returns immediately) and carries no trailers of its own (so a later
+# sync produces no change from it).
+#
+# ledger-template-version: 4
+set -u
+
+# 1. recursion guard (and the explicit opt-out for pipelines) -----------------
+[ -n "${LEDGER_SYNC_IN_PROGRESS:-}" ] && exit 0
+case "${LEDGER_SKIP:-}" in 1|true|yes) exit 0 ;; esac
+
+GITDIR="$(git rev-parse --git-dir 2>/dev/null)" || exit 0
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+
+# 2. mid-operation guard -----------------------------------------------------
+for m in REBASE_HEAD rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD BISECT_LOG; do
+  if [ -e "$GITDIR/$m" ]; then
+    echo "living-ledger: rebase/merge/cherry-pick in progress — ledger sync deferred."
+    exit 0
+  fi
+done
+
+SYNC="$ROOT/.claude/hooks/ledger-sync.sh"
+[ -x "$SYNC" ] || exit 0
+
+# 3. the two files the sync may write: the ledger (level 1) and the decisions log
+#    (level 2). Both are auto-committed together, and nothing else ever is.
+CONF="$ROOT/.claude/ledger.conf"
+LEDGER_REL=""
+DEC_REL=""
+if [ -f "$CONF" ]; then
+  LEDGER_REL="$(sed -n 's/^LEDGER_PATH=//p' "$CONF" | head -1)"
+  DEC_REL="$(sed -n 's/^DECISIONS_PATH=//p' "$CONF" | head -1)"
+fi
+if [ -z "$LEDGER_REL" ]; then
+  for c in docs_root/LEDGER.md docs/LEDGER.md LEDGER.md; do
+    [ -f "$ROOT/$c" ] && { LEDGER_REL="$c"; break; }
+  done
+fi
+[ -n "$LEDGER_REL" ] && [ -f "$ROOT/$LEDGER_REL" ] || exit 0
+if git -C "$ROOT" check-ignore -q -- "$LEDGER_REL" 2>/dev/null; then
+  echo "living-ledger: $LEDGER_REL is gitignored — it can never be committed. Un-ignore it" >&2
+  echo "               (e.g. add '!$LEDGER_REL' to .gitignore) or move it (LEDGER_PATH)." >&2
+  exit 0
+fi
+
+# DECISIONS.md rides along only if git can actually commit it.
+if [ -z "$DEC_REL" ] || [ ! -f "$ROOT/$DEC_REL" ] \
+   || git -C "$ROOT" check-ignore -q -- "$DEC_REL" 2>/dev/null; then
+  DEC_REL="$LEDGER_REL"
+fi
+
+# Both paths are quoted everywhere: repo and ledger paths may contain spaces.
+dirty() { git -C "$ROOT" status --porcelain -- "$LEDGER_REL" "$DEC_REL" 2>/dev/null; }
+
+# 4. hand-edit guard: never fold a human's uncommitted edit into an auto commit.
+#    Still sync — just do not commit.
+HANDEDITED=0
+[ -n "$(dirty)" ] && HANDEDITED=1
+
+# 5. sync ---------------------------------------------------------------------
+LEDGER_SYNC_IN_PROGRESS=1 "$SYNC" >/dev/null || true      # warnings (unknown ids) pass through
+
+if [ -n "$(dirty)" ]; then
+  if [ "$HANDEDITED" = 1 ]; then
+    echo "living-ledger: $LEDGER_REL has uncommitted changes of your own —"
+    echo "               not auto-committing. Review and commit it yourself."
+    exit 0
+  fi
+  SHORT="$(git -C "$ROOT" rev-parse --short HEAD 2>/dev/null || echo '?')"
+  SUBJ="$(git -C "$ROOT" log -1 --format=%s 2>/dev/null | cut -c1-50)"
+  git -C "$ROOT" add -- "$LEDGER_REL" "$DEC_REL" 2>/dev/null || true
+  # Pathspec form: commits ONLY these paths, ignoring (and preserving) whatever else
+  # happens to be staged.
+  if LEDGER_SYNC_IN_PROGRESS=1 git -C "$ROOT" commit --no-verify -q \
+       -m "chore: ledger sync (auto, after $SHORT: $SUBJ)" -- "$LEDGER_REL" "$DEC_REL"; then
+    echo "living-ledger: ledger updated and committed (after $SHORT)."
+  else
+    # never leave the ledger staged for the NEXT, unrelated commit to sweep up
+    git -C "$ROOT" reset -q -- "$LEDGER_REL" "$DEC_REL" 2>/dev/null || true
+    echo "living-ledger: could not commit the ledger update — it is left modified, unstaged." >&2
+  fi
+fi
+
+# 6. a new Directive:/Constraint:/Rejected: becomes a path-scoped rule right away
+[ -x "$ROOT/.claude/hooks/ledger" ] && "$ROOT/.claude/hooks/ledger" rules >/dev/null 2>&1
+
+# 7. keep the cross-repo mirror warm -----------------------------------------
+[ -x "$ROOT/.claude/hooks/ledger-rollup.sh" ] && \
+  LEDGER_SYNC_IN_PROGRESS=1 "$ROOT/.claude/hooks/ledger-rollup.sh" >/dev/null 2>&1
+
+exit 0

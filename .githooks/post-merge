@@ -1,0 +1,24 @@
+#!/bin/sh
+# living-ledger — post-merge hook. A merge (or a pull that merges) can bring in commits whose
+# trailers the ledger has not recorded yet — e.g. from a branch whose hooks never ran. git runs
+# this hook while the merge state (MERGE_HEAD) still exists, so nothing can be committed here:
+# it only SAYS so. The next commit's post-commit records them (the ledger is derived from
+# history, nothing is lost), and the session digest shows them meanwhile.
+#
+# ledger-template-version: 4
+set -u
+[ -n "${LEDGER_SYNC_IN_PROGRESS:-}" ] && exit 0
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+SYNC="$ROOT/.claude/hooks/ledger-sync.sh"
+[ -x "$SYNC" ] || exit 0
+LEDGER_REL="$(sed -n 's/^LEDGER_PATH=//p' "$ROOT/.claude/ledger.conf" 2>/dev/null | head -1)"
+[ -n "$LEDGER_REL" ] && [ -f "$ROOT/$LEDGER_REL" ] || exit 0
+V="$(mktemp 2>/dev/null || echo "${TMPDIR:-/tmp}/ll-merge-$$")"
+cp "$ROOT/$LEDGER_REL" "$V" && LL_LEDGER_FILE="$V" LL_DECISIONS_FILE="" "$SYNC" >/dev/null 2>&1
+N=$(( $(grep -c '^## ' "$V" 2>/dev/null || echo 0) - $(grep -c '^## ' "$ROOT/$LEDGER_REL" 2>/dev/null || echo 0) ))
+rm -f "$V"
+if [ "$N" -gt 0 ]; then
+  echo "living-ledger: this merge brought $N ledger entr$([ "$N" = 1 ] && echo y || echo ies) not yet in $LEDGER_REL —"
+  echo "               the next commit records them (or: git commit --allow-empty --only -m 'chore: record merged ledger entries' -m 'Ledger: none — recording entries a merge brought in')."
+fi
+exit 0

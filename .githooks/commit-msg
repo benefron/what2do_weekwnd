@@ -1,0 +1,29 @@
+#!/bin/sh
+# living-ledger — commit-msg hook: every commit relates to the ledger.
+#
+# A commit must carry at least one ledger trailer in its LAST paragraph — Decision: Finding:
+# Opens: Fixed: Action: Retires: Closes: Supersedes: Refs: — or the explicit opt-out
+# `Ledger: none — <reason, 3+ words>`. The rules live in .claude/hooks/_ledger_parse.py
+# (check-msg), which reads trailers with the SAME function the sync uses: a trailer the gate
+# accepts is a trailer the ledger records, and a ledger line the sync would miss is rejected
+# here instead of being silently dropped.
+#
+# Exempt: merges, reverts, fixup!/squash!/amend!, [bot] authors, LEDGER_SKIP=1, and the
+# EXEMPT_SUBJECTS / EXEMPT_AUTHORS regexes in .claude/ledger.conf (for pipelines and cron jobs
+# that commit). Escape hatch: git commit --no-verify.
+#
+# ledger-template-version: 4
+set -u
+MSGFILE="${1:-}"
+[ -n "$MSGFILE" ] && [ -f "$MSGFILE" ] || exit 0
+GITDIR="$(git rev-parse --git-dir 2>/dev/null)" || exit 0
+[ -e "$GITDIR/MERGE_HEAD" ] && exit 0
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+PARSER="$ROOT/.claude/hooks/_ledger_parse.py"
+[ -f "$PARSER" ] || exit 0
+PY="$(command -v python3 2>/dev/null || true)"
+if [ -z "$PY" ]; then
+  echo "living-ledger: python3 not on PATH — this commit's trailers were not checked." >&2
+  exit 0
+fi
+PYTHONDONTWRITEBYTECODE=1 exec "$PY" "$PARSER" check-msg "$MSGFILE" "$ROOT"

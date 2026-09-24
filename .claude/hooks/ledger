@@ -1,0 +1,10 @@
+#!/bin/bash
+# living-ledger — query this repo's ledger from any agent or terminal: the query side of the
+# Lore protocol (arXiv:2603.15566) over this repository.   .claude/hooks/ledger help
+#
+# ledger-template-version: 4
+set -uo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+. "$HERE/_ledger_lib.sh"
+PYTHONDONTWRITEBYTECODE=1 exec python3 "$HERE/_ledger_parse.py" cli "$(ll_repo_root)" "$@"
