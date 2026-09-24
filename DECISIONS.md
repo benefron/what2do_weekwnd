@@ -63,4 +63,5 @@ Do not hand-edit between the markers.
 | Date | Id | One line | Commit |
 |---|---|---|---|
 <!-- DECISIONS_LOG_START -->
+| 2026-09-24 | D-380e8c5 | this repo keeps a living ledger at LEDGER.md; every commit carries a ledger trailer | `7a133f0` |
 <!-- DECISIONS_LOG_END -->

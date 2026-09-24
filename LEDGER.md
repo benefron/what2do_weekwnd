@@ -126,3 +126,53 @@ restore a trailer-born one. Mark it `SUPERSEDED` instead.
 
 <!-- newest first; ledger-sync.sh inserts directly below this marker -->
 <!-- ENTRIES_START -->
+
+## D-380e8c5 · CLOSED · decision · - · 2026-09-24
+this repo keeps a living ledger at LEDGER.md; every commit carries a ledger trailer
+→ commit 7a133f0
+
+## D-0962e61 · CLOSED · decision · frontend-deps · 2026-09-22 (from e50ee01)
+TypeScript is held at 6.x until typescript-eslint supports 7; a Dependabot TS-7 PR failing `npm run lint` is the intended upgrade signal
+✗ rejected: a postinstall script symlinking a second TypeScript copy into nine packages plus `legacy-peer-deps=true` — too fragile for a linter, and the flag silences every future peer conflict
+→ frontend/eslint.config.js header, frontend/package.json
+→ commit e50ee01
+
+## D-83feaf7 · CLOSED · decision · watchdog · 2026-09-21 (from f5b5aef)
+the watchdog counts retries per failure episode, not per run_id: every retry spawns a fresh run_id, so a per-run_id counter reset each time and WATCHDOG_MAX_RETRIES was unreachable
+→ automation/watchdog.py `_episode_over`, WATCHDOG_EPISODE_RESET_SECONDS (24h)
+→ commit f5b5aef
+
+## D-984f4f8 · CLOSED · decision · enrich · 2026-09-22 (from 7895049)
+the LLM contract is age- and language-neutral; fits_4yo / fits_8yo / french_required are retired and SCHEMA_VERSION is 4, so every cached event was re-enriched once
+→ automation/prompts/*, automation/enrich.py; old `age=4yo|8yo|both` URLs still map to buckets in frontend/src/lib/filters.ts
+→ commit 7895049
+
+## D-9fbb505 · CLOSED · decision · publish · 2026-09-22 (from 1912a66)
+publish.commit_and_push fetches and rebases the data commit onto origin/main before pushing; a rebase conflict aborts and fails loud, never force-pushes
+→ automation/publish.py `_sync_with_remote`; two PRs merged during the 2026-09-22 run had left local main 7 commits behind
+→ commit 1912a66
+
+## D-a010ed0 · CLOSED · decision · enrich · 2026-09-21 (from dfe7e63)
+a record whose required LLM field was defaulted (key missing from the model answer) is never written to the enrichment cache; it keeps its defaults for the run and is re-asked next run
+→ automation/enrich.py `_has_defaulted_field`, `_REQUIRED_LLM_FIELDS`; same class of bug as the geocode cache's null-forever entries
+→ commit dfe7e63
+
+## D-2d36d33 · CLOSED · decision · frontend · 2026-09-22 (from 48fb4b1)
+the Google Maps link searches by venue name + address, not coordinates, so Maps opens the venue's own listing; lat,lng is only the fallback and no link is shown when nothing is locatable
+→ frontend/src/lib/data.ts `googleMapsUrl`
+→ commit 48fb4b1
+
+## F-b5b8edf · STANDING · finding · calendars · 2026-09-22 (from 0b6e161)
+SCHOOL_HOLIDAYS_NL had herfstvakantie 2026 (real: 2–8 Nov) and krokusvakantie 2027 (real: 8–14 Feb) each a week off; corrected against a Leuven school's published calendar. The 2027–29 entries come from secondary sources (kampkompas.be, gezondheid.be), not onderwijs.vlaanderen.be
+→ automation/config.py, automation/tests/test_config_calendars.py
+→ commit 0b6e161
+
+## F-3e92e14 · STANDING · finding · normalize · 2026-09-22 (from af01a02)
+normalize treated any activity with no occurrences[] as still in the future, so a multi-day span that ended weeks ago survived into the feed and got holiday flags; found by the shared bucket-parity fixture
+→ automation/normalize.py `_is_future_or_ongoing`, automation/tests/fixtures/bucket_cases.json
+→ commit af01a02
+
+## R-793cec5 · STANDING · retired · watchdog · 2026-09-21 (from 872ebe7)
+detecting a dead weekly run from the stale lock alone: run_weekly unlinks the lock in `finally` on every exit, so a clean abort (2026-09-21, DNS down after wake, 0 records) left no lock and the watchdog was blind
+→ superseded by the no-lock path in automation/watchdog.py and `stage: "failed"` in run_progress.json
+→ commit 872ebe7
