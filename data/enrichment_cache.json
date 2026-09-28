@@ -1,4 +1,24 @@
 {
+  "000d9bd8a9": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "A talk for parents about teenagers and social media use, risks, and the adolescent brain.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "e9395324409d",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "parenting talk in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "003c66e891": {
     "age_max": 3,
     "age_min": 0,
@@ -221,6 +241,26 @@
     "price_max_eur": null,
     "price_min_eur": null,
     "price_type": "unknown",
+    "primary_language": "nl"
+  },
+  "0183d6764b": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "Recreational badminton court reservation slot at a sports hall in Avelgem.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "e9d6b644939d",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5.0,
+    "price_min_eur": 0.0,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "01e3f5238b": {
@@ -1082,6 +1122,28 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "0624080165": {
+    "age_max": 99,
+    "age_min": 6,
+    "blurb_en": "A drumming-based group fitness workout suitable for children and adults in Olen.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "music"
+    ],
+    "hash": "227c4410a0f2",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 8.0,
+    "price_min_eur": 5.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "063371e5e8": {
     "age_max": 2,
     "age_min": 0,
@@ -1715,6 +1777,46 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "09adc073f6": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "An information evening for parents on positive parenting around children's eating struggles.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "5caf52ed4004",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
+  "0a1f747fdc": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "A running race in Jodoigne with a kids run option and 5 or 10km adult races.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "393fd808e1f0",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 8,
+    "price_min_eur": 3,
+    "price_type": "paid",
+    "primary_language": "fr"
+  },
   "0a37c3133e": {
     "age_max": 18,
     "age_min": 0,
@@ -1998,6 +2100,51 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "0ba6c7ea03": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A three-day funfair in Beringen centre with attractions and a Toy Story character meet-and-greet.",
+    "category": "kermis_carnaval",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "kermis",
+      "costumes"
+    ],
+    "hash": "76ab28f83775",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
+  "0bc085c3e3": {
+    "age_max": 99,
+    "age_min": 8,
+    "blurb_en": "An exhibition opening featuring sustainability-themed comic art by Cowboy Henk with talks and a comic drawing workshop.",
+    "category": "museum_exhibition",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "448ef4dba4a6",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "talks and discussion in Dutch",
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "0bc2d9bd18": {
     "age_max": 99,
     "age_min": 0,
@@ -2129,6 +2276,46 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "0c63cef210": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A birthday event at Autoworld museum featuring classic cars, supercars and a Cars and Coffee gathering.",
+    "category": "museum_exhibition",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "7f7b5bd25fbb",
+    "indoor_outdoor": "both",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 18.0,
+    "price_min_eur": 14.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "0c6e3ba80e": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "A documentary screening about an elderly woman living alone on a remote Canadian farm.",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "d1e0fb747291",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Documentary likely with subtitles, not silent",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12.0,
+    "price_min_eur": 10.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "0c6f23989a": {
     "age_max": 9,
     "age_min": 4,
@@ -2176,6 +2363,26 @@
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
+  },
+  "0ca3f57831": {
+    "age_max": 18,
+    "age_min": 12,
+    "blurb_en": "A monthly afternoon screening of the French film L'Innocent for adults with subtitles.",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "6c97a9fddfe4",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "French film with Dutch/French subtitles, for adults",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 3.0,
+    "price_min_eur": 3.0,
+    "price_type": "paid",
+    "primary_language": "fr"
   },
   "0ca4184806": {
     "age_max": 99,
@@ -2483,6 +2690,26 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 0,
     "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "0dc01ba926": {
+    "age_max": 2,
+    "age_min": 0,
+    "blurb_en": "A drop-in play and meeting point for toddlers and their parents or grandparents in Lier.",
+    "category": "playground_indoor",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "df7181e07054",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -3201,6 +3428,26 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "126438920b": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "Recreational badminton court reservation slot at a sports hall in Avelgem.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "f109ef2f5e95",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5.0,
+    "price_min_eur": 0.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "12685eab07": {
     "age_max": 12,
     "age_min": 8,
@@ -3663,21 +3910,37 @@
     "price_type": "paid",
     "primary_language": "en"
   },
+  "1534466311": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "An open cinema screening of the comedy-drama The Invite for adults.",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "2c1bc21cf472",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Film screening, likely with dialogue",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12.0,
+    "price_min_eur": 10.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "1536984cb5": {
-    "age_max": 12,
+    "age_max": 99,
     "age_min": 0,
-    "blurb_en": "Village fair with games, entertainment, and activities for families.",
+    "blurb_en": "A village fair (kermesse) held in Marenne at the village hall and main street.",
     "category": "kermis_carnaval",
-    "confidence": "high",
+    "confidence": "medium",
     "family_relevant": true,
     "feature_tags": [
-      "kermis",
-      "food"
+      "kermis"
     ],
-    "fits_4yo": true,
-    "fits_8yo": true,
-    "french_required": false,
-    "hash": "b710af8288d9",
+    "hash": "b085dec5e0fd",
     "indoor_outdoor": "both",
     "is_recurring_class": false,
     "is_special_event": true,
@@ -6511,6 +6774,26 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "255aa17b63": {
+    "age_max": 12,
+    "age_min": 6,
+    "blurb_en": "A supervised homework class for schoolchildren.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "e3ba5ca6973e",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 3.5,
+    "price_min_eur": 3.5,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "255ed1379f": {
     "age_max": 11,
     "age_min": 9,
@@ -7275,6 +7558,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "291f3033e9": {
+    "age_max": 99,
+    "age_min": 6,
+    "blurb_en": "A casual board game afternoon at a local service centre in Duffel.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "3e48124992d5",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "2927959514": {
     "age_max": 99,
     "age_min": 4,
@@ -7850,6 +8153,28 @@
     "price_max_eur": 7,
     "price_min_eur": 2,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "2ba4e6e9fe": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A neighbourhood cooking event where a resident prepares paella for visitors at a community centre.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food"
+    ],
+    "hash": "e1c2bf441266",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "2bb0d0ae14": {
@@ -9186,6 +9511,26 @@
     "price_min_eur": null,
     "price_type": "unknown",
     "primary_language": "fr"
+  },
+  "31f708e64d": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "An info evening for parents on preventing mealtime struggles with children's eating problems.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "8636f9497420",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "parenting talk in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
   },
   "31fdaec2a6": {
     "age_max": 18,
@@ -11477,6 +11822,50 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "3f063be7bd": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A Japanese cultural festival in Leuven with food, workshops, kids activities and traditional arts.",
+    "category": "festival",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food",
+      "crafts",
+      "music"
+    ],
+    "hash": "eee4355945fe",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Multilingual event including English and Japanese elements",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "multi"
+  },
+  "3f0c719ae6": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "An academic lecture by writer Tijl Nuyts about writing in Belgium.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "bcaf4c930cfc",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "3f6d6e0270": {
     "age_max": 12,
     "age_min": 5,
@@ -13147,6 +13536,28 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "46f0bba934": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "A cooking workshop about preparing healthy one-pan meals, part of a municipal health program.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "food"
+    ],
+    "hash": "78c036d61a9a",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": "cooking instructions given in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 30.0,
+    "price_min_eur": 30.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "4730546c7c": {
     "age_max": 99,
     "age_min": 12,
@@ -14000,6 +14411,28 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "4bacaa9c5e": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "A talk for parents about how AI tools can help or hinder teenagers with studying.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "science"
+    ],
+    "hash": "bb4c98f2a6fd",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5.0,
+    "price_min_eur": 0.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "4baf0828ba": {
     "age_max": 15,
     "age_min": 6,
@@ -14294,6 +14727,28 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 7,
     "price_min_eur": 7,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "4cd152b699": {
+    "age_max": 99,
+    "age_min": 6,
+    "blurb_en": "A wool washing craft introduction workshop for children aged 6 and up with an accompanying adult in Lier.",
+    "category": "museum_workshop",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "8aed1884ad5c",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 15.0,
+    "price_min_eur": 15.0,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -18572,6 +19027,29 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "656af6065a": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "A performance showing with flamenco dance, music and dinner exploring nostalgia and memory in Ghent.",
+    "category": "theatre_puppetry",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [
+      "dance",
+      "music"
+    ],
+    "hash": "6b975e14e634",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 38.0,
+    "price_min_eur": 38.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "6579c9b2d3": {
     "age_max": 99,
     "age_min": 0,
@@ -19458,6 +19936,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "6997b9fcfb": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "An open house day at a community hub in Forest with brunch, workshops, circus, music and cabaret.",
+    "category": "festival",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food",
+      "music"
+    ],
+    "hash": "ce80469a6465",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "699f8ce31a": {
     "age_max": 12,
     "age_min": 8,
@@ -20100,6 +20601,26 @@
     "price_max_eur": 240.0,
     "price_min_eur": 0.0,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "6d817d30d2": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "A lecture evening about growing up between two cultures and its impact on mental health.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "20913faefd66",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "lecture series in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "6d9b641e5c": {
@@ -20836,6 +21357,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "72b3e8346c": {
+    "age_max": 11,
+    "age_min": 6,
+    "blurb_en": "A sports activity session for children at a sports hall.",
+    "category": "sports_active",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "44f031c72784",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 50.0,
+    "price_min_eur": 50.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "72f103bfe8": {
     "age_max": 99,
     "age_min": 5,
@@ -20882,6 +21423,26 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "7343618537": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "Screening of the period drama Sense and Sensibility at a Brussels cinema.",
+    "category": "film",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "13cc32a307d5",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Period drama film, likely English dialogue with subtitles",
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "7356285a85": {
@@ -21829,6 +22390,28 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "7996880c58": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "A monthly knitting and crochet club at the library open to all skill levels.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "a40eb15592e6",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": "knitting club conducted in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "79efc6d744": {
     "age_max": 65,
     "age_min": 12,
@@ -21871,6 +22454,28 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "7a0747a7d9": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A four-day food festival with croques, spaghetti, and scampi organized by a local political youth center.",
+    "category": "festival",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food"
+    ],
+    "hash": "33df3cfd1195",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "7a32382c6b": {
@@ -22275,6 +22880,26 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "7bbd818cfa": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "A group minigolf game session for participants to play together.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "26394be803fe",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 6.0,
+    "price_min_eur": 6.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "7bccef2626": {
     "age_max": 18,
     "age_min": 12,
@@ -22510,6 +23135,28 @@
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
+  },
+  "7d76a34b1f": {
+    "age_max": 8,
+    "age_min": 3,
+    "blurb_en": "A pyjama storytelling evening in Jodoigne themed on travel and adventure, kids can bring their cuddly toy.",
+    "category": "storytelling",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "hash": "1f28634c8195",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "storytelling in French",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "fr"
   },
   "7d76b7fe92": {
     "age_max": 18,
@@ -25584,6 +26231,28 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "8fbd38317e": {
+    "age_max": 99,
+    "age_min": 10,
+    "blurb_en": "A cultural storytelling evening where residents share stories about Ukraine and their heritage.",
+    "category": "storytelling",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories"
+    ],
+    "hash": "7c4a8d93b378",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "storytelling in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "8ffe905948": {
     "age_max": 18,
     "age_min": 6,
@@ -25716,6 +26385,26 @@
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
+  },
+  "91dfae001e": {
+    "age_max": 18,
+    "age_min": 9,
+    "blurb_en": "A wordless physical theatre performance exploring emotion and sound through movement.",
+    "category": "theatre_puppetry",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "817a7f0781ba",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": "Wordless physical theatre performance",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 18.0,
+    "price_min_eur": 3.0,
+    "price_type": "paid",
+    "primary_language": "multi"
   },
   "91eb34eca2": {
     "age_max": 12,
@@ -26131,6 +26820,48 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "941bc62335": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "A talk by historian Vincent Dujardin about his new biography of King Baudouin.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "3d646d0134a7",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "lecture conducted in French",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "fr"
+  },
+  "94320dc472": {
+    "age_max": 99,
+    "age_min": 10,
+    "blurb_en": "A creative workshop in Antwerp for customizing and painting sneakers.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "9a1886d0d762",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "94494de02d": {
     "age_max": 18,
     "age_min": 0,
@@ -26153,6 +26884,28 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 0,
     "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "9478555ecb": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "A workshop teaching the basics of AI, its possibilities and limitations, for adults.",
+    "category": "library_workshop",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "science"
+    ],
+    "hash": "57e9435550e3",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -26341,6 +27094,26 @@
     "language_note": null,
     "model": "claude-haiku-4-5-20251001+verify",
     "price_max_eur": null,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "95584a8023": {
+    "age_max": 16,
+    "age_min": 4,
+    "blurb_en": "A free-play pumptrack for cycling, scootering, and skateboarding as part of a summer play program.",
+    "category": "sports_active",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "0c1b50e93968",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
@@ -26888,6 +27661,28 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "98bd0d750a": {
+    "age_max": 11,
+    "age_min": 10,
+    "blurb_en": "A STEM introduction event for children to explore science, technology and math activities.",
+    "category": "museum_workshop",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "science"
+    ],
+    "hash": "024a86fe60d1",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12.0,
+    "price_min_eur": 12.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "98d0324c9f": {
     "age_max": 99,
     "age_min": 6,
@@ -27309,6 +28104,28 @@
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "9adab05c3a": {
+    "age_max": 99,
+    "age_min": 12,
+    "blurb_en": "A small stained-glass Tiffany technique workshop for beginners aged 12 and up.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "95e934992b89",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "9afdb39889": {
@@ -28666,6 +29483,28 @@
     "model": "claude-haiku-4-5-20251001+verify",
     "price_max_eur": 0,
     "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "a1788e2566": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "An introductory reading circle session in Dutch for language learners at a library.",
+    "category": "library_workshop",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "stories"
+    ],
+    "hash": "35665af060a1",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Requires Dutch level 2.2",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -31138,6 +31977,28 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "b066d72ba9": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A Turkish food festival in Leuven offering traditional dishes for the whole family.",
+    "category": "market_food",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food"
+    ],
+    "hash": "f07a817098b0",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 10.0,
+    "price_min_eur": 0.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "b07aa8dc1a": {
     "age_max": 99,
     "age_min": 8,
@@ -31754,6 +32615,28 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "b3e5fc7738": {
+    "age_max": 2,
+    "age_min": 0,
+    "blurb_en": "A support gathering for new and expecting parents with lunch and advice from midwives and psychologists.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food"
+    ],
+    "hash": "02a719a5ef3e",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": "Bilingual Dutch/French support session",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "multi"
+  },
   "b3f450389c": {
     "age_max": 2,
     "age_min": 0,
@@ -32135,6 +33018,28 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 0,
     "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "b7a5950dcc": {
+    "age_max": 14,
+    "age_min": 10,
+    "blurb_en": "A comic-drawing workshop with artist Herr Seele followed by an exhibition opening.",
+    "category": "museum_workshop",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "262118543d08",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -33757,6 +34662,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "c169a627ce": {
+    "age_max": 99,
+    "age_min": 4,
+    "blurb_en": "A volunteer forest maintenance evening clearing cut grass in the 12 Apostelenbos in Tervuren.",
+    "category": "nature_farm",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "ce0f0ae17e14",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "c1c62a3d5e": {
     "age_max": 9,
     "age_min": 8,
@@ -34029,6 +34954,28 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "c2d2f10ad0": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "A wordless circus theatre school performance combining juggling, acrobatics and light effects.",
+    "category": "theatre_puppetry",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "magic"
+    ],
+    "hash": "2f856da46edb",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": "Wordless circus theatre performance",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5.0,
+    "price_min_eur": 5.0,
+    "price_type": "paid",
+    "primary_language": "multi"
+  },
   "c2eaff7248": {
     "age_max": 12,
     "age_min": 6,
@@ -34164,6 +35111,28 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 35,
     "price_min_eur": 35,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "c35ab706d2": {
+    "age_max": 11,
+    "age_min": 6,
+    "blurb_en": "A five-session after-school STEAM workshop series covering electricity, Makey Makey and robotics.",
+    "category": "museum_workshop",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "science"
+    ],
+    "hash": "87a34c94c504",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 50.0,
+    "price_min_eur": 50.0,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -34608,6 +35577,28 @@
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "multi"
+  },
+  "c6d8101c19": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "A sewing workshop in Mere to make one of four accessory projects, for those with basic sewing skills.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "89c296f4613a",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
   },
   "c75f8ad244": {
     "age_max": 19,
@@ -36714,6 +37705,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "d047e0a9a6": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A biweekly cycling club outing of about 30km with a café stop.",
+    "category": "sports_active",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "91db9c8ba45f",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "d048d2f7fc": {
     "age_max": 99,
     "age_min": 4,
@@ -36896,6 +37907,51 @@
     "is_special_event": true,
     "language_free": false,
     "language_note": "tour in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "d224883c62": {
+    "age_max": 96,
+    "age_min": 6,
+    "blurb_en": "A recurring dance-aerobics class called K'Robics at Planeet Mars in Ghent.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "dance"
+    ],
+    "hash": "2da8114bfbdd",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 11.0,
+    "price_min_eur": 11.0,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "d224be54e5": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A weekend festival in the park with mussels, a brass band and youth orchestra concerts.",
+    "category": "festival",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "food",
+      "music"
+    ],
+    "hash": "a258a7b7ef3e",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": true,
+    "language_note": null,
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 0.0,
     "price_min_eur": 0.0,
@@ -38099,25 +39155,22 @@
     "primary_language": "nl"
   },
   "d8ae17f1ff": {
-    "age_max": 12,
-    "age_min": 9,
-    "blurb_en": "Debate workshops teaching argumentation, critical thinking and public speaking for grades 4-6.",
-    "category": "library_workshop",
-    "confidence": "high",
+    "age_max": 15,
+    "age_min": 6,
+    "blurb_en": "An after-school debate workshop series for children to build argumentation and speaking skills.",
+    "category": "other",
+    "confidence": "medium",
     "family_relevant": true,
     "feature_tags": [],
-    "fits_4yo": false,
-    "fits_8yo": false,
-    "french_required": false,
-    "hash": "98950ecaf1b1",
+    "hash": "6ef356e3f7d2",
     "indoor_outdoor": "indoor",
     "is_recurring_class": true,
     "is_special_event": false,
     "language_free": false,
     "language_note": null,
     "model": "claude-haiku-4-5-20251001",
-    "price_max_eur": 90,
-    "price_min_eur": 90,
+    "price_max_eur": 90.0,
+    "price_min_eur": 90.0,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -38208,6 +39261,28 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 60,
     "price_min_eur": 60,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "d958289184": {
+    "age_max": 99,
+    "age_min": 16,
+    "blurb_en": "A fashion, music and culture evening in Brussels launching a streetwear magazine with a runway show.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "music"
+    ],
+    "hash": "f9f016b9c1b0",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 20.0,
+    "price_min_eur": 12.0,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -38385,6 +39460,28 @@
     "price_min_eur": null,
     "price_type": "unknown",
     "primary_language": "fr"
+  },
+  "d9fed3769e": {
+    "age_max": 99,
+    "age_min": 8,
+    "blurb_en": "A stone painting craft afternoon for adults and older children in Stevoort.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "361b8405c911",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 30.0,
+    "price_min_eur": 25.0,
+    "price_type": "paid",
+    "primary_language": "nl"
   },
   "d9ffb77294": {
     "age_max": 99,
@@ -40659,6 +41756,46 @@
     "price_type": "unknown",
     "primary_language": "nl"
   },
+  "e4e02fb9f8": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "A talk on humor and dementia for caregivers of people with dementia in Oudenburg.",
+    "category": "other",
+    "confidence": "high",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "99787243a5e1",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "e517dbeaf7": {
+    "age_max": 18,
+    "age_min": 8,
+    "blurb_en": "A free trial martial arts lesson (Kai Jitsu Ryu) offered on Mondays and Fridays in September.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "20a89deabfd6",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": false,
+    "language_note": "instructions given in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "e52ad3b163": {
     "age_max": 99,
     "age_min": 6,
@@ -40816,6 +41953,26 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 0,
     "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
+  "e5aa4b1589": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A free Rummikub game session at a local community center.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "873fa7cd12a8",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
     "price_type": "free",
     "primary_language": "nl"
   },
@@ -41333,6 +42490,26 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "e88cb4737c": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "A recreational badminton session with court reservations at a sports hall.",
+    "category": "sports_active",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "c7bedb9bd347",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": true,
+    "is_special_event": false,
+    "language_free": true,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 5.0,
+    "price_min_eur": 0,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "e8a7936c2a": {
@@ -42969,6 +44146,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "f296bad299": {
+    "age_max": 3,
+    "age_min": 0,
+    "blurb_en": "A puppet show about a playful character trying to make soup, followed by free soup for children.",
+    "category": "theatre_puppetry",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "puppet_show",
+      "food"
+    ],
+    "hash": "10a924448ad4",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Puppet show narrated in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0.0,
+    "price_min_eur": 0.0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "f2b219eac9": {
     "age_max": 12,
     "age_min": 4,
@@ -43336,6 +44536,28 @@
     "price_max_eur": 22,
     "price_min_eur": 22,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "f4cf364df3": {
+    "age_max": 99,
+    "age_min": 10,
+    "blurb_en": "A creative workshop in Antwerp for customizing and painting sneakers, second session.",
+    "category": "other",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [
+      "crafts"
+    ],
+    "hash": "3fef97972db3",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
     "primary_language": "nl"
   },
   "f4d8ca5b3e": {
@@ -43889,6 +45111,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "f860f28072": {
+    "age_max": 99,
+    "age_min": 14,
+    "blurb_en": "A Japanese drama film about a boy raised by a yakuza boss alongside his son.",
+    "category": "film",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "812954608b90",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "Japanese drama film",
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "f8a3ac679d": {
     "age_max": 99,
     "age_min": 4,
@@ -44327,6 +45569,28 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "fb0a2d8b23": {
+    "age_max": 99,
+    "age_min": 14,
+    "blurb_en": "An author talk with novelist Maggie O'Farrell about her historical novel Land.",
+    "category": "other",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "stories"
+    ],
+    "hash": "3b708bb1cce3",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "author talk, likely conducted in mixed languages",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12.0,
+    "price_min_eur": 12.0,
+    "price_type": "paid",
+    "primary_language": "multi"
+  },
   "fb592e4a7d": {
     "age_max": 11,
     "age_min": 6,
@@ -44396,6 +45660,28 @@
     "price_max_eur": 324,
     "price_min_eur": 324,
     "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "fb9d055115": {
+    "age_max": 99,
+    "age_min": 18,
+    "blurb_en": "A webinar for teachers and parents about Daisy audiobooks for children with dyslexia.",
+    "category": "library_workshop",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [
+      "stories"
+    ],
+    "hash": "9fce26dbd89e",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": "webinar conducted in Dutch",
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
     "primary_language": "nl"
   },
   "fbbc3e5c6e": {
