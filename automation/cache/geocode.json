@@ -323,6 +323,10 @@
     "lat": null,
     "lng": null
   },
+  "City centre (Sainte-Catherine, Grand-Place, De Brouckère) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "City centre (Sint-Baafsplein to Korenmarkt) Ghent België": {
     "lat": null,
     "lng": null
@@ -692,6 +696,10 @@
     "lng": 4.7948157
   },
   "Mini-Europe Brussel België": {
+    "lat": 50.8941641,
+    "lng": 4.3387436
+  },
+  "Mini-Europe Brussels België": {
     "lat": 50.8941641,
     "lng": 4.3387436
   },
@@ -1215,6 +1223,10 @@
     "lat": null,
     "lng": null
   },
+  "Théâtre National Wallonie-Bruxelles Brussels België": {
+    "lat": 50.8547606,
+    "lng": 4.3550879
+  },
   "Théâtre Royal de Mons Mons België": {
     "lat": 50.4553157,
     "lng": 3.9523597
@@ -1254,6 +1266,10 @@
   "Vakantiepark Molenheide Houthalen-Helchteren België": {
     "lat": 51.0823453,
     "lng": 5.3975219
+  },
+  "Various cinemas Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "Various locations Antwerp België": {
     "lat": null,
