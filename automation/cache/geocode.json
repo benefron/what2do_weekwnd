@@ -847,6 +847,10 @@
     "lat": 50.6447297,
     "lng": 5.5730821
   },
+  "Place Sainte-Catherine & Place de Brouckère Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "Place d'Armes Namur België": {
     "lat": 50.4631583,
     "lng": 4.8674741
@@ -874,6 +878,10 @@
   "Play Beach Gent België": {
     "lat": 51.037108,
     "lng": 3.7680819
+  },
+  "Plopsa Ardennes Vielsalm België": {
+    "lat": null,
+    "lng": null
   },
   "Plopsa Coo Stavelot België": {
     "lat": 50.3951064,
@@ -1286,6 +1294,10 @@
   "Veugenstraat 48, 3690 Zutendaal": {
     "lat": 50.947827,
     "lng": 5.5516792
+  },
+  "Vielsalm België": {
+    "lat": 50.2842154,
+    "lng": 5.9162783
   },
   "Vieuxville, 4190 Ferrières": {
     "lat": 50.3955089,
