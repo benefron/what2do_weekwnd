@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   AGE_BUCKETS,
   DEFAULT_FILTERS,
@@ -70,6 +70,19 @@ function act(over: Partial<Activity> = {}): Activity {
 const base = (over: Partial<FilterState> = {}): FilterState => ({
   ...DEFAULT_FILTERS,
   ...over,
+});
+
+// Regression: applyFilters drops past events via isPastEvent(a), which
+// defaults to the real wall-clock date. act()'s date_start is a fixed
+// 2026-10-17 — without pinning "today" these tests silently start failing
+// once the real calendar passes that date (as happened 2026-10-19).
+beforeAll(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-10-16T08:00:00"));
+});
+
+afterAll(() => {
+  vi.useRealTimers();
 });
 
 // ── ageSpan ─────────────────────────────────────────────────────────────────
