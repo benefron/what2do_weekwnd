@@ -127,6 +127,10 @@ restore a trailer-born one. Mark it `SUPERSEDED` instead.
 <!-- newest first; ledger-sync.sh inserts directly below this marker -->
 <!-- ENTRIES_START -->
 
+## F-85dbbd7 · CLOSED · finding · frontend/src · 2026-10-19
+Deploy Pages CI failure on the 2026-10-19 weekly commit (Node test job, 10 assertions in filters.test.ts) — fake-timers pin "today" to 2026-10-16 so the fixture's 2026-10-17 date_start stays in the future.
+→ commit 9bbcd54
+
 ## D-380e8c5 · CLOSED · decision · - · 2026-09-24
 this repo keeps a living ledger at LEDGER.md; every commit carries a ledger trailer
 → commit 7a133f0
@@ -146,6 +150,7 @@ the watchdog counts retries per failure episode, not per run_id: every retry spa
 the LLM contract is age- and language-neutral; fits_4yo / fits_8yo / french_required are retired and SCHEMA_VERSION is 4, so every cached event was re-enriched once
 → automation/prompts/*, automation/enrich.py; old `age=4yo|8yo|both` URLs still map to buckets in frontend/src/lib/filters.ts
 → commit 7895049
+↔ 9bbcd54 fix: pin the clock in filters.test.ts to stop it rotting
 
 ## D-9fbb505 · CLOSED · decision · publish · 2026-09-22 (from 1912a66)
 publish.commit_and_push fetches and rebases the data commit onto origin/main before pushing; a rebase conflict aborts and fails loud, never force-pushes
