@@ -5894,6 +5894,31 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "17075a05ab": {
+    "age_max": 5,
+    "age_min": 3,
+    "blurb_en": "Children's Halloween storytelling with picture-book reading, guitar music, and craft activities.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories",
+      "music",
+      "crafts",
+      "halloween"
+    ],
+    "hash": "c291babfc8f1",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 0,
+    "price_min_eur": 0,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "172134e55d": {
     "age_max": 14,
     "age_min": 6,
@@ -6353,6 +6378,26 @@
     "price_min_eur": null,
     "price_type": "unknown",
     "primary_language": "nl"
+  },
+  "197676a071": {
+    "age_max": 18,
+    "age_min": 0,
+    "blurb_en": "Traditional tour of nativity scenes in Nil-Saint-Vincent, a festive family event for its 24th edition.",
+    "category": "guided_tour",
+    "confidence": "low",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "cb5c75a757f0",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "fr"
   },
   "197994d0e0": {
     "age_max": 99,
@@ -18956,6 +19001,26 @@
     "price_min_eur": 0,
     "price_type": "free",
     "primary_language": "nl"
+  },
+  "47691a9667": {
+    "age_max": 18,
+    "age_min": 0,
+    "blurb_en": "Guided nature walk through Jodoigne during the Week of the Tree, led by professional nature guides.",
+    "category": "guided_tour",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "e016e1a7e702",
+    "indoor_outdoor": "outdoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "fr"
   },
   "4773d40b92": {
     "age_max": 11,
@@ -63075,6 +63140,26 @@
     "price_min_eur": 15,
     "price_type": "paid",
     "primary_language": "nl"
+  },
+  "f98f89aee9": {
+    "age_max": 99,
+    "age_min": 0,
+    "blurb_en": "Feature film screening at Cinema ZED in Leuven; no further details available.",
+    "category": "film",
+    "confidence": "low",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "71ea95c7b9bc",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001+verify",
+    "price_max_eur": 12,
+    "price_min_eur": 10,
+    "price_type": "paid",
+    "primary_language": "en"
   },
   "f98fb13e08": {
     "age_max": 12,

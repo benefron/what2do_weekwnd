@@ -15,6 +15,10 @@
     "lat": null,
     "lng": null
   },
+  "AFAS Dome Antwerp België": {
+    "lat": 51.2311025,
+    "lng": 4.4412828
+  },
   "Aarsele, 8700 Tielt": {
     "lat": 50.9845,
     "lng": 3.4185022
@@ -323,6 +327,10 @@
     "lat": null,
     "lng": null
   },
+  "City centre (Grand-Place, Bourse, Sainte-Catherine) Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "City centre (Sainte-Catherine, Grand-Place, De Brouckère) Brussels België": {
     "lat": null,
     "lng": null
@@ -358,6 +366,10 @@
   "Demerstraat 60, 3560 Lummen": {
     "lat": 50.9631107,
     "lng": 5.1466075
+  },
+  "Deutsche Schule Brüssel Wezembeek-Oppem België": {
+    "lat": 50.8519556,
+    "lng": 4.4924765
   },
   "Dinant Aventure Dinant België": {
     "lat": 50.2419351,
@@ -431,6 +443,10 @@
     "lat": 50.8587248,
     "lng": 4.3502051
   },
+  "Flanders Expo Ghent België": {
+    "lat": 51.0268207,
+    "lng": 3.6920246
+  },
   "Floraliënlaan 115, 2020 Antwerpen": {
     "lat": 51.1855714,
     "lng": 4.4104282
@@ -494,6 +510,14 @@
   "Grand-Place, 7000 Mons": {
     "lat": 50.4544643,
     "lng": 3.9522767
+  },
+  "Groenplaats & Grote Markt Antwerp België": {
+    "lat": null,
+    "lng": null
+  },
+  "Grote Markt & Simon Stevinplein Bruges België": {
+    "lat": null,
+    "lng": null
   },
   "Grote Markt 34, 8900 Ypres": {
     "lat": 50.8515241,
@@ -647,6 +671,10 @@
     "lat": 50.8839494,
     "lng": 4.2993629
   },
+  "Le Grognon (confluence Sambre-Meuse) Namur België": {
+    "lat": null,
+    "lng": null
+  },
   "Leopold Vanderkelenstraat 28, 3000 Leuven": {
     "lat": 50.8789738,
     "lng": 4.7047883
@@ -779,6 +807,10 @@
     "lat": 51.1269543,
     "lng": 5.1461651
   },
+  "Palais des Congrès Liège België": {
+    "lat": 50.6300129,
+    "lng": 5.5745507
+  },
   "Parc Animalier Castel Saint-Pierre Beauraing België": {
     "lat": null,
     "lng": null
@@ -827,6 +859,10 @@
     "lat": 50.8402489,
     "lng": 4.3939746
   },
+  "Parc du Cinquantenaire Brussels België": {
+    "lat": 50.8410369,
+    "lng": 4.3934924
+  },
   "Parc à Gibier de La Roche-en-Ardenne La Roche-en-Ardenne België": {
     "lat": 50.1787454,
     "lng": 5.5828749
@@ -858,6 +894,10 @@
   "Place de l'Atomium 1, 1020 Brussels": {
     "lat": 50.8950214,
     "lng": 4.3414208
+  },
+  "Place de la Cathédrale Liège België": {
+    "lat": 50.6406903,
+    "lng": 5.5715938
   },
   "Plaine de la Sarte 1, 4500 Huy": {
     "lat": 50.5144063,
@@ -1223,6 +1263,10 @@
     "lat": 51.0820171,
     "lng": 2.6006485
   },
+  "Technopolis Mechelen België": {
+    "lat": 51.001909,
+    "lng": 4.4702099
+  },
   "Ter Priemstraat 2, 8780 Oostrozebeke": {
     "lat": 50.9172475,
     "lng": 3.3258228
@@ -1374,5 +1418,9 @@
   "___, 0000, ___": {
     "lat": 48.2414295,
     "lng": 12.5237616
+  },
+  "Église Saint-Nicolas La Hulpe België": {
+    "lat": 50.7313963,
+    "lng": 4.4905422
   }
 }
