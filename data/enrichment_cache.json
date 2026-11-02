@@ -5942,6 +5942,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "17242346b7": {
+    "age_max": 5,
+    "age_min": 3,
+    "blurb_en": "Author reading with 3D animal craft activity for young children, featuring stories about a fox.",
+    "category": "storytelling",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "stories",
+      "crafts"
+    ],
+    "hash": "9210fa9ae858",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "free",
+    "primary_language": "nl"
+  },
   "17996936c6": {
     "age_max": 99,
     "age_min": 16,
@@ -20435,14 +20458,12 @@
   "4cbeb17bc1": {
     "age_max": 12,
     "age_min": 8,
-    "blurb_en": "Live podcast theater performance about lies and truth for children.",
+    "blurb_en": "Live podcast performance exploring questions about lying and truthfulness for older children.",
     "category": "theatre_puppetry",
     "confidence": "high",
     "family_relevant": true,
-    "feature_tags": [
-      "stories"
-    ],
-    "hash": "d65c109f6369",
+    "feature_tags": [],
+    "hash": "67450c20ddce",
     "indoor_outdoor": "indoor",
     "is_recurring_class": false,
     "is_special_event": true,
@@ -25278,6 +25299,26 @@
     "price_type": "free",
     "primary_language": "nl"
   },
+  "61468f20ca": {
+    "age_max": 18,
+    "age_min": 5,
+    "blurb_en": "Animated film about a girl overcoming her fears while searching for her lost brother in a rainforest.",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "db4e36a390c7",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 10,
+    "price_min_eur": 10,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "6153daa3de": {
     "age_max": 11,
     "age_min": 8,
@@ -30016,6 +30057,29 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "72f81082a0": {
+    "age_max": 5,
+    "age_min": 3,
+    "blurb_en": "Live musical performance by children's character Captain Winokio featuring songs from his farm books.",
+    "category": "music_concert",
+    "confidence": "medium",
+    "family_relevant": true,
+    "feature_tags": [
+      "music",
+      "stories"
+    ],
+    "hash": "cf4d1d842339",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": null,
+    "price_min_eur": null,
+    "price_type": "unknown",
+    "primary_language": "nl"
+  },
   "73026f5950": {
     "age_max": 18,
     "age_min": 7,
@@ -30170,6 +30234,28 @@
     "price_max_eur": 0,
     "price_min_eur": 0,
     "price_type": "free",
+    "primary_language": "nl"
+  },
+  "73abb4e471": {
+    "age_max": 16,
+    "age_min": 6,
+    "blurb_en": "Week-long overnight adventure camp with puzzle-solving and treasure hunts in a forest setting.",
+    "category": "holiday_camp",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [
+      "treasure_hunt"
+    ],
+    "hash": "8fedfa85cb9a",
+    "indoor_outdoor": "both",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 205,
+    "price_min_eur": 150,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "73c1430549": {
@@ -42986,6 +43072,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "a788aabefb": {
+    "age_max": 15,
+    "age_min": 12,
+    "blurb_en": "Four-day debate and public speaking camp teaching argumentation skills to young teens.",
+    "category": "holiday_camp",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "e35cbcd4b891",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 100,
+    "price_min_eur": 100,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "a788c23e81": {
     "age_max": 16,
     "age_min": 2,
@@ -47107,17 +47213,18 @@
     "primary_language": "nl"
   },
   "b8ccebb278": {
-    "age_max": 14,
-    "age_min": 4,
-    "blurb_en": "Cheerleading holiday camp with dance, acrobatics, and creative routines for ages 4-14.",
-    "category": "sports_active",
+    "age_max": 13,
+    "age_min": 3,
+    "blurb_en": "Cheerleading camp with dance, pom, acrobatics, choreography and craft activities.",
+    "category": "holiday_camp",
     "confidence": "high",
     "family_relevant": true,
     "feature_tags": [
       "dance",
+      "crafts",
       "music"
     ],
-    "hash": "9c45da617bcf",
+    "hash": "eb9e873315da",
     "indoor_outdoor": "indoor",
     "is_recurring_class": false,
     "is_special_event": true,
@@ -57674,6 +57781,26 @@
     "price_type": "paid",
     "primary_language": "nl"
   },
+  "e24b60944e": {
+    "age_max": 18,
+    "age_min": 12,
+    "blurb_en": "Horror film about teenage witches at a Catholic school where a spell goes dangerously wrong.",
+    "category": "film",
+    "confidence": "medium",
+    "family_relevant": false,
+    "feature_tags": [],
+    "hash": "982aaacef5c5",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12,
+    "price_min_eur": 10,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
   "e275b39931": {
     "age_max": 18,
     "age_min": 6,
@@ -59212,6 +59339,26 @@
     "model": "claude-haiku-4-5-20251001",
     "price_max_eur": 15,
     "price_min_eur": 15,
+    "price_type": "paid",
+    "primary_language": "nl"
+  },
+  "e8b5df62fa": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "Comedy film about Wile E. Coyote suing the Acme Corporation for its defective products.",
+    "category": "film",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "7678e65375bf",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 12,
+    "price_min_eur": 10,
     "price_type": "paid",
     "primary_language": "nl"
   },
@@ -64194,6 +64341,26 @@
     "price_max_eur": null,
     "price_min_eur": null,
     "price_type": "unknown",
+    "primary_language": "nl"
+  },
+  "fd3fa0d017": {
+    "age_max": 18,
+    "age_min": 6,
+    "blurb_en": "Animated film about an imaginative farm boy who learns to see the world differently after using a special corset.",
+    "category": "film",
+    "confidence": "high",
+    "family_relevant": true,
+    "feature_tags": [],
+    "hash": "6afd9fff6ab2",
+    "indoor_outdoor": "indoor",
+    "is_recurring_class": false,
+    "is_special_event": true,
+    "language_free": false,
+    "language_note": null,
+    "model": "claude-haiku-4-5-20251001",
+    "price_max_eur": 10,
+    "price_min_eur": 10,
+    "price_type": "paid",
     "primary_language": "nl"
   },
   "fd3fe17ce6": {

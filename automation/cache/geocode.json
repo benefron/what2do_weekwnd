@@ -251,6 +251,10 @@
     "lat": 50.8467372,
     "lng": 4.352493
   },
+  "Brussels Expo, Palais 2 Brussels België": {
+    "lat": null,
+    "lng": null
+  },
   "Brussels city centre (Grand-Place, Bourse, Marché aux Poissons) Brussels België": {
     "lat": null,
     "lng": null
@@ -331,6 +335,10 @@
     "lat": null,
     "lng": null
   },
+  "City centre (Place St-Lambert, Place Cathédrale) Liège België": {
+    "lat": null,
+    "lng": null
+  },
   "City centre (Sainte-Catherine, Grand-Place, De Brouckère) Brussels België": {
     "lat": null,
     "lng": null
@@ -346,6 +354,10 @@
   "City centre Brussels België": {
     "lat": 50.8469765,
     "lng": 4.3527807
+  },
+  "City centre Namur België": {
+    "lat": null,
+    "lng": null
   },
   "Colline du Mardasson 5, 6600 Bastogne": {
     "lat": 50.0106069,
@@ -506,6 +518,10 @@
   "Graaf Léon Lippensdreef 8, 8300 Knokke-Heist": {
     "lat": 51.3589854,
     "lng": 3.3503698
+  },
+  "Grand-Place / Place De Brouckère Brussels België": {
+    "lat": null,
+    "lng": null
   },
   "Grand-Place, 7000 Mons": {
     "lat": 50.4544643,
@@ -687,6 +703,10 @@
     "lat": null,
     "lng": null
   },
+  "Liège België": {
+    "lat": 50.6450944,
+    "lng": 5.5736112
+  },
   "Liège city centre Liège België": {
     "lat": 50.645898,
     "lng": 5.5680846
@@ -710,6 +730,10 @@
   "Markt 1, 8000 Bruges": {
     "lat": 51.2092401,
     "lng": 3.2250659
+  },
+  "Markt and city centre Bruges België": {
+    "lat": null,
+    "lng": null
   },
   "Marktplein 100, 3550 Heusden-Zolder": {
     "lat": 51.0387048,
@@ -798,6 +822,10 @@
   "Openluchtmuseum Bokrijk Genk België": {
     "lat": 50.9630827,
     "lng": 5.4030747
+  },
+  "Opera Antwerpen Antwerp België": {
+    "lat": 51.21793,
+    "lng": 4.4154916
   },
   "Pairi Daiza Brugelette België": {
     "lat": 50.5845489,
@@ -1202,6 +1230,10 @@
   "Sentier pieds nus de Montleban Gouvy België": {
     "lat": 50.1918138,
     "lng": 5.8422636
+  },
+  "Sint-Baafsplein, Korenmarkt and surrounding squares Ghent België": {
+    "lat": null,
+    "lng": null
   },
   "Sint-Pietersplein 14, 9000 Ghent": {
     "lat": 51.0413362,
