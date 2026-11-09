@@ -355,6 +355,10 @@
     "lat": 50.8469765,
     "lng": 4.3527807
   },
+  "City centre Liège België": {
+    "lat": 50.6412613,
+    "lng": 5.5746226
+  },
   "City centre Namur België": {
     "lat": null,
     "lng": null
@@ -527,6 +531,10 @@
     "lat": 50.4544643,
     "lng": 3.9522767
   },
+  "Gravensteen Ghent België": {
+    "lat": 51.0571809,
+    "lng": 3.7207652
+  },
   "Groenplaats & Grote Markt Antwerp België": {
     "lat": null,
     "lng": null
@@ -559,6 +567,14 @@
     "lat": 51.2101679,
     "lng": 3.2270891
   },
+  "Historic city centre Brussels België": {
+    "lat": null,
+    "lng": null
+  },
+  "Historic city centre Ghent België": {
+    "lat": null,
+    "lng": null
+  },
   "Hoefstraat, 3940 Hechtel-Eksel": {
     "lat": 51.0959111,
     "lng": 5.3740224
@@ -574,6 +590,14 @@
   "Houffalize": {
     "lat": 50.1323761,
     "lng": 5.7886928
+  },
+  "Huy België": {
+    "lat": 50.5180856,
+    "lng": 5.2408138
+  },
+  "Huy town centre Huy België": {
+    "lat": null,
+    "lng": null
   },
   "IJsmolenstraat, 9600 Ronse": {
     "lat": 50.7536994,
@@ -694,6 +718,10 @@
   "Leopold Vanderkelenstraat 28, 3000 Leuven": {
     "lat": 50.8789738,
     "lng": 4.7047883
+  },
+  "Les Minières Verviers België": {
+    "lat": 50.521834,
+    "lng": 5.7948932
   },
   "Leuvensesteenweg 13, 3080 Tervuren": {
     "lat": 50.8293803,
@@ -1350,6 +1378,10 @@
   "Vakantiepark Molenheide Houthalen-Helchteren België": {
     "lat": 51.0823453,
     "lng": 5.3975219
+  },
+  "Various Brussels cinemas Brussels België": {
+    "lat": null,
+    "lng": null
   },
   "Various cinemas Ghent België": {
     "lat": null,
